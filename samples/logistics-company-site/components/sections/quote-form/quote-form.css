@@ -1,0 +1,119 @@
+/* Quote form: contact facts on the left, a short quote request form on the right (route, load type, date,
+   e-mail). In the sample the form only shows a thank-you message. */
+.ds-quote {
+  background: var(--color-surface-brand);
+  color: var(--color-text-on-brand);
+}
+
+.ds-quote__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: var(--space-64);
+  align-items: start;
+}
+
+.ds-quote__facts {
+  display: grid;
+  gap: var(--space-20);
+  margin: var(--space-32) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-quote__fact {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.ds-quote__fact-label {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  letter-spacing: var(--space-1);
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-text-on-brand) 80%, transparent);
+}
+
+.ds-quote__fact-value {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-quote__form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-20);
+  padding: var(--space-40);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-card);
+  color: var(--color-text-default);
+  box-shadow: var(--shadow-lift);
+}
+
+.ds-quote__field {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.ds-quote__field--wide {
+  grid-column: 1 / -1;
+}
+
+.ds-quote__label {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-quote__input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--size-52);
+  padding: 0 var(--space-14);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-xs);
+  background: var(--color-surface-page);
+  color: inherit;
+  font: inherit;
+}
+
+.ds-quote__input:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: 0;
+  border-color: var(--color-focus-ring);
+}
+
+.ds-quote__submit {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
+.ds-quote__thanks {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: var(--space-16);
+  border-left: var(--space-4) solid var(--color-brand-accent);
+  background: var(--color-surface-soft);
+  font-weight: var(--font-weight-medium);
+}
+
+@media (max-width: 1023px) {
+  .ds-quote__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-40);
+  }
+}
+
+@media (max-width: 599px) {
+  .ds-quote__form {
+    grid-template-columns: minmax(0, 1fr);
+    padding: var(--space-24);
+  }
+}
+
+.ds-quote .ds-section-head__lead {
+  color: color-mix(in srgb, var(--color-text-on-brand) 82%, transparent);
+}
+
+.ds-quote .ds-mono-label {
+  color: var(--palette-accent-400);
+}

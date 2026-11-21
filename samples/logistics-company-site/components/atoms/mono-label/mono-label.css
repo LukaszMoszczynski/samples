@@ -1,0 +1,27 @@
+/* Mono label: an overline in the mono font with a signal dot, like a data readout. */
+.ds-mono-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-10);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--space-2);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.ds-mono-label::before {
+  content: "";
+  width: var(--space-8);
+  height: var(--space-8);
+  border-radius: var(--radius-full);
+  background: var(--color-brand-accent);
+  box-shadow: 0 0 0 var(--space-4) color-mix(in srgb, var(--color-brand-accent) 22%, transparent);
+}
+
+.ds-section--inverse .ds-mono-label,
+.ds-route-hero .ds-mono-label {
+  color: var(--palette-accent-400);
+}

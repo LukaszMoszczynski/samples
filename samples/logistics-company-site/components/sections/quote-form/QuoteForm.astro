@@ -1,0 +1,52 @@
+---
+// Quote form. Sample only: submitting shows a thank-you note and sends nothing (logistics.js).
+import MonoLabel from '../../atoms/mono-label/MonoLabel.astro';
+import SignalButton from '../../atoms/signal-button/SignalButton.astro';
+interface Props { id: string; label: string; title: string; lead: string; facts: { label: string; value: string }[] }
+const { id, label, title, lead, facts } = Astro.props;
+---
+<section class="ds-section ds-quote" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container ds-quote__grid">
+    <div data-reveal>
+      <div class="ds-section-head">
+        <MonoLabel text={label} />
+        <h2 class="ds-section-head__title" id={`${id}-title`}>{title}</h2>
+        <p class="ds-section-head__lead">{lead}</p>
+      </div>
+      <ul class="ds-quote__facts" role="list">
+        {facts.map((fact) => (
+          <li class="ds-quote__fact"><span class="ds-quote__fact-label">{fact.label}</span><span class="ds-quote__fact-value">{fact.value}</span></li>
+        ))}
+      </ul>
+    </div>
+    <form class="ds-quote__form" data-quote-form data-reveal>
+      <div class="ds-quote__field">
+        <label class="ds-quote__label" for="quote-from">Skąd</label>
+        <input class="ds-quote__input" id="quote-from" name="from" placeholder="np. Gdańsk" required />
+      </div>
+      <div class="ds-quote__field">
+        <label class="ds-quote__label" for="quote-to">Dokąd</label>
+        <input class="ds-quote__input" id="quote-to" name="to" placeholder="np. Praga" required />
+      </div>
+      <div class="ds-quote__field">
+        <label class="ds-quote__label" for="quote-load">Rodzaj ładunku</label>
+        <select class="ds-quote__input" id="quote-load" name="load">
+          <option>Palety (LTL)</option>
+          <option>Całe auto (FTL)</option>
+          <option>Chłodnia</option>
+          <option>ADR</option>
+        </select>
+      </div>
+      <div class="ds-quote__field">
+        <label class="ds-quote__label" for="quote-date">Data załadunku</label>
+        <input class="ds-quote__input" id="quote-date" name="date" type="date" />
+      </div>
+      <div class="ds-quote__field ds-quote__field--wide">
+        <label class="ds-quote__label" for="quote-email">E-mail</label>
+        <input class="ds-quote__input" id="quote-email" name="email" type="email" autocomplete="email" placeholder="firma@example.com" required />
+      </div>
+      <div class="ds-quote__submit"><SignalButton text="Wyślij zapytanie" type="submit" /></div>
+      <p class="ds-quote__thanks" role="status" hidden data-quote-thanks>Dziękujemy! To przykładowy formularz: w gotowej stronie zapytanie trafi do Państwa skrzynki.</p>
+    </form>
+  </div>
+</section>

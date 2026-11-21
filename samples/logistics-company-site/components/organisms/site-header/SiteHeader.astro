@@ -1,0 +1,26 @@
+---
+// Site header: logo, menu, call to action; a drawer below 1024 px (site-header.js toggles it).
+import SignalButton from '../../atoms/signal-button/SignalButton.astro';
+interface Props { logo: string; logoAlt: string; items: { text: string; href: string }[]; cta: { text: string; href: string } }
+const { logo, logoAlt, items, cta } = Astro.props;
+---
+<header class="ds-site-header" data-site-header>
+  <div class="ds-container ds-site-header__bar">
+    <a class="ds-site-header__logo" href="#top"><img src={logo} alt={logoAlt} width="220" height="40" /></a>
+    <nav class="ds-site-header__nav" aria-label="Menu główne">
+      <ul class="ds-site-header__menu" role="list">
+        {items.map((item) => <li><a class="ds-site-header__link" href={item.href}>{item.text}</a></li>)}
+      </ul>
+    </nav>
+    <SignalButton text={cta.text} href={cta.href} />
+    <button class="ds-site-header__burger" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="Menu" data-site-burger>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+  <div class="ds-container ds-site-header__drawer" id="site-drawer" hidden>
+    <ul class="ds-site-header__menu" role="list">
+      {items.map((item) => <li><a class="ds-site-header__link" href={item.href}>{item.text}</a></li>)}
+    </ul>
+    <SignalButton text={cta.text} href={cta.href} />
+  </div>
+</header>

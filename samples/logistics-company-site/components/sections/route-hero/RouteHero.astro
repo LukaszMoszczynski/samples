@@ -1,0 +1,53 @@
+---
+// Route hero. The map is decorative (aria-hidden); the chip repeats the demo shipment in text.
+import MonoLabel from '../../atoms/mono-label/MonoLabel.astro';
+import SignalButton from '../../atoms/signal-button/SignalButton.astro';
+interface Props { label: string; title: string; accent: string; lead: string; primary: { text: string; href: string }; secondary: { text: string; href: string } }
+const { label, title, accent, lead, primary, secondary } = Astro.props;
+const [before, after] = title.split(accent);
+const cities = [
+  { name: 'Gdańsk', x: 262, y: 58 }, { name: 'Berlin', x: 92, y: 150 }, { name: 'Poznań', x: 176, y: 160 },
+  { name: 'Warszawa', x: 318, y: 176 }, { name: 'Wrocław', x: 196, y: 248 }, { name: 'Praga', x: 108, y: 292 },
+  { name: 'Kraków', x: 300, y: 300 }, { name: 'Wiedeń', x: 214, y: 360 },
+];
+const route = 'M262 58 C 300 100, 322 130, 318 176 S 250 226, 196 248 S 130 266, 108 292';
+---
+<section class="ds-route-hero" id="top" aria-labelledby="hero-title">
+  <div class="ds-container ds-route-hero__grid">
+    <div class="ds-route-hero__copy">
+      <div data-hero-item><MonoLabel text={label} /></div>
+      <h1 class="ds-route-hero__title" id="hero-title" data-hero-item>{before}<em>{accent}</em>{after}</h1>
+      <p class="ds-route-hero__lead" data-hero-item>{lead}</p>
+      <div class="ds-route-hero__actions" data-hero-item>
+        <SignalButton text={primary.text} href={primary.href} />
+        <SignalButton text={secondary.text} href={secondary.href} variant="ghost" />
+      </div>
+      <form class="ds-route-hero__track" data-track-form data-hero-item>
+        <label class="ds-route-hero__track-label" for="track-number">Śledź przesyłkę</label>
+        <div class="ds-route-hero__track-row">
+          <input class="ds-route-hero__track-input" id="track-number" name="number" placeholder="np. TL-48213" autocomplete="off" />
+          <button class="ds-route-hero__track-button" type="submit">Sprawdź</button>
+        </div>
+        <p class="ds-route-hero__track-result" aria-live="polite" data-track-result></p>
+      </form>
+    </div>
+    <div class="ds-route-hero__map" data-hero-map>
+      <svg class="ds-route-hero__svg" viewBox="0 0 420 400" aria-hidden="true">
+        <path d="M92 150 L176 160 L318 176 M176 160 L196 248 L214 360 M196 248 L300 300 L318 176 M108 292 L214 360" fill="none" stroke="currentColor" stroke-opacity="0.2" stroke-dasharray="3 6" />
+        <path d={route} fill="none" stroke="var(--palette-accent-400)" stroke-width="3" stroke-linecap="round" data-route-line />
+        {cities.map((city) => (
+          <g data-route-city>
+            <circle cx={city.x} cy={city.y} r="5" fill="currentColor" />
+            <text x={city.x + 10} y={city.y + 4} fill="currentColor" fill-opacity="0.85" font-size="12" font-family="JetBrains Mono, monospace">{city.name}</text>
+          </g>
+        ))}
+        <circle r="9" cx="262" cy="58" fill="var(--palette-accent-400)" stroke="var(--palette-secondary-800)" stroke-width="3" data-route-truck />
+      </svg>
+      <div class="ds-route-hero__chip" data-route-chip>
+        <span>TL-48213 · Gdańsk → Praga</span>
+        <strong>W drodze, ETA 14:20</strong>
+        <span class="ds-route-hero__chip-status">GPS na żywo</span>
+      </div>
+    </div>
+  </div>
+</section>

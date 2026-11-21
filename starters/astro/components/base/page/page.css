@@ -1,0 +1,23 @@
+/* Page base: smooth anchor scrolling (off for reduced motion), room for a sticky header, the content container and
+   the section rhythm. Every sample starts with it. */
+html {
+  scroll-padding-top: calc(var(--size-header-height) + var(--space-16));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+.ds-container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: calc(var(--layout-container) + var(--space-gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
+}
+
+.ds-section {
+  padding-block: var(--space-section-y);
+}

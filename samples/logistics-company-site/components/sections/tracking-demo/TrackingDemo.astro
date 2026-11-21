@@ -1,0 +1,43 @@
+---
+// Tracking demo (client panel preview). State classes: is-done, is-current. The script lights the steps in turn.
+import MonoLabel from '../../atoms/mono-label/MonoLabel.astro';
+interface Step { title: string; place: string; time: string; state: 'done' | 'current' | 'next' }
+interface Props { id: string; label: string; title: string; lead: string; points: string[]; steps: Step[] }
+const { id, label, title, lead, points, steps } = Astro.props;
+---
+<section class="ds-section ds-section--inverse ds-tracking" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container ds-tracking__grid">
+    <div data-reveal>
+      <div class="ds-section-head">
+        <MonoLabel text={label} />
+        <h2 class="ds-section-head__title" id={`${id}-title`}>{title}</h2>
+        <p class="ds-section-head__lead">{lead}</p>
+      </div>
+      <ul class="ds-tracking__points" role="list">
+        {points.map((point) => <li class="ds-tracking__point"><svg class="ds-tracking__check" viewBox="0 0 20 20" aria-hidden="true"><path d="m5 10 3 3 7-7" fill="none" stroke="currentColor" stroke-width="2.2" /></svg>{point}</li>)}
+      </ul>
+    </div>
+    <div class="ds-tracking__card" data-reveal data-tracking-card>
+      <div class="ds-tracking__card-head">
+        <div>
+          <div class="ds-tracking__number">TL-48213</div>
+          <div>Gdańsk → Praga · 18 palet · 9,4 t</div>
+        </div>
+        <span class="ds-tracking__badge">W drodze</span>
+      </div>
+      <div class="ds-tracking__progress"><div class="ds-tracking__progress-bar" data-tracking-bar></div></div>
+      <ol class="ds-tracking__steps">
+        {steps.map((step) => (
+          <li class={`ds-tracking__step is-${step.state}`} data-tracking-step>
+            <span class="ds-tracking__dot" aria-hidden="true"></span>
+            <div>
+              <p class="ds-tracking__step-title">{step.title}</p>
+              <p class="ds-tracking__step-place">{step.place}</p>
+            </div>
+            <span class="ds-tracking__time">{step.time}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>

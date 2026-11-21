@@ -64,7 +64,7 @@ async function browserChecks(slug) {
     mkdirSync(join('screenshots', slug), { recursive: true });
     for (const { page: pageName, path } of pagesOf(slug)) {
       for (const width of WIDTHS) {
-        const context = await browser.newContext({ viewport: { width, height: 900 } });
+        const context = await browser.newContext({ viewport: { width, height: 900 }, reducedMotion: 'reduce' });
         const page = await context.newPage();
         await page.goto(`http://localhost:${PORT}${BASE}${path}`, { waitUntil: 'networkidle' });
         const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa']).analyze();

@@ -1,0 +1,10 @@
+---
+// Signal button. href → <a>, otherwise <button>. variant: solid | ghost.
+interface Props { text: string; href?: string; variant?: 'solid' | 'ghost'; type?: 'button' | 'submit' }
+const { text, href, variant = 'solid', type = 'button' } = Astro.props;
+const className = `ds-signal-button ds-signal-button--${variant}`;
+const arrow = '<svg class="ds-signal-button__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>';
+---
+{href
+  ? <a class={className} href={href}>{text}<Fragment set:html={arrow} /></a>
+  : <button class={className} type={type}>{text}<Fragment set:html={arrow} /></button>}

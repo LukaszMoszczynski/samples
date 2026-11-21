@@ -1,0 +1,26 @@
+---
+import MonoLabel from '../../atoms/mono-label/MonoLabel.astro';
+interface Props { id: string; label: string; title: string; steps: { title: string; text: string; time: string }[] }
+const { id, label, title, steps } = Astro.props;
+---
+<section class="ds-section ds-process" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <MonoLabel text={label} />
+      <h2 class="ds-section-head__title" id={`${id}-title`}>{title}</h2>
+    </div>
+    <div class="ds-process__track">
+    <div class="ds-process__line" aria-hidden="true"><div class="ds-process__line-fill" data-process-line></div></div>
+    <ol class="ds-process__list" role="list">
+      {steps.map((step, index) => (
+        <li class="ds-process__step" data-process-step>
+          <span class="ds-process__number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+          <h3 class="ds-process__title"><span class="ds-visually-hidden">Krok {index + 1}: </span>{step.title}</h3>
+          <p class="ds-process__text">{step.text}</p>
+          <span class="ds-process__time">{step.time}</span>
+        </li>
+      ))}
+    </ol>
+    </div>
+  </div>
+</section>

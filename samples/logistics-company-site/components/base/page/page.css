@@ -1,0 +1,70 @@
+/* Page base for this sample: smooth anchor scrolling (off for reduced motion), room for the sticky header,
+   the content container and the section rhythm. */
+html {
+  scroll-padding-top: calc(var(--size-header-height) + var(--space-16));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background: var(--color-surface-page);
+  color: var(--color-text-default);
+  font-family: var(--font-body);
+}
+
+.ds-container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: calc(var(--layout-container) + var(--space-gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
+}
+
+.ds-section {
+  padding-block: var(--space-section-y);
+}
+
+.ds-section--inverse {
+  background: var(--color-surface-inverse);
+  color: var(--color-text-on-brand);
+}
+
+.ds-section-head {
+  display: grid;
+  gap: var(--space-16);
+  max-width: calc(var(--layout-container) * 0.6);
+  margin-bottom: var(--space-48);
+}
+
+.ds-section-head__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  line-height: var(--font-line-height-3xl);
+  font-weight: var(--font-weight-bold);
+  text-wrap: balance;
+}
+
+.ds-section-head__lead {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.ds-section--inverse .ds-section-head__lead {
+  color: color-mix(in srgb, var(--color-text-on-brand) 78%, transparent);
+}
+
+.ds-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

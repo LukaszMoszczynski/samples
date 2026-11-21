@@ -1,0 +1,50 @@
+---
+interface Link { text: string; href: string }
+interface Props {
+  logo: string; logoAlt: string; about: string;
+  columns: { title: string; links: Link[] }[];
+  contact: { title: string; lines: string[]; social: { network: 'linkedin' | 'facebook'; href: string }[] };
+  copyright: string; legal: Link[];
+}
+const { logo, logoAlt, about, columns, contact, copyright, legal } = Astro.props;
+const icons = {
+  linkedin: '<path d="M6 9v9M6 6v.01M10 18v-5.5a2.5 2.5 0 0 1 5 0V18M10 9v9" />',
+  facebook: '<path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z" />',
+};
+const names = { linkedin: 'LinkedIn', facebook: 'Facebook' };
+---
+<footer class="ds-site-footer">
+  <div class="ds-container">
+    <div class="ds-site-footer__grid">
+      <div class="ds-site-footer__brand">
+        <a class="ds-site-footer__logo" href="#top"><img src={logo} alt={logoAlt} width="220" height="40" /></a>
+        <p class="ds-site-footer__about">{about}</p>
+      </div>
+      {columns.map((column) => (
+        <nav aria-label={column.title}>
+          <h2 class="ds-site-footer__title">{column.title}</h2>
+          <ul class="ds-site-footer__links" role="list">
+            {column.links.map((link) => <li><a class="ds-site-footer__link" href={link.href}>{link.text}</a></li>)}
+          </ul>
+        </nav>
+      ))}
+      <div>
+        <h2 class="ds-site-footer__title">{contact.title}</h2>
+        <ul class="ds-site-footer__links" role="list">
+          {contact.lines.map((line) => <li>{line}</li>)}
+        </ul>
+        <ul class="ds-site-footer__social" role="list">
+          {contact.social.map((item) => (
+            <li><a class="ds-site-footer__social-link" href={item.href} aria-label={names[item.network]}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><Fragment set:html={icons[item.network]} /></svg>
+            </a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <div class="ds-site-footer__legal">
+      <span>{copyright}</span>
+      <span>{legal.map((link) => <a class="ds-site-footer__link" href={link.href}>{link.text}</a>)}</span>
+    </div>
+  </div>
+</footer>

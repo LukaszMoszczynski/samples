@@ -1,0 +1,78 @@
+/* News card: a mono tag (Aktualność / Wydarzenie) and date over a framed image, the title and a link.
+   The image zooms a little on hover. */
+.ds-news-card {
+  display: grid;
+  gap: var(--space-16);
+  color: var(--color-text-default);
+  text-decoration: none;
+}
+
+.ds-news-card__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+  max-width: 100%;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-soft);
+}
+
+.ds-news-card__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.ds-news-card:hover .ds-news-card__image {
+  transform: scale(1.05);
+}
+
+.ds-news-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-12);
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+}
+
+.ds-news-card__kind {
+  padding: var(--space-2) var(--space-8);
+  border-radius: var(--radius-xs);
+  background: var(--color-surface-inverse);
+  color: var(--color-text-on-brand);
+  text-transform: uppercase;
+  letter-spacing: var(--space-1);
+}
+
+.ds-news-card__kind--event {
+  background: var(--color-brand-accent);
+}
+
+.ds-news-card__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  line-height: var(--font-line-height-xl);
+  font-weight: var(--font-weight-bold);
+  text-wrap: balance;
+}
+
+.ds-news-card:hover .ds-news-card__title {
+  text-decoration: underline;
+  text-decoration-color: var(--color-brand-accent);
+  text-underline-offset: var(--space-4);
+}
+
+.ds-news-card:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-news-card__image {
+    transition: none;
+  }
+}

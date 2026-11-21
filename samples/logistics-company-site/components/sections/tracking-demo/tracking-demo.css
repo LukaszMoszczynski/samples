@@ -1,0 +1,153 @@
+/* Tracking demo: what the client panel looks like. Text and a check list on one side, a shipment card with a
+   status timeline on the other; the steps light up in turn when it comes into view. */
+.ds-tracking__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-64);
+  align-items: center;
+}
+
+.ds-tracking__points {
+  display: grid;
+  gap: var(--space-16);
+  margin: var(--space-32) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-tracking__point {
+  display: flex;
+  gap: var(--space-12);
+  align-items: flex-start;
+  line-height: 1.5;
+}
+
+.ds-tracking__check {
+  flex-shrink: 0;
+  width: var(--size-20);
+  height: var(--size-20);
+  margin-top: var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--palette-accent-400);
+  color: var(--palette-secondary-800);
+}
+
+.ds-tracking__card {
+  border: 1px solid color-mix(in srgb, var(--color-text-on-brand) 16%, transparent);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--color-text-on-brand) 4%, transparent);
+  overflow: hidden;
+}
+
+.ds-tracking__card-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-12);
+  padding: var(--space-20) var(--space-24);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text-on-brand) 12%, transparent);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+}
+
+.ds-tracking__number {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-tracking__badge {
+  align-self: center;
+  padding: var(--space-4) var(--space-10);
+  border-radius: var(--radius-full);
+  background: var(--palette-accent-400);
+  color: var(--palette-secondary-800);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-tracking__progress {
+  height: var(--space-4);
+  background: color-mix(in srgb, var(--color-text-on-brand) 12%, transparent);
+}
+
+.ds-tracking__progress-bar {
+  height: 100%;
+  width: 75%;
+  background: var(--palette-accent-400);
+  transform-origin: left;
+}
+
+.ds-tracking__steps {
+  margin: 0;
+  padding: var(--space-24);
+  list-style: none;
+}
+
+.ds-tracking__step {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--space-24) minmax(0, 1fr) auto;
+  gap: var(--space-16);
+  padding-bottom: var(--space-24);
+}
+
+.ds-tracking__step:last-child {
+  padding-bottom: 0;
+}
+
+.ds-tracking__step::before {
+  content: "";
+  position: absolute;
+  top: var(--space-24);
+  bottom: 0;
+  left: calc(var(--space-12) - 1px);
+  width: 2px;
+  background: color-mix(in srgb, var(--color-text-on-brand) 18%, transparent);
+}
+
+.ds-tracking__step:last-child::before {
+  display: none;
+}
+
+.ds-tracking__dot {
+  width: var(--space-24);
+  height: var(--space-24);
+  box-sizing: border-box;
+  border: 2px solid color-mix(in srgb, var(--color-text-on-brand) 40%, transparent);
+  border-radius: var(--radius-full);
+  background: var(--color-surface-inverse);
+}
+
+.ds-tracking__step.is-done .ds-tracking__dot {
+  border-color: var(--palette-accent-400);
+  background: var(--palette-accent-400);
+}
+
+.ds-tracking__step.is-current .ds-tracking__dot {
+  border-color: var(--palette-accent-400);
+  box-shadow: 0 0 0 var(--space-4) color-mix(in srgb, var(--palette-accent-400) 25%, transparent);
+}
+
+.ds-tracking__step-title {
+  margin: 0;
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-tracking__step-place {
+  margin: var(--space-4) 0 0;
+  font-size: var(--font-size-small);
+  color: color-mix(in srgb, var(--color-text-on-brand) 78%, transparent);
+}
+
+.ds-tracking__time {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  color: color-mix(in srgb, var(--color-text-on-brand) 78%, transparent);
+}
+
+@media (max-width: 1023px) {
+  .ds-tracking__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-40);
+  }
+}

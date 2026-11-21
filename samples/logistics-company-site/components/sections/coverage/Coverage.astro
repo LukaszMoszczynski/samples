@@ -1,0 +1,50 @@
+---
+// Coverage. The map is a decorative dot grid (aria-hidden); the list carries the information.
+import MonoLabel from '../../atoms/mono-label/MonoLabel.astro';
+interface Props { id: string; label: string; title: string; lead: string; countries: { code: string; name: string; time: string; x: number; y: number }[] }
+const { id, label, title, lead, countries } = Astro.props;
+// A rough outline of central Europe as a dot grid (columns × rows), kept to cells inside a simple mask.
+const mask = [
+  '....xxxx......',
+  '...xxxxxx.....',
+  '..xxxxxxxxx...',
+  '.xxxxxxxxxxx..',
+  'xxxxxxxxxxxxx.',
+  'xxxxxxxxxxxxxx',
+  '.xxxxxxxxxxxx.',
+  '..xxxxxxxxxx..',
+  '...xxxxxxxx...',
+  '....xxxxx.....',
+];
+const dots = mask.flatMap((row, rowIndex) => [...row].flatMap((cell, columnIndex) => (cell === 'x' ? [{ x: 20 + columnIndex * 30, y: 20 + rowIndex * 30 }] : [])));
+const hub = countries[0];
+---
+<section class="ds-section ds-coverage" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container ds-coverage__grid">
+    <div data-reveal>
+      <div class="ds-section-head">
+        <MonoLabel text={label} />
+        <h2 class="ds-section-head__title" id={`${id}-title`}>{title}</h2>
+        <p class="ds-section-head__lead">{lead}</p>
+      </div>
+      <ul class="ds-coverage__list" role="list">
+        {countries.map((country) => (
+          <li class="ds-coverage__country">
+            <span class="ds-coverage__code">{country.code}</span>
+            <span class="ds-coverage__name">{country.name}</span>
+            <span class="ds-coverage__time">{country.time}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <svg class="ds-coverage__map" viewBox="0 0 440 320" aria-hidden="true" data-coverage-map>
+      {dots.map((dot) => <circle cx={dot.x} cy={dot.y} r="3" fill="currentColor" fill-opacity="0.18" />)}
+      {countries.slice(1).map((country) => (
+        <path d={`M${hub.x} ${hub.y} Q ${(hub.x + country.x) / 2} ${Math.min(hub.y, country.y) - 40} ${country.x} ${country.y}`} fill="none" stroke="var(--color-brand-accent)" stroke-width="2" stroke-linecap="round" data-coverage-arc />
+      ))}
+      {countries.map((country, index) => (
+        <circle cx={country.x} cy={country.y} r={index === 0 ? 9 : 6} fill={index === 0 ? 'var(--color-brand-accent)' : 'currentColor'} data-coverage-dot />
+      ))}
+    </svg>
+  </div>
+</section>

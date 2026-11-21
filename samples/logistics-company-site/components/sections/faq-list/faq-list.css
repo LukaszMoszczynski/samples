@@ -1,0 +1,94 @@
+/* FAQ list: native details/summary rows with a plus that turns into a cross; the answer fades in. */
+.ds-faq__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: var(--space-64);
+}
+
+.ds-faq__item {
+  border-bottom: 1px solid var(--color-border-strong);
+}
+
+.ds-faq__item:first-child {
+  border-top: 1px solid var(--color-border-strong);
+}
+
+.ds-faq__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-24);
+  padding-block: var(--space-24);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  list-style: none;
+}
+
+.ds-faq__question::-webkit-details-marker {
+  display: none;
+}
+
+.ds-faq__question:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-faq__plus {
+  position: relative;
+  flex-shrink: 0;
+  width: var(--size-24);
+  height: var(--size-24);
+  transition: transform 0.25s ease;
+}
+
+.ds-faq__plus::before,
+.ds-faq__plus::after {
+  content: "";
+  position: absolute;
+  inset: calc(50% - 1px) 0 auto;
+  height: 2px;
+  background: var(--color-brand-accent);
+}
+
+.ds-faq__plus::after {
+  transform: rotate(90deg);
+}
+
+.ds-faq__item[open] .ds-faq__plus {
+  transform: rotate(45deg);
+}
+
+.ds-faq__answer {
+  max-width: calc(var(--layout-container) * 0.55);
+  margin: 0;
+  padding-bottom: var(--space-24);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+  animation: ds-faq-in 0.3s ease;
+}
+
+@keyframes ds-faq-in {
+  from {
+    opacity: 0;
+    transform: translateY(calc(var(--space-8) * -1));
+  }
+}
+
+@media (max-width: 899px) {
+  .ds-faq__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-24);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-faq__plus {
+    transition: none;
+  }
+
+  .ds-faq__answer {
+    animation: none;
+  }
+}

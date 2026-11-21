@@ -1,0 +1,16 @@
+---
+// Stats band. value: the number to count to; prefix/suffix stay as text ("98" + "%"). The final value is in the
+// HTML, so the figures read right without JS; the script counts up from 0 when the band comes into view.
+interface Props { items: { value: number; suffix?: string; label: string }[] }
+const { items } = Astro.props;
+---
+<section class="ds-stats" aria-label="Firma w liczbach">
+  <ul class="ds-container ds-stats__list" role="list">
+    {items.map((item) => (
+      <li class="ds-stats__item" data-reveal>
+        <span class="ds-stats__value"><span data-count-to={item.value}>{item.value}</span>{item.suffix}</span>
+        <span class="ds-stats__label">{item.label}</span>
+      </li>
+    ))}
+  </ul>
+</section>

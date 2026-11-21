@@ -1,0 +1,100 @@
+/* Process line: numbered steps on one horizontal line that draws itself across on scroll; a column on phones. */
+.ds-process__track {
+  position: relative;
+}
+
+.ds-process__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-32);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-process__line {
+  position: absolute;
+  top: calc(var(--size-52) / 2);
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-border-default);
+}
+
+.ds-process__line-fill {
+  height: 100%;
+  background: var(--color-brand-accent);
+  transform-origin: left;
+}
+
+.ds-process__step {
+  position: relative;
+  display: grid;
+  gap: var(--space-12);
+}
+
+.ds-process__number {
+  display: grid;
+  place-items: center;
+  width: var(--size-52);
+  height: var(--size-52);
+  border: 2px solid var(--color-brand-primary);
+  border-radius: var(--radius-full);
+  background: var(--color-surface-page);
+  color: var(--color-brand-primary);
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-process__title {
+  margin: var(--space-8) 0 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  line-height: var(--font-line-height-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-process__text {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.ds-process__time {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  color: var(--color-brand-accent);
+}
+
+@media (max-width: 899px) {
+  .ds-process__track {
+    padding-left: calc(var(--size-52) + var(--space-20));
+  }
+
+  .ds-process__list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-32);
+  }
+
+  .ds-process__line {
+    top: 0;
+    bottom: 0;
+    left: calc(var(--size-52) / 2 - 1px);
+    right: auto;
+    width: 2px;
+    height: auto;
+  }
+
+  .ds-process__line-fill {
+    transform-origin: top;
+  }
+
+  .ds-process__number {
+    position: absolute;
+    left: calc((var(--size-52) + var(--space-20)) * -1);
+  }
+
+  .ds-process__title {
+    margin-top: var(--space-12);
+  }
+}
