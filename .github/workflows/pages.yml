@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 22
           cache: npm
-      - run: npm ci
+      - run: npm install --no-audit --no-fund  # npm ci rejects a lockfile made on Windows (missing Linux-only optional packages)
       - run: npm test
       - run: npm run banned
       - run: npx astro build
