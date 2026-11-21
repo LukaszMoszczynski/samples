@@ -1,0 +1,46 @@
+---
+// Path tabs (ARIA tabs). law.js switches them, keeps them in step with the header switch and the doors, and remembers
+// the choice. Without JS the first panel shows and the second is reachable through its tab link fallback.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import InkButton from '../../atoms/ink-button/InkButton.astro';
+interface Service { name: string; line: string; href: string }
+interface Path { id: 'firmy' | 'klienci'; tab: string; services: Service[]; box: { title: string; text: string; contact: string; cta: string } }
+interface Props { number: string; label: string; title: string; paths: Path[] }
+const { number, label, title, paths } = Astro.props;
+const arrow = '<svg class="ds-service-row__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>';
+---
+<section class="ds-section ds-section--rule ds-path-tabs" id="oferta" aria-labelledby="oferta-title">
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow number={number} text={label} />
+      <h2 class="ds-section-head__title" id="oferta-title"><Fragment set:html={title} /></h2>
+    </div>
+    <div class="ds-path-tabs__list" role="tablist" aria-label="Oferta">
+      {paths.map((path, index) => (
+        <button class="ds-path-tabs__tab" type="button" role="tab" id={`tab-${path.id}`} aria-controls={`panel-${path.id}`} aria-selected={index === 0 ? 'true' : 'false'} tabindex={index === 0 ? '0' : '-1'} data-path-tab={path.id}>{path.tab}</button>
+      ))}
+      <span class="ds-path-tabs__indicator" aria-hidden="true" data-path-indicator></span>
+    </div>
+    {paths.map((path, index) => (
+      <div class="ds-path-tabs__panel" role="tabpanel" id={`panel-${path.id}`} aria-labelledby={`tab-${path.id}`} tabindex="0" hidden={index !== 0} data-path-panel={path.id}>
+        <ol class="ds-path-tabs__services" role="list">
+          {path.services.map((service, serviceIndex) => (
+            <li>
+              <a class="ds-service-row" href={service.href} data-service-row>
+                <span class="ds-service-row__number" aria-hidden="true">{String(serviceIndex + 1).padStart(2, '0')}</span>
+                <span><span class="ds-service-row__name">{service.name}</span><span class="ds-service-row__line">{service.line}</span></span>
+                <Fragment set:html={arrow} />
+              </a>
+            </li>
+          ))}
+        </ol>
+        <aside class="ds-path-tabs__box" aria-label={path.box.title}>
+          <h3 class="ds-path-tabs__box-title">{path.box.title}</h3>
+          <p class="ds-path-tabs__box-text">{path.box.text}</p>
+          <p class="ds-path-tabs__box-contact">{path.box.contact}</p>
+          <div><InkButton text={path.box.cta} href="#kontakt" variant="light" /></div>
+        </aside>
+      </div>
+    ))}
+  </div>
+</section>

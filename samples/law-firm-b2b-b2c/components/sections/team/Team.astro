@@ -1,0 +1,28 @@
+---
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+interface Person { initials: string; name: string; role: string; areas: string }
+interface Props { number: string; label: string; title: string; people: Person[] }
+const { number, label, title, people } = Astro.props;
+---
+<section class="ds-section ds-section--rule ds-team" id="zespol" aria-labelledby="zespol-title">
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow number={number} text={label} />
+      <h2 class="ds-section-head__title" id="zespol-title"><Fragment set:html={title} /></h2>
+    </div>
+    <ul class="ds-team__list" role="list">
+      {people.map((person) => (
+        <li class="ds-person" data-reveal>
+          <svg class="ds-person__monogram" viewBox="0 0 160 160" aria-hidden="true">
+            <circle cx="80" cy="80" r="76" fill="none" stroke="currentColor" stroke-width="1" pathLength="1" data-monogram-ring />
+            <circle cx="80" cy="80" r="66" fill="none" stroke="currentColor" stroke-width="1" stroke-opacity="0.3" />
+            <text x="80" y="96" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-size="46" fill="currentColor">{person.initials}</text>
+          </svg>
+          <h3 class="ds-person__name">{person.name}</h3>
+          <p class="ds-person__role">{person.role}</p>
+          <p class="ds-person__areas">{person.areas}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

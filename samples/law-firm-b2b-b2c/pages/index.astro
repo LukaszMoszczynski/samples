@@ -1,0 +1,119 @@
+---
+// Law firm home page: two clear paths (firms / individuals) and answer-first content for Google and AI tools.
+// Copy is example content written for the brief.
+import Layout from '../layouts/Law.astro';
+import PathHero from '../components/sections/path-hero/PathHero.astro';
+import PathTabs from '../components/sections/path-tabs/PathTabs.astro';
+import Answers from '../components/sections/answers/Answers.astro';
+import Team from '../components/sections/team/Team.astro';
+import Steps from '../components/sections/steps/Steps.astro';
+import LawFaq from '../components/sections/law-faq/LawFaq.astro';
+import Contact from '../components/sections/contact/Contact.astro';
+
+const base = import.meta.env.BASE_URL + 'law-firm-b2b-b2c/';
+const service = `${base}umowy-handlowe/`;
+---
+<Layout description="Przykładowa strona kancelarii prawnej z osobnymi ścieżkami dla firm i klientów indywidualnych." homeHref={base}>
+  <main>
+    <PathHero
+      label="Kancelaria prawna · Warszawa i online"
+      title="Prawo podane jasno."
+      accent="jasno."
+      lead="Pomagamy firmom zawierać bezpieczne umowy i wygrywać spory, a ludziom przejść przez sprawy rodzinne, spadkowe i majątkowe bez zbędnego stresu."
+      seal="KANCELARIA · PORADY · UMOWY · SPORY · "
+      doors={[
+        { path: 'firmy', for: 'Dla firm', title: 'Obsługa prawna przedsiębiorstw', items: ['Umowy handlowe', 'Spory i windykacja', 'RODO i compliance'], go: 'Zobacz ofertę dla firm' },
+        { path: 'klienci', for: 'Dla klientów indywidualnych', title: 'Sprawy prywatne i rodzinne', items: ['Rozwód i alimenty', 'Spadki', 'Nieruchomości'], go: 'Zobacz ofertę dla Ciebie' },
+      ]}
+    />
+    <PathTabs
+      number="i."
+      label="Oferta"
+      title="Wybierz, <em>w czym</em> możemy pomóc"
+      paths={[
+        {
+          id: 'firmy',
+          tab: 'Dla firm',
+          services: [
+            { name: 'Umowy handlowe', line: 'Przygotowanie, przegląd i negocjacje umów z kontrahentami.', href: service },
+            { name: 'Spory i windykacja', line: 'Od wezwania do zapłaty po reprezentację przed sądem.', href: service },
+            { name: 'Stała obsługa prawna', line: 'Abonament: jeden opiekun i odpowiedź w 24 godziny.', href: service },
+            { name: 'RODO i compliance', line: 'Polityki, rejestry i audyty dopasowane do firmy.', href: service },
+            { name: 'Prawo pracy', line: 'Umowy, regulaminy, spory z pracownikami.', href: service },
+            { name: 'Zakładanie i zmiany spółek', line: 'Rejestracja, umowy spółek, przekształcenia.', href: service },
+          ],
+          box: { title: 'Dla firm: opiekun Twojej sprawy', text: 'Masz jednego prawnika prowadzącego i odpowiedź w ciągu jednego dnia roboczego.', contact: 'firmy@example.com · +48 600 000 001', cta: 'Zapytaj o obsługę firmy' },
+        },
+        {
+          id: 'klienci',
+          tab: 'Dla klientów indywidualnych',
+          services: [
+            { name: 'Rozwód i alimenty', line: 'Spokojnie, z dbałością o dzieci i majątek.', href: '#kontakt' },
+            { name: 'Spadki i testamenty', line: 'Stwierdzenie nabycia, dział spadku, zachowek.', href: '#kontakt' },
+            { name: 'Nieruchomości', line: 'Zakup mieszkania, umowy deweloperskie, najem.', href: '#kontakt' },
+            { name: 'Odszkodowania', line: 'Wypadki, błędy medyczne, spory z ubezpieczycielem.', href: '#kontakt' },
+            { name: 'Prawa konsumenta', line: 'Reklamacje, umowy z bankami i operatorami.', href: '#kontakt' },
+            { name: 'Sprawy karne', line: 'Obrona i pomoc pokrzywdzonym.', href: '#kontakt' },
+          ],
+          box: { title: 'Pierwsza rozmowa: 15 minut bez opłat', text: 'Opowiesz o sprawie, a my powiemy, czy i jak możemy pomóc, zanim cokolwiek zapłacisz.', contact: 'porady@example.com · +48 600 000 002', cta: 'Umów bezpłatną rozmowę' },
+        },
+      ]}
+    />
+    <Answers
+      number="ii."
+      label="Wiedza"
+      title="Odpowiedzi prawnika, <em>od razu</em> na początku"
+      lead="Każdy artykuł zaczyna się od krótkiej odpowiedzi i podaje autora oraz datę sprawdzenia. Tak piszemy dla ludzi, i tak też czytają nas Google i asystenci AI."
+      items={[
+        { tag: 'Dla firm', question: 'Ile czasu ma kontrahent na zapłatę faktury?', short: 'Między firmami termin nie powinien przekraczać 60 dni, chyba że umowa wyraźnie stanowi inaczej i nie jest to rażąco nieuczciwe wobec wierzyciela.', author: 'Adw. Anna Nowak', reviewed: '18.11.2026', href: '#wiedza' },
+        { tag: 'Dla Ciebie', question: 'Czy muszę przyjąć spadek z długami?', short: 'Nie. Masz 6 miesięcy od dowiedzenia się o powołaniu do spadku, żeby go odrzucić albo przyjąć z ograniczeniem odpowiedzialności do wartości majątku.', author: 'R. pr. Piotr Lis', reviewed: '12.11.2026', href: '#wiedza' },
+        { tag: 'Dla Ciebie', question: 'Jak długo trwa rozwód bez orzekania o winie?', short: 'Jeśli małżonkowie są zgodni, zwykle kończy się na jednej rozprawie, kilka miesięcy od złożenia pozwu.', author: 'Adw. Ewa Wójcik', reviewed: '5.11.2026', href: '#wiedza' },
+      ]}
+    />
+    <Team
+      number="iii."
+      label="Zespół"
+      title="Ludzie, <em>którzy</em> poprowadzą sprawę"
+      people={[
+        { initials: 'AN', name: 'Adw. Anna Nowak', role: 'Partnerka · Firmy', areas: 'Umowy handlowe, spory gospodarcze, stała obsługa spółek.' },
+        { initials: 'PL', name: 'R. pr. Piotr Lis', role: 'Partner · Majątek', areas: 'Spadki, nieruchomości, umowy deweloperskie.' },
+        { initials: 'EW', name: 'Adw. Ewa Wójcik', role: 'Rodzina', areas: 'Rozwody, alimenty, kontakty z dziećmi, mediacje.' },
+      ]}
+    />
+    <Steps
+      number="iv."
+      label="Jak pracujemy"
+      title="Trzy kroki, <em>bez</em> niespodzianek"
+      steps={[
+        { title: 'Rozmowa', text: 'Słuchamy, zadajemy pytania i mówimy wprost, jakie masz możliwości.' },
+        { title: 'Plan i koszt', text: 'Dostajesz plan działania i wycenę na piśmie, zanim zaczniemy.' },
+        { title: 'Prowadzenie sprawy', text: 'Informujemy o każdym kroku, a dokumenty masz zawsze pod ręką.' },
+      ]}
+    />
+    <LawFaq
+      number="v."
+      label="FAQ"
+      title="Częste pytania"
+      lead="Nie widzisz swojego pytania? Napisz, odpowiadamy w ciągu jednego dnia roboczego."
+      items={[
+        { question: 'Ile kosztuje pierwsza konsultacja?', answer: 'Dla klientów indywidualnych pierwsza 15-minutowa rozmowa jest bezpłatna. Dla firm wyceniamy konsultację z góry, po krótkim opisie sprawy.' },
+        { question: 'Czy prowadzicie sprawy online?', answer: 'Tak. Spotkania odbywają się online lub w biurze w Warszawie, a dokumenty podpisujemy elektronicznie.' },
+        { question: 'Jak szybko odpowiadacie?', answer: 'W ciągu jednego dnia roboczego. Pilne sprawy oznacz w formularzu, oddzwonimy tego samego dnia.' },
+        { question: 'Czy wycena jest stała?', answer: 'W większości spraw tak: dostajesz ryczałt albo stawkę godzinową z limitem, zawsze na piśmie przed rozpoczęciem pracy.' },
+      ]}
+    />
+    <Contact
+      number="vi."
+      label="Kontakt"
+      title="Opowiedz nam <em>o sprawie</em>"
+      lead="Wybierz, czego dotyczy Twoja sprawa: wiadomość trafi od razu do właściwego zespołu."
+      facts={[
+        { label: 'Zespół dla firm', value: 'firmy@example.com', path: 'firmy' },
+        { label: 'Telefon dla firm', value: '+48 600 000 001', path: 'firmy' },
+        { label: 'Porady dla Ciebie', value: 'porady@example.com', path: 'klienci' },
+        { label: 'Bezpłatna rozmowa', value: '+48 600 000 002', path: 'klienci' },
+        { label: 'Biuro', value: 'ul. Przykładowa 5, Warszawa' },
+      ]}
+    />
+  </main>
+</Layout>

@@ -1,0 +1,41 @@
+/* Eyebrow: a section number and label in small caps after a short brass rule, like a chapter mark. */
+.ds-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-12);
+  margin: 0;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-2);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.ds-eyebrow::before {
+  content: "";
+  width: var(--space-32);
+  height: 1px;
+  background: var(--color-brand-accent);
+}
+
+.ds-eyebrow__number {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-body);
+  font-style: italic;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--color-brand-accent);
+}
+
+.ds-section--ink .ds-eyebrow {
+  color: color-mix(in srgb, var(--color-text-on-brand) 80%, transparent);
+}
+
+.ds-section--ink .ds-eyebrow::before {
+  background: var(--palette-accent-400);
+}
+
+.ds-section--ink .ds-eyebrow__number {
+  color: var(--palette-accent-400);
+}

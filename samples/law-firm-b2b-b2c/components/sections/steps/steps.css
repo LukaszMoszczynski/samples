@@ -1,0 +1,56 @@
+/* Steps: how the firm works, as three columns with large italic numerals and a rule that draws across above them. */
+.ds-steps__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-40);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-step {
+  position: relative;
+  display: grid;
+  gap: var(--space-12);
+  padding-top: var(--space-24);
+}
+
+.ds-step__rule {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: var(--color-text-default);
+  transform-origin: left;
+}
+
+.ds-step__number {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-80);
+  font-style: italic;
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  color: var(--color-brand-primary);
+}
+
+.ds-step__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  line-height: var(--font-line-height-xl);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-step__text {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 899px) {
+  .ds-steps__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ds-step__number {
+    font-size: var(--font-size-48);
+  }
+}

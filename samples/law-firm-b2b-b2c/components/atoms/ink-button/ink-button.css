@@ -1,0 +1,65 @@
+/* Ink button: solid (deep green), outline (ink line) and light (on dark). A thin rule slides under the label on
+   hover; the arrow moves. */
+.ds-ink-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-12);
+  min-height: var(--size-52);
+  padding: 0 var(--space-28);
+  border: 1px solid transparent;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.ds-ink-button--solid {
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+}
+
+.ds-ink-button--solid:hover {
+  background: var(--palette-primary-800);
+}
+
+.ds-ink-button--outline {
+  border-color: var(--color-text-default);
+  background: transparent;
+  color: var(--color-text-default);
+}
+
+.ds-ink-button--outline:hover {
+  background: var(--color-text-default);
+  color: var(--color-surface-page);
+}
+
+.ds-ink-button--light {
+  background: var(--color-surface-card);
+  color: var(--color-text-default);
+}
+
+.ds-ink-button--light:hover {
+  background: var(--palette-accent-400);
+}
+
+.ds-ink-button__arrow {
+  width: var(--size-18);
+  height: var(--size-18);
+  transition: transform 0.25s ease;
+}
+
+.ds-ink-button:hover .ds-ink-button__arrow {
+  transform: translateX(var(--space-4));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-ink-button,
+  .ds-ink-button__arrow {
+    transition: none;
+  }
+}

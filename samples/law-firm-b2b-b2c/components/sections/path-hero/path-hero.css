@@ -1,0 +1,192 @@
+/* Path hero: a serif headline that rises in word by word, a drawn section sign (§) in a slowly turning seal, and
+   two doors below: one for firms, one for individuals. Each door sets the visitor's path and leads to the offer. */
+.ds-path-hero {
+  padding-block: var(--space-64) var(--space-section-y);
+}
+
+.ds-path-hero__top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-48);
+  align-items: center;
+}
+
+.ds-path-hero__title {
+  margin: var(--space-20) 0 var(--space-24);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-120);
+  line-height: 1;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: calc(var(--space-2) * -1);
+}
+
+.ds-path-hero__word {
+  display: inline-block;
+}
+
+.ds-path-hero__title em {
+  font-style: italic;
+  color: var(--color-brand-primary);
+}
+
+.ds-path-hero__lead {
+  max-width: calc(var(--layout-container) * 0.5);
+  margin: 0;
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+}
+
+.ds-path-hero__seal {
+  width: var(--size-160);
+  height: var(--size-160);
+  color: var(--color-brand-primary);
+}
+
+.ds-path-hero__seal-ring {
+  transform-origin: center;
+}
+
+.ds-path-hero__doors {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-24);
+  margin-top: var(--space-64);
+}
+
+.ds-door {
+  position: relative;
+  display: grid;
+  gap: var(--space-16);
+  padding: var(--space-40);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-card);
+  color: var(--color-text-default);
+  text-decoration: none;
+  overflow: hidden;
+  transition: transform 0.35s ease, border-color 0.35s ease;
+}
+
+.ds-door::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: var(--space-4);
+  background: var(--color-brand-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.ds-door:hover {
+  transform: translateY(calc(var(--space-6) * -1));
+  border-color: var(--color-brand-primary);
+}
+
+.ds-door:hover::after {
+  transform: scaleX(1);
+}
+
+.ds-door--ink {
+  background: var(--color-surface-brand);
+  border-color: var(--color-surface-brand);
+  color: var(--color-text-on-brand);
+}
+
+.ds-door--ink::after {
+  background: var(--palette-accent-400);
+}
+
+.ds-door--ink:hover {
+  border-color: var(--palette-accent-400);
+}
+
+.ds-door__for {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-2);
+  text-transform: uppercase;
+  color: var(--color-brand-accent);
+}
+
+.ds-door--ink .ds-door__for {
+  color: var(--palette-accent-400);
+}
+
+.ds-door__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  line-height: var(--font-line-height-2xl);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-door__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-door__item {
+  padding: var(--space-6) var(--space-12);
+  border: 1px solid currentColor;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-small);
+  opacity: 0.85;
+}
+
+.ds-door__go {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  margin-top: var(--space-8);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-door__go svg {
+  width: var(--size-20);
+  height: var(--size-20);
+  transition: transform 0.3s ease;
+}
+
+.ds-door:hover .ds-door__go svg {
+  transform: translateX(var(--space-6));
+}
+
+@media (max-width: 1023px) {
+  .ds-path-hero__title {
+    font-size: var(--font-size-4xl);
+    line-height: var(--font-line-height-4xl);
+    letter-spacing: 0;
+  }
+
+  .ds-path-hero__top {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ds-path-hero__seal {
+    display: none;
+  }
+}
+
+@media (max-width: 781px) {
+  .ds-path-hero__doors {
+    grid-template-columns: minmax(0, 1fr);
+    margin-top: var(--space-40);
+  }
+
+  .ds-door {
+    padding: var(--space-28);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-door,
+  .ds-door::after,
+  .ds-door__go svg {
+    transition: none;
+  }
+}

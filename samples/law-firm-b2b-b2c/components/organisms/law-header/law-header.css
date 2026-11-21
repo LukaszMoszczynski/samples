@@ -1,0 +1,153 @@
+/* Law header: logo, menu, the path switch (Dla firm / Dla Ciebie) and a call button. Sticky; a hairline appears
+   once the page scrolls (is-scrolled). Phones: the switch stays, the menu goes into a drawer. */
+.ds-law-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--color-surface-page) 94%, transparent);
+  backdrop-filter: blur(var(--space-12));
+  transition: box-shadow 0.3s ease;
+}
+
+.ds-law-header.is-scrolled {
+  box-shadow: 0 1px 0 var(--color-border-default);
+}
+
+.ds-law-header__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-28);
+  min-height: var(--size-header-height);
+}
+
+.ds-law-header__logo img {
+  display: block;
+  height: var(--size-40);
+  width: auto;
+}
+
+.ds-law-header__nav {
+  margin-left: auto;
+}
+
+.ds-law-header__menu {
+  display: flex;
+  gap: var(--space-24);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-law-header__link {
+  color: inherit;
+  font-weight: var(--font-weight-medium);
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) left bottom / 0 1px no-repeat;
+  transition: background-size 0.3s ease;
+}
+
+.ds-law-header__link:hover {
+  background-size: 100% 1px;
+}
+
+.ds-path-switch {
+  display: inline-flex;
+  padding: var(--space-4);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+}
+
+.ds-path-switch__option {
+  min-height: var(--size-40);
+  padding: 0 var(--space-16);
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-text-default);
+  font: inherit;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.ds-path-switch__option[aria-pressed="true"] {
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+}
+
+.ds-law-header__burger {
+  display: none;
+  width: var(--size-44);
+  height: var(--size-44);
+  padding: 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.ds-law-header__burger svg {
+  width: var(--size-20);
+  height: var(--size-20);
+}
+
+.ds-law-header__drawer {
+  padding-block: var(--space-8) var(--space-24);
+  border-top: 1px solid var(--color-border-default);
+}
+
+.ds-law-header__drawer .ds-law-header__menu {
+  flex-direction: column;
+  gap: 0;
+}
+
+.ds-law-header__drawer .ds-law-header__link {
+  display: block;
+  padding-block: var(--space-12);
+  font-size: var(--font-size-lg);
+}
+
+@media (max-width: 1099px) {
+  .ds-law-header__nav,
+  .ds-law-header__bar > .ds-ink-button {
+    display: none;
+  }
+
+  .ds-law-header__burger {
+    display: inline-grid;
+    place-items: center;
+  }
+
+  .ds-path-switch {
+    margin-left: auto;
+  }
+}
+
+@media (min-width: 1100px) {
+  .ds-law-header__drawer {
+    display: none;
+  }
+}
+
+@media (max-width: 479px) {
+  .ds-law-header__logo img {
+    height: var(--size-40);
+    width: var(--size-40);
+    object-fit: cover;
+    object-position: left;
+  }
+
+  .ds-path-switch__option {
+    padding: 0 var(--space-10);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-law-header,
+  .ds-law-header__link,
+  .ds-path-switch__option {
+    transition: none;
+  }
+}

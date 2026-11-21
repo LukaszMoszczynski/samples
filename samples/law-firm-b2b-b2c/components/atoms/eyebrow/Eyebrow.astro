@@ -1,0 +1,5 @@
+---
+interface Props { number?: string; text: string }
+const { number, text } = Astro.props;
+---
+<p class="ds-eyebrow">{number && <span class="ds-eyebrow__number">{number}</span>}{text}</p>

@@ -1,0 +1,9 @@
+---
+interface Props { text: string; href?: string; variant?: 'solid' | 'outline' | 'light'; type?: 'button' | 'submit' }
+const { text, href, variant = 'solid', type = 'button' } = Astro.props;
+const className = `ds-ink-button ds-ink-button--${variant}`;
+const arrow = '<svg class="ds-ink-button__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>';
+---
+{href
+  ? <a class={className} href={href}>{text}<Fragment set:html={arrow} /></a>
+  : <button class={className} type={type}>{text}<Fragment set:html={arrow} /></button>}

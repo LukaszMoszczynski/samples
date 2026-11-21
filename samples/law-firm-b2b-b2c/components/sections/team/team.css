@@ -1,0 +1,74 @@
+/* Team: each lawyer as a drawn monogram (the circle draws itself in), name, role and specialisations. No photos in
+   the sample; the real site would add portraits in the same frame. */
+.ds-team__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-32);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-person {
+  display: grid;
+  gap: var(--space-12);
+  padding-top: var(--space-24);
+  border-top: 1px solid var(--color-border-strong);
+}
+
+.ds-person__monogram {
+  width: var(--size-160);
+  height: var(--size-160);
+  max-width: 100%;
+  margin-bottom: var(--space-8);
+  color: var(--color-brand-primary);
+}
+
+.ds-person__name {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  line-height: var(--font-line-height-xl);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-person__role {
+  margin: 0;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-1);
+  text-transform: uppercase;
+  color: var(--color-brand-accent);
+}
+
+.ds-person__areas {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 899px) {
+  .ds-team__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ds-person {
+    grid-template-columns: var(--size-160) minmax(0, 1fr);
+    column-gap: var(--space-24);
+    align-items: center;
+  }
+
+  .ds-person__monogram {
+    grid-row: span 3;
+    margin: 0;
+  }
+}
+
+@media (max-width: 479px) {
+  .ds-person {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ds-person__monogram {
+    grid-row: auto;
+  }
+}

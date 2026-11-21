@@ -1,0 +1,10 @@
+{
+  "slug": "law-firm-b2b-b2c",
+  "stack": "astro",
+  "lang": "pl",
+  "title": "Kancelaria prawna – przykładowa strona",
+  "pages": [
+    "index",
+    "umowy-handlowe"
+  ]
+}

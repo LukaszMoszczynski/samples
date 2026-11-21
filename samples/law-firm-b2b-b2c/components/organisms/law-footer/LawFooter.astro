@@ -1,0 +1,33 @@
+---
+interface Link { text: string; href: string }
+interface Props { logo: string; logoAlt: string; homeHref: string; claim: string; claimAccent: string; about: string; columns: { title: string; links: Link[] }[]; contact: string[]; copyright: string; legal: Link[] }
+const { logo, logoAlt, homeHref, claim, claimAccent, about, columns, contact, copyright, legal } = Astro.props;
+const [before, after] = claim.split(claimAccent);
+---
+<footer class="ds-law-footer">
+  <div class="ds-container">
+    <p class="ds-law-footer__claim" data-reveal>{before}<em>{claimAccent}</em>{after}</p>
+    <div class="ds-law-footer__grid">
+      <div class="ds-law-footer__brand">
+        <a class="ds-law-footer__logo" href={homeHref}><img src={logo} alt={logoAlt} width="260" height="40" /></a>
+        <p class="ds-law-footer__about">{about}</p>
+      </div>
+      {columns.map((column) => (
+        <nav aria-label={column.title}>
+          <h2 class="ds-law-footer__title">{column.title}</h2>
+          <ul class="ds-law-footer__list" role="list">
+            {column.links.map((link) => <li><a class="ds-law-footer__link" href={link.href}>{link.text}</a></li>)}
+          </ul>
+        </nav>
+      ))}
+      <div>
+        <h2 class="ds-law-footer__title">Kontakt</h2>
+        <ul class="ds-law-footer__list" role="list">{contact.map((line) => <li>{line}</li>)}</ul>
+      </div>
+    </div>
+    <div class="ds-law-footer__legal">
+      <span>{copyright}</span>
+      <span>{legal.map((link) => <a class="ds-law-footer__link" href={link.href}>{link.text}</a>)}</span>
+    </div>
+  </div>
+</footer>

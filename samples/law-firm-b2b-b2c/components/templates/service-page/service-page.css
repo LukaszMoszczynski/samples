@@ -1,0 +1,216 @@
+/* Service page template: breadcrumbs, the title, a "W skrócie" answer box first (what search engines and AI tools
+   quote), then the article beside a sticky table of contents that marks the section in view, the author box and
+   related services. */
+.ds-service-page {
+  padding-block: var(--space-48) var(--space-section-y);
+}
+
+.ds-breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin: 0 0 var(--space-32);
+  padding: 0;
+  list-style: none;
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+}
+
+.ds-breadcrumbs li + li::before {
+  content: "/";
+  margin-right: var(--space-8);
+  color: var(--color-border-strong);
+}
+
+.ds-breadcrumbs a {
+  color: inherit;
+}
+
+.ds-service-page__title {
+  max-width: calc(var(--layout-container) * 0.75);
+  margin: var(--space-16) 0 var(--space-32);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-4xl);
+  line-height: var(--font-line-height-4xl);
+  font-weight: var(--font-weight-medium);
+  text-wrap: balance;
+}
+
+.ds-service-page__summary {
+  display: grid;
+  gap: var(--space-12);
+  max-width: calc(var(--layout-container) * 0.75);
+  margin: 0 0 var(--space-56);
+  padding: var(--space-28) var(--space-32);
+  border-left: var(--space-4) solid var(--color-brand-primary);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--color-surface-soft);
+}
+
+.ds-service-page__summary-label {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-2);
+  text-transform: uppercase;
+  color: var(--color-brand-primary);
+}
+
+.ds-service-page__summary p {
+  margin: 0;
+  font-size: var(--font-size-lg);
+}
+
+.ds-service-page__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 2.2fr);
+  gap: var(--space-64);
+  align-items: start;
+}
+
+.ds-toc {
+  position: sticky;
+  top: calc(var(--size-header-height) + var(--space-24));
+}
+
+.ds-toc__title {
+  margin: 0 0 var(--space-12);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-2);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.ds-toc__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-left: 1px solid var(--color-border-strong);
+}
+
+.ds-toc__link {
+  display: block;
+  margin-left: -1px;
+  padding: var(--space-8) var(--space-16);
+  border-left: 2px solid transparent;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+
+.ds-toc__link.is-active,
+.ds-toc__link:hover {
+  border-left-color: var(--color-brand-primary);
+  color: var(--color-text-default);
+}
+
+.ds-article h2 {
+  margin: var(--space-48) 0 var(--space-16);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  line-height: var(--font-line-height-2xl);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-article h2:first-child {
+  margin-top: 0;
+}
+
+.ds-article p,
+.ds-article li {
+  max-width: calc(var(--layout-container) * 0.58);
+  font-size: var(--font-size-body);
+}
+
+.ds-article ul {
+  padding-left: var(--space-20);
+}
+
+.ds-author {
+  display: grid;
+  grid-template-columns: var(--size-52) minmax(0, 1fr);
+  gap: var(--space-16);
+  align-items: center;
+  margin-top: var(--space-48);
+  padding-top: var(--space-24);
+  border-top: 1px solid var(--color-border-strong);
+}
+
+.ds-author__monogram {
+  display: grid;
+  place-items: center;
+  width: var(--size-52);
+  height: var(--size-52);
+  border: 1px solid var(--color-brand-primary);
+  border-radius: var(--radius-full);
+  color: var(--color-brand-primary);
+  font-family: var(--font-heading);
+  font-style: italic;
+}
+
+.ds-author__text {
+  margin: 0;
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+}
+
+.ds-author__name {
+  display: block;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-default);
+}
+
+.ds-related {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-16);
+  margin: var(--space-24) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-related__link {
+  display: block;
+  height: 100%;
+  box-sizing: border-box;
+  padding: var(--space-20);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  color: inherit;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  text-decoration: none;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+
+.ds-related__link:hover {
+  border-color: var(--color-brand-primary);
+  transform: translateY(calc(var(--space-4) * -1));
+}
+
+@media (max-width: 1023px) {
+  .ds-service-page__layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-32);
+  }
+
+  .ds-toc {
+    position: static;
+  }
+
+  .ds-related {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-toc__link,
+  .ds-related__link {
+    transition: none;
+  }
+}
+
+.ds-article section + section {
+  margin-top: var(--space-48);
+}

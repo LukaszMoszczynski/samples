@@ -1,0 +1,64 @@
+---
+// Contact. The radio (name="path") and the facts (data-path-only) follow the page's path; law.js keeps them in step.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import InkButton from '../../atoms/ink-button/InkButton.astro';
+interface Fact { label: string; value: string; path?: 'firmy' | 'klienci' }
+interface Props { number: string; label: string; title: string; lead: string; facts: Fact[] }
+const { number, label, title, lead, facts } = Astro.props;
+---
+<section class="ds-section ds-contact" id="kontakt" aria-labelledby="kontakt-title">
+  <div class="ds-container ds-contact__grid">
+    <div data-reveal>
+      <div class="ds-section-head">
+        <Eyebrow number={number} text={label} />
+        <h2 class="ds-section-head__title" id="kontakt-title"><Fragment set:html={title} /></h2>
+        <p class="ds-section-head__lead">{lead}</p>
+      </div>
+      <ul class="ds-contact__facts" role="list">
+        {facts.map((fact) => (
+          <li data-path-only={fact.path} hidden={fact.path === 'klienci'}>
+            <span class="ds-contact__fact-label">{fact.label}</span>
+            <span class="ds-contact__fact-value">{fact.value}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <form class="ds-contact__form" data-contact-form data-reveal>
+      <fieldset class="ds-contact__choice">
+        <legend>Twoja sprawa dotyczy</legend>
+        <label class="ds-contact__option">
+          <input type="radio" name="path" value="firmy" checked data-path-radio />
+          <span class="ds-contact__option-title">Firmy</span>
+          <span class="ds-contact__option-text">Umowy, spory, obsługa stała</span>
+        </label>
+        <label class="ds-contact__option">
+          <input type="radio" name="path" value="klienci" data-path-radio />
+          <span class="ds-contact__option-title">Sprawy prywatnej</span>
+          <span class="ds-contact__option-text">Rodzina, spadki, nieruchomości</span>
+        </label>
+      </fieldset>
+      <div class="ds-contact__field">
+        <label class="ds-contact__label" for="contact-name">Imię i nazwisko</label>
+        <input class="ds-contact__input" id="contact-name" name="name" autocomplete="name" required />
+      </div>
+      <div class="ds-contact__field">
+        <label class="ds-contact__label" for="contact-phone">Telefon</label>
+        <input class="ds-contact__input" id="contact-phone" name="phone" type="tel" autocomplete="tel" />
+      </div>
+      <div class="ds-contact__field ds-contact__field--wide">
+        <label class="ds-contact__label" for="contact-email">E-mail</label>
+        <input class="ds-contact__input" id="contact-email" name="email" type="email" autocomplete="email" required />
+      </div>
+      <div class="ds-contact__field ds-contact__field--wide">
+        <label class="ds-contact__label" for="contact-message">W czym możemy pomóc?</label>
+        <textarea class="ds-contact__input" id="contact-message" name="message" rows="4"></textarea>
+      </div>
+      <label class="ds-contact__consent">
+        <input type="checkbox" name="consent" required />
+        <span>Wyrażam zgodę na kontakt w sprawie mojego zapytania. Administratorem danych jest kancelaria.</span>
+      </label>
+      <div class="ds-contact__send"><InkButton text="Wyślij zapytanie" type="submit" /></div>
+      <p class="ds-contact__thanks" role="status" hidden data-contact-thanks>Dziękujemy. To przykładowy formularz: w gotowej stronie wiadomość trafi do właściwego zespołu.</p>
+    </form>
+  </div>
+</section>

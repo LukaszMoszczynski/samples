@@ -1,0 +1,62 @@
+---
+// Shared frame for both pages: the sample shell, every component's CSS in order, header, footer and law.js.
+import Sample from './Sample.astro';
+import sample from '../sample.json';
+import '../components/base/page/page.css';
+import '../components/atoms/ink-button/ink-button.css';
+import '../components/atoms/eyebrow/eyebrow.css';
+import '../components/organisms/law-header/law-header.css';
+import '../components/organisms/law-footer/law-footer.css';
+import '../components/sections/path-hero/path-hero.css';
+import '../components/sections/path-tabs/path-tabs.css';
+import '../components/sections/answers/answers.css';
+import '../components/sections/team/team.css';
+import '../components/sections/steps/steps.css';
+import '../components/sections/law-faq/law-faq.css';
+import '../components/sections/contact/contact.css';
+import LawHeader from '../components/organisms/law-header/LawHeader.astro';
+import LawFooter from '../components/organisms/law-footer/LawFooter.astro';
+import logo from '../assets/logo.svg?url';
+import logoLight from '../assets/logo-light.svg?url';
+
+interface Props { title?: string; description: string; homeHref: string }
+const { title = sample.title, description, homeHref } = Astro.props;
+const firm = 'Kancelaria Przykładowa';
+const nav = [
+  { text: 'Oferta', href: `${homeHref}#oferta` },
+  { text: 'Wiedza', href: `${homeHref}#wiedza` },
+  { text: 'Zespół', href: `${homeHref}#zespol` },
+  { text: 'Jak pracujemy', href: `${homeHref}#jak-pracujemy` },
+  { text: 'FAQ', href: `${homeHref}#faq` },
+];
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': 'LegalService',
+  name: firm,
+  description: 'Kancelaria prawna: obsługa firm (umowy, spory, compliance) i klientów indywidualnych (rodzina, spadki, nieruchomości).',
+  address: { '@type': 'PostalAddress', streetAddress: 'ul. Przykładowa 5', addressLocality: 'Warszawa', addressCountry: 'PL' },
+  telephone: '+48 600 000 000',
+  knowsAbout: ['prawo gospodarcze', 'umowy handlowe', 'prawo rodzinne', 'prawo spadkowe', 'nieruchomości'],
+};
+---
+<Sample lang={sample.lang} title={title} description={description} fonts="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;700&display=swap">
+  <LawHeader logo={logo} logoAlt={firm} homeHref={homeHref} items={nav} cta={{ text: 'Umów konsultację', href: `${homeHref}#kontakt` }} />
+  <slot />
+  <LawFooter
+    logo={logoLight}
+    logoAlt={firm}
+    homeHref={homeHref}
+    claim="Prawo podane jasno, decyzje podjęte spokojnie."
+    claimAccent="jasno"
+    about="Kancelaria dla firm i klientów indywidualnych. Warszawa i online w całej Polsce."
+    columns={[
+      { title: 'Dla firm', links: [{ text: 'Umowy handlowe', href: `${homeHref}umowy-handlowe/` }, { text: 'Spory i windykacja', href: `${homeHref}#oferta` }, { text: 'Stała obsługa', href: `${homeHref}#oferta` }] },
+      { title: 'Dla Ciebie', links: [{ text: 'Rozwód i alimenty', href: `${homeHref}#oferta` }, { text: 'Spadki', href: `${homeHref}#oferta` }, { text: 'Nieruchomości', href: `${homeHref}#oferta` }] },
+    ]}
+    contact={['+48 600 000 000', 'kancelaria@example.com', 'ul. Przykładowa 5, Warszawa']}
+    copyright={`© 2026 ${firm}. Przykładowa strona.`}
+    legal={[{ text: 'Polityka prywatności', href: '#' }]}
+  />
+  <script type="application/ld+json" set:html={JSON.stringify(organization)} />
+  <script src="../scripts/law.js"></script>
+</Sample>

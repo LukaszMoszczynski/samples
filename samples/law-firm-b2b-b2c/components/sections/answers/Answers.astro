@@ -1,0 +1,30 @@
+---
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+interface Answer { tag: string; question: string; short: string; author: string; reviewed: string; href: string }
+interface Props { number: string; label: string; title: string; lead: string; items: Answer[] }
+const { number, label, title, lead, items } = Astro.props;
+---
+<section class="ds-section ds-section--ink ds-answers" id="wiedza" aria-labelledby="wiedza-title">
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow number={number} text={label} />
+      <h2 class="ds-section-head__title" id="wiedza-title"><Fragment set:html={title} /></h2>
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <ul class="ds-answers__list" role="list">
+      {items.map((item) => (
+        <li data-reveal>
+          <article class="ds-answer">
+            <span class="ds-answer__tag">{item.tag}</span>
+            <h3 class="ds-answer__question">{item.question}</h3>
+            <p class="ds-answer__short"><span class="ds-visually-hidden">Krótka odpowiedź: </span>{item.short}</p>
+            <div class="ds-answer__meta">
+              <span>{item.author} · sprawdzono {item.reviewed}</span>
+              <a class="ds-answer__link" href={item.href}>Cały artykuł<span class="ds-visually-hidden">: {item.question}</span> →</a>
+            </div>
+          </article>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

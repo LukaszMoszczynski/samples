@@ -1,0 +1,23 @@
+---
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+interface Props { number: string; label: string; title: string; steps: { title: string; text: string }[] }
+const { number, label, title, steps } = Astro.props;
+---
+<section class="ds-section ds-section--rule ds-steps" id="jak-pracujemy" aria-labelledby="jak-pracujemy-title">
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow number={number} text={label} />
+      <h2 class="ds-section-head__title" id="jak-pracujemy-title"><Fragment set:html={title} /></h2>
+    </div>
+    <ol class="ds-steps__list" role="list">
+      {steps.map((step, index) => (
+        <li class="ds-step" data-step>
+          <span class="ds-step__rule" aria-hidden="true" data-step-rule></span>
+          <span class="ds-step__number" aria-hidden="true">{index + 1}.</span>
+          <h3 class="ds-step__title"><span class="ds-visually-hidden">Krok {index + 1}: </span>{step.title}</h3>
+          <p class="ds-step__text">{step.text}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

@@ -1,0 +1,84 @@
+/* Answers: expert articles written answer-first. Each card states the question, a two-sentence answer, the author
+   and the review date, then links to the full article. This shape is what search engines and AI tools quote. */
+.ds-answers__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-24);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-answer {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: var(--space-16);
+  height: 100%;
+  box-sizing: border-box;
+  padding: var(--space-32);
+  border: 1px solid color-mix(in srgb, var(--color-text-on-brand) 16%, transparent);
+  border-radius: var(--radius-sm);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.ds-answer:hover {
+  border-color: var(--palette-accent-400);
+  background: color-mix(in srgb, var(--color-text-on-brand) 4%, transparent);
+}
+
+.ds-answer__tag {
+  justify-self: start;
+  padding: var(--space-4) var(--space-10);
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--palette-accent-400) 18%, transparent);
+  color: var(--palette-accent-400);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-answer__question {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  line-height: var(--font-line-height-xl);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-answer__short {
+  margin: 0;
+  padding-left: var(--space-16);
+  border-left: 2px solid var(--palette-accent-400);
+  color: color-mix(in srgb, var(--color-text-on-brand) 88%, transparent);
+}
+
+.ds-answer__meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-8);
+  padding-top: var(--space-16);
+  border-top: 1px solid color-mix(in srgb, var(--color-text-on-brand) 14%, transparent);
+  font-size: var(--font-size-small);
+  color: color-mix(in srgb, var(--color-text-on-brand) 80%, transparent);
+}
+
+.ds-answer__link {
+  color: var(--palette-accent-400);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-answer__link:focus-visible {
+  outline-color: var(--palette-accent-400);
+}
+
+@media (max-width: 1023px) {
+  .ds-answers__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-answer {
+    transition: none;
+  }
+}

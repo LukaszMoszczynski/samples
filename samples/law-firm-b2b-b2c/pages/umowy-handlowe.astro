@@ -1,0 +1,101 @@
+---
+// Service page template, filled for one B2B service. Structured data: Service + BreadcrumbList (+ FAQPage in LawFaq).
+import Layout from '../layouts/Law.astro';
+import Eyebrow from '../components/atoms/eyebrow/Eyebrow.astro';
+import InkButton from '../components/atoms/ink-button/InkButton.astro';
+import LawFaq from '../components/sections/law-faq/LawFaq.astro';
+import '../components/templates/service-page/service-page.css';
+
+const base = import.meta.env.BASE_URL + 'law-firm-b2b-b2c/';
+const sections = [
+  { id: 'kiedy', title: 'Kiedy warto zlecić umowę prawnikowi', body: ['Gdy umowa dotyczy dużej wartości, długiej współpracy albo kluczowego kontrahenta. Także wtedy, gdy druga strona przysyła własny wzór: często przerzuca on ryzyko na Ciebie.'], list: ['umowy dostawy, dystrybucji i współpracy', 'umowy o świadczenie usług i SLA', 'NDA i umowy licencyjne'] },
+  { id: 'jak', title: 'Jak wygląda współpraca', body: ['Zaczynamy od krótkiej rozmowy o celu umowy. Przygotowujemy projekt albo uwagi do wzoru kontrahenta, w trybie zmian, z komentarzem do każdego ryzyka.'], list: [] },
+  { id: 'koszt', title: 'Ile to kosztuje', body: ['Przegląd standardowej umowy wyceniamy z góry, ryczałtem. Przy stałej obsłudze firmy umowy są częścią abonamentu, bez dodatkowych faktur.'], list: [] },
+  { id: 'termin', title: 'Ile to trwa', body: ['Przegląd umowy do 20 stron: zwykle 2–3 dni robocze. Pilne sprawy: po uzgodnieniu, nawet w 24 godziny.'], list: [] },
+];
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Umowy handlowe dla firm',
+    serviceType: 'Przygotowanie i negocjowanie umów handlowych',
+    provider: { '@type': 'LegalService', name: 'Kancelaria Przykładowa' },
+    areaServed: 'PL',
+    audience: { '@type': 'BusinessAudience' },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Strona główna', item: base },
+      { '@type': 'ListItem', position: 2, name: 'Dla firm', item: `${base}#oferta` },
+      { '@type': 'ListItem', position: 3, name: 'Umowy handlowe' },
+    ],
+  },
+];
+---
+<Layout title="Umowy handlowe dla firm – Kancelaria Przykładowa" description="Przygotowanie, przegląd i negocjowanie umów handlowych dla firm: zakres, koszt i terminy." homeHref={base}>
+  <main>
+    <article class="ds-service-page">
+      <div class="ds-container">
+        <nav aria-label="Okruszki">
+          <ol class="ds-breadcrumbs">
+            <li><a href={base}>Strona główna</a></li>
+            <li><a href={`${base}#oferta`}>Dla firm</a></li>
+            <li aria-current="page">Umowy handlowe</li>
+          </ol>
+        </nav>
+        <div data-hero-fade><Eyebrow text="Dla firm · Usługa" /></div>
+        <h1 class="ds-service-page__title" data-hero-fade>Umowy handlowe, które chronią Twoją firmę</h1>
+        <div class="ds-service-page__summary" data-hero-fade>
+          <span class="ds-service-page__summary-label">W skrócie</span>
+          <p>Przygotowujemy i negocjujemy umowy handlowe dla firm: dostawy, usługi, dystrybucję i NDA. Przegląd standardowej umowy trwa zwykle 2–3 dni robocze i jest wyceniany ryczałtem.</p>
+        </div>
+        <div class="ds-service-page__layout">
+          <nav class="ds-toc" aria-label="Spis treści">
+            <p class="ds-toc__title">Na tej stronie</p>
+            <ul class="ds-toc__list" role="list">
+              {sections.map((section) => <li><a class="ds-toc__link" href={`#${section.id}`} data-toc-link>{section.title}</a></li>)}
+            </ul>
+          </nav>
+          <div class="ds-article">
+            {sections.map((section) => (
+              <section id={section.id} data-toc-section data-reveal>
+                <h2>{section.title}</h2>
+                {section.body.map((text) => <p>{text}</p>)}
+                {section.list.length > 0 && <ul>{section.list.map((item) => <li>{item}</li>)}</ul>}
+              </section>
+            ))}
+            <div class="ds-author" data-reveal>
+              <span class="ds-author__monogram" aria-hidden="true">AN</span>
+              <p class="ds-author__text"><span class="ds-author__name">Adw. Anna Nowak</span>Partnerka, prawo gospodarcze · tekst sprawdzony 18 listopada 2026</p>
+            </div>
+            <div style="margin-top: var(--space-32)"><InkButton text="Umów konsultację" href={`${base}#kontakt`} /></div>
+          </div>
+        </div>
+      </div>
+    </article>
+    <LawFaq
+      number="i."
+      label="Pytania o tę usługę"
+      title="Najczęściej pytacie"
+      lead="Krótkie odpowiedzi; szczegóły omawiamy na konsultacji."
+      items={[
+        { question: 'Czy możecie sprawdzić umowę przysłaną przez kontrahenta?', answer: 'Tak. Dostajesz wersję ze zmianami i komentarzem, które zapisy są ryzykowne i co zaproponować w zamian.' },
+        { question: 'Czy pomagacie w negocjacjach?', answer: 'Tak, możemy prowadzić korespondencję z kontrahentem albo uczestniczyć w spotkaniu negocjacyjnym.' },
+        { question: 'Czy umowy mogą być po angielsku?', answer: 'Tak, przygotowujemy umowy po polsku, po angielsku i w wersjach dwujęzycznych.' },
+      ]}
+    />
+    <section class="ds-section ds-section--rule" aria-labelledby="related-title">
+      <div class="ds-container">
+        <h2 class="ds-section-head__title" id="related-title" data-reveal>Powiązane usługi</h2>
+        <ul class="ds-related" role="list">
+          <li data-reveal><a class="ds-related__link" href={`${base}#oferta`}>Spory i windykacja</a></li>
+          <li data-reveal><a class="ds-related__link" href={`${base}#oferta`}>Stała obsługa prawna firm</a></li>
+          <li data-reveal><a class="ds-related__link" href={`${base}#oferta`}>RODO i compliance</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+  {schema.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} />)}
+</Layout>

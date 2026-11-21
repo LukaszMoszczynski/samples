@@ -1,0 +1,29 @@
+---
+// Law header. The path switch buttons (data-path-option) set the visitor's path for the whole page (law.js).
+import InkButton from '../../atoms/ink-button/InkButton.astro';
+interface Props { logo: string; logoAlt: string; homeHref: string; items: { text: string; href: string }[]; cta: { text: string; href: string } }
+const { logo, logoAlt, homeHref, items, cta } = Astro.props;
+---
+<header class="ds-law-header" data-law-header>
+  <div class="ds-container ds-law-header__bar">
+    <a class="ds-law-header__logo" href={homeHref}><img src={logo} alt={logoAlt} width="260" height="40" /></a>
+    <nav class="ds-law-header__nav" aria-label="Menu główne">
+      <ul class="ds-law-header__menu" role="list">
+        {items.map((item) => <li><a class="ds-law-header__link" href={item.href}>{item.text}</a></li>)}
+      </ul>
+    </nav>
+    <div class="ds-path-switch" role="group" aria-label="Pokaż ofertę">
+      <button class="ds-path-switch__option" type="button" aria-pressed="true" data-path-option="firmy">Dla firm</button>
+      <button class="ds-path-switch__option" type="button" aria-pressed="false" data-path-option="klienci">Dla Ciebie</button>
+    </div>
+    <InkButton text={cta.text} href={cta.href} />
+    <button class="ds-law-header__burger" type="button" aria-expanded="false" aria-controls="law-drawer" aria-label="Menu" data-law-burger>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+    </button>
+  </div>
+  <div class="ds-container ds-law-header__drawer" id="law-drawer" hidden>
+    <ul class="ds-law-header__menu" role="list">
+      {items.map((item) => <li><a class="ds-law-header__link" href={item.href}>{item.text}</a></li>)}
+    </ul>
+  </div>
+</header>
