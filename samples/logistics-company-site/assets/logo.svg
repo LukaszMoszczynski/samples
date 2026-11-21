@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="40" viewBox="0 0 220 40" role="img" aria-label="Twoja Logistyka">
+  <rect width="40" height="40" rx="8" fill="#0f3a6e"/>
+  <path d="M9 26h14l-4 5h10l6-11H21l4-5H15z" fill="#ff8a3d"/>
+  <text x="50" y="26" font-family="Sora, system-ui, sans-serif" font-size="16" font-weight="700" fill="#16243a">Twoja Logistyka</text>
+</svg>

@@ -1,0 +1,183 @@
+---
+// Logistics company home page, built from design-system sections. Copy is example content written for the brief.
+import Sample from '../layouts/Sample.astro';
+import sample from '../sample.json';
+
+import '../ds/components/atoms/icon/icon.css';
+import '../ds/components/atoms/text/text.css';
+import '../ds/components/atoms/button/button.css';
+import '../ds/components/atoms/tag/tag.css';
+import '../ds/components/atoms/link/link.css';
+import '../ds/components/atoms/nav-link/nav-link.css';
+import '../ds/components/atoms/number/number.css';
+import '../ds/components/atoms/breadcrumbs/breadcrumbs.css';
+import '../ds/components/atoms/form-field/form-field.css';
+import '../ds/components/atoms/social-button/social-button.css';
+import '../ds/components/molecules/accordion/accordion.css';
+import '../ds/components/molecules/card-hero-tile/card-hero-tile.css';
+import '../ds/components/molecules/heading-group/heading-group.css';
+import '../ds/components/molecules/numbered-list/numbered-list.css';
+import '../ds/components/molecules/badge-circular/badge-circular.css';
+import '../ds/components/molecules/card-post/card-post.css';
+import '../ds/components/organisms/mega-menu/mega-menu.css';
+import '../ds/components/organisms/mobile-menu/mobile-menu.css';
+import '../ds/components/organisms/header/header.css';
+import '../ds/components/organisms/call-to-action/call-to-action.css';
+import '../ds/components/organisms/footer/footer.css';
+import '../ds/components/sections/hero/hero.css';
+import '../ds/components/sections/text-image/text-image.css';
+import '../ds/components/sections/faq/faq.css';
+import '../components/sections/page-section/page-section.css';
+import '../components/sections/stats-band/stats-band.css';
+import '../components/sections/post-grid/post-grid.css';
+import '../components/organisms/header-brand/header-brand.css';
+
+import { renderHeader } from '../ds/components/organisms/header/header.template.js';
+import { renderHero } from '../ds/components/sections/hero/hero.template.js';
+import { renderTextImage } from '../ds/components/sections/text-image/text-image.template.js';
+import { renderHeadingGroup } from '../ds/components/molecules/heading-group/heading-group.template.js';
+import { renderCardPost } from '../ds/components/molecules/card-post/card-post.template.js';
+import { renderFaq } from '../ds/components/sections/faq/faq.template.js';
+import { renderCallToAction } from '../ds/components/organisms/call-to-action/call-to-action.template.js';
+import { renderFooter } from '../ds/components/organisms/footer/footer.template.js';
+import logo from '../assets/logo.svg?url';
+import logoLight from '../assets/logo-light.svg?url';
+import wide from '../ds/placeholders/wide.svg?url';
+import landscape from '../ds/placeholders/landscape.svg?url';
+import headerScript from '../ds/components/organisms/header/header.js?url';
+import mobileMenuScript from '../ds/components/organisms/mobile-menu/mobile-menu.js?url';
+import accordionScript from '../ds/components/molecules/accordion/accordion.js?url';
+
+const company = 'Twoja Logistyka';
+const nav = [
+  { text: 'Usługi', href: '#uslugi' },
+  { text: 'Jak działamy', href: '#jak-dzialamy' },
+  { text: 'Aktualności', href: '#aktualnosci' },
+  { text: 'FAQ', href: '#faq' },
+  { text: 'Kontakt', href: '#kontakt' },
+];
+
+const header = renderHeader({
+  items: nav,
+  ctaText: 'Wyceń transport',
+  ctaHref: '#kontakt',
+  logo,
+  logoAlt: company,
+  homeHref: '#',
+  homeAriaLabel: `${company} — strona główna`,
+  badge: '',
+  badgeAlt: '',
+  mobileMenu: { items: nav, buttons: [{ text: 'Wyceń transport', href: '#kontakt' }] },
+});
+
+const hero = renderHero({
+  variant: 'large',
+  title: 'Logistyka, która dowozi na czas',
+  lead: 'Transport krajowy i międzynarodowy, magazynowanie i obsługa e-commerce. Każdą przesyłkę widzisz online, od załadunku do rozładunku.',
+  subtitle: '',
+  button: { text: 'Wyceń transport', href: '#kontakt' },
+  image: wide,
+  imageAlt: '',
+  tiles: [
+    { title: 'Transport FTL i LTL', hashtag: '#transport', text: 'Całe i częściowe ładunki w Polsce i w Unii Europejskiej.', linkText: 'Więcej', href: '#uslugi' },
+    { title: 'Magazyn i fulfillment', hashtag: '#magazyn', text: 'Składowanie, kompletacja i wysyłka zamówień ze sklepów internetowych.', linkText: 'Więcej', href: '#uslugi' },
+    { title: 'Śledzenie online', hashtag: '#technologia', text: 'Status, GPS i dokumenty każdej przesyłki w jednym panelu klienta.', linkText: 'Więcej', href: '#uslugi' },
+  ],
+});
+
+const stats = [
+  { value: '15 lat', label: 'na rynku TSL' },
+  { value: '120', label: 'pojazdów we flocie' },
+  { value: '24/7', label: 'dyspozytornia' },
+  { value: '98%', label: 'dostaw na czas' },
+];
+
+const howWeWork = renderTextImage({
+  variant: 'image-left',
+  overline: 'Jak działamy',
+  title: 'Od zapytania do dostawy w czterech krokach',
+  text: '',
+  steps: ['Wycena w 2 godziny', 'Plan trasy i załadunku', 'Transport z podglądem GPS', 'Dokumenty i rozliczenie online'],
+  actions: [],
+  image: landscape,
+  imageAlt: '',
+});
+
+const newsHeading = renderHeadingGroup({
+  overline: 'Aktualności i wydarzenia',
+  title: 'Co słychać w firmie',
+  lead: '',
+  leadStrong: '',
+});
+const posts = [
+  { title: 'Nowy magazyn pod Łodzią: 12 000 m² dla e-commerce', excerpt: 'Więcej miejsca na składowanie i szybsza wysyłka zamówień w całej Polsce.', date: '14 listopada 2026', datetime: '2026-11-14' },
+  { title: 'Spotkajmy się na targach logistycznych w Poznaniu', excerpt: 'Stoisko B12: pokażemy panel klienta i nowe trasy do Skandynawii.', date: '3 listopada 2026', datetime: '2026-11-03' },
+  { title: 'Panel klienta 2.0: dokumenty CMR bez papieru', excerpt: 'Podpisane dokumenty przewozowe pobierzesz od razu po rozładunku.', date: '21 października 2026', datetime: '2026-10-21' },
+].map((post) => renderCardPost({ ...post, image: landscape, href: '#aktualnosci', headingTag: 'h3' }));
+
+const faq = renderFaq({
+  overline: 'FAQ',
+  title: 'Najczęstsze pytania',
+  lead: '',
+  items: [
+    { question: 'Jak szybko dostanę wycenę?', answer: 'Zwykle w ciągu 2 godzin w dni robocze. Pilne zlecenia wyceniamy od ręki przez telefon.' },
+    { question: 'Czy przewozicie ładunki ADR?', answer: 'Tak, mamy kierowców z uprawnieniami ADR i pojazdy przystosowane do wybranych klas.' },
+    { question: 'Gdzie sprawdzę status przesyłki?', answer: 'W panelu klienta: status, pozycja GPS i dokumenty są tam od momentu załadunku.' },
+    { question: 'Czy obsługujecie sklepy internetowe?', answer: 'Tak: magazynujemy towar, kompletujemy zamówienia i wysyłamy je kurierem lub naszą flotą.' },
+  ],
+});
+
+const contact = renderCallToAction({
+  variant: 'band',
+  title: 'Potrzebujesz transportu?',
+  text: 'Opisz ładunek i trasę, a wycenę dostaniesz jeszcze dziś.',
+  buttons: [{ text: 'Zapytaj o wycenę', href: '#kontakt' }],
+});
+
+const footer = renderFooter({
+  newsletter: null,
+  logo: logoLight,
+  logoAlt: company,
+  homeHref: '#',
+  homeAriaLabel: `${company} — strona główna`,
+  badges: [],
+  hashtag: '',
+  about: 'Transport, magazynowanie i obsługa e-commerce dla firm w Polsce i w Europie.',
+  office: { title: 'Biuro', lines: [company, 'ul. Przykładowa 12', '00-001 Warszawa'] },
+  contact: { title: 'Kontakt', phone: '+48 600 000 000', email: 'biuro@example.com', social: [{ network: 'linkedin', href: '#' }] },
+  menu: { title: 'Menu', items: nav },
+  services: { title: 'Usługi', items: [
+    { text: 'Transport FTL i LTL', href: '#uslugi' },
+    { text: 'Magazyn i fulfillment', href: '#uslugi' },
+    { text: 'Śledzenie online', href: '#uslugi' },
+  ] },
+  copyright: `© 2026 ${company}. Przykładowa strona.`,
+  legal: [{ text: 'Polityka prywatności', href: '#' }],
+});
+---
+<Sample lang={sample.lang} title={sample.title} description="Przykładowa strona firmy logistycznej." fonts="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Sora:wght@600;700&display=swap">
+  <Fragment set:html={header} />
+  <main>
+    <div id="uslugi"><Fragment set:html={hero} /></div>
+    <section class="ds-stats" aria-label="Firma w liczbach">
+      <ul class="ds-stats__list" role="list">
+        {stats.map((stat) => (
+          <li class="ds-stats__item"><span class="ds-stats__value">{stat.value}</span><span class="ds-stats__label">{stat.label}</span></li>
+        ))}
+      </ul>
+    </section>
+    <div id="jak-dzialamy"><Fragment set:html={howWeWork} /></div>
+    <section id="aktualnosci" class="ds-page-section ds-post-grid" aria-labelledby="aktualnosci-title">
+      <Fragment set:html={newsHeading.replace('<h2', '<h2 id="aktualnosci-title"')} />
+      <ul class="ds-post-grid__list" role="list">
+        {posts.map((post) => <li><Fragment set:html={post} /></li>)}
+      </ul>
+    </section>
+    <div id="faq"><Fragment set:html={faq} /></div>
+    <section id="kontakt" class="ds-page-section" aria-label="Kontakt"><Fragment set:html={contact} /></section>
+  </main>
+  <Fragment set:html={footer} />
+  <script is:inline src={accordionScript}></script>
+  <script is:inline src={headerScript}></script>
+  <script is:inline src={mobileMenuScript}></script>
+</Sample>

@@ -1,0 +1,9 @@
+{
+  "slug": "logistics-company-site",
+  "stack": "astro",
+  "lang": "pl",
+  "title": "Firma logistyczna – przykładowa strona",
+  "pages": [
+    "index"
+  ]
+}

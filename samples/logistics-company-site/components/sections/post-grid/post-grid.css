@@ -1,0 +1,21 @@
+/* Post grid: a heading and three Card/Post side by side (news, events). New in this sample. */
+/* Three cards in a row: each Card/Post stacks its photo above the text instead of side by side. */
+.ds-post-grid .ds-card-post {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.ds-post-grid__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-32);
+  margin: var(--space-40) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (max-width: 1023px) {
+  .ds-post-grid__list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-24);
+  }
+}

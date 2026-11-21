@@ -1,0 +1,4 @@
+/* Header brand: the sample has no partner badge, so the design system's empty badge slot is hidden. */
+.ds-header__badge--placeholder {
+  display: none;
+}

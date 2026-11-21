@@ -1,0 +1,9 @@
+{
+  "slug": "pipeline-check",
+  "stack": "astro",
+  "lang": "en",
+  "title": "Pipeline check",
+  "pages": [
+    "index"
+  ]
+}
