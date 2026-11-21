@@ -6,6 +6,9 @@ import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
+// Entrance targets are hidden by CSS from the first paint while <html data-motion> is set; tell the page we are here.
+document.documentElement.setAttribute('data-motion-ready', '');
+
 // Header: solid once the page scrolls; drawer on phones.
 const header = document.querySelector('[data-site-header]');
 const burger = document.querySelector('[data-site-burger]');
@@ -52,14 +55,13 @@ const motion = gsap.matchMedia();
 motion.add('(prefers-reduced-motion: no-preference)', () => {
   // Hero: copy rises in, the route draws itself, cities pop, the vehicle drives the route, the chip slides in.
   const intro = gsap.timeline({ defaults: { ease: 'power3.out' } });
-  intro.from('[data-hero-item]', { y: 28, opacity: 0, duration: 0.8, stagger: 0.09 });
+  intro.fromTo('[data-hero-item]', { y: 28, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.09 });
   const line = document.querySelector('[data-route-line]');
   if (line) {
-    const length = line.getTotalLength();
-    intro
-      .from('[data-route-city]', { opacity: 0, scale: 0.4, transformOrigin: 'center', duration: 0.4, stagger: 0.05 }, 0.2)
-      .fromTo(line, { strokeDasharray: length, strokeDashoffset: length }, { strokeDashoffset: 0, duration: 1.6, ease: 'power2.inOut' }, 0.5)
-      .from('[data-route-chip]', { y: 20, opacity: 0, duration: 0.6 }, 1.6);
+        intro
+      .fromTo('[data-route-city]', { opacity: 0, scale: 0.4, transformOrigin: 'center' }, { opacity: 1, scale: 1, duration: 0.4, stagger: 0.05 }, 0.2)
+      .fromTo(line, { strokeDasharray: 1000, strokeDashoffset: 1000 }, { strokeDashoffset: 0, duration: 1.6, ease: 'power2.inOut' }, 0.5)
+      .fromTo('[data-route-chip]', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6 }, 1.6);
     gsap.to('[data-route-truck]', {
       motionPath: { path: line, align: line, alignOrigin: [0.5, 0.5] },
       duration: 7,
@@ -74,7 +76,7 @@ motion.add('(prefers-reduced-motion: no-preference)', () => {
   ScrollTrigger.batch('[data-reveal]', {
     start: 'top 85%',
     once: true,
-    onEnter: (elements) => gsap.from(elements, { y: 32, opacity: 0, duration: 0.7, stagger: 0.08, ease: 'power3.out' }),
+    onEnter: (elements) => gsap.fromTo(elements, { y: 32, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, stagger: 0.08, ease: 'power3.out' }),
   });
 
   // Figures count up.

@@ -116,6 +116,25 @@ body {
   outline-offset: var(--focus-ring-offset);
 }
 
+
+/* Entrance targets start hidden from the first paint while the script is coming (html[data-motion], set in the head
+   only without a reduced-motion preference); the script animates them in. */
+[data-motion] [data-reveal],
+[data-motion] [data-gallery-item],
+[data-motion] [data-hero-title],
+[data-motion] [data-hero-fade] {
+  opacity: 0;
+}
+
+[data-motion] :is([data-hero-heart], [data-hero-heart-inner], [data-hero-ring], [data-hero-stone], [data-hero-small-heart]) {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+[data-motion] :is([data-hero-stone], [data-hero-small-heart]) {
+  fill-opacity: 0;
+}
+
 /* Anything marked hidden stays hidden, whatever display a component sets. */
 [hidden] {
   display: none !important;

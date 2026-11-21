@@ -5,6 +5,9 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Entrance targets are hidden by CSS from the first paint while <html data-motion> is set; tell the page we are here.
+document.documentElement.setAttribute('data-motion-ready', '');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // Header: hairline once scrolled; drawer on narrow screens.
@@ -75,9 +78,9 @@ const motion = gsap.matchMedia();
 motion.add('(prefers-reduced-motion: no-preference)', () => {
   // Hero: words rise in one by one, the rest fades up, the doors follow; the § draws itself, the seal turns.
   gsap.timeline({ defaults: { ease: 'power3.out' } })
-    .from('[data-hero-word]', { yPercent: 60, opacity: 0, duration: 0.9, stagger: 0.12 })
-    .from('[data-hero-fade]', { y: 20, opacity: 0, duration: 0.7, stagger: 0.1 }, 0.15)
-    .from('[data-hero-door]', { y: 40, opacity: 0, duration: 0.8, stagger: 0.12 }, 0.45);
+    .fromTo('[data-hero-word]', { yPercent: 60, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.9, stagger: 0.12 })
+    .fromTo('[data-hero-fade]', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, stagger: 0.1 }, 0.15)
+    .fromTo('[data-hero-door]', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.12 }, 0.45);
   const sign = document.querySelector('[data-seal-sign]');
   if (sign) gsap.fromTo(sign, { strokeDasharray: 420, strokeDashoffset: 420 }, { strokeDashoffset: 0, duration: 2.4, ease: 'power2.inOut', delay: 0.4 });
   gsap.to('[data-seal-ring]', { rotation: 360, svgOrigin: '80 80', duration: 40, ease: 'none', repeat: -1 });
@@ -85,7 +88,7 @@ motion.add('(prefers-reduced-motion: no-preference)', () => {
   ScrollTrigger.batch('[data-reveal]', {
     start: 'top 85%',
     once: true,
-    onEnter: (elements) => gsap.from(elements, { y: 30, opacity: 0, duration: 0.8, stagger: 0.1, ease: 'power3.out' }),
+    onEnter: (elements) => gsap.fromTo(elements, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: 'power3.out' }),
   });
 
   gsap.utils.toArray('[data-monogram-ring]').forEach((ring) => {

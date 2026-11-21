@@ -34,7 +34,7 @@ const route = 'M262 58 C 300 100, 322 130, 318 176 S 250 226, 196 248 S 130 266,
     <div class="ds-route-hero__map" data-hero-map>
       <svg class="ds-route-hero__svg" viewBox="0 0 420 400" aria-hidden="true">
         <path d="M92 150 L176 160 L318 176 M176 160 L196 248 L214 360 M196 248 L300 300 L318 176 M108 292 L214 360" fill="none" stroke="currentColor" stroke-opacity="0.2" stroke-dasharray="3 6" />
-        <path d={route} fill="none" stroke="var(--palette-accent-400)" stroke-width="3" stroke-linecap="round" data-route-line />
+        <path d={route} fill="none" stroke="var(--palette-accent-400)" stroke-width="3" stroke-linecap="round" pathLength="1000" data-route-line />
         {cities.map((city) => (
           <g data-route-city>
             <circle cx={city.x} cy={city.y} r="5" fill="currentColor" />

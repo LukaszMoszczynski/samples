@@ -69,6 +69,21 @@ body {
   white-space: nowrap;
 }
 
+
+/* Entrance targets start hidden from the first paint while the script is coming (html[data-motion], set in the head
+   only without a reduced-motion preference); the script animates them in. */
+[data-motion] [data-reveal],
+[data-motion] [data-hero-item],
+[data-motion] [data-route-city],
+[data-motion] [data-route-chip] {
+  opacity: 0;
+}
+
+[data-motion] [data-route-line] {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
 /* Anything marked hidden stays hidden, whatever display a component sets. */
 [hidden] {
   display: none !important;

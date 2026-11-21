@@ -20,6 +20,8 @@ const { lang, title, description = '', fonts = 'https://fonts.googleapis.com/css
     <meta name="robots" content="noindex" />
     <!-- A reload starts at the top; runs before the browser restores the old scroll position. -->
     <script is:inline>if ("scrollRestoration" in history) history.scrollRestoration = "manual"; if (!location.hash) { window.scrollTo(0, 0); addEventListener("load", function () { window.scrollTo(0, 0); }); }</script>
+    <!-- Elements that animate in start hidden from the first paint (no flash); shown anyway if the script never runs. -->
+    <script is:inline>if (!matchMedia("(prefers-reduced-motion: reduce)").matches) { var root = document.documentElement; root.setAttribute("data-motion", ""); setTimeout(function () { if (!root.hasAttribute("data-motion-ready")) root.removeAttribute("data-motion"); }, 4000); }</script>
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     <link rel="preconnect" href="https://fonts.googleapis.com" />

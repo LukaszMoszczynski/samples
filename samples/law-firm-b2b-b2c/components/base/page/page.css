@@ -100,6 +100,21 @@ body {
   outline-offset: var(--focus-ring-offset);
 }
 
+
+/* Entrance targets start hidden from the first paint while the script is coming (html[data-motion], set in the head
+   only without a reduced-motion preference); the script animates them in. */
+[data-motion] [data-reveal],
+[data-motion] [data-hero-word],
+[data-motion] [data-hero-fade],
+[data-motion] [data-hero-door] {
+  opacity: 0;
+}
+
+[data-motion] [data-seal-sign] {
+  stroke-dasharray: 420;
+  stroke-dashoffset: 420;
+}
+
 /* Anything marked hidden stays hidden, whatever display a component sets. */
 [hidden] {
   display: none !important;

@@ -5,6 +5,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Draggable } from 'gsap/Draggable';
 
 gsap.registerPlugin(ScrollTrigger, Draggable);
+
+// Entrance targets are hidden by CSS from the first paint while <html data-motion> is set; tell the page we are here.
+document.documentElement.setAttribute('data-motion-ready', '');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // Header: soft shadow once scrolled; drawer on narrow screens.
@@ -201,9 +204,9 @@ motion.add('(prefers-reduced-motion: no-preference)', () => {
   // Hero: the headline softly un-blurs in, the accent word floats up; the heart draws itself in one gold line,
   // the rings link, the small heart beats, and hearts drift up the background.
   gsap.timeline({ defaults: { ease: 'power3.out' } })
-    .from('[data-hero-title]', { opacity: 0, y: 30, filter: 'blur(8px)', duration: 1.1 })
-    .from('[data-hero-accent]', { y: 20, opacity: 0, duration: 0.8 }, 0.35)
-    .from('[data-hero-fade]', { y: 20, opacity: 0, duration: 0.7, stagger: 0.1 }, 0.3)
+    .fromTo('[data-hero-title]', { opacity: 0, y: 30, filter: 'blur(8px)' }, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.1 })
+    .fromTo('[data-hero-accent]', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8 }, 0.35)
+    .fromTo('[data-hero-fade]', { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, stagger: 0.1 }, 0.3)
     .fromTo('[data-hero-heart]', { strokeDasharray: 1000, strokeDashoffset: 1000 }, { strokeDashoffset: 0, duration: 2.2, ease: 'power2.inOut' }, 0.2)
     .fromTo('[data-hero-heart-inner]', { strokeDasharray: 1000, strokeDashoffset: 1000 }, { strokeDashoffset: 0, duration: 1.6, ease: 'power2.inOut' }, 0.8)
     .fromTo('[data-hero-ring]', { strokeDasharray: 1000, strokeDashoffset: 1000 }, { strokeDashoffset: 0, duration: 1.3, stagger: 0.3, ease: 'power2.inOut' }, 1)
@@ -239,7 +242,7 @@ motion.add('(prefers-reduced-motion: no-preference)', () => {
   ScrollTrigger.batch('[data-reveal]', {
     start: 'top 85%',
     once: true,
-    onEnter: (elements) => gsap.from(elements, { y: 34, opacity: 0, duration: 0.9, stagger: 0.12, ease: 'power3.out' }),
+    onEnter: (elements) => gsap.fromTo(elements, { y: 34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.9, stagger: 0.12, ease: 'power3.out' }),
   });
 
   // About: the arch draws, the monogram fades up, the heart beats.
@@ -260,6 +263,6 @@ motion.add('(prefers-reduced-motion: no-preference)', () => {
   ScrollTrigger.batch('[data-gallery-item]', {
     start: 'top 90%',
     once: true,
-    onEnter: (elements) => gsap.from(elements, { y: 40, opacity: 0, scale: 0.96, duration: 0.8, stagger: 0.08, ease: 'power3.out' }),
+    onEnter: (elements) => gsap.fromTo(elements, { y: 40, opacity: 0, scale: 0.96 }, { y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.08, ease: 'power3.out' }),
   });
 });
