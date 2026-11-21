@@ -8,6 +8,7 @@ import '../components/base/page/page.css';
 import '../components/atoms/signal-button/signal-button.css';
 import '../components/atoms/mono-label/mono-label.css';
 import '../components/molecules/service-card/service-card.css';
+import '../components/molecules/illustration/illustration.css';
 import '../components/molecules/news-card/news-card.css';
 import '../components/organisms/site-header/site-header.css';
 import '../components/organisms/site-footer/site-footer.css';
@@ -34,7 +35,6 @@ import FaqList from '../components/sections/faq-list/FaqList.astro';
 import QuoteForm from '../components/sections/quote-form/QuoteForm.astro';
 import SiteFooter from '../components/organisms/site-footer/SiteFooter.astro';
 import logoLight from '../assets/logo-light.svg?url';
-import landscape from '../ds/placeholders/landscape.svg?url';
 
 const company = 'Twoja Logistyka';
 const nav = [
@@ -133,9 +133,9 @@ const services = [
           <a class="ds-news-grid__all" href="#aktualnosci">Wszystkie wpisy →</a>
         </div>
         <ul class="ds-news-grid__list" role="list">
-          <li><NewsCard kind="news" date="14 listopada 2026" datetime="2026-11-14" title="Nowy magazyn pod Łodzią: 12 000 m² dla e-commerce" image={landscape} href="#aktualnosci" /></li>
-          <li><NewsCard kind="event" date="3 grudnia 2026" datetime="2026-12-03" title="Spotkajmy się na targach logistycznych w Poznaniu, stoisko B12" image={landscape} href="#aktualnosci" /></li>
-          <li><NewsCard kind="news" date="21 października 2026" datetime="2026-10-21" title="Panel klienta 2.0: dokumenty CMR bez papieru" image={landscape} href="#aktualnosci" /></li>
+          <li><NewsCard kind="news" date="14 listopada 2026" datetime="2026-11-14" title="Nowy magazyn pod Łodzią: 12 000 m² dla e-commerce" art="warehouse" href="#aktualnosci" /></li>
+          <li><NewsCard kind="event" date="3 grudnia 2026" datetime="2026-12-03" title="Spotkajmy się na targach logistycznych w Poznaniu, stoisko B12" art="event" href="#aktualnosci" /></li>
+          <li><NewsCard kind="news" date="21 października 2026" datetime="2026-10-21" title="Panel klienta 2.0: dokumenty CMR bez papieru" art="document" href="#aktualnosci" /></li>
         </ul>
       </div>
     </section>

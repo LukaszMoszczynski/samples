@@ -113,6 +113,24 @@ motion.add('(prefers-reduced-motion: no-preference)', () => {
     });
   }
 
+  // FAQ: the answer slides open and closed (native details without motion).
+  gsap.utils.toArray('.ds-faq__item').forEach((item) => {
+    const summary = item.querySelector('summary');
+    const panel = item.querySelector('.ds-faq__panel');
+    summary.addEventListener('click', (event) => {
+      event.preventDefault();
+      if (item.dataset.animating) return;
+      item.dataset.animating = 'true';
+      const done = () => { delete item.dataset.animating; gsap.set(panel, { clearProps: 'height,opacity' }); };
+      if (item.open) {
+        gsap.to(panel, { height: 0, opacity: 0, duration: 0.35, ease: 'power2.inOut', onComplete: () => { item.open = false; done(); } });
+      } else {
+        item.open = true;
+        gsap.from(panel, { height: 0, opacity: 0, duration: 0.45, ease: 'power2.out', onComplete: done });
+      }
+    });
+  });
+
   // Coverage: arcs draw out from the hub, then the destination dots pop.
   const map = document.querySelector('[data-coverage-map]');
   if (map) {

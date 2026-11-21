@@ -16,15 +16,11 @@
   background: var(--color-surface-soft);
 }
 
-.ds-news-card__image {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.ds-news-card__media .ds-illustration {
   transition: transform 0.5s ease;
 }
 
-.ds-news-card:hover .ds-news-card__image {
+.ds-news-card:hover .ds-news-card__media .ds-illustration {
   transform: scale(1.05);
 }
 
@@ -72,7 +68,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ds-news-card__image {
+  .ds-news-card__media .ds-illustration {
     transition: none;
   }
 }

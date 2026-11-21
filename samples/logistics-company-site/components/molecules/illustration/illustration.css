@@ -1,0 +1,166 @@
+/* Illustration: line drawings on a soft grid, in brand colours, each with one small loop (boxes stacking, a pulsing
+   pin, a tick drawing). Loops stop under reduced motion. */
+.ds-illustration {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ds-illustration__ground {
+  fill: var(--color-surface-inverse);
+}
+
+.ds-illustration__grid line {
+  stroke: var(--color-text-on-brand);
+  stroke-opacity: 0.07;
+}
+
+.ds-illustration__line,
+.ds-illustration__text {
+  fill: none;
+  stroke: var(--color-text-on-brand);
+  stroke-opacity: 0.75;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ds-illustration__text {
+  stroke-opacity: 0.35;
+  stroke-width: 4;
+}
+
+.ds-illustration__label {
+  fill: var(--palette-accent-400);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-illustration__box {
+  fill: var(--palette-primary-400);
+  stroke: var(--color-surface-inverse);
+  stroke-width: 2;
+}
+
+.ds-illustration__accent {
+  fill: var(--palette-accent-400);
+  stroke: var(--color-surface-inverse);
+  stroke-width: 2;
+}
+
+.ds-illustration__cell {
+  fill: var(--color-text-on-brand);
+  fill-opacity: 0.18;
+}
+
+.ds-illustration__pulse {
+  fill: none;
+  stroke: var(--palette-accent-400);
+  stroke-width: 2;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.ds-illustration__seal {
+  fill: none;
+  stroke: var(--palette-accent-400);
+  stroke-width: 2;
+  stroke-dasharray: 4 4;
+}
+
+.ds-illustration__tick {
+  fill: none;
+  stroke: var(--palette-accent-400);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ds-illustration__box,
+  .ds-illustration__accent {
+    transform-box: fill-box;
+    animation: ds-illustration-drop 4s ease-in-out infinite;
+  }
+
+  .ds-illustration__box--2 {
+    animation-delay: 0.3s;
+  }
+
+  .ds-illustration__box--3 {
+    animation-delay: 0.6s;
+  }
+
+  .ds-illustration__box--4 {
+    animation-delay: 0.9s;
+  }
+
+  .ds-illustration__pulse {
+    animation: ds-illustration-pulse 2s ease-out infinite;
+  }
+
+  .ds-illustration__seal {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: ds-illustration-spin 12s linear infinite;
+  }
+
+  .ds-illustration__tick {
+    animation: ds-illustration-draw 3s ease-in-out infinite;
+  }
+}
+
+@keyframes ds-illustration-drop {
+  0%,
+  10% {
+    opacity: 0;
+    transform: translateY(-120%);
+  }
+
+  25%,
+  85% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ds-illustration-pulse {
+  from {
+    opacity: 1;
+    transform: scale(0.6);
+  }
+
+  to {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+}
+
+@keyframes ds-illustration-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes ds-illustration-draw {
+  0%,
+  15% {
+    stroke-dashoffset: 1;
+  }
+
+  45%,
+  85% {
+    stroke-dashoffset: 0;
+  }
+
+  100% {
+    stroke-dashoffset: 1;
+  }
+}

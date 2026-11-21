@@ -14,7 +14,7 @@ const { id, label, title, lead, items } = Astro.props;
       {items.map((item) => (
         <details class="ds-faq__item">
           <summary class="ds-faq__question">{item.question}<span class="ds-faq__plus" aria-hidden="true"></span></summary>
-          <p class="ds-faq__answer">{item.answer}</p>
+          <div class="ds-faq__panel"><p class="ds-faq__answer">{item.answer}</p></div>
         </details>
       ))}
     </div>

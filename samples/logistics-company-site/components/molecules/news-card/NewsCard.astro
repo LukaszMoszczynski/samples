@@ -1,11 +1,12 @@
 ---
-interface Props { kind: 'news' | 'event'; date: string; datetime: string; title: string; image: string; href: string }
-const { kind, date, datetime, title, image, href } = Astro.props;
+import Illustration from "../illustration/Illustration.astro";
+interface Props { kind: "news" | "event"; date: string; datetime: string; title: string; art: "warehouse" | "event" | "document"; href: string }
+const { kind, date, datetime, title, art, href } = Astro.props;
 ---
 <a class="ds-news-card" href={href} data-reveal>
-  <span class="ds-news-card__media"><img class="ds-news-card__image" src={image} alt="" loading="lazy" /></span>
+  <span class="ds-news-card__media"><Illustration art={art} /></span>
   <span class="ds-news-card__meta">
-    <span class={`ds-news-card__kind${kind === 'event' ? ' ds-news-card__kind--event' : ''}`}>{kind === 'event' ? 'Wydarzenie' : 'Aktualność'}</span>
+    <span class={`ds-news-card__kind${kind === "event" ? " ds-news-card__kind--event" : ""}`}>{kind === "event" ? "Wydarzenie" : "Aktualność"}</span>
     <time datetime={datetime}>{date}</time>
   </span>
   <h3 class="ds-news-card__title">{title}</h3>

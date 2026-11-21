@@ -1,0 +1,44 @@
+---
+// Illustration: small looping line drawings in place of photos (decorative, aria-hidden).
+// art: warehouse (boxes stack on a shelf), event (a calendar with a pulsing pin), document (a CMR with a tick drawing).
+interface Props { art: 'warehouse' | 'event' | 'document' }
+const { art } = Astro.props;
+---
+<svg class={`ds-illustration ds-illustration--${art}`} viewBox="0 0 320 200" aria-hidden="true">
+  <rect class="ds-illustration__ground" x="0" y="0" width="320" height="200" />
+  <g class="ds-illustration__grid">
+    {[40, 80, 120, 160].map((y) => <line x1="0" x2="320" y1={y} y2={y} />)}
+    {[40, 80, 120, 160, 200, 240, 280].map((x) => <line y1="0" y2="200" x1={x} x2={x} />)}
+  </g>
+  {art === 'warehouse' && (
+    <g>
+      <path class="ds-illustration__line" d="M70 170 V80 L160 40 L250 80 V170" />
+      <line class="ds-illustration__line" x1="50" x2="270" y1="170" y2="170" />
+      <rect class="ds-illustration__box ds-illustration__box--1" x="110" y="140" width="40" height="30" />
+      <rect class="ds-illustration__box ds-illustration__box--2" x="150" y="140" width="40" height="30" />
+      <rect class="ds-illustration__box ds-illustration__box--3" x="130" y="110" width="40" height="30" />
+      <rect class="ds-illustration__accent ds-illustration__box--4" x="190" y="140" width="40" height="30" />
+    </g>
+  )}
+  {art === 'event' && (
+    <g>
+      <rect class="ds-illustration__line" x="90" y="45" width="140" height="120" rx="6" />
+      <line class="ds-illustration__line" x1="90" x2="230" y1="75" y2="75" />
+      <line class="ds-illustration__line" x1="120" x2="120" y1="35" y2="55" />
+      <line class="ds-illustration__line" x1="200" x2="200" y1="35" y2="55" />
+      {[0, 1, 2, 3].flatMap((row) => [0, 1, 2, 3, 4].map((column) => <rect class="ds-illustration__cell" x={102 + column * 24} y={86 + row * 18} width="16" height="10" />))}
+      <rect class="ds-illustration__accent" x="174" y="104" width="16" height="10" />
+      <circle class="ds-illustration__pulse" cx="182" cy="109" r="14" />
+    </g>
+  )}
+  {art === 'document' && (
+    <g>
+      <path class="ds-illustration__line" d="M115 30 H195 L215 50 V170 H115 Z" />
+      <path class="ds-illustration__line" d="M195 30 V50 H215" />
+      {[70, 88, 106, 124].map((y, index) => <line class="ds-illustration__text" x1="130" x2={index % 2 ? 180 : 200} y1={y} y2={y} />)}
+      <text class="ds-illustration__label" x="130" y="58">CMR</text>
+      <circle class="ds-illustration__seal" cx="205" cy="150" r="26" />
+      <path class="ds-illustration__tick" d="M193 150 l8 8 16 -18" pathLength="1" />
+    </g>
+  )}
+</svg>
