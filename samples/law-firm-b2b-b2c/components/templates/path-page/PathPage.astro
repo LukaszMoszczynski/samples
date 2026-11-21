@@ -1,0 +1,62 @@
+---
+// Audience page template (dla-firm, dla-ciebie): hero, every service + contact box, steps, FAQ, contact preset to
+// this audience. Structured data: BreadcrumbList (+ FAQPage from LawFaq).
+import Layout from '../../../layouts/Law.astro';
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import InkButton from '../../atoms/ink-button/InkButton.astro';
+import ServiceRow from '../../molecules/service-row/ServiceRow.astro';
+import ContactBox from '../../molecules/contact-box/ContactBox.astro';
+import Steps from '../../sections/steps/Steps.astro';
+import LawFaq from '../../sections/law-faq/LawFaq.astro';
+import Contact from '../../sections/contact/Contact.astro';
+import { AUDIENCES } from '../../../data/offer.js';
+
+interface Props { audience: 'firmy' | 'klienci'; title: string; accent: string; description: string }
+const { audience, title, accent, description } = Astro.props;
+const base = import.meta.env.BASE_URL + 'law-firm-b2b-b2c/';
+const offer = AUDIENCES[audience];
+const other = AUDIENCES[audience === 'firmy' ? 'klienci' : 'firmy'];
+const [before, after] = title.split(accent);
+const breadcrumbs = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Strona główna', item: base },
+    { '@type': 'ListItem', position: 2, name: offer.label },
+  ],
+};
+---
+<Layout title={`${offer.label} – Kancelaria Przykładowa`} description={description} homeHref={base}>
+  <main>
+    <section class="ds-path-page" aria-labelledby="path-title">
+      <div class="ds-container">
+        <nav aria-label="Okruszki">
+          <ol class="ds-breadcrumbs">
+            <li><a class="ds-ink-link" href={base}>Strona główna</a></li>
+            <li aria-current="page">{offer.label}</li>
+          </ol>
+        </nav>
+        <div data-hero-fade><Eyebrow text={offer.label} /></div>
+        <h1 class="ds-path-page__title" id="path-title" data-hero-fade>{before}<em>{accent}</em>{after}</h1>
+        <p class="ds-path-page__lead" data-hero-fade>{offer.lead}</p>
+        <div class="ds-path-page__actions" data-hero-fade>
+          <InkButton text={offer.box.cta} href="#kontakt" />
+          <a class="ds-path-page__other ds-text-link" href={base + other.page}>{other.question} {other.cta}</a>
+        </div>
+        <div class="ds-path-page__layout">
+          <div>
+            <h2 class="ds-path-page__services-title" data-reveal>W czym pomagamy</h2>
+            <ul class="ds-path-page__services" role="list">
+              {offer.services.map((service, index) => <li data-reveal><ServiceRow index={index} name={service.name} line={service.line} href={base + service.href} /></li>)}
+            </ul>
+          </div>
+          <div data-reveal><ContactBox title={offer.box.title} text={offer.box.text} contact={offer.box.contact} cta={{ text: offer.box.cta, href: '#kontakt' }} /></div>
+        </div>
+      </div>
+    </section>
+    <Steps number="i." label="Jak pracujemy" title={audience === 'firmy' ? 'Współpraca <em>bez</em> zbędnych formalności' : 'Trzy kroki, <em>bez</em> niespodzianek'} steps={offer.steps} />
+    <LawFaq number="ii." label="FAQ" title="Częste pytania" lead="Nie widzisz swojego pytania? Napisz, odpowiadamy w ciągu jednego dnia roboczego." items={offer.faq} />
+    <Contact number="iii." label="Kontakt" title="Opowiedz nam <em>o sprawie</em>" lead="Wiadomość trafi od razu do zespołu, który zajmuje się takimi sprawami." path={audience} />
+  </main>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbs)} />
+</Layout>

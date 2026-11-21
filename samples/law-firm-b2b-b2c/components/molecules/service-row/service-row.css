@@ -1,0 +1,93 @@
+/* Service row: number, service name with one line, arrow. Hover: a pale green fill sweeps in, the text slides,
+   the number turns green, the arrow moves. */
+.ds-service-row {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: var(--space-40) minmax(0, 1fr) var(--size-24);
+  gap: var(--space-20);
+  align-items: center;
+  padding-block: var(--space-20);
+  border-bottom: 1px solid var(--color-border-default);
+  color: inherit;
+  text-decoration: none;
+}
+
+.ds-service-row::before {
+  content: "";
+  position: absolute;
+  inset: 0 calc(var(--space-16) * -1);
+  z-index: -1;
+  border-radius: var(--radius-xs);
+  background: var(--color-surface-soft);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.ds-service-row:hover::before,
+.ds-service-row:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.ds-service-row__number,
+.ds-service-row__text {
+  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1), color 0.3s ease;
+}
+
+.ds-service-row:hover .ds-service-row__number {
+  color: var(--color-brand-primary);
+}
+
+.ds-service-row:hover .ds-service-row__text {
+  transform: translateX(var(--space-8));
+}
+
+.ds-service-row__text {
+  display: block;
+}
+
+.ds-service-row__number {
+  font-family: var(--font-heading);
+  font-style: italic;
+  color: var(--color-brand-accent);
+}
+
+.ds-service-row__name {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  line-height: var(--font-line-height-lg);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-service-row__line {
+  display: block;
+  margin-top: var(--space-4);
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+}
+
+.ds-service-row__arrow {
+  width: var(--size-20);
+  height: var(--size-20);
+  color: var(--color-brand-primary);
+  transition: transform 0.3s ease;
+}
+
+.ds-service-row:hover .ds-service-row__name {
+  color: var(--color-brand-primary);
+}
+
+.ds-service-row:hover .ds-service-row__arrow {
+  transform: translateX(var(--space-6));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-service-row::before,
+  .ds-service-row__number,
+  .ds-service-row__text,
+  .ds-service-row__arrow {
+    transition: none;
+  }
+}

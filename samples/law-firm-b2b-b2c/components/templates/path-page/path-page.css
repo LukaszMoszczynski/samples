@@ -1,0 +1,73 @@
+/* Audience page: breadcrumbs, a serif title for this audience, its lead and two buttons (contact, and a quiet link
+   to the other audience's page), then every service beside this audience's contact box. */
+.ds-path-page {
+  padding-block: var(--space-48) var(--space-section-y);
+}
+
+.ds-path-page__title {
+  max-width: calc(var(--layout-container) * 0.75);
+  margin: var(--space-16) 0 var(--space-24);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-80);
+  line-height: 1.05;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: calc(var(--space-1) * -1);
+  text-wrap: balance;
+}
+
+.ds-path-page__title em {
+  font-style: italic;
+  color: var(--color-brand-primary);
+}
+
+.ds-path-page__lead {
+  max-width: calc(var(--layout-container) * 0.55);
+  margin: 0 0 var(--space-32);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+}
+
+.ds-path-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-24);
+  margin-bottom: var(--space-64);
+}
+
+.ds-path-page__other {
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-path-page__layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: var(--space-48);
+  align-items: start;
+}
+
+.ds-path-page__services {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-path-page__services-title {
+  margin: 0 0 var(--space-8);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  line-height: var(--font-line-height-2xl);
+  font-weight: var(--font-weight-medium);
+}
+
+@media (max-width: 1023px) {
+  .ds-path-page__title {
+    font-size: var(--font-size-4xl);
+    line-height: var(--font-line-height-4xl);
+    letter-spacing: 0;
+  }
+
+  .ds-path-page__layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

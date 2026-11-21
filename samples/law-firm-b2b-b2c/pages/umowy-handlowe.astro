@@ -28,7 +28,7 @@ const schema = [
     '@type': 'BreadcrumbList',
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Strona główna', item: base },
-      { '@type': 'ListItem', position: 2, name: 'Dla firm', item: `${base}#oferta` },
+      { '@type': 'ListItem', position: 2, name: 'Dla firm', item: `${base}dla-firm/` },
       { '@type': 'ListItem', position: 3, name: 'Umowy handlowe' },
     ],
   },
@@ -41,7 +41,7 @@ const schema = [
         <nav aria-label="Okruszki">
           <ol class="ds-breadcrumbs">
             <li><a class="ds-ink-link" href={base}>Strona główna</a></li>
-            <li><a class="ds-ink-link" href={`${base}#oferta`}>Dla firm</a></li>
+            <li><a class="ds-ink-link" href={`${base}dla-firm/`}>Dla firm</a></li>
             <li aria-current="page">Umowy handlowe</li>
           </ol>
         </nav>
@@ -90,9 +90,9 @@ const schema = [
       <div class="ds-container">
         <h2 class="ds-section-head__title" id="related-title" data-reveal>Powiązane usługi</h2>
         <ul class="ds-related" role="list">
-          <li data-reveal><a class="ds-related__link" href={`${base}#oferta`}>Spory i windykacja</a></li>
-          <li data-reveal><a class="ds-related__link" href={`${base}#oferta`}>Stała obsługa prawna firm</a></li>
-          <li data-reveal><a class="ds-related__link" href={`${base}#oferta`}>RODO i compliance</a></li>
+          <li data-reveal><a class="ds-related__link" href={`${base}dla-firm/`}>Spory i windykacja</a></li>
+          <li data-reveal><a class="ds-related__link" href={`${base}dla-firm/`}>Stała obsługa prawna firm</a></li>
+          <li data-reveal><a class="ds-related__link" href={`${base}dla-firm/`}>RODO i compliance</a></li>
         </ul>
       </div>
     </section>

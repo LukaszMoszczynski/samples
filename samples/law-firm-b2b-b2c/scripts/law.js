@@ -1,12 +1,11 @@
 // Behaviour and motion for the law-firm sample (GSAP + ScrollTrigger).
-// The visitor's path (firmy | klienci) drives the header switch, the offer tabs, the contact choice and facts.
+// Two audiences, two pages (dla-firm, dla-ciebie); the home page groups both and sends visitors down the right path.
 // Content is complete without JS; motion runs only without a reduced-motion preference.
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const STORAGE_KEY = 'law-sample-path';
 
 // Header: hairline once scrolled; drawer on narrow screens.
 const header = document.querySelector('[data-law-header]');
@@ -29,63 +28,10 @@ document.addEventListener('keydown', (event) => {
   }
 });
 
-// The path.
-const tabs = [...document.querySelectorAll('[data-path-tab]')];
-const indicator = document.querySelector('[data-path-indicator]');
-
-function moveIndicator(animate) {
-  const selected = tabs.find((tab) => tab.getAttribute('aria-selected') === 'true');
-  if (!selected || !indicator) return;
-  const target = { x: selected.offsetLeft, width: selected.offsetWidth };
-  if (animate && !reduceMotion) gsap.to(indicator, { ...target, duration: 0.45, ease: 'power3.out' });
-  else gsap.set(indicator, target);
-}
-
-function setPath(path, { animate = true } = {}) {
-  document.querySelectorAll('[data-path-option]').forEach((option) => option.setAttribute('aria-pressed', String(option.dataset.pathOption === path)));
-  tabs.forEach((tab) => {
-    const selected = tab.dataset.pathTab === path;
-    tab.setAttribute('aria-selected', String(selected));
-    tab.tabIndex = selected ? 0 : -1;
-  });
-  document.querySelectorAll('[data-path-panel]').forEach((panel) => {
-    const show = panel.dataset.pathPanel === path;
-    if (show === !panel.hidden) return;
-    panel.hidden = !show;
-    if (show && animate && !reduceMotion) {
-      gsap.from(panel.querySelectorAll('[data-service-row]'), { y: 16, opacity: 0, duration: 0.45, stagger: 0.05, ease: 'power2.out' });
-      gsap.from(panel.querySelector('aside'), { x: 24, opacity: 0, duration: 0.5, ease: 'power2.out' });
-    }
-  });
-  document.querySelectorAll('[data-path-radio]').forEach((radio) => { radio.checked = radio.value === path; });
-  document.querySelectorAll('[data-path-only]').forEach((item) => { item.hidden = item.dataset.pathOnly !== path; });
-  moveIndicator(animate);
-  try { localStorage.setItem(STORAGE_KEY, path); } catch { /* storage may be blocked */ }
-}
-
-let saved = 'firmy';
-try { saved = localStorage.getItem(STORAGE_KEY) === 'klienci' ? 'klienci' : 'firmy'; } catch { /* default */ }
-setPath(saved, { animate: false });
-window.addEventListener('resize', () => moveIndicator(false));
-document.fonts?.ready.then(() => moveIndicator(false));
-
-document.querySelectorAll('[data-path-option]').forEach((option) => option.addEventListener('click', () => {
-  setPath(option.dataset.pathOption);
-  document.getElementById('oferta')?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth' });
+// Contact: the facts beside the form follow the chosen option (firm or private matter).
+document.querySelectorAll('[data-contact-choice]').forEach((choice) => choice.addEventListener('change', () => {
+  document.querySelectorAll('[data-contact-fact]').forEach((fact) => { fact.hidden = fact.dataset.contactFact !== choice.value; });
 }));
-document.querySelectorAll('[data-path-set]').forEach((door) => door.addEventListener('click', () => setPath(door.dataset.pathSet)));
-document.querySelectorAll('[data-path-radio]').forEach((radio) => radio.addEventListener('change', () => setPath(radio.value, { animate: false })));
-tabs.forEach((tab, index) => {
-  tab.addEventListener('click', () => setPath(tab.dataset.pathTab));
-  tab.addEventListener('keydown', (event) => {
-    const moves = { ArrowRight: index + 1, ArrowLeft: index - 1, Home: 0, End: tabs.length - 1 };
-    if (!(event.key in moves)) return;
-    event.preventDefault();
-    const next = tabs[(moves[event.key] + tabs.length) % tabs.length];
-    setPath(next.dataset.pathTab);
-    next.focus();
-  });
-});
 
 // Contact form: sample only.
 const contactForm = document.querySelector('[data-contact-form]');

@@ -7,12 +7,15 @@ templates for service pages and articles it can update itself, content migration
 measuring results.
 
 **Stack:** for the real project, the firm edits pages and articles itself, so a CMS (Payload or a WordPress block
-theme). This sample is the front end in Astro: the home page and one service page built from the service template.
+theme). This sample is the front end in Astro: the home page, one page per audience and one service page.
 
 ## How the sample answers the two goals
-- **Two paths:** the header switch ("Dla firm" / "Dla Ciebie"), two doors in the hero, the offer tabs, the contact
-  choice and the contact facts all follow one path, remembered for the next visit. Each path has its own services,
-  its own contact box and its own contact details.
+- **Two paths:** the home page groups both offers and pushes each visitor down the right path: two doors in the
+  hero, then two columns that ask a plain question ("Prowadzisz firmę?" / "Masz sprawę prywatną?"), list the main
+  topics and end with one button. Each audience has its own page (`dla-firm`, `dla-ciebie`) with its services, contact
+  box, steps, FAQ and a contact form preset to that audience, plus a link across to the other path. The menu links to
+  both pages and marks the one you are on. (An earlier version used a switch in the header; the owner preferred real
+  pages, which are also clearer for Google and AI tools.)
 - **Google and AI tools:** answer-first content (every article and service page opens with a short answer), the author
   and review date on every answer, FAQ sections, and structured data: LegalService, Service, BreadcrumbList, FAQPage.
   The service page has breadcrumbs and a table of contents that marks the section in view.
@@ -20,8 +23,9 @@ theme). This sample is the front end in Astro: the home page and one service pag
 ## Visual direction: "editorial counsel"
 Warm ivory paper, ink text, deep green and brass, Fraunces serif headlines with italic accents, chapter marks
 (i., ii., …) and thin rules. Calm on purpose. Motion (GSAP, `scripts/law.js`): the headline rises in word by word,
-the § draws itself in a slowly turning seal, the doors rise in, the path switch slides its underline and staggers the
-services in, monogram rings draw, step rules sweep across, FAQ answers slide open. All motion is off with "reduce
+the § draws itself in a slowly turning seal, the doors rise in, monogram rings draw, step rules sweep across, FAQ
+answers slide open. Hovers: links draw an ink underline in and out, service rows sweep a pale green fill and slide,
+related services fill with green. All motion is off with "reduce
 motion"; content is complete without JS.
 
 ## Design system parts
@@ -30,10 +34,11 @@ motion"; content is complete without JS.
 ## New in this sample (built from tokens, class prefix `ds-`)
 - Base: Page (smooth scroll, header offset, container, section heading, hidden rule).
 - Atoms: Ink button (solid / outline / light), Eyebrow (chapter mark).
-- Organisms: Law header (with the path switch), Law footer.
-- Sections: Path hero (doors + seal), Path tabs (ARIA tabs), Answers, Team (drawn monograms), Steps, Law FAQ
+- Molecules: Service row, Contact box.
+- Organisms: Law header (current page marked), Law footer.
+- Sections: Path hero (doors + seal), Topics (both offers grouped), Answers, Team (drawn monograms), Steps, Law FAQ
   (with FAQPage data), Contact (path choice).
-- Template: Service page (summary box, TOC, article, author box, related services).
+- Templates: Audience page (`dla-firm`, `dla-ciebie`, data in `data/offer.js`), Service page (summary box, TOC, article, author box, related services).
 - Logo (`assets/logo.svg`, `assets/logo-light.svg`): a placeholder, "Kancelaria Przykładowa".
 
 ## Client look
@@ -42,6 +47,6 @@ ivory, `--palette-accent-400` on dark; lightened once to pass WCAG AA on green).
 
 ## To Figma (after a win)
 1. Add a brand mode in the Primitives collection with the values from `brand.css`.
-2. Capture both pages into Figma with the Figma connector.
+2. Capture the pages into Figma with the Figma connector.
 3. Rebuild the new components as Figma components bound to variables, then add them to the design system
    (template, CSS, PHP version, story).

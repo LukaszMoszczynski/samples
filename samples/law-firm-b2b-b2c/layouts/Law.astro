@@ -8,7 +8,10 @@ import '../components/atoms/eyebrow/eyebrow.css';
 import '../components/organisms/law-header/law-header.css';
 import '../components/organisms/law-footer/law-footer.css';
 import '../components/sections/path-hero/path-hero.css';
-import '../components/sections/path-tabs/path-tabs.css';
+import '../components/molecules/service-row/service-row.css';
+import '../components/molecules/contact-box/contact-box.css';
+import '../components/sections/topics/topics.css';
+import '../components/templates/path-page/path-page.css';
 import '../components/sections/answers/answers.css';
 import '../components/sections/team/team.css';
 import '../components/sections/steps/steps.css';
@@ -23,10 +26,10 @@ interface Props { title?: string; description: string; homeHref: string }
 const { title = sample.title, description, homeHref } = Astro.props;
 const firm = 'Kancelaria Przykładowa';
 const nav = [
-  { text: 'Oferta', href: `${homeHref}#oferta` },
+  { text: 'Dla firm', href: `${homeHref}dla-firm/` },
+  { text: 'Dla Ciebie', href: `${homeHref}dla-ciebie/` },
   { text: 'Wiedza', href: `${homeHref}#wiedza` },
   { text: 'Zespół', href: `${homeHref}#zespol` },
-  { text: 'Jak pracujemy', href: `${homeHref}#jak-pracujemy` },
   { text: 'FAQ', href: `${homeHref}#faq` },
 ];
 const organization = {
@@ -50,8 +53,8 @@ const organization = {
     claimAccent="jasno"
     about="Kancelaria dla firm i klientów indywidualnych. Warszawa i online w całej Polsce."
     columns={[
-      { title: 'Dla firm', links: [{ text: 'Umowy handlowe', href: `${homeHref}umowy-handlowe/` }, { text: 'Spory i windykacja', href: `${homeHref}#oferta` }, { text: 'Stała obsługa', href: `${homeHref}#oferta` }] },
-      { title: 'Dla Ciebie', links: [{ text: 'Rozwód i alimenty', href: `${homeHref}#oferta` }, { text: 'Spadki', href: `${homeHref}#oferta` }, { text: 'Nieruchomości', href: `${homeHref}#oferta` }] },
+      { title: 'Dla firm', links: [{ text: 'Umowy handlowe', href: `${homeHref}umowy-handlowe/` }, { text: 'Spory i windykacja', href: `${homeHref}dla-firm/` }, { text: 'Stała obsługa', href: `${homeHref}dla-firm/` }] },
+      { title: 'Dla Ciebie', links: [{ text: 'Rozwód i alimenty', href: `${homeHref}dla-ciebie/` }, { text: 'Spadki', href: `${homeHref}dla-ciebie/` }, { text: 'Nieruchomości', href: `${homeHref}dla-ciebie/` }] },
     ]}
     contact={['+48 600 000 000', 'kancelaria@example.com', 'ul. Przykładowa 5, Warszawa']}
     copyright={`© 2026 ${firm}. Przykładowa strona.`}

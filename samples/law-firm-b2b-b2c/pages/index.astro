@@ -3,7 +3,7 @@
 // Copy is example content written for the brief.
 import Layout from '../layouts/Law.astro';
 import PathHero from '../components/sections/path-hero/PathHero.astro';
-import PathTabs from '../components/sections/path-tabs/PathTabs.astro';
+import Topics from '../components/sections/topics/Topics.astro';
 import Answers from '../components/sections/answers/Answers.astro';
 import Team from '../components/sections/team/Team.astro';
 import Steps from '../components/sections/steps/Steps.astro';
@@ -11,54 +11,22 @@ import LawFaq from '../components/sections/law-faq/LawFaq.astro';
 import Contact from '../components/sections/contact/Contact.astro';
 
 const base = import.meta.env.BASE_URL + 'law-firm-b2b-b2c/';
-const service = `${base}umowy-handlowe/`;
 ---
 <Layout description="Przykładowa strona kancelarii prawnej z osobnymi ścieżkami dla firm i klientów indywidualnych." homeHref={base}>
   <main>
     <PathHero
+      base={base}
       label="Kancelaria prawna · Warszawa i online"
       title="Prawo podane jasno."
       accent="jasno."
       lead="Pomagamy firmom zawierać bezpieczne umowy i wygrywać spory, a ludziom przejść przez sprawy rodzinne, spadkowe i majątkowe bez zbędnego stresu."
       seal="KANCELARIA · PORADY · UMOWY · SPORY · "
       doors={[
-        { path: 'firmy', for: 'Dla firm', title: 'Obsługa prawna przedsiębiorstw', items: ['Umowy handlowe', 'Spory i windykacja', 'RODO i compliance'], go: 'Zobacz ofertę dla firm' },
-        { path: 'klienci', for: 'Dla klientów indywidualnych', title: 'Sprawy prywatne i rodzinne', items: ['Rozwód i alimenty', 'Spadki', 'Nieruchomości'], go: 'Zobacz ofertę dla Ciebie' },
+        { page: 'dla-firm/', for: 'Dla firm', title: 'Obsługa prawna przedsiębiorstw', items: ['Umowy handlowe', 'Spory i windykacja', 'RODO i compliance'], go: 'Zobacz ofertę dla firm' },
+        { page: 'dla-ciebie/', for: 'Dla klientów indywidualnych', title: 'Sprawy prywatne i rodzinne', items: ['Rozwód i alimenty', 'Spadki', 'Nieruchomości'], go: 'Zobacz ofertę dla Ciebie' },
       ]}
     />
-    <PathTabs
-      number="i."
-      label="Oferta"
-      title="Wybierz, <em>w czym</em> możemy pomóc"
-      paths={[
-        {
-          id: 'firmy',
-          tab: 'Dla firm',
-          services: [
-            { name: 'Umowy handlowe', line: 'Przygotowanie, przegląd i negocjacje umów z kontrahentami.', href: service },
-            { name: 'Spory i windykacja', line: 'Od wezwania do zapłaty po reprezentację przed sądem.', href: service },
-            { name: 'Stała obsługa prawna', line: 'Abonament: jeden opiekun i odpowiedź w 24 godziny.', href: service },
-            { name: 'RODO i compliance', line: 'Polityki, rejestry i audyty dopasowane do firmy.', href: service },
-            { name: 'Prawo pracy', line: 'Umowy, regulaminy, spory z pracownikami.', href: service },
-            { name: 'Zakładanie i zmiany spółek', line: 'Rejestracja, umowy spółek, przekształcenia.', href: service },
-          ],
-          box: { title: 'Dla firm: opiekun Twojej sprawy', text: 'Masz jednego prawnika prowadzącego i odpowiedź w ciągu jednego dnia roboczego.', contact: 'firmy@example.com · +48 600 000 001', cta: 'Zapytaj o obsługę firmy' },
-        },
-        {
-          id: 'klienci',
-          tab: 'Dla klientów indywidualnych',
-          services: [
-            { name: 'Rozwód i alimenty', line: 'Spokojnie, z dbałością o dzieci i majątek.', href: '#kontakt' },
-            { name: 'Spadki i testamenty', line: 'Stwierdzenie nabycia, dział spadku, zachowek.', href: '#kontakt' },
-            { name: 'Nieruchomości', line: 'Zakup mieszkania, umowy deweloperskie, najem.', href: '#kontakt' },
-            { name: 'Odszkodowania', line: 'Wypadki, błędy medyczne, spory z ubezpieczycielem.', href: '#kontakt' },
-            { name: 'Prawa konsumenta', line: 'Reklamacje, umowy z bankami i operatorami.', href: '#kontakt' },
-            { name: 'Sprawy karne', line: 'Obrona i pomoc pokrzywdzonym.', href: '#kontakt' },
-          ],
-          box: { title: 'Pierwsza rozmowa: 15 minut bez opłat', text: 'Opowiesz o sprawie, a my powiemy, czy i jak możemy pomóc, zanim cokolwiek zapłacisz.', contact: 'porady@example.com · +48 600 000 002', cta: 'Umów bezpłatną rozmowę' },
-        },
-      ]}
-    />
+    <Topics number="i." label="Oferta" title="Jedna kancelaria, <em>dwie</em> ścieżki" base={base} />
     <Answers
       number="ii."
       label="Wiedza"
@@ -107,13 +75,7 @@ const service = `${base}umowy-handlowe/`;
       label="Kontakt"
       title="Opowiedz nam <em>o sprawie</em>"
       lead="Wybierz, czego dotyczy Twoja sprawa: wiadomość trafi od razu do właściwego zespołu."
-      facts={[
-        { label: 'Zespół dla firm', value: 'firmy@example.com', path: 'firmy' },
-        { label: 'Telefon dla firm', value: '+48 600 000 001', path: 'firmy' },
-        { label: 'Porady dla Ciebie', value: 'porady@example.com', path: 'klienci' },
-        { label: 'Bezpłatna rozmowa', value: '+48 600 000 002', path: 'klienci' },
-        { label: 'Biuro', value: 'ul. Przykładowa 5, Warszawa' },
-      ]}
+      path="firmy"
     />
   </main>
 </Layout>

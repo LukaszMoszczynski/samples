@@ -5,24 +5,6 @@
   padding-block: var(--space-48) var(--space-section-y);
 }
 
-.ds-breadcrumbs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-8);
-  margin: 0 0 var(--space-32);
-  padding: 0;
-  list-style: none;
-  font-size: var(--font-size-small);
-  color: var(--color-text-muted);
-}
-
-.ds-breadcrumbs li + li::before {
-  content: "/";
-  margin-right: var(--space-8);
-  color: var(--color-border-strong);
-}
-
-
 .ds-service-page__title {
   max-width: calc(var(--layout-container) * 0.75);
   margin: var(--space-16) 0 var(--space-32);

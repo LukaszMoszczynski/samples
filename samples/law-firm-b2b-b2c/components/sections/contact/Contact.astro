@@ -1,10 +1,14 @@
 ---
-// Contact. The radio (name="path") and the facts (data-path-only) follow the page's path; law.js keeps them in step.
+// Contact. path presets the choice (audience pages); the facts beside the form follow the chosen option (law.js).
 import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
 import InkButton from '../../atoms/ink-button/InkButton.astro';
-interface Fact { label: string; value: string; path?: 'firmy' | 'klienci' }
-interface Props { number: string; label: string; title: string; lead: string; facts: Fact[] }
-const { number, label, title, lead, facts } = Astro.props;
+import { AUDIENCES } from '../../../data/offer.js';
+interface Props { number: string; label: string; title: string; lead: string; path?: 'firmy' | 'klienci' }
+const { number, label, title, lead, path = 'firmy' } = Astro.props;
+const options = [
+  { value: 'firmy', title: 'Firmy', text: 'Umowy, spory, obsługa stała' },
+  { value: 'klienci', title: 'Sprawy prywatnej', text: 'Rodzina, spadki, nieruchomości' },
+];
 ---
 <section class="ds-section ds-contact" id="kontakt" aria-labelledby="kontakt-title">
   <div class="ds-container ds-contact__grid">
@@ -15,27 +19,28 @@ const { number, label, title, lead, facts } = Astro.props;
         <p class="ds-section-head__lead">{lead}</p>
       </div>
       <ul class="ds-contact__facts" role="list">
-        {facts.map((fact) => (
-          <li data-path-only={fact.path} hidden={fact.path === 'klienci'}>
-            <span class="ds-contact__fact-label">{fact.label}</span>
-            <span class="ds-contact__fact-value">{fact.value}</span>
+        {Object.entries(AUDIENCES).map(([key, audience]) => (
+          <li data-contact-fact={key} hidden={key !== path}>
+            <span class="ds-contact__fact-label">{audience.label}</span>
+            <span class="ds-contact__fact-value">{audience.box.contact}</span>
           </li>
         ))}
+        <li>
+          <span class="ds-contact__fact-label">Biuro</span>
+          <span class="ds-contact__fact-value">ul. Przykładowa 5, Warszawa</span>
+        </li>
       </ul>
     </div>
     <form class="ds-contact__form" data-contact-form data-reveal>
       <fieldset class="ds-contact__choice">
         <legend>Twoja sprawa dotyczy</legend>
-        <label class="ds-contact__option">
-          <input type="radio" name="path" value="firmy" checked data-path-radio />
-          <span class="ds-contact__option-title">Firmy</span>
-          <span class="ds-contact__option-text">Umowy, spory, obsługa stała</span>
-        </label>
-        <label class="ds-contact__option">
-          <input type="radio" name="path" value="klienci" data-path-radio />
-          <span class="ds-contact__option-title">Sprawy prywatnej</span>
-          <span class="ds-contact__option-text">Rodzina, spadki, nieruchomości</span>
-        </label>
+        {options.map((option) => (
+          <label class="ds-contact__option">
+            <input type="radio" name="path" value={option.value} checked={option.value === path} data-contact-choice />
+            <span class="ds-contact__option-title">{option.title}</span>
+            <span class="ds-contact__option-text">{option.text}</span>
+          </label>
+        ))}
       </fieldset>
       <div class="ds-contact__field">
         <label class="ds-contact__label" for="contact-name">Imię i nazwisko</label>

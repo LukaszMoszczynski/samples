@@ -1,0 +1,33 @@
+---
+// Topics (home): both audiences side by side, each with its main topics and one button to its own page.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import InkButton from '../../atoms/ink-button/InkButton.astro';
+import ServiceRow from '../../molecules/service-row/ServiceRow.astro';
+import { AUDIENCES } from '../../../data/offer.js';
+interface Props { number: string; label: string; title: string; base: string; limit?: number }
+const { number, label, title, base, limit = 4 } = Astro.props;
+const columns = [AUDIENCES.firmy, AUDIENCES.klienci];
+---
+<section class="ds-section ds-section--rule ds-topics" id="oferta" aria-labelledby="oferta-title">
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow number={number} text={label} />
+      <h2 class="ds-section-head__title" id="oferta-title"><Fragment set:html={title} /></h2>
+    </div>
+    <div class="ds-topics__grid">
+      {columns.map((audience, index) => (
+        <div class={`ds-topics__column${index === 1 ? ' ds-topics__column--private' : ''}`} data-reveal>
+          <span class="ds-topics__for">{audience.label}</span>
+          <h3 class="ds-topics__question">{audience.question}</h3>
+          <p class="ds-topics__lead">{audience.lead}</p>
+          <ul class="ds-topics__list" role="list">
+            {audience.services.slice(0, limit).map((service, serviceIndex) => (
+              <li><ServiceRow index={serviceIndex} name={service.name} line={service.line} href={base + service.href} /></li>
+            ))}
+          </ul>
+          <div><InkButton text={audience.cta} href={base + audience.page} /></div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

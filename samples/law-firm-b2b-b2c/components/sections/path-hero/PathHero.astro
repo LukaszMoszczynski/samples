@@ -1,10 +1,10 @@
 ---
 // Path hero. title words are split so they can rise in one by one; accent = the words set in italic green.
-// Each door has data-path-set: it sets the path (law.js) and its href leads to the offer.
+// Each door is the main call to action: it leads to that audience's own page.
 import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
-interface Door { path: 'firmy' | 'klienci'; for: string; title: string; items: string[]; go: string }
-interface Props { label: string; title: string; accent: string; lead: string; doors: Door[]; seal: string }
-const { label, title, accent, lead, doors, seal } = Astro.props;
+interface Door { page: string; for: string; title: string; items: string[]; go: string }
+interface Props { base: string; label: string; title: string; accent: string; lead: string; doors: Door[]; seal: string }
+const { base, label, title, accent, lead, doors, seal } = Astro.props;
 const accentWords = new Set(accent.split(' '));
 const words = title.split(' ');
 const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>';
@@ -34,7 +34,7 @@ const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke
     </div>
     <div class="ds-path-hero__doors">
       {doors.map((door, index) => (
-        <a class={`ds-door${index === 1 ? ' ds-door--ink' : ''}`} href="#oferta" data-path-set={door.path} data-hero-door>
+        <a class={`ds-door${index === 1 ? ' ds-door--ink' : ''}`} href={base + door.page} data-hero-door>
           <span class="ds-door__for">{door.for}</span>
           <h2 class="ds-door__title">{door.title}</h2>
           <ul class="ds-door__items" role="list">{door.items.map((item) => <li class="ds-door__item">{item}</li>)}</ul>

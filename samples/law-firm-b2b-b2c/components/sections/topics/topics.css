@@ -1,0 +1,59 @@
+/* Topics: both offers side by side on the home page. Each column asks a plain question ("Prowadzisz firmę?"), lists
+   its main topics as service rows and ends with one clear button to that audience's page. */
+.ds-topics__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-32);
+}
+
+.ds-topics__column {
+  display: grid;
+  grid-template-rows: auto auto auto 1fr auto;
+  gap: var(--space-16);
+  padding: var(--space-40);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-card);
+}
+
+.ds-topics__column--private {
+  background: var(--color-surface-soft);
+  border-color: var(--color-surface-soft);
+}
+
+.ds-topics__for {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-2);
+  text-transform: uppercase;
+  color: var(--color-brand-accent);
+}
+
+.ds-topics__question {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  line-height: var(--font-line-height-2xl);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-topics__lead {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.ds-topics__list {
+  margin: var(--space-8) 0 var(--space-16);
+  padding: 0;
+  list-style: none;
+}
+
+@media (max-width: 899px) {
+  .ds-topics__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ds-topics__column {
+    padding: var(--space-28);
+  }
+}

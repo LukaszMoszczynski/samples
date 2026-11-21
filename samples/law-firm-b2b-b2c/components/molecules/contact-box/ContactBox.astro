@@ -1,0 +1,11 @@
+---
+import InkButton from '../../atoms/ink-button/InkButton.astro';
+interface Props { title: string; text: string; contact: string; cta: { text: string; href: string } }
+const { title, text, contact, cta } = Astro.props;
+---
+<aside class="ds-contact-box" aria-label={title}>
+  <h2 class="ds-contact-box__title">{title}</h2>
+  <p class="ds-contact-box__text">{text}</p>
+  <p class="ds-contact-box__contact">{contact}</p>
+  <div><InkButton text={cta.text} href={cta.href} variant="light" /></div>
+</aside>
