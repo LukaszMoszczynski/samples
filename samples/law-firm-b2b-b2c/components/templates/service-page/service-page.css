@@ -22,9 +22,6 @@
   color: var(--color-border-strong);
 }
 
-.ds-breadcrumbs a {
-  color: inherit;
-}
 
 .ds-service-page__title {
   max-width: calc(var(--layout-container) * 0.75);
@@ -95,7 +92,11 @@
   border-left: 2px solid transparent;
   color: var(--color-text-muted);
   text-decoration: none;
-  transition: color 0.25s ease, border-color 0.25s ease;
+  transition: color 0.25s ease, border-color 0.25s ease, transform 0.3s ease;
+}
+
+.ds-toc__link:hover {
+  transform: translateX(var(--space-4));
 }
 
 .ds-toc__link.is-active,
@@ -171,6 +172,9 @@
 }
 
 .ds-related__link {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: block;
   height: 100%;
   box-sizing: border-box;
@@ -184,9 +188,24 @@
   transition: border-color 0.25s ease, transform 0.25s ease;
 }
 
+.ds-related__link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--color-brand-primary);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
 .ds-related__link:hover {
   border-color: var(--color-brand-primary);
-  transform: translateY(calc(var(--space-4) * -1));
+  color: var(--color-text-on-brand);
+}
+
+.ds-related__link:hover::before {
+  transform: scaleY(1);
 }
 
 @media (max-width: 1023px) {
@@ -206,7 +225,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ds-toc__link,
-  .ds-related__link {
+  .ds-related__link,
+  .ds-related__link::before {
     transition: none;
   }
 }

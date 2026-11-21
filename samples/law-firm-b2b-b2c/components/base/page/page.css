@@ -104,3 +104,58 @@ body {
 [hidden] {
   display: none !important;
 }
+
+/* Ink link: an underline that draws in from the left on hover and leaves to the right. */
+.ds-ink-link,
+.ds-text-link {
+  color: inherit;
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) right bottom / 0 1px no-repeat;
+  padding-bottom: var(--space-2);
+  transition: background-size 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.ds-text-link {
+  color: var(--color-brand-primary);
+  background-size: 100% 1px;
+  background-position: left bottom;
+}
+
+.ds-ink-link:hover,
+.ds-ink-link:focus-visible {
+  background-size: 100% 1px;
+  background-position: left bottom;
+}
+
+.ds-text-link:hover {
+  animation: ds-ink-redraw 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@keyframes ds-ink-redraw {
+  0% {
+    background-size: 100% 1px;
+    background-position: right bottom;
+  }
+
+  45% {
+    background-size: 0 1px;
+    background-position: right bottom;
+  }
+
+  46% {
+    background-position: left bottom;
+  }
+
+  100% {
+    background-size: 100% 1px;
+    background-position: left bottom;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-ink-link,
+  .ds-text-link {
+    transition: none;
+    animation: none;
+  }
+}

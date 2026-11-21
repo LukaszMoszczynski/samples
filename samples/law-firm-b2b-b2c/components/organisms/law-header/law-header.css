@@ -39,15 +39,7 @@
 }
 
 .ds-law-header__link {
-  color: inherit;
   font-weight: var(--font-weight-medium);
-  text-decoration: none;
-  background: linear-gradient(currentColor, currentColor) left bottom / 0 1px no-repeat;
-  transition: background-size 0.3s ease;
-}
-
-.ds-law-header__link:hover {
-  background-size: 100% 1px;
 }
 
 .ds-path-switch {

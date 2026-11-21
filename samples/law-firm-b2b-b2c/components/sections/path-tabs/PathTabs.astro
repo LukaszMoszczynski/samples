@@ -28,7 +28,7 @@ const arrow = '<svg class="ds-service-row__arrow" viewBox="0 0 24 24" fill="none
             <li>
               <a class="ds-service-row" href={service.href} data-service-row>
                 <span class="ds-service-row__number" aria-hidden="true">{String(serviceIndex + 1).padStart(2, '0')}</span>
-                <span><span class="ds-service-row__name">{service.name}</span><span class="ds-service-row__line">{service.line}</span></span>
+                <span class="ds-service-row__text"><span class="ds-service-row__name">{service.name}</span><span class="ds-service-row__line">{service.line}</span></span>
                 <Fragment set:html={arrow} />
               </a>
             </li>

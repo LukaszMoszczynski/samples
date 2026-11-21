@@ -1,25 +1,26 @@
-/* Logistics company: navy (trust, transport) and signal orange (movement, tech). Values only, never names.
+/* Logistics company: petrol teal and graphite (road, fleet) with road-marking yellow for actions and live data.
+   Chosen to differ from the owner's portfolio (violet/orange) and earlier client work (navy/orange). Values only.
    The client look. Change values only, never names: every name here is a design-system primitive token. */
 :root {
-  --palette-primary-50: #e7eef8;
-  --palette-primary-400: #6f9be0;
-  --palette-primary-600: #0f3a6e;
-  --palette-primary-800: #0a2a52;
-  --palette-secondary-50: #f4f6f9;
-  --palette-secondary-100: #e3e8ef;
-  --palette-secondary-600: #4a5a70;
-  --palette-secondary-700: #142033;
-  --palette-secondary-800: #16243a;
-  --palette-secondary-900: #0f1a2b;
-  --palette-secondary-950: #0a1220;
-  --palette-accent-400: #ff8a3d;
-  --palette-accent-500: #c2410c;
+  --palette-primary-50: #e4f2f1;
+  --palette-primary-400: #5fb3b0;
+  --palette-primary-600: #0e5e63;
+  --palette-primary-800: #0a4448;
+  --palette-secondary-50: #f2f5f5;
+  --palette-secondary-100: #e1e8e8;
+  --palette-secondary-600: #4b5f63;
+  --palette-secondary-700: #1b2f33;
+  --palette-secondary-800: #132326;
+  --palette-secondary-900: #0d191b;
+  --palette-secondary-950: #081214;
+  --palette-accent-400: #f5c518;
+  --palette-accent-500: #8f6200;
   --palette-neutral-0: #ffffff;
-  --palette-neutral-50: #f6f7f9;
-  --palette-neutral-100: #e9ecf1;
-  --palette-neutral-400: #6b7686;
-  --palette-neutral-600: #4b5565;
-  --palette-neutral-900: #111827;
+  --palette-neutral-50: #f5f7f6;
+  --palette-neutral-100: #e6ebea;
+  --palette-neutral-400: #66706f;
+  --palette-neutral-600: #4a5453;
+  --palette-neutral-900: #101a1b;
   --palette-neutral-1000: #000000;
   --palette-danger-400: #f0736b;
   --palette-danger-700: #b3261e;

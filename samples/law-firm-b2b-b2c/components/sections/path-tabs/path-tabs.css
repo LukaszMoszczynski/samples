@@ -48,6 +48,8 @@
 }
 
 .ds-service-row {
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: var(--space-40) minmax(0, 1fr) var(--size-24);
   gap: var(--space-20);
@@ -56,6 +58,40 @@
   border-bottom: 1px solid var(--color-border-default);
   color: inherit;
   text-decoration: none;
+}
+
+.ds-service-row::before {
+  content: "";
+  position: absolute;
+  inset: 0 calc(var(--space-16) * -1);
+  z-index: -1;
+  border-radius: var(--radius-xs);
+  background: var(--color-surface-soft);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.ds-service-row:hover::before,
+.ds-service-row:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.ds-service-row__number,
+.ds-service-row__text {
+  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1), color 0.3s ease;
+}
+
+.ds-service-row:hover .ds-service-row__number {
+  color: var(--color-brand-primary);
+}
+
+.ds-service-row:hover .ds-service-row__text {
+  transform: translateX(var(--space-8));
+}
+
+.ds-service-row__text {
+  display: block;
 }
 
 .ds-service-row__number {
@@ -147,6 +183,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ds-path-tabs__tab,
+  .ds-service-row::before,
+  .ds-service-row__number,
+  .ds-service-row__text,
   .ds-service-row__arrow {
     transition: none;
   }

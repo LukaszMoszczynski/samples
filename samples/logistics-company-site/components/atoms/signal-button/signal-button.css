@@ -17,12 +17,12 @@
 }
 
 .ds-signal-button--solid {
-  background: var(--color-brand-accent);
-  color: var(--color-text-on-brand);
+  background: var(--palette-accent-400);
+  color: var(--palette-secondary-800);
 }
 
 .ds-signal-button--solid:hover {
-  background: color-mix(in srgb, var(--color-brand-accent) 82%, var(--palette-neutral-1000));
+  background: color-mix(in srgb, var(--palette-accent-400) 85%, var(--palette-neutral-0));
 }
 
 .ds-signal-button--ghost {

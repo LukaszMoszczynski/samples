@@ -9,7 +9,7 @@ const { logo, logoAlt, homeHref, items, cta } = Astro.props;
     <a class="ds-law-header__logo" href={homeHref}><img src={logo} alt={logoAlt} width="260" height="40" /></a>
     <nav class="ds-law-header__nav" aria-label="Menu główne">
       <ul class="ds-law-header__menu" role="list">
-        {items.map((item) => <li><a class="ds-law-header__link" href={item.href}>{item.text}</a></li>)}
+        {items.map((item) => <li><a class="ds-law-header__link ds-ink-link" href={item.href}>{item.text}</a></li>)}
       </ul>
     </nav>
     <div class="ds-path-switch" role="group" aria-label="Pokaż ofertę">
@@ -23,7 +23,7 @@ const { logo, logoAlt, homeHref, items, cta } = Astro.props;
   </div>
   <div class="ds-container ds-law-header__drawer" id="law-drawer" hidden>
     <ul class="ds-law-header__menu" role="list">
-      {items.map((item) => <li><a class="ds-law-header__link" href={item.href}>{item.text}</a></li>)}
+      {items.map((item) => <li><a class="ds-law-header__link ds-ink-link" href={item.href}>{item.text}</a></li>)}
     </ul>
   </div>
 </header>

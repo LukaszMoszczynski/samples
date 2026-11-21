@@ -16,7 +16,7 @@ const [before, after] = claim.split(claimAccent);
         <nav aria-label={column.title}>
           <h2 class="ds-law-footer__title">{column.title}</h2>
           <ul class="ds-law-footer__list" role="list">
-            {column.links.map((link) => <li><a class="ds-law-footer__link" href={link.href}>{link.text}</a></li>)}
+            {column.links.map((link) => <li><a class="ds-law-footer__link ds-ink-link" href={link.href}>{link.text}</a></li>)}
           </ul>
         </nav>
       ))}
@@ -27,7 +27,7 @@ const [before, after] = claim.split(claimAccent);
     </div>
     <div class="ds-law-footer__legal">
       <span>{copyright}</span>
-      <span>{legal.map((link) => <a class="ds-law-footer__link" href={link.href}>{link.text}</a>)}</span>
+      <span>{legal.map((link) => <a class="ds-law-footer__link ds-ink-link" href={link.href}>{link.text}</a>)}</span>
     </div>
   </div>
 </footer>

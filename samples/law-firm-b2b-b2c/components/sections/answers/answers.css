@@ -65,6 +65,23 @@
 .ds-answer__link {
   color: var(--palette-accent-400);
   font-weight: var(--font-weight-bold);
+  text-decoration: none;
+}
+
+.ds-answer__arrow {
+  display: inline-block;
+  transition: transform 0.35s ease;
+}
+
+.ds-answer__link:hover .ds-ink-link,
+.ds-answer:hover .ds-ink-link {
+  background-size: 100% 1px;
+  background-position: left bottom;
+}
+
+.ds-answer__link:hover .ds-answer__arrow,
+.ds-answer:hover .ds-answer__arrow {
+  transform: translateX(var(--space-6));
 }
 
 .ds-answer__link:focus-visible {
@@ -78,7 +95,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ds-answer {
+  .ds-answer,
+  .ds-answer__arrow {
     transition: none;
   }
 }

@@ -20,7 +20,7 @@ const { number, label, title, lead, items } = Astro.props;
             <p class="ds-answer__short"><span class="ds-visually-hidden">Krótka odpowiedź: </span>{item.short}</p>
             <div class="ds-answer__meta">
               <span>{item.author} · sprawdzono {item.reviewed}</span>
-              <a class="ds-answer__link" href={item.href}>Cały artykuł<span class="ds-visually-hidden">: {item.question}</span> →</a>
+              <a class="ds-answer__link" href={item.href}><span class="ds-ink-link">Cały artykuł</span><span class="ds-visually-hidden">: {item.question}</span> <span class="ds-answer__arrow" aria-hidden="true">→</span></a>
             </div>
           </article>
         </li>
