@@ -1,0 +1,31 @@
+/* Heart label: a small spaced-out label between two hairlines with a gold heart, like a wedding stationery mark. */
+.ds-heart-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-10);
+  margin: 0;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--space-3);
+  text-transform: uppercase;
+  color: var(--color-brand-accent);
+}
+
+.ds-heart-label__heart {
+  width: var(--size-12);
+  height: var(--size-12);
+  fill: currentColor;
+}
+
+.ds-heart-label::before,
+.ds-heart-label::after {
+  content: "";
+  width: var(--space-24);
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+.ds-section--ink .ds-heart-label {
+  color: var(--palette-accent-400);
+}

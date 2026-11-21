@@ -1,0 +1,18 @@
+/* Offers: three consultation options side by side; the middle one is the featured VIP package. */
+.ds-offers__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-24);
+  align-items: stretch;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (max-width: 1023px) {
+  .ds-offers__list {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: calc(var(--layout-container) * 0.5);
+    margin-inline: auto;
+  }
+}

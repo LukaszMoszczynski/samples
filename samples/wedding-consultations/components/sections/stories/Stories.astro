@@ -1,0 +1,27 @@
+---
+// Stories (recommendations). The quotes are examples, marked as such on the page, until the client adds real ones.
+import HeartLabel from '../../atoms/heart-label/HeartLabel.astro';
+interface Props { label: string; title: string; items: { quote: string; who: string }[]; note: string }
+const { label, title, items, note } = Astro.props;
+---
+<section class="ds-section ds-section--blush ds-stories" id="rekomendacje" aria-labelledby="rekomendacje-title">
+  <div class="ds-container">
+    <div class="ds-section-head ds-section-head--center" data-reveal>
+      <HeartLabel text={label} />
+      <h2 class="ds-section-head__title" id="rekomendacje-title"><Fragment set:html={title} /></h2>
+    </div>
+    <div class="ds-stories__stage" data-reveal>
+      <svg class="ds-stories__mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M10 7H6a3 3 0 0 0-3 3v4h5v-4H5.5A1.5 1.5 0 0 1 7 8.5h3zm11 0h-4a3 3 0 0 0-3 3v4h5v-4h-2.5A1.5 1.5 0 0 1 18 8.5h3z" /></svg>
+      {items.map((item, index) => (
+        <figure class="ds-story" hidden={index !== 0} data-story={index}>
+          <blockquote class="ds-story__quote">{item.quote}</blockquote>
+          <figcaption class="ds-story__who">{item.who}</figcaption>
+        </figure>
+      ))}
+      <div class="ds-stories__dots" role="group" aria-label="Wybierz rekomendację">
+        {items.map((item, index) => <button class="ds-stories__dot" type="button" aria-pressed={index === 0 ? 'true' : 'false'} aria-label={`Rekomendacja ${index + 1}: ${item.who}`} data-story-dot={index}></button>)}
+      </div>
+      <p class="ds-stories__note">{note}</p>
+    </div>
+  </div>
+</section>

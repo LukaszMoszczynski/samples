@@ -1,0 +1,11 @@
+---
+interface Props { text: string; href: string }
+const { text, href } = Astro.props;
+const heart = 'M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.9 4.5 6.6 4.5c2.2 0 3.9 1.3 5.4 3.2 1.5-1.9 3.2-3.2 5.4-3.2 3.7 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z';
+---
+<a class="ds-marquee" href={href}>
+  <span class="ds-visually-hidden">{text}</span>
+  <span class="ds-marquee__track" aria-hidden="true">
+    {Array.from({ length: 12 }, () => <span class="ds-marquee__item">{text}<svg viewBox="0 0 24 24"><path d={heart} /></svg></span>)}
+  </span>
+</a>

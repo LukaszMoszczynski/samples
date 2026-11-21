@@ -1,0 +1,112 @@
+/* Wedding hero: on a soft blush wash, the headline with an italic plum accent, the lead and two buttons, three small
+   facts; beside it a large heart drawn in one gold line around two linked rings. Small hearts drift up behind. */
+.ds-wed-hero {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-64) var(--space-section-y);
+  background:
+    radial-gradient(circle at 80% 30%, color-mix(in srgb, var(--palette-primary-400) 22%, transparent), transparent 55%),
+    radial-gradient(circle at 10% 90%, color-mix(in srgb, var(--palette-accent-400) 25%, transparent), transparent 50%),
+    var(--color-surface-soft);
+}
+
+.ds-wed-hero__drift {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.ds-wed-hero__drift-heart {
+  position: absolute;
+  bottom: calc(var(--space-40) * -1);
+  width: var(--size-18);
+  height: var(--size-18);
+  fill: var(--color-brand-primary);
+  opacity: 0;
+}
+
+.ds-wed-hero__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: var(--space-48);
+  align-items: center;
+}
+
+.ds-wed-hero__title {
+  margin: var(--space-20) 0 var(--space-24);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-80);
+  line-height: 1;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-default);
+  text-wrap: balance;
+}
+
+.ds-wed-hero__title em {
+  display: inline-block;
+  color: var(--color-brand-primary);
+}
+
+.ds-wed-hero__lead {
+  max-width: calc(var(--layout-container) * 0.42);
+  margin: 0 0 var(--space-32);
+  font-size: var(--font-size-lg);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+.ds-wed-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-16);
+}
+
+.ds-wed-hero__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-32);
+  margin: var(--space-48) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-wed-hero__fact {
+  display: grid;
+}
+
+.ds-wed-hero__fact-value {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-48);
+  line-height: 1;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-brand-primary);
+}
+
+.ds-wed-hero__fact-label {
+  font-size: var(--font-size-small);
+  letter-spacing: var(--space-1);
+  color: var(--color-text-muted);
+}
+
+.ds-wed-hero__art {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 1023px) {
+  .ds-wed-hero__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ds-wed-hero__title {
+    font-size: var(--font-size-48);
+  }
+
+  .ds-wed-hero__art {
+    max-width: calc(var(--layout-container) * 0.4);
+    justify-self: center;
+    order: -1;
+  }
+}

@@ -1,0 +1,41 @@
+---
+// Wedding footer. The newsletter form is a sample: it shows a thank-you note and sends nothing (wedding.js).
+interface Link { text: string; href: string }
+interface Props { logo: string; about: string; columns: { title: string; links: Link[] }[]; contact: string[] }
+const { logo, about, columns, contact } = Astro.props;
+---
+<footer class="ds-wed-footer">
+  <div class="ds-container">
+    <form class="ds-wed-footer__news" data-news-form>
+      <p class="ds-wed-footer__news-title" data-reveal>Przedślubne porady <em>raz na jakiś czas</em>, prosto do skrzynki.</p>
+      <div class="ds-wed-footer__form" data-reveal>
+        <label class="ds-visually-hidden" for="news-email">Twój e-mail</label>
+        <input class="ds-wed-footer__input" id="news-email" type="email" name="email" autocomplete="email" placeholder="Twój e-mail" required />
+        <button class="ds-wed-footer__submit" type="submit">Zapisz się ♡</button>
+      </div>
+      <p class="ds-wed-footer__note" role="status" hidden data-news-thanks>Dziękujemy! To przykładowy formularz.</p>
+    </form>
+    <div class="ds-wed-footer__grid">
+      <div class="ds-wed-footer__brand">
+        <a class="ds-wed-footer__logo" href="#top"><img src={logo} alt="ViaVilla, konsultacje ślubne" width="210" height="44" /></a>
+        <p class="ds-wed-footer__about">{about}</p>
+      </div>
+      {columns.map((column) => (
+        <nav aria-label={column.title}>
+          <h2 class="ds-wed-footer__title">{column.title}</h2>
+          <ul class="ds-wed-footer__list" role="list">
+            {column.links.map((link) => <li><a class="ds-wed-footer__link" href={link.href}>{link.text}</a></li>)}
+          </ul>
+        </nav>
+      ))}
+      <div>
+        <h2 class="ds-wed-footer__title">Kontakt</h2>
+        <ul class="ds-wed-footer__list" role="list">{contact.map((line) => <li>{line}</li>)}</ul>
+      </div>
+    </div>
+    <div class="ds-wed-footer__legal">
+      <span>© 2026 ViaVilla · przykładowa strona przygotowana jako propozycja</span>
+      <span>Zrobione z ♡ i planem</span>
+    </div>
+  </div>
+</footer>

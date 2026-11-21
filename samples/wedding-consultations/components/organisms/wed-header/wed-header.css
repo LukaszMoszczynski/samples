@@ -1,0 +1,132 @@
+/* Wedding header: the wordmark, a short menu whose links get a tiny heart on hover, and the consultation button.
+   Sticky and see-through over the blush hero; a soft shadow once the page scrolls. Phones: a drawer. */
+.ds-wed-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--color-surface-page) 88%, transparent);
+  backdrop-filter: blur(var(--space-12));
+  transition: box-shadow 0.4s ease;
+}
+
+.ds-wed-header.is-scrolled {
+  box-shadow: 0 var(--space-4) var(--space-24) color-mix(in srgb, var(--color-brand-primary) 10%, transparent);
+}
+
+.ds-wed-header__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-32);
+  min-height: var(--size-header-height);
+}
+
+.ds-wed-header__logo img {
+  display: block;
+  height: var(--size-44);
+  width: auto;
+}
+
+.ds-wed-header__nav {
+  margin-left: auto;
+}
+
+.ds-wed-header__menu {
+  display: flex;
+  gap: var(--space-28);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-wed-header__link {
+  position: relative;
+  color: inherit;
+  font-size: var(--font-size-body);
+  letter-spacing: var(--space-1);
+  text-decoration: none;
+}
+
+.ds-wed-header__link::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--space-10) * -1);
+  left: 50%;
+  width: var(--space-8);
+  height: var(--space-8);
+  background: var(--color-brand-accent);
+  clip-path: path("M4 7.5S1 5.6.4 4C0 3 .6 1.6 1.9 1.6c.9 0 1.6.5 2.1 1.2.5-.7 1.2-1.2 2.1-1.2C7.4 1.6 8 3 7.6 4 7 5.6 4 7.5 4 7.5z");
+  opacity: 0;
+  transform: translate(-50%, var(--space-6)) scale(0.4);
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ds-wed-header__link:hover::before,
+.ds-wed-header__link[aria-current="page"]::before {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+
+.ds-wed-header__burger {
+  display: none;
+  width: var(--size-44);
+  height: var(--size-44);
+  margin-left: auto;
+  padding: 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.ds-wed-header__burger svg {
+  width: var(--size-20);
+  height: var(--size-20);
+}
+
+.ds-wed-header__drawer {
+  padding-block: var(--space-8) var(--space-24);
+  border-top: 1px solid var(--color-border-default);
+}
+
+.ds-wed-header__drawer .ds-wed-header__menu {
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: var(--space-16);
+}
+
+.ds-wed-header__drawer .ds-wed-header__link {
+  display: block;
+  padding-block: var(--space-12);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+}
+
+.ds-wed-header__drawer .ds-wed-header__link::before {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .ds-wed-header__nav,
+  .ds-wed-header__bar > .ds-heart-button {
+    display: none;
+  }
+
+  .ds-wed-header__burger {
+    display: inline-grid;
+    place-items: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ds-wed-header__drawer {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-wed-header,
+  .ds-wed-header__link::before {
+    transition: none;
+  }
+}

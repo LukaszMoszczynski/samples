@@ -1,0 +1,44 @@
+---
+// Gallery with filters (wedding.js animates the reflow with GSAP Flip) and a lightbox (<dialog>). Tiles are drawn
+// scenes in the sample; the real site puts photos in the same frames.
+import HeartLabel from '../../atoms/heart-label/HeartLabel.astro';
+import ArtTile from '../../molecules/art-tile/ArtTile.astro';
+type Scene = 'rings' | 'bouquet' | 'cake' | 'toast' | 'arch' | 'aisle' | 'dance' | 'villa' | 'invitation';
+interface Item { scene: Scene; caption: string; category: string; size?: 'wide' | 'tall' }
+interface Props { label: string; title: string; lead: string; categories: string[]; items: Item[] }
+const { label, title, lead, categories, items } = Astro.props;
+const heart = 'M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.9 4.5 6.6 4.5c2.2 0 3.9 1.3 5.4 3.2 1.5-1.9 3.2-3.2 5.4-3.2 3.7 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z';
+---
+<section class="ds-section ds-gallery" id="galeria" aria-labelledby="galeria-title">
+  <div class="ds-container">
+    <div class="ds-section-head ds-section-head--center" data-reveal>
+      <HeartLabel text={label} />
+      <h2 class="ds-section-head__title" id="galeria-title"><Fragment set:html={title} /></h2>
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <div class="ds-gallery__filters" role="group" aria-label="Pokaż w galerii" data-reveal>
+      <button class="ds-gallery__filter" type="button" aria-pressed="true" data-gallery-filter="all">Wszystkie</button>
+      {categories.map((category) => <button class="ds-gallery__filter" type="button" aria-pressed="false" data-gallery-filter={category}>{category}</button>)}
+    </div>
+    <ul class="ds-gallery__grid" role="list" data-gallery-grid>
+      {items.map((item, index) => (
+        <li class={`ds-gallery__item${item.size ? ` ds-gallery__item--${item.size}` : ''}`} data-gallery-item data-category={item.category}>
+          <button class="ds-gallery__open" type="button" data-gallery-open={index} aria-label={`Powiększ: ${item.caption}`}>
+            <ArtTile scene={item.scene} />
+            <span class="ds-gallery__caption" aria-hidden="true"><svg viewBox="0 0 24 24"><path d={heart} /></svg>{item.caption}</span>
+          </button>
+        </li>
+      ))}
+    </ul>
+  </div>
+  <dialog class="ds-lightbox" aria-labelledby="lightbox-caption" data-lightbox>
+    <div class="ds-lightbox__stage" data-lightbox-stage></div>
+    <div class="ds-lightbox__bar">
+      <button class="ds-lightbox__button" type="button" aria-label="Poprzednie" data-lightbox-prev><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M20 12H5m6-6-6 6 6 6"/></svg></button>
+      <p class="ds-lightbox__caption" id="lightbox-caption" data-lightbox-caption></p>
+      <span class="ds-lightbox__count" data-lightbox-count></span>
+      <button class="ds-lightbox__button" type="button" aria-label="Następne" data-lightbox-next><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></button>
+      <button class="ds-lightbox__button" type="button" aria-label="Zamknij" data-lightbox-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </div>
+  </dialog>
+</section>

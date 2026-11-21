@@ -1,0 +1,25 @@
+---
+import HeartButton from '../../atoms/heart-button/HeartButton.astro';
+interface Props { logo: string; items: { text: string; href: string }[]; cta: { text: string; href: string } }
+const { logo, items, cta } = Astro.props;
+---
+<header class="ds-wed-header" data-wed-header>
+  <div class="ds-container ds-wed-header__bar">
+    <a class="ds-wed-header__logo" href="#top"><img src={logo} alt="ViaVilla, konsultacje ślubne" width="210" height="44" /></a>
+    <nav class="ds-wed-header__nav" aria-label="Menu główne">
+      <ul class="ds-wed-header__menu" role="list">
+        {items.map((item) => <li><a class="ds-wed-header__link" href={item.href}>{item.text}</a></li>)}
+      </ul>
+    </nav>
+    <HeartButton text={cta.text} href={cta.href} />
+    <button class="ds-wed-header__burger" type="button" aria-expanded="false" aria-controls="wed-drawer" aria-label="Menu" data-wed-burger>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+    </button>
+  </div>
+  <div class="ds-container ds-wed-header__drawer" id="wed-drawer" hidden>
+    <ul class="ds-wed-header__menu" role="list">
+      {items.map((item) => <li><a class="ds-wed-header__link" href={item.href}>{item.text}</a></li>)}
+    </ul>
+    <HeartButton text={cta.text} href={cta.href} />
+  </div>
+</header>

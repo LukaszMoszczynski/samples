@@ -1,0 +1,160 @@
+/* Wedding footer: on deep plum, a newsletter line with a field, then the brand, the venue (hall, restaurant, rooms),
+   links and contact, then the legal bar with a small gold heart. */
+.ds-wed-footer {
+  padding-block: var(--space-64) var(--space-32);
+  background: var(--palette-primary-800);
+  color: var(--color-text-on-brand);
+}
+
+.ds-wed-footer__news {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-40);
+  align-items: end;
+  padding-bottom: var(--space-48);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text-on-brand) 18%, transparent);
+}
+
+.ds-wed-footer__news-title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  line-height: var(--font-line-height-3xl);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-wed-footer__news-title em {
+  color: var(--palette-accent-400);
+}
+
+.ds-wed-footer__form {
+  display: flex;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text-on-brand) 60%, transparent);
+}
+
+.ds-wed-footer__input {
+  flex: 1;
+  min-width: 0;
+  min-height: var(--size-52);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+.ds-wed-footer__input::placeholder {
+  color: color-mix(in srgb, var(--color-text-on-brand) 75%, transparent);
+}
+
+.ds-wed-footer__submit {
+  border: 0;
+  background: transparent;
+  color: var(--palette-accent-400);
+  font: inherit;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+}
+
+.ds-wed-footer__note {
+  grid-column: 2;
+  margin: calc(var(--space-24) * -1) 0 0;
+  font-size: var(--font-size-small);
+  color: var(--palette-accent-400);
+}
+
+.ds-wed-footer__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr));
+  gap: var(--space-40);
+  padding-block: var(--space-48);
+}
+
+.ds-wed-footer__logo img {
+  display: block;
+  height: var(--size-44);
+  width: auto;
+}
+
+.ds-wed-footer__about {
+  margin: var(--space-16) 0 0;
+  color: color-mix(in srgb, var(--color-text-on-brand) 82%, transparent);
+}
+
+.ds-wed-footer__title {
+  margin: 0 0 var(--space-12);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--space-2);
+  text-transform: uppercase;
+  color: var(--palette-accent-400);
+}
+
+.ds-wed-footer__list {
+  display: grid;
+  gap: var(--space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-wed-footer__link {
+  color: inherit;
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) right bottom / 0 1px no-repeat;
+  transition: background-size 0.4s ease;
+}
+
+.ds-wed-footer__link:hover {
+  background-size: 100% 1px;
+  background-position: left bottom;
+}
+
+.ds-wed-footer__link:focus-visible,
+.ds-wed-footer__input:focus-visible,
+.ds-wed-footer__submit:focus-visible {
+  outline: var(--focus-ring-width) solid var(--palette-accent-400);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-wed-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-16);
+  padding-top: var(--space-24);
+  border-top: 1px solid color-mix(in srgb, var(--color-text-on-brand) 18%, transparent);
+  font-size: var(--font-size-small);
+  color: color-mix(in srgb, var(--color-text-on-brand) 82%, transparent);
+}
+
+@media (max-width: 1023px) {
+  .ds-wed-footer__news,
+  .ds-wed-footer__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .ds-wed-footer__news {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ds-wed-footer__note {
+    grid-column: 1;
+  }
+
+  .ds-wed-footer__brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 479px) {
+  .ds-wed-footer__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-wed-footer__link {
+    transition: none;
+  }
+}

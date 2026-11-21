@@ -1,0 +1,52 @@
+/* Know list: what Kasia knows, as heart-bulleted lines in two columns on plum; each heart fills with gold as its line
+   comes into view. */
+.ds-know {
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+}
+
+.ds-know .ds-section-head__title em {
+  color: var(--palette-accent-400);
+}
+
+.ds-know__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-8) var(--space-48);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-know__item {
+  display: grid;
+  grid-template-columns: var(--size-24) minmax(0, 1fr);
+  gap: var(--space-16);
+  align-items: start;
+  padding-block: var(--space-16);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text-on-brand) 18%, transparent);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  line-height: var(--font-line-height-xl);
+}
+
+.ds-know__heart {
+  width: var(--size-24);
+  height: var(--size-24);
+  margin-top: var(--space-4);
+  fill: var(--palette-accent-400);
+  stroke: var(--palette-accent-400);
+  stroke-width: 1.5;
+}
+
+.ds-know__close {
+  margin: var(--space-40) 0 0;
+  font-size: var(--font-size-lg);
+  color: color-mix(in srgb, var(--color-text-on-brand) 86%, transparent);
+}
+
+@media (max-width: 781px) {
+  .ds-know__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

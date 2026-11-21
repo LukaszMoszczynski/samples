@@ -1,0 +1,64 @@
+---
+// Booking. Sample only: submitting plays a heart burst and shows a thank-you note; nothing is sent (wedding.js).
+import HeartLabel from '../../atoms/heart-label/HeartLabel.astro';
+import HeartButton from '../../atoms/heart-button/HeartButton.astro';
+interface Props { label: string; title: string; lead: string; steps: string[] }
+const { label, title, lead, steps } = Astro.props;
+const heart = 'M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.9 4.5 6.6 4.5c2.2 0 3.9 1.3 5.4 3.2 1.5-1.9 3.2-3.2 5.4-3.2 3.7 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z';
+---
+<section class="ds-section ds-section--ink ds-booking" id="rezerwacja" aria-labelledby="rezerwacja-title">
+  <div class="ds-container ds-booking__grid">
+    <div data-reveal>
+      <div class="ds-section-head">
+        <HeartLabel text={label} />
+        <h2 class="ds-section-head__title" id="rezerwacja-title"><Fragment set:html={title} /></h2>
+        <p class="ds-section-head__lead">{lead}</p>
+      </div>
+      <ol class="ds-booking__steps" role="list">{steps.map((step) => <li class="ds-booking__step">{step}</li>)}</ol>
+    </div>
+    <form class="ds-booking__card" data-booking-form data-reveal>
+      <p class="ds-booking__card-title">Zaproszenie na konsultację</p>
+      <div class="ds-booking__field">
+        <label class="ds-booking__label" for="book-names">Wasze imiona</label>
+        <input class="ds-booking__input" id="book-names" name="names" placeholder="Ola i Marek" required />
+      </div>
+      <div class="ds-booking__field">
+        <label class="ds-booking__label" for="book-date">Data ślubu</label>
+        <input class="ds-booking__input" id="book-date" name="date" type="date" />
+      </div>
+      <div class="ds-booking__field">
+        <label class="ds-booking__label" for="book-stage">Na jakim jesteście etapie?</label>
+        <select class="ds-booking__input" id="book-stage" name="stage">
+          <option>Dopiero zaczynamy</option>
+          <option>Mamy salę, co dalej?</option>
+          <option>Zostało kilka miesięcy</option>
+          <option>Ostatnie tygodnie</option>
+        </select>
+      </div>
+      <div class="ds-booking__field">
+        <label class="ds-booking__label" for="book-where">Gdzie się spotkamy?</label>
+        <select class="ds-booking__input" id="book-where" name="where">
+          <option>Online</option>
+          <option>Na miejscu w ViaVilli</option>
+        </select>
+      </div>
+      <div class="ds-booking__field ds-booking__field--wide">
+        <label class="ds-booking__label" for="book-email">E-mail</label>
+        <input class="ds-booking__input" id="book-email" name="email" type="email" autocomplete="email" required />
+      </div>
+      <div class="ds-booking__field ds-booking__field--wide">
+        <label class="ds-booking__label" for="book-message">O czym chcecie porozmawiać?</label>
+        <textarea class="ds-booking__input" id="book-message" name="message" rows="3"></textarea>
+      </div>
+      <label class="ds-booking__consent">
+        <input type="checkbox" name="consent" required />
+        <span>Zgadzam się na kontakt w sprawie konsultacji.</span>
+      </label>
+      <div class="ds-booking__send">
+        <HeartButton text="Wyślij zaproszenie" type="submit" />
+        {Array.from({ length: 10 }, () => <svg class="ds-booking__burst" viewBox="0 0 24 24" aria-hidden="true" data-burst><path d={heart} /></svg>)}
+      </div>
+      <p class="ds-booking__thanks" role="status" hidden data-booking-thanks>Dziękujemy! Kasia odezwie się, żeby ustalić termin. (To przykładowy formularz.)</p>
+    </form>
+  </div>
+</section>

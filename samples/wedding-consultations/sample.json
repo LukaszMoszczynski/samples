@@ -1,0 +1,9 @@
+{
+  "slug": "wedding-consultations",
+  "stack": "astro",
+  "lang": "pl",
+  "title": "ViaVilla – konsultacje ślubne (przykładowa strona)",
+  "pages": [
+    "index"
+  ]
+}

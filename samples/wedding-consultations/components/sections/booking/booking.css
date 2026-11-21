@@ -1,0 +1,168 @@
+/* Booking: an invitation-style card on plum. Left: what happens after you write; right: a short form (names, date,
+   stage, online or at the venue). On sending, hearts burst from the button and a thank-you note appears. */
+.ds-booking {
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+}
+
+.ds-booking .ds-section-head__title em {
+  color: var(--palette-accent-400);
+}
+
+.ds-booking__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: var(--space-64);
+  align-items: start;
+}
+
+.ds-booking__steps {
+  display: grid;
+  gap: var(--space-20);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: booking;
+}
+
+.ds-booking__step {
+  display: grid;
+  grid-template-columns: var(--size-40) minmax(0, 1fr);
+  gap: var(--space-16);
+  align-items: baseline;
+  counter-increment: booking;
+  font-size: var(--font-size-lg);
+  color: color-mix(in srgb, var(--color-text-on-brand) 88%, transparent);
+}
+
+.ds-booking__step::before {
+  content: counter(booking);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-36);
+  font-style: italic;
+  color: var(--palette-accent-400);
+}
+
+.ds-booking__card {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-20);
+  padding: var(--space-64) var(--space-40) var(--space-40);
+  border-radius: var(--size-160) var(--size-160) var(--radius-sm) var(--radius-sm);
+  background: var(--color-surface-page);
+  color: var(--color-text-default);
+}
+
+.ds-booking__card-title {
+  grid-column: 1 / -1;
+  margin: 0 0 var(--space-8);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  line-height: var(--font-line-height-2xl);
+  font-style: italic;
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+  color: var(--color-brand-primary);
+}
+
+.ds-booking__field {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.ds-booking__field--wide {
+  grid-column: 1 / -1;
+}
+
+.ds-booking__label {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--space-1);
+}
+
+.ds-booking__input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--size-52);
+  padding: var(--space-12) var(--space-14);
+  border: 0;
+  border-bottom: 1px solid var(--color-border-strong);
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  transition: border-color 0.3s ease;
+}
+
+.ds-booking__input:focus-visible {
+  outline: none;
+  border-bottom: 2px solid var(--color-brand-primary);
+}
+
+.ds-booking__consent {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: var(--space-10);
+  align-items: flex-start;
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+}
+
+.ds-booking__consent input {
+  width: var(--size-20);
+  height: var(--size-20);
+  margin: 0;
+  accent-color: var(--color-brand-primary);
+}
+
+.ds-booking__send {
+  position: relative;
+  grid-column: 1 / -1;
+  justify-self: center;
+}
+
+.ds-booking__burst {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--size-16);
+  height: var(--size-16);
+  fill: var(--color-brand-primary);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.ds-booking__thanks {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: var(--space-16);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-soft);
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-style: italic;
+  color: var(--color-brand-primary);
+}
+
+@media (max-width: 1023px) {
+  .ds-booking__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-40);
+  }
+}
+
+@media (max-width: 599px) {
+  .ds-booking__card {
+    grid-template-columns: minmax(0, 1fr);
+    padding: var(--space-56) var(--space-24) var(--space-24);
+    border-radius: var(--size-52) var(--size-52) var(--radius-sm) var(--radius-sm);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-booking__input {
+    transition: none;
+  }
+}

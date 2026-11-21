@@ -1,0 +1,61 @@
+/* About: an arched frame with Kasia's monogram drawn in gold (the real site puts her portrait here), her story, and a
+   quote set large in italic with a compass-heart mark. */
+.ds-about__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: var(--space-64);
+  align-items: center;
+}
+
+.ds-about__frame {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+.ds-about__text {
+  display: grid;
+  gap: var(--space-16);
+}
+
+.ds-about__text p {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  line-height: 1.7;
+  color: var(--color-text-muted);
+}
+
+.ds-about__quote {
+  position: relative;
+  margin: var(--space-24) 0 0;
+  padding-left: var(--space-32);
+  border-left: 1px solid var(--color-brand-accent);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  line-height: var(--font-line-height-3xl);
+  font-style: italic;
+  color: var(--color-brand-primary);
+}
+
+.ds-about__sign {
+  display: block;
+  margin-top: var(--space-12);
+  font-family: var(--font-body);
+  font-size: var(--font-size-small);
+  font-style: normal;
+  letter-spacing: var(--space-2);
+  text-transform: uppercase;
+  color: var(--color-brand-accent);
+}
+
+@media (max-width: 899px) {
+  .ds-about__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-32);
+  }
+
+  .ds-about__frame {
+    max-width: calc(var(--layout-container) * 0.3);
+    justify-self: center;
+  }
+}

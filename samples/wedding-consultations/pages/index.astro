@@ -1,0 +1,170 @@
+---
+// Wedding consultations home page, made as a proposal for the client. Copy is based on the client's own site
+// (about, consultations, FAQ), rewritten and shortened; recommendations are marked as examples.
+import Sample from '../layouts/Sample.astro';
+import sample from '../sample.json';
+
+import '../components/base/page/page.css';
+import '../components/atoms/heart-button/heart-button.css';
+import '../components/atoms/heart-label/heart-label.css';
+import '../components/molecules/offer-card/offer-card.css';
+import '../components/molecules/art-tile/art-tile.css';
+import '../components/organisms/wed-header/wed-header.css';
+import '../components/organisms/wed-footer/wed-footer.css';
+import '../components/sections/wed-hero/wed-hero.css';
+import '../components/sections/about/about.css';
+import '../components/sections/know-list/know-list.css';
+import '../components/sections/offers/offers.css';
+import '../components/sections/planner/planner.css';
+import '../components/sections/gallery/gallery.css';
+import '../components/sections/marquee/marquee.css';
+import '../components/sections/stories/stories.css';
+import '../components/sections/wed-faq/wed-faq.css';
+import '../components/sections/booking/booking.css';
+
+import WedHeader from '../components/organisms/wed-header/WedHeader.astro';
+import WedHero from '../components/sections/wed-hero/WedHero.astro';
+import About from '../components/sections/about/About.astro';
+import KnowList from '../components/sections/know-list/KnowList.astro';
+import HeartLabel from '../components/atoms/heart-label/HeartLabel.astro';
+import OfferCard from '../components/molecules/offer-card/OfferCard.astro';
+import Planner from '../components/sections/planner/Planner.astro';
+import Gallery from '../components/sections/gallery/Gallery.astro';
+import Marquee from '../components/sections/marquee/Marquee.astro';
+import Stories from '../components/sections/stories/Stories.astro';
+import WedFaq from '../components/sections/wed-faq/WedFaq.astro';
+import Booking from '../components/sections/booking/Booking.astro';
+import WedFooter from '../components/organisms/wed-footer/WedFooter.astro';
+import logo from '../assets/logo.svg?url';
+import logoLight from '../assets/logo-light.svg?url';
+
+const nav = [
+  { text: 'O mnie', href: '#o-mnie' },
+  { text: 'Konsultacje', href: '#konsultacje' },
+  { text: 'Planer', href: '#planer' },
+  { text: 'Galeria', href: '#galeria' },
+  { text: 'Pytania', href: '#pytania' },
+];
+---
+<Sample lang={sample.lang} title={sample.title} description="Konsultacje ślubne z ekspertką: plan wesela krok po kroku, bez presji i zbędnych wydatków." fonts="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&display=swap">
+  <WedHeader logo={logo} items={nav} cta={{ text: 'Umów konsultację', href: '#rezerwacja' }} />
+  <main>
+    <WedHero
+      label="Konsultacje ślubne z ekspertką"
+      title="Zaplanujcie ślub z radością, nie z presją"
+      accent="z radością,"
+      lead="Ponad 1000 zorganizowanych wesel. Pokażę Wam, jak samodzielnie przygotować wesele marzeń: w dobrej kolejności, z planem i bez zbędnych wydatków."
+      facts={[
+        { count: 1000, value: '+', label: 'zorganizowanych wesel' },
+        { count: 16, value: ' lat', label: 'przy ślubach i weselach' },
+        { value: '60–90 min', label: 'jedna konsultacja' },
+      ]}
+    />
+    <About
+      label="O mnie"
+      title="Jestem Kasia i będę <em>Waszym kompasem</em>"
+      paragraphs={[
+        'Od ponad 16 lat pomagam tworzyć śluby i wesela, od kameralnych przyjęć po duże uroczystości. Patrzę na nie oczami par młodych, ale też od strony sali, logistyki i całego zaplecza.',
+        'Widziałam setki decyzji, które dają parom spokój, i te, które niepotrzebnie kosztują czas, pieniądze i nerwy. Dziś dzielę się tą wiedzą, żebyście mogli zorganizować wesele po swojemu.',
+      ]}
+      quote="Wskażę drogę, podpowiem rozwiązania i sprawię, że przygotowania będą uporządkowane i przyjemne."
+    />
+    <KnowList
+      label="Co Wam dam"
+      title="Wiem <em>dokładnie</em>…"
+      items={[
+        'co trzeba załatwić i w jakiej kolejności',
+        'jak ustalić priorytety, zanim zaczniecie wydawać pieniądze',
+        'na czym można oszczędzić czas i pieniądze',
+        'jak uniknąć presji i niepotrzebnego stresu',
+        'jak odzyskać spokój w trakcie przygotowań',
+        'jak stworzyć realny plan działania krok po kroku',
+      ]}
+      close="Z taką wiedzą przeżyjecie najważniejszy dzień spokojnie, po swojemu i z uśmiechem."
+    />
+    <section class="ds-section ds-offers" id="konsultacje" aria-labelledby="konsultacje-title">
+      <div class="ds-container">
+        <div class="ds-section-head ds-section-head--center" data-reveal>
+          <HeartLabel text="Konsultacje" />
+          <h2 class="ds-section-head__title" id="konsultacje-title">Wybierzcie <em>swoją</em> formę wsparcia</h2>
+          <p class="ds-section-head__lead">Bez zobowiązań: jedna rozmowa często wystarcza, żeby uporządkować chaos.</p>
+        </div>
+        <ul class="ds-offers__list" role="list">
+          <li><OfferCard tag="Na start" name="Konsultacja" time="60–90 minut" cta="Umów konsultację" points={['Plan przygotowań krok po kroku', 'Priorytety i budżet', 'Odpowiedzi na wszystkie Wasze pytania', 'Online lub na miejscu']} /></li>
+          <li><OfferCard tag="Spokój w dniu ślubu" name="Pakiet VIP" time="ustalany indywidualnie" cta="Zapytaj o pakiet" featured points={['Wszystko z konsultacji', 'Wsparcie między spotkaniami', 'Koordynacja w dniu wesela', 'Kontakt z usługodawcami w dniu ślubu']} /></li>
+          <li><OfferCard tag="Jeden temat" name="Konsultacja tematyczna" time="wybrany temat" cta="Wybierz temat" points={['Harmonogram dnia ślubu', 'Budżet i oszczędności', 'Wybór usługodawców: na co patrzeć', 'Ślub w plenerze lub za granicą']} /></li>
+        </ul>
+      </div>
+    </section>
+    <Planner
+      label="Planer"
+      title="Kiedy <em>co</em> załatwić?"
+      lead="Kliknijcie moment przygotowań i zobaczcie, czym warto się wtedy zająć. Tak wygląda plan, który dostajecie na konsultacji."
+      moments={[
+        { when: '12 mies.', title: 'Rok przed ślubem', percent: 10, tasks: ['Budżet i wstępna lista gości', 'Data, sala i ślub kościelny lub cywilny', 'Fotograf i muzyka: najlepsi mają kalendarze z wyprzedzeniem'], tip: 'Najpierw priorytety, potem rezerwacje. Wtedy pieniądze idą tam, gdzie naprawdę Wam zależy.' },
+        { when: '9 mies.', title: 'Dziewięć miesięcy przed', percent: 25, tasks: ['Suknia i garnitur', 'Świadkowie i ich rola', 'Noclegi dla gości z daleka'], tip: 'Przymiarki sukni zajmują więcej czasu, niż się wydaje. Zacznijcie teraz.' },
+        { when: '6 mies.', title: 'Pół roku przed', percent: 45, tasks: ['Projekt zaproszeń', 'Obrączki', 'Kwiaty i dekoracje', 'Wstępny wybór tortu'], tip: '"Rok to za mało"? Nie dajcie się presji. Z planem pół roku to dużo czasu.' },
+        { when: '3 mies.', title: 'Trzy miesiące przed', percent: 65, tasks: ['Wysyłka zaproszeń', 'Degustacja i menu', 'Transport w dniu ślubu'], tip: 'Zaproszenia wyślijcie 2–3 miesiące przed ślubem, z datą potwierdzenia obecności.' },
+        { when: '1 mies.', title: 'Miesiąc przed', percent: 82, tasks: ['Potwierdzenia gości i plan stołów', 'Ostateczne zamówienie tortu', 'Harmonogram dnia dla usługodawców'], tip: 'Jeden harmonogram dla wszystkich usługodawców oszczędza dziesiątki telefonów.' },
+        { when: 'Tydzień', title: 'Ostatni tydzień', percent: 95, tasks: ['Ostatnie przymiarki', 'Kontakt ze wszystkimi usługodawcami', 'Czas dla siebie'], tip: 'W tym tygodniu nic nowego. Tylko potwierdzenia i odpoczynek.' },
+        { when: 'Dzień ślubu', title: 'Wasz dzień', percent: 100, tasks: ['Cieszcie się sobą i gośćmi', 'Koordynację przejmuje ktoś zaufany (lub ja, w pakiecie VIP)'], tip: 'Wszystko zaplanowane. Teraz już tylko radość.' },
+      ]}
+    />
+    <Gallery
+      label="Galeria"
+      title="Chwile, <em>które</em> zostają"
+      lead="Ceremonia, przyjęcie, detale i nasza sala. W gotowej stronie: zdjęcia z prawdziwych wesel."
+      categories={['Ceremonia', 'Przyjęcie', 'Detale', 'Sala']}
+      items={[
+        { scene: 'arch', caption: 'Ślub w ogrodzie', category: 'Ceremonia', size: 'wide' },
+        { scene: 'rings', caption: 'Obrączki', category: 'Detale' },
+        { scene: 'cake', caption: 'Tort weselny', category: 'Przyjęcie', size: 'tall' },
+        { scene: 'villa', caption: 'Sala wieczorem', category: 'Sala', size: 'tall' },
+        { scene: 'bouquet', caption: 'Bukiet panny młodej', category: 'Detale', size: 'tall' },
+        { scene: 'toast', caption: 'Pierwszy toast', category: 'Przyjęcie', size: 'wide' },
+        { scene: 'aisle', caption: 'Droga do ołtarza', category: 'Ceremonia' },
+        { scene: 'dance', caption: 'Pierwszy taniec', category: 'Przyjęcie', size: 'wide' },
+        { scene: 'invitation', caption: 'Zaproszenia', category: 'Detale', size: 'wide' },
+      ]}
+    />
+    <Marquee text="umów się na konsultację" href="#rezerwacja" />
+    <Stories
+      label="Rekomendacje"
+      title="Pary, <em>które</em> już wiedzą"
+      note="Przykładowe opinie: w gotowej stronie znajdą się prawdziwe rekomendacje par."
+      items={[
+        { quote: 'Po jednej rozmowie mieliśmy plan na cały rok i przestaliśmy się kłócić o kolejność spraw.', who: 'Para z konsultacji' },
+        { quote: 'Kasia od razu wiedziała, na czym możemy zaoszczędzić, a na czym nie warto.', who: 'Para z konsultacji' },
+        { quote: 'W dniu ślubu nie musieliśmy myśleć o niczym. Tylko o sobie.', who: 'Para z pakietu VIP' },
+      ]}
+    />
+    <WedFaq
+      label="Pytania"
+      title="Najczęściej <em>pytacie</em>"
+      items={[
+        { question: 'Nie wiemy kompletnie, od czego zacząć.', answer: 'Dlatego tu jestem. Pokażę Wam, jak krok po kroku zorganizować wesele i nie zwariować.' },
+        { question: 'Czy konsultacja ma sens, jeśli część rzeczy już załatwiliśmy?', answer: 'Tak. Dopasuję spotkanie do Waszego etapu; często właśnie wtedy pojawia się pytanie: co dalej, o czym zapomnieliśmy?' },
+        { question: 'Czy naprawdę wystarczy jedno spotkanie?', answer: 'Dla wielu par tak: jedna rozmowa porządkuje chaos i daje plan. Jeśli będziecie potrzebować więcej, umówimy kolejną.' },
+        { question: 'Czy jesteś wedding planerką?', answer: 'Jestem ekspertką ślubną: pomagam Wam samodzielnie przygotować wesele. W pakiecie VIP mogę też koordynować dzień ślubu.' },
+        { question: 'Ślub za mniej niż pół roku. Czy to nie za późno?', answer: 'Nie. Nawet dwa miesiące wystarczą, jeśli wiecie, co robić. Pomogę ułożyć plan.' },
+        { question: 'Czy konsultacja zobowiązuje do dalszej współpracy?', answer: 'Nie. To pojedyncze spotkanie: zastrzyk wiedzy i pewności.' },
+      ]}
+    />
+    <Booking
+      label="Rezerwacja"
+      title="Gotowi? <em>Porozmawiajmy</em>"
+      lead="Napiszcie kilka słów o swojej sytuacji. Im więcej wiem, tym lepiej przygotuję się do rozmowy."
+      steps={['Wysyłacie zaproszenie na konsultację', 'Ustalamy termin, online lub w ViaVilli', 'Rozmawiamy 60–90 minut i wychodzicie z planem']}
+    />
+  </main>
+  <WedFooter
+    logo={logoLight}
+    about="Konsultacje ślubne z ekspertką oraz ViaVilla: sala weselna, restauracja nova i noclegi tuż przy lotnisku."
+    columns={[
+      { title: 'Konsultacje', links: [{ text: 'O mnie', href: '#o-mnie' }, { text: 'Konsultacje', href: '#konsultacje' }, { text: 'Planer', href: '#planer' }, { text: 'Pytania', href: '#pytania' }] },
+      { title: 'ViaVilla', links: [{ text: 'Sala weselna', href: '#galeria' }, { text: 'Restauracja nova', href: '#galeria' }, { text: 'Noclegi', href: '#galeria' }] },
+    ]}
+    contact={['Umów konsultację', 'przez formularz', 'online lub w ViaVilli']}
+  />
+  <script src="../scripts/wedding.js"></script>
+</Sample>

@@ -1,0 +1,55 @@
+/* Marquee: "umów się na konsultację ♡" running across a plum band; it pauses on hover and stands still under reduced
+   motion. The whole band is one link to the booking form. */
+.ds-marquee {
+  display: block;
+  overflow: hidden;
+  padding-block: var(--space-24);
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+  text-decoration: none;
+}
+
+.ds-marquee__track {
+  display: flex;
+  width: max-content;
+  animation: ds-marquee 28s linear infinite;
+}
+
+.ds-marquee:hover .ds-marquee__track,
+.ds-marquee:focus-visible .ds-marquee__track {
+  animation-play-state: paused;
+}
+
+.ds-marquee__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-24);
+  padding-right: var(--space-24);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-36);
+  font-style: italic;
+  white-space: nowrap;
+}
+
+.ds-marquee__item svg {
+  width: var(--size-24);
+  height: var(--size-24);
+  fill: var(--palette-accent-400);
+}
+
+.ds-marquee:focus-visible {
+  outline: var(--focus-ring-width) solid var(--palette-accent-400);
+  outline-offset: calc(var(--focus-ring-width) * -2);
+}
+
+@keyframes ds-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-marquee__track {
+    animation: none;
+  }
+}

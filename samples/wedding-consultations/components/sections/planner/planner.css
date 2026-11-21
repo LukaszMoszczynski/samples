@@ -1,0 +1,215 @@
+/* Planner: "kiedy co załatwić?" A row of moments (12 months before … the day) on a gold line; choosing one shows its
+   tasks and Kasia's tip, and a heart beside them fills to show how close the day is. */
+.ds-planner__steps {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  margin: 0 0 var(--space-48);
+  padding: 0;
+  list-style: none;
+}
+
+.ds-planner__steps::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--size-20) / 2);
+  left: calc(100% / 14);
+  right: calc(100% / 14);
+  height: 1px;
+  background: var(--color-border-strong);
+}
+
+.ds-planner__progress {
+  position: absolute;
+  top: calc(var(--size-20) / 2);
+  left: calc(100% / 14);
+  height: 2px;
+  width: 0;
+  background: var(--color-brand-accent);
+}
+
+.ds-planner__step {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-12);
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-text-muted);
+  font: inherit;
+  cursor: pointer;
+}
+
+.ds-planner__dot {
+  width: var(--size-20);
+  height: var(--size-20);
+  box-sizing: border-box;
+  border: 1px solid var(--color-brand-accent);
+  border-radius: var(--radius-full);
+  background: var(--color-surface-page);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease;
+}
+
+.ds-planner__step.is-done .ds-planner__dot {
+  background: var(--color-brand-accent);
+}
+
+.ds-planner__step[aria-pressed="true"] .ds-planner__dot {
+  background: var(--color-brand-primary);
+  border-color: var(--color-brand-primary);
+  transform: scale(1.35);
+}
+
+.ds-planner__when {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  line-height: 1.2;
+  text-align: center;
+}
+
+.ds-planner__step[aria-pressed="true"] .ds-planner__when {
+  color: var(--color-brand-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-planner__panel {
+  display: grid;
+  grid-template-columns: var(--size-160) minmax(0, 1fr) minmax(0, 0.8fr);
+  gap: var(--space-40);
+  align-items: center;
+  padding: var(--space-40);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-card);
+  box-shadow: 0 var(--space-12) var(--space-40) color-mix(in srgb, var(--color-brand-primary) 10%, transparent);
+}
+
+.ds-planner__heart {
+  width: var(--size-160);
+  height: auto;
+  max-width: 100%;
+}
+
+.ds-planner__percent {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-36);
+  fill: var(--color-text-on-brand);
+}
+
+.ds-planner__title {
+  margin: 0 0 var(--space-12);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  line-height: var(--font-line-height-2xl);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-planner__tasks {
+  display: grid;
+  gap: var(--space-10);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-planner__task {
+  display: grid;
+  grid-template-columns: var(--size-20) minmax(0, 1fr);
+  gap: var(--space-10);
+  line-height: 1.5;
+}
+
+.ds-planner__task svg {
+  width: var(--size-20);
+  height: var(--size-20);
+  fill: none;
+  stroke: var(--color-brand-accent);
+  stroke-width: 2;
+}
+
+.ds-planner__tip {
+  margin: 0;
+  padding: var(--space-24);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-soft);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--color-brand-primary);
+}
+
+.ds-planner__tip strong {
+  display: block;
+  margin-bottom: var(--space-6);
+  font-family: var(--font-body);
+  font-size: var(--font-size-small);
+  font-style: normal;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--space-2);
+  text-transform: uppercase;
+  color: var(--color-brand-accent);
+}
+
+@media (max-width: 1023px) {
+  .ds-planner__panel {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: start;
+  }
+
+  .ds-planner__heart {
+    width: var(--size-160);
+  }
+}
+
+@media (max-width: 781px) {
+  .ds-planner__steps {
+    display: flex;
+    gap: var(--space-8);
+    overflow-x: auto;
+    padding-bottom: var(--space-8);
+  }
+
+  .ds-planner__steps::before,
+  .ds-planner__progress {
+    display: none;
+  }
+
+  .ds-planner__step {
+    flex: 0 0 auto;
+    width: auto;
+    padding: var(--space-8) var(--space-14);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-full);
+  }
+
+  .ds-planner__step[aria-pressed="true"] {
+    border-color: var(--color-brand-primary);
+    background: var(--color-brand-primary);
+    color: var(--color-text-on-brand);
+  }
+
+  .ds-planner__step[aria-pressed="true"] .ds-planner__when {
+    color: var(--color-text-on-brand);
+  }
+
+  .ds-planner__dot {
+    display: none;
+  }
+
+  .ds-planner__when {
+    font-size: var(--font-size-body);
+    white-space: nowrap;
+  }
+
+  .ds-planner__panel {
+    padding: var(--space-24);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-planner__dot {
+    transition: none;
+  }
+}

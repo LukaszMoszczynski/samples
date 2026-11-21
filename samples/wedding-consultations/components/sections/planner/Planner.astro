@@ -1,0 +1,44 @@
+---
+// Planner. Every moment's tasks are in the HTML (one panel each, all but the first hidden); wedding.js switches them.
+// Without JS the first moment shows and the buttons do nothing.
+import HeartLabel from '../../atoms/heart-label/HeartLabel.astro';
+interface Moment { when: string; title: string; tasks: string[]; tip: string; percent: number }
+interface Props { label: string; title: string; lead: string; moments: Moment[] }
+const { label, title, lead, moments } = Astro.props;
+const heart = 'M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.9 4.5 6.6 4.5c2.2 0 3.9 1.3 5.4 3.2 1.5-1.9 3.2-3.2 5.4-3.2 3.7 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z';
+---
+<section class="ds-section ds-section--blush ds-planner" id="planer" aria-labelledby="planer-title">
+  <div class="ds-container">
+    <div class="ds-section-head ds-section-head--center" data-reveal>
+      <HeartLabel text={label} />
+      <h2 class="ds-section-head__title" id="planer-title"><Fragment set:html={title} /></h2>
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <div class="ds-planner__steps" role="group" aria-label="Wybierz moment przygotowań" data-reveal>
+      <span class="ds-planner__progress" aria-hidden="true" data-planner-progress></span>
+      {moments.map((moment, index) => (
+        <button class="ds-planner__step" type="button" aria-pressed={index === 0 ? 'true' : 'false'} aria-controls={`planer-panel-${index}`} data-planner-step={index}>
+          <span class="ds-planner__dot" aria-hidden="true"></span>
+          <span class="ds-planner__when">{moment.when}</span>
+        </button>
+      ))}
+    </div>
+    {moments.map((moment, index) => (
+      <div class="ds-planner__panel" id={`planer-panel-${index}`} hidden={index !== 0} aria-live="polite" data-planner-panel={index}>
+        <svg class="ds-planner__heart" viewBox="0 0 24 24" aria-hidden="true">
+          <defs><clipPath id={`planer-fill-${index}`}><rect x="0" y={24 - (24 * moment.percent) / 100} width="24" height="24" data-planner-fill /></clipPath></defs>
+          <path d={heart} fill="var(--color-surface-soft)" stroke="var(--color-brand-primary)" stroke-width="0.6" />
+          <path d={heart} fill="var(--color-brand-primary)" clip-path={`url(#planer-fill-${index})`} />
+          <text x="12" y="14.5" text-anchor="middle" font-size="4.2" font-family="Cormorant Garamond, Georgia, serif" fill={moment.percent > 45 ? 'var(--color-text-on-brand)' : 'var(--color-brand-primary)'}>{moment.percent}%</text>
+        </svg>
+        <div>
+          <h3 class="ds-planner__title">{moment.title}</h3>
+          <ul class="ds-planner__tasks" role="list">
+            {moment.tasks.map((task) => <li class="ds-planner__task" data-planner-task><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4 10-10" /></svg><span>{task}</span></li>)}
+          </ul>
+        </div>
+        <p class="ds-planner__tip"><strong>Porada Kasi</strong>{moment.tip}</p>
+      </div>
+    ))}
+  </div>
+</section>

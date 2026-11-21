@@ -1,0 +1,326 @@
+/* Art tile: wedding scenes drawn in the brand colours on a blush ground, each with one gentle loop (petals falling,
+   sparkles, bubbles, lanterns, string lights, a swaying couple, lit windows). Loops stop under reduced motion. */
+.ds-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.ds-art__ground {
+  fill: var(--color-surface-soft);
+}
+
+.ds-art--dance .ds-art__ground,
+.ds-art--villa .ds-art__ground,
+.ds-art--aisle .ds-art__ground {
+  fill: var(--palette-primary-800);
+}
+
+.ds-art__line,
+.ds-art__stem,
+.ds-art__wire {
+  fill: none;
+  stroke: var(--palette-accent-500);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.ds-art--dance .ds-art__line,
+.ds-art--villa .ds-art__line,
+.ds-art--aisle .ds-art__line,
+.ds-art__wire {
+  stroke: var(--palette-accent-400);
+}
+
+.ds-art__stem {
+  stroke: var(--palette-primary-400);
+}
+
+.ds-art__gold {
+  fill: none;
+  stroke: var(--palette-accent-500);
+  stroke-width: 9;
+}
+
+.ds-art__gold--rose {
+  stroke: var(--palette-primary-400);
+}
+
+.ds-art__stone,
+.ds-art__spark,
+.ds-art__bulb,
+.ds-art__glow {
+  fill: var(--palette-accent-400);
+}
+
+.ds-art__petal-fill {
+  fill: var(--palette-primary-400);
+}
+
+.ds-art__rose .ds-art__line {
+  stroke: var(--palette-primary-800);
+  stroke-width: 1.5;
+}
+
+.ds-art__ribbon,
+.ds-art__beat,
+.ds-art__seal,
+.ds-art__dress {
+  fill: var(--color-brand-primary);
+}
+
+.ds-art__dress {
+  fill: var(--color-surface-card);
+}
+
+.ds-art__fall {
+  fill: var(--palette-primary-400);
+  opacity: 0;
+}
+
+.ds-art__tier,
+.ds-art__paper,
+.ds-art__chair {
+  fill: var(--color-surface-card);
+  stroke: var(--palette-accent-500);
+  stroke-width: 1.5;
+}
+
+.ds-art__glass {
+  fill: color-mix(in srgb, var(--palette-accent-400) 45%, transparent);
+  stroke: var(--palette-accent-500);
+  stroke-width: 1.5;
+}
+
+.ds-art__bubble {
+  fill: var(--color-surface-card);
+  stroke: var(--palette-accent-500);
+}
+
+.ds-art__arch {
+  fill: none;
+  stroke: var(--palette-accent-500);
+  stroke-width: 6;
+}
+
+.ds-art__runner {
+  fill: color-mix(in srgb, var(--color-surface-card) 25%, transparent);
+}
+
+.ds-art__figure {
+  fill: var(--palette-secondary-800);
+  stroke: var(--palette-accent-400);
+  stroke-width: 1;
+}
+
+.ds-art__floor {
+  fill: color-mix(in srgb, var(--palette-accent-400) 25%, transparent);
+}
+
+.ds-art__house {
+  fill: var(--palette-primary-600);
+  stroke: var(--palette-accent-400);
+  stroke-width: 1.5;
+}
+
+.ds-art__window {
+  fill: var(--palette-accent-400);
+}
+
+.ds-art__door {
+  fill: var(--palette-primary-800);
+  stroke: var(--palette-accent-400);
+  stroke-width: 1.5;
+}
+
+.ds-art__tree {
+  fill: color-mix(in srgb, var(--palette-primary-400) 60%, transparent);
+}
+
+.ds-art__envelope {
+  fill: var(--color-surface-card);
+  stroke: var(--palette-accent-500);
+  stroke-width: 1.5;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ds-art__spark {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: ds-art-twinkle 2.4s ease-in-out infinite;
+  }
+
+  .ds-art__fall {
+    animation: ds-art-fall 7s linear infinite;
+  }
+
+  .ds-art__bubble {
+    animation: ds-art-rise 3s ease-in infinite;
+  }
+
+  .ds-art__glow,
+  .ds-art__bulb,
+  .ds-art__window {
+    animation: ds-art-flicker 2.2s ease-in-out infinite;
+  }
+
+  .ds-art__beat,
+  .ds-art__seal {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: ds-art-beat 1.6s ease-in-out infinite;
+  }
+
+  .ds-art__sway {
+    transform-box: fill-box;
+    transform-origin: bottom center;
+    animation: ds-art-sway 4s ease-in-out infinite;
+  }
+
+  .ds-art__rose {
+    animation: ds-art-bloom 5s ease-in-out infinite;
+  }
+
+  .ds-art__clink-left,
+  .ds-art__clink-right {
+    transform-box: fill-box;
+    transform-origin: bottom center;
+    animation: ds-art-clink-left 3s ease-in-out infinite;
+  }
+
+  .ds-art__clink-right {
+    animation-name: ds-art-clink-right;
+  }
+
+  .ds-art__letter {
+    animation: ds-art-letter 5s ease-in-out infinite;
+  }
+}
+
+@keyframes ds-art-twinkle {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.6) rotate(0deg);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(45deg);
+  }
+}
+
+@keyframes ds-art-fall {
+  from {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.8;
+  }
+
+  to {
+    transform: translateY(110%) rotate(240deg);
+    opacity: 0;
+  }
+}
+
+@keyframes ds-art-rise {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(-25%);
+    opacity: 0;
+  }
+}
+
+@keyframes ds-art-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.45;
+  }
+}
+
+@keyframes ds-art-beat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  20% {
+    transform: scale(1.18);
+  }
+
+  40% {
+    transform: scale(1);
+  }
+
+  60% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes ds-art-sway {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes ds-art-bloom {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes ds-art-clink-left {
+  0%,
+  60%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  75% {
+    transform: rotate(8deg);
+  }
+}
+
+@keyframes ds-art-clink-right {
+  0%,
+  60%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  75% {
+    transform: rotate(-8deg);
+  }
+}
+
+@keyframes ds-art-letter {
+  0%,
+  100% {
+    transform: translateY(14%);
+  }
+
+  50% {
+    transform: translateY(0);
+  }
+}
