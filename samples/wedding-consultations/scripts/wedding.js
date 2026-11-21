@@ -1,10 +1,10 @@
-// Behaviour and motion for the wedding sample (GSAP + ScrollTrigger + Flip).
+// Behaviour and motion for the wedding sample (GSAP + ScrollTrigger + Draggable).
 // Content is complete without JS; motion runs only without a reduced-motion preference.
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Flip } from 'gsap/Flip';
+import { Draggable } from 'gsap/Draggable';
 
-gsap.registerPlugin(ScrollTrigger, Flip);
+gsap.registerPlugin(ScrollTrigger, Draggable);
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // Header: soft shadow once scrolled; drawer on narrow screens.
@@ -49,23 +49,20 @@ function choose(index, animate = true) {
 steps.forEach((step, index) => step.addEventListener('click', () => choose(index)));
 if (steps.length) choose(0, false);
 
-// Gallery: filters (Flip reflow) and lightbox.
+// Gallery: filters (fade out, switch, rise in) and lightbox.
 const items = [...document.querySelectorAll('[data-gallery-item]')];
+const grid = document.querySelector('[data-gallery-grid]');
 document.querySelectorAll('[data-gallery-filter]').forEach((filter) => filter.addEventListener('click', () => {
   const value = filter.dataset.galleryFilter;
   document.querySelectorAll('[data-gallery-filter]').forEach((other) => other.setAttribute('aria-pressed', String(other === filter)));
-  const state = reduceMotion ? null : Flip.getState(items);
-  items.forEach((item) => { item.hidden = value !== 'all' && item.dataset.category !== value; });
-  if (state) {
-    Flip.from(state, {
-      duration: 0.6,
-      ease: 'power2.inOut',
-      scale: true,
-      absolute: true,
-      onEnter: (entering) => gsap.fromTo(entering, { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.5 }),
-      onLeave: (leaving) => gsap.to(leaving, { opacity: 0, scale: 0.85, duration: 0.3 }),
-    });
-  }
+  const apply = () => items.forEach((item) => { item.hidden = value !== 'all' && item.dataset.category !== value; });
+  if (reduceMotion) { apply(); return; }
+  // Fade the grid out, switch, then let the chosen moments rise back in: nothing leaves the grid's box.
+  gsap.to(grid, { opacity: 0, y: 12, duration: 0.2, ease: 'power1.in', onComplete: () => {
+    apply();
+    gsap.set(grid, { opacity: 1, y: 0 });
+    gsap.fromTo(items.filter((item) => !item.hidden), { opacity: 0, y: 24, scale: 0.96 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, stagger: 0.06, ease: 'power3.out' });
+  } });
 }));
 
 const lightbox = document.querySelector('[data-lightbox]');
@@ -95,16 +92,70 @@ lightbox?.addEventListener('keydown', (event) => {
   if (event.key === 'ArrowLeft') show(current - 1);
 });
 
-// Stories: dots switch the quote.
-const dots = [...document.querySelectorAll('[data-story-dot]')];
-dots.forEach((dot) => dot.addEventListener('click', () => {
-  const index = Number(dot.dataset.storyDot);
-  dots.forEach((other) => other.setAttribute('aria-pressed', String(other === dot)));
-  document.querySelectorAll('[data-story]').forEach((story) => {
-    story.hidden = Number(story.dataset.story) !== index;
-    if (!story.hidden && !reduceMotion) gsap.from(story, { y: 16, opacity: 0, duration: 0.5, ease: 'power2.out' });
+// Stories: a deck of cards. Drag the top card aside, or Previous / Next, or the arrow keys on the deck.
+const stories = document.querySelector('[data-stories]');
+const deck = stories?.querySelector('[data-story-deck]');
+if (deck) {
+  stories.classList.add('is-deck');
+  const cards = [...deck.querySelectorAll('[data-story]')];
+  const order = [...cards];
+  const total = order.length;
+  const announce = stories.querySelector('[data-story-announce]');
+  const tilts = [0, 3, -3, 4];
+  const pose = (index) => ({ x: index * 10, y: index * 14, rotation: tilts[index] ?? 0, scale: 1 - index * 0.04, opacity: index > 2 ? 0 : 1, zIndex: total - index });
+  const layout = (animate) => {
+    order.forEach((card, index) => {
+      card.setAttribute('aria-hidden', String(index !== 0));
+      if (animate && !reduceMotion) gsap.to(card, { ...pose(index), duration: 0.55, ease: 'power3.out' });
+      else gsap.set(card, pose(index));
+    });
+    if (announce) announce.textContent = 'Rekomendacja ' + (cards.indexOf(order[0]) + 1) + ' z ' + total;
+  };
+  const next = (direction = 1) => {
+    const top = order[0];
+    const finish = () => { order.push(order.shift()); gsap.set(top, { x: 0, rotation: 0 }); layout(true); };
+    if (reduceMotion) { finish(); return; }
+    gsap.to(top, { x: direction * 520, rotation: direction * 18, opacity: 0, duration: 0.45, ease: 'power2.in', onComplete: finish });
+  };
+  const previous = () => {
+    order.unshift(order.pop());
+    if (!reduceMotion) gsap.set(order[0], { x: -520, rotation: -18, opacity: 0, zIndex: total + 1 });
+    layout(true);
+  };
+  layout(false);
+  stories.querySelector('[data-story-next]').addEventListener('click', () => next(1));
+  stories.querySelector('[data-story-prev]').addEventListener('click', previous);
+  deck.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowRight') { event.preventDefault(); next(1); }
+    if (event.key === 'ArrowLeft') { event.preventDefault(); previous(); }
   });
-}));
+  Draggable.create(cards, {
+    type: 'x',
+    onPress() { if (this.target !== order[0]) this.endDrag(); },
+    onDrag() { gsap.set(this.target, { rotation: this.x / 24 }); },
+    onRelease() {
+      if (Math.abs(this.x) > 110) next(Math.sign(this.x));
+      else gsap.to(this.target, { x: 0, rotation: 0, duration: 0.5, ease: 'back.out(2)' });
+    },
+  });
+}
+
+// Tilt: cards and gallery tiles lean toward the cursor (mouse only, not with reduced motion).
+if (!reduceMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+  document.querySelectorAll('[data-tilt]').forEach((element) => {
+    gsap.set(element, { transformPerspective: 900 });
+    const turnX = gsap.quickTo(element, 'rotationX', { duration: 0.5, ease: 'power3' });
+    const turnY = gsap.quickTo(element, 'rotationY', { duration: 0.5, ease: 'power3' });
+    const lift = gsap.quickTo(element, 'y', { duration: 0.5, ease: 'power3' });
+    element.addEventListener('pointermove', (event) => {
+      const box = element.getBoundingClientRect();
+      turnY(((event.clientX - box.left) / box.width - 0.5) * 10);
+      turnX(-((event.clientY - box.top) / box.height - 0.5) * 10);
+      lift(-8);
+    });
+    element.addEventListener('pointerleave', () => { turnX(0); turnY(0); lift(0); });
+  });
+}
 
 // Forms: sample only. The booking form bursts hearts from its button.
 const booking = document.querySelector('[data-booking-form]');

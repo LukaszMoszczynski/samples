@@ -18,6 +18,8 @@ const { lang, title, description = '', fonts = 'https://fonts.googleapis.com/css
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex" />
+    <!-- A reload starts at the top; runs before the browser restores the old scroll position. -->
+    <script is:inline>if ("scrollRestoration" in history) history.scrollRestoration = "manual"; if (!location.hash) { window.scrollTo(0, 0); addEventListener("load", function () { window.scrollTo(0, 0); }); }</script>
     <title>{title}</title>
     {description && <meta name="description" content={description} />}
     <link rel="preconnect" href="https://fonts.googleapis.com" />

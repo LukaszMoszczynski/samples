@@ -25,6 +25,16 @@
   font-weight: var(--font-weight-medium);
   cursor: pointer;
   list-style: none;
+  transition: color 0.3s ease;
+}
+
+.ds-wed-faq__question:hover {
+  color: var(--color-brand-primary);
+}
+
+.ds-wed-faq__item:not([open]) .ds-wed-faq__question:hover .ds-wed-faq__heart {
+  fill: color-mix(in srgb, var(--color-brand-primary) 25%, transparent);
+  transform: scale(1.2);
 }
 
 .ds-wed-faq__question::-webkit-details-marker {

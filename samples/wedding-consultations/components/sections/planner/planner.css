@@ -52,6 +52,15 @@
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s ease;
 }
 
+.ds-planner__step:hover .ds-planner__dot {
+  transform: scale(1.25);
+  background: var(--color-surface-soft);
+}
+
+.ds-planner__step:hover .ds-planner__when {
+  color: var(--color-brand-primary);
+}
+
 .ds-planner__step.is-done .ds-planner__dot {
   background: var(--color-brand-accent);
 }

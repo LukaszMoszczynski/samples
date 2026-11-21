@@ -4,7 +4,7 @@ interface Props { tag: string; name: string; time: string; points: string[]; cta
 const { tag, name, time, points, cta, featured = false } = Astro.props;
 const heart = 'M12 21s-7.5-4.6-9.6-9.2C.9 8.4 2.9 4.5 6.6 4.5c2.2 0 3.9 1.3 5.4 3.2 1.5-1.9 3.2-3.2 5.4-3.2 3.7 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z';
 ---
-<article class={`ds-offer${featured ? ' ds-offer--featured' : ''}`} data-reveal>
+<article class={`ds-offer${featured ? ' ds-offer--featured' : ''}`} data-reveal data-tilt>
   <svg class="ds-offer__corner" viewBox="0 0 24 24" aria-hidden="true"><path d={heart} /></svg>
   <span class="ds-offer__tag">{tag}</span>
   <h3 class="ds-offer__name">{name}</h3>

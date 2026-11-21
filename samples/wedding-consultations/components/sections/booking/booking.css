@@ -1,12 +1,7 @@
-/* Booking: an invitation-style card on plum. Left: what happens after you write; right: a short form (names, date,
+/* Booking: an invitation-style white card on blush. Left: what happens after you write; right: a short form (names, date,
    stage, online or at the venue). On sending, hearts burst from the button and a thank-you note appears. */
 .ds-booking {
-  background: var(--color-brand-primary);
-  color: var(--color-text-on-brand);
-}
-
-.ds-booking .ds-section-head__title em {
-  color: var(--palette-accent-400);
+  background: var(--color-surface-soft);
 }
 
 .ds-booking__grid {
@@ -32,7 +27,7 @@
   align-items: baseline;
   counter-increment: booking;
   font-size: var(--font-size-lg);
-  color: color-mix(in srgb, var(--color-text-on-brand) 88%, transparent);
+  color: var(--color-text-default);
 }
 
 .ds-booking__step::before {
@@ -40,7 +35,7 @@
   font-family: var(--font-heading);
   font-size: var(--font-size-36);
   font-style: italic;
-  color: var(--palette-accent-400);
+  color: var(--color-brand-accent);
 }
 
 .ds-booking__card {
@@ -50,8 +45,9 @@
   gap: var(--space-20);
   padding: var(--space-64) var(--space-40) var(--space-40);
   border-radius: var(--size-160) var(--size-160) var(--radius-sm) var(--radius-sm);
-  background: var(--color-surface-page);
+  background: var(--color-surface-card);
   color: var(--color-text-default);
+  box-shadow: 0 var(--space-24) var(--space-56) color-mix(in srgb, var(--color-brand-primary) 12%, transparent);
 }
 
 .ds-booking__card-title {

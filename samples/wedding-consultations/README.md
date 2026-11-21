@@ -9,7 +9,7 @@ brand with the owner's approval. Copy is based on the client's current site, rew
 **Stack:** Astro (the client edits little; a CMS can come later for the gallery and FAQ).
 
 ## Visual direction: "romantic editorial"
-Warm ivory and blush, deep plum, champagne gold. Cormorant Garamond headlines with italic accents, Jost text. Hearts as
+White and blush pink; plum only for text, buttons and the featured package; champagne gold. Cormorant Garamond headlines with italic accents, Jost text. Hearts as
 the motif: a gold heart that draws itself around two linking rings in the hero, heart labels, heart bullets, buttons
 whose heart beats on hover, a heart that fills in the planner, a heart-burst when the booking form is sent, hearts
 drifting up the hero.
@@ -17,10 +17,11 @@ drifting up the hero.
 ## Motion (GSAP, `scripts/wedding.js`)
 Hero: the headline un-blurs, the heart and rings draw, the stone and small heart pop, counters count up, hearts drift.
 About: the arch frame draws and the monogram rises. Know list: lines slide in, hearts pop. Planner: the gold line
-moves to the chosen moment, tasks slide in, the heart fills to the percentage. Gallery: tiles rise in; filters reflow
-with GSAP Flip; tiles zoom on hover and open in a lightbox (arrow keys, Escape). Each gallery drawing has its own loop
-(petals, sparkles, bubbles, lanterns, string lights, a swaying couple, lit windows). Marquee band, FAQ answers that
-slide open, quotes that fade between. All motion off with "reduce motion"; content complete without JS.
+moves to the chosen moment, tasks slide in, the heart fills to the percentage. Gallery: tiles rise in; a filter fades the grid
+out and the chosen moments rise back in; tiles tilt toward the cursor, zoom, and open in a lightbox (arrow keys, Escape). Each gallery drawing has its own loop
+(petals, sparkles, bubbles, lanterns, string lights, a swaying couple, lit windows). Offer cards tilt toward the cursor; buttons
+shine and their heart beats. Recommendations are a deck of wedding cards: drag one aside, use Previous / Next or the
+arrow keys. Marquee band, FAQ answers that slide open. A reload starts at the top. All motion off with "reduce motion"; content complete without JS.
 
 ## Design system parts
 - Tokens only: `ds/tokens/shared.css` and the reset in `ds/components/base`.

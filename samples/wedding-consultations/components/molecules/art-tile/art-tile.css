@@ -1,4 +1,4 @@
-/* Art tile: wedding scenes drawn in the brand colours on a blush ground, each with one gentle loop (petals falling,
+/* Art tile: wedding scenes drawn in the brand colours on a light blush ground, each with one gentle loop (petals falling,
    sparkles, bubbles, lanterns, string lights, a swaying couple, lit windows). Loops stop under reduced motion. */
 .ds-art {
   display: block;
@@ -10,12 +10,6 @@
   fill: var(--color-surface-soft);
 }
 
-.ds-art--dance .ds-art__ground,
-.ds-art--villa .ds-art__ground,
-.ds-art--aisle .ds-art__ground {
-  fill: var(--palette-primary-800);
-}
-
 .ds-art__line,
 .ds-art__stem,
 .ds-art__wire {
@@ -23,13 +17,6 @@
   stroke: var(--palette-accent-500);
   stroke-width: 2;
   stroke-linecap: round;
-}
-
-.ds-art--dance .ds-art__line,
-.ds-art--villa .ds-art__line,
-.ds-art--aisle .ds-art__line,
-.ds-art__wire {
-  stroke: var(--palette-accent-400);
 }
 
 .ds-art__stem {
@@ -51,6 +38,8 @@
 .ds-art__bulb,
 .ds-art__glow {
   fill: var(--palette-accent-400);
+  stroke: var(--palette-accent-500);
+  stroke-width: 1;
 }
 
 .ds-art__petal-fill {
@@ -104,7 +93,7 @@
 }
 
 .ds-art__runner {
-  fill: color-mix(in srgb, var(--color-surface-card) 25%, transparent);
+  fill: color-mix(in srgb, var(--palette-primary-400) 35%, transparent);
 }
 
 .ds-art__figure {

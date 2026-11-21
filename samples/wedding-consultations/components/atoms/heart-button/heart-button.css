@@ -1,5 +1,8 @@
-/* Heart button: a soft pill with a small heart that beats on hover. Solid (plum), outline, and light (on plum). */
+/* Heart button: a soft pill with a small heart that beats on hover and a light shine that sweeps across. Solid (plum), outline, and light (on plum). */
 .ds-heart-button {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
   gap: var(--space-12);
@@ -14,6 +17,20 @@
   text-decoration: none;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ds-heart-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 30%, color-mix(in srgb, var(--palette-neutral-0) 45%, transparent) 50%, transparent 70%);
+  transform: translateX(-120%);
+}
+
+.ds-heart-button:hover::after {
+  transform: translateX(120%);
+  transition: transform 0.8s ease;
 }
 
 .ds-heart-button--solid {
@@ -76,7 +93,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ds-heart-button {
+  .ds-heart-button,
+  .ds-heart-button:hover::after {
     transition: none;
   }
 

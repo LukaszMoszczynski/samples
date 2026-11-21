@@ -1,10 +1,10 @@
-/* Marquee: "umów się na konsultację ♡" running across a plum band; it pauses on hover and stands still under reduced
+/* Marquee: "umów się na konsultację ♡" running across a rose band; it pauses on hover and stands still under reduced
    motion. The whole band is one link to the booking form. */
 .ds-marquee {
   display: block;
   overflow: hidden;
   padding-block: var(--space-24);
-  background: var(--color-brand-primary);
+  background: var(--palette-primary-400);
   color: var(--color-text-on-brand);
   text-decoration: none;
 }
@@ -34,7 +34,7 @@
 .ds-marquee__item svg {
   width: var(--size-24);
   height: var(--size-24);
-  fill: var(--palette-accent-400);
+  fill: var(--color-surface-card);
 }
 
 .ds-marquee:focus-visible {

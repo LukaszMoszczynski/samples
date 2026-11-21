@@ -44,6 +44,10 @@
   list-style: none;
 }
 
+.ds-gallery__item {
+  perspective: calc(var(--size-160) * 6);
+}
+
 .ds-gallery__item--wide {
   grid-column: span 2;
 }
@@ -63,14 +67,6 @@
   border-radius: var(--radius-sm);
   background: var(--color-surface-soft);
   cursor: zoom-in;
-}
-
-.ds-gallery__open:has(.ds-art--dance, .ds-art--villa, .ds-art--aisle) {
-  background: var(--palette-primary-800);
-}
-
-.ds-lightbox__stage:has(.ds-art--dance, .ds-art--villa, .ds-art--aisle) {
-  background: var(--palette-primary-800);
 }
 
 .ds-gallery__open .ds-art {

@@ -1,11 +1,11 @@
-/* Wedding consultations: warm ivory and blush, deep plum, champagne gold. Values only, never names.
+/* Wedding consultations: white and blush pink, plum for text and buttons, champagne gold. Values only, never names.
    The client look. Change values only, never names: every name here is a design-system primitive token. */
 :root {
-  --palette-primary-50: #f9ecef;
+  --palette-primary-50: #fbe9ee;
   --palette-primary-400: #b77a8e;
   --palette-primary-600: #6b2e45;
   --palette-primary-800: #4a1f30;
-  --palette-secondary-50: #f7f1f0;
+  --palette-secondary-50: #fdf2f5;
   --palette-secondary-100: #efe3e2;
   --palette-secondary-600: #6a5560;
   --palette-secondary-700: #3a2530;
@@ -14,9 +14,9 @@
   --palette-secondary-950: #170d12;
   --palette-accent-400: #e3c08a;
   --palette-accent-500: #8a6326;
-  --palette-neutral-0: #fffdfb;
-  --palette-neutral-50: #fbf5f2;
-  --palette-neutral-100: #f1e4df;
+  --palette-neutral-0: #ffffff;
+  --palette-neutral-50: #fffafb;
+  --palette-neutral-100: #f6e4e9;
   --palette-neutral-400: #8c7a7f;
   --palette-neutral-600: #66545a;
   --palette-neutral-900: #2d1b22;
