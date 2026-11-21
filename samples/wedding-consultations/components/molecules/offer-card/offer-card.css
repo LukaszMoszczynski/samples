@@ -2,6 +2,7 @@
    Featured (VIP) sits on plum with gold. Hover: the card lifts and tilts toward the cursor (wedding.js) and its heart fills. */
 .ds-offer {
   position: relative;
+  backface-visibility: hidden;
   display: grid;
   grid-template-rows: auto auto auto 1fr auto;
   gap: var(--space-16);

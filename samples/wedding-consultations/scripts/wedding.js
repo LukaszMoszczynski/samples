@@ -140,20 +140,23 @@ if (deck) {
   });
 }
 
-// Tilt: cards and gallery tiles lean toward the cursor (mouse only, not with reduced motion).
+// Tilt: cards and gallery tiles lean toward the cursor (mouse only, not with reduced motion). The pointer is read on the
+// card's steady parent: listening on the tilting card itself flickers at its edges, where the tilt moves the card away
+// from the cursor, fires a leave, snaps back and enters again.
 if (!reduceMotion && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
   document.querySelectorAll('[data-tilt]').forEach((element) => {
     gsap.set(element, { transformPerspective: 900 });
     const turnX = gsap.quickTo(element, 'rotationX', { duration: 0.5, ease: 'power3' });
     const turnY = gsap.quickTo(element, 'rotationY', { duration: 0.5, ease: 'power3' });
     const lift = gsap.quickTo(element, 'y', { duration: 0.5, ease: 'power3' });
-    element.addEventListener('pointermove', (event) => {
-      const box = element.getBoundingClientRect();
+    const area = element.parentElement;
+    area.addEventListener('pointermove', (event) => {
+      const box = area.getBoundingClientRect();
       turnY(((event.clientX - box.left) / box.width - 0.5) * 10);
       turnX(-((event.clientY - box.top) / box.height - 0.5) * 10);
       lift(-8);
     });
-    element.addEventListener('pointerleave', () => { turnX(0); turnY(0); lift(0); });
+    area.addEventListener('pointerleave', () => { turnX(0); turnY(0); lift(0); });
   });
 }
 

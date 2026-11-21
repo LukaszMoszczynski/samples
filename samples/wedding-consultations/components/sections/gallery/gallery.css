@@ -58,6 +58,7 @@
 
 .ds-gallery__open {
   position: relative;
+  backface-visibility: hidden;
   display: block;
   width: 100%;
   height: 100%;
