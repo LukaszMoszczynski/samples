@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 export const hashName = (text) => createHash('sha256').update(text).digest('hex').slice(0, 16);
 
 export const DEFAULT_BANNED = {
-  words: new Set(['8df988050419784a', 'd14c71a5e3129d6d', 'e44317c7381a0086', '72deb7b4831ed7e4', '76acf9b43b06c406', 'b952d044d13af6c8']),
+  words: new Set(['c26a44776f63a2d0', '8df988050419784a', 'd14c71a5e3129d6d', 'e44317c7381a0086', '72deb7b4831ed7e4', '76acf9b43b06c406', 'b952d044d13af6c8']),
   prefixes: new Set(['d75d53cfcb836fe8']),
   // Hashes of the names written as one word, and the lengths to try inside longer words (xyzButton).
   glued: new Set(['30aa224728f8c34b', 'a3d714f3951b16b6', '29d39164dc59b87e']),

@@ -68,3 +68,8 @@ body {
   clip-path: inset(50%);
   white-space: nowrap;
 }
+
+/* Anything marked hidden stays hidden, whatever display a component sets. */
+[hidden] {
+  display: none !important;
+}

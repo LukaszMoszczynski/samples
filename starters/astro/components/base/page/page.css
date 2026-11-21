@@ -21,3 +21,8 @@ html {
 .ds-section {
   padding-block: var(--space-section-y);
 }
+
+/* Anything marked hidden stays hidden, whatever display a component sets. */
+[hidden] {
+  display: none !important;
+}
