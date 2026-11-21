@@ -33,14 +33,14 @@ const drift = Array.from({ length: 14 }, (_, index) => ({ left: (index * 37) % 1
       </ul>
     </div>
     <svg class="ds-wed-hero__art" viewBox="0 0 400 380" aria-hidden="true">
-      <path d="M200 350 C 120 300, 30 230, 30 140 C 30 80, 75 40, 125 40 C 160 40, 185 60, 200 90 C 215 60, 240 40, 275 40 C 325 40, 370 80, 370 140 C 370 230, 280 300, 200 350 Z" fill="none" stroke="var(--palette-accent-500)" stroke-width="2" stroke-linejoin="round" pathLength="1" data-hero-heart />
-      <path d="M200 320 C 135 280, 60 220, 60 145 C 60 98, 95 68, 132 68" fill="none" stroke="var(--palette-primary-400)" stroke-width="1" pathLength="1" data-hero-heart-inner />
+      <path d="M200 350 C 120 300, 30 230, 30 140 C 30 80, 75 40, 125 40 C 160 40, 185 60, 200 90 C 215 60, 240 40, 275 40 C 325 40, 370 80, 370 140 C 370 230, 280 300, 200 350 Z" fill="none" stroke="var(--palette-accent-500)" stroke-width="2" stroke-linejoin="round" pathLength="1000" data-hero-heart />
+      <path d="M200 320 C 135 280, 60 220, 60 145 C 60 98, 95 68, 132 68" fill="none" stroke="var(--palette-primary-400)" stroke-width="1" pathLength="1000" data-hero-heart-inner />
       <g data-hero-rings>
-        <circle cx="172" cy="185" r="46" fill="none" stroke="var(--color-brand-primary)" stroke-width="7" pathLength="1" data-hero-ring />
-        <circle cx="228" cy="185" r="46" fill="none" stroke="var(--palette-accent-500)" stroke-width="7" pathLength="1" data-hero-ring />
-        <path d="M228 126 l-8 -14 h16 z" fill="var(--palette-accent-400)" stroke="var(--palette-accent-500)" stroke-width="1.5" data-hero-stone />
+        <circle cx="172" cy="185" r="46" fill="none" stroke="var(--color-brand-primary)" stroke-width="7" pathLength="1000" data-hero-ring />
+        <circle cx="228" cy="185" r="46" fill="none" stroke="var(--palette-accent-500)" stroke-width="7" pathLength="1000" data-hero-ring />
+        <path d="M228 126 l-8 -14 h16 z" fill="var(--palette-accent-400)" stroke="var(--palette-accent-500)" stroke-width="1.5" stroke-linejoin="round" pathLength="1000" data-hero-stone />
       </g>
-      <path transform="translate(186 262) scale(1.2)" d={heart} fill="var(--color-brand-primary)" data-hero-small-heart />
+      <path transform="translate(186 262) scale(1.2)" d={heart} fill="var(--color-brand-primary)" stroke="var(--color-brand-primary)" stroke-width="1" stroke-linejoin="round" pathLength="1000" data-hero-small-heart />
     </svg>
   </div>
 </section>

@@ -89,7 +89,7 @@ motion.add('(prefers-reduced-motion: no-preference)', () => {
   });
 
   gsap.utils.toArray('[data-monogram-ring]').forEach((ring) => {
-    gsap.fromTo(ring, { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.6, ease: 'power2.inOut', scrollTrigger: { trigger: ring, start: 'top 85%', once: true } });
+    gsap.fromTo(ring, { strokeDasharray: 1000, strokeDashoffset: 1000 }, { strokeDashoffset: 0, duration: 1.6, ease: 'power2.inOut', scrollTrigger: { trigger: ring, start: 'top 85%', once: true } });
   });
 
   const rules = gsap.utils.toArray('[data-step-rule]');

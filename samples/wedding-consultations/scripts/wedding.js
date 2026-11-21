@@ -201,12 +201,14 @@ motion.add('(prefers-reduced-motion: no-preference)', () => {
     .from('[data-hero-title]', { opacity: 0, y: 30, filter: 'blur(8px)', duration: 1.1 })
     .from('[data-hero-accent]', { y: 20, opacity: 0, duration: 0.8 }, 0.35)
     .from('[data-hero-fade]', { y: 20, opacity: 0, duration: 0.7, stagger: 0.1 }, 0.3)
-    .fromTo('[data-hero-heart]', { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 2.2, ease: 'power2.inOut' }, 0.2)
-    .fromTo('[data-hero-heart-inner]', { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.6, ease: 'power2.inOut' }, 0.8)
-    .fromTo('[data-hero-ring]', { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.3, stagger: 0.3, ease: 'power2.inOut' }, 1)
-    .from('[data-hero-stone]', { scale: 0, transformOrigin: 'center', duration: 0.5, ease: 'back.out(3)' }, 2.1)
-    .from('[data-hero-small-heart]', { scale: 0, transformOrigin: 'center', duration: 0.6, ease: 'back.out(3)' }, 2.3);
-  gsap.to('[data-hero-small-heart]', { scale: 1.12, transformOrigin: 'center', duration: 0.6, ease: 'sine.inOut', repeat: -1, yoyo: true, delay: 3 });
+    .fromTo('[data-hero-heart]', { strokeDasharray: 1000, strokeDashoffset: 1000 }, { strokeDashoffset: 0, duration: 2.2, ease: 'power2.inOut' }, 0.2)
+    .fromTo('[data-hero-heart-inner]', { strokeDasharray: 1000, strokeDashoffset: 1000 }, { strokeDashoffset: 0, duration: 1.6, ease: 'power2.inOut' }, 0.8)
+    .fromTo('[data-hero-ring]', { strokeDasharray: 1000, strokeDashoffset: 1000 }, { strokeDashoffset: 0, duration: 1.3, stagger: 0.3, ease: 'power2.inOut' }, 1)
+    .fromTo('[data-hero-stone]', { strokeDasharray: 1000, strokeDashoffset: 1000, fillOpacity: 0 }, { strokeDashoffset: 0, duration: 0.6, ease: 'power1.inOut' }, 2.0)
+    .to('[data-hero-stone]', { fillOpacity: 1, duration: 0.4 }, 2.5)
+    .fromTo('[data-hero-small-heart]', { strokeDasharray: 1000, strokeDashoffset: 1000, fillOpacity: 0 }, { strokeDashoffset: 0, duration: 1.1, ease: 'power1.inOut' }, 2.2)
+    .to('[data-hero-small-heart]', { fillOpacity: 1, duration: 0.5 }, 3.1);
+  gsap.to('[data-hero-small-heart]', { scale: 1.12, transformOrigin: 'center', duration: 0.6, ease: 'sine.inOut', repeat: -1, yoyo: true, delay: 3.8 });
   gsap.to('[data-hero-rings]', { rotation: 3, svgOrigin: '200 185', duration: 4, ease: 'sine.inOut', repeat: -1, yoyo: true });
   gsap.utils.toArray('[data-drift-heart]').forEach((heart, index) => {
     const scale = Number(heart.dataset.scale) || 1;
@@ -239,9 +241,10 @@ motion.add('(prefers-reduced-motion: no-preference)', () => {
 
   // About: the arch draws, the monogram fades up, the heart beats.
   gsap.timeline({ scrollTrigger: { trigger: '.ds-about', start: 'top 70%', once: true } })
-    .fromTo('.ds-about [data-draw]', { strokeDasharray: 1, strokeDashoffset: 1 }, { strokeDashoffset: 0, duration: 1.8, ease: 'power2.inOut' })
+    .fromTo('.ds-about [data-draw]', { strokeDasharray: 1000, strokeDashoffset: 1000 }, { strokeDashoffset: 0, duration: 1.8, ease: 'power2.inOut' })
     .from('.ds-about [data-monogram]', { y: 20, opacity: 0, duration: 1 }, 0.5)
-    .from('.ds-about [data-beat]', { scale: 0, transformOrigin: 'center', duration: 0.6, ease: 'back.out(3)' }, 1.2);
+    .fromTo('.ds-about [data-beat]', { strokeDasharray: 1000, strokeDashoffset: 1000, fillOpacity: 0 }, { strokeDashoffset: 0, duration: 1, ease: 'power1.inOut' }, 1.1)
+    .to('.ds-about [data-beat]', { fillOpacity: 1, duration: 0.5 }, 1.9);
 
   // Know list: lines slide in, their hearts pop from outline to gold.
   gsap.utils.toArray('[data-know-item]').forEach((item, index) => {
