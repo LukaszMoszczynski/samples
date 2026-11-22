@@ -5,5 +5,13 @@
   "title": "Firma logistyczna – przykładowa strona",
   "pages": [
     "index"
-  ]
+  ],
+  "summary": "Firma logistyczna: śledzenie przesyłki w hero, panel klienta, zasięg i wycena. Animowana trasa i liczniki.",
+  "direction": "Signal",
+  "tags": [
+    "Astro",
+    "GSAP",
+    "CMS: WordPress / Payload"
+  ],
+  "date": "2026-11-21"
 }

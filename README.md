@@ -5,6 +5,8 @@ https://lukaszmoszczynski.github.io/design-system/
 
 Each sample lives in `samples/<slug>/` and is published at
 `https://lukaszmoszczynski.github.io/samples/<slug>/`. The slug names the type of project.
+The index at `https://lukaszmoszczynski.github.io/samples/` (`src/pages/index.astro`) lists every sample with a live
+preview; it reads `sample.json` (`title`, `summary`, `direction`, `tags`, `date`) and the colours from `brand.css`.
 
 ## Which stack
 

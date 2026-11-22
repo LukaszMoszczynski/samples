@@ -8,5 +8,13 @@
     "dla-firm",
     "dla-ciebie",
     "umowy-handlowe"
-  ]
+  ],
+  "summary": "Kancelaria z dwiema ścieżkami: strona główna kieruje do oferty dla firm i dla klientów indywidualnych. Treści „najpierw odpowiedź” i dane strukturalne dla Google i AI.",
+  "direction": "Editorial counsel",
+  "tags": [
+    "Astro",
+    "GSAP",
+    "SEO / AI"
+  ],
+  "date": "2026-11-21"
 }

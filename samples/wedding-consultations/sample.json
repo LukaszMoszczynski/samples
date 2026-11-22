@@ -5,5 +5,13 @@
   "title": "ViaVilla – konsultacje ślubne (przykładowa strona)",
   "pages": [
     "index"
-  ]
+  ],
+  "summary": "Konsultacje ślubne: serce rysujące się w hero, interaktywny planer „kiedy co załatwić”, animowana galeria i talia rekomendacji.",
+  "direction": "Romantic editorial",
+  "tags": [
+    "Astro",
+    "GSAP",
+    "Galeria"
+  ],
+  "date": "2026-11-22"
 }
