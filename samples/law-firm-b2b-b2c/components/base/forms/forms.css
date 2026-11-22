@@ -96,11 +96,25 @@
   box-shadow: 0 0 0 1px var(--color-state-error);
 }
 
+/* With the validation demo on (forms.js sets novalidate at load, never when an error shows), rows get room for a
+   message under each field. */
+form[novalidate] {
+  row-gap: var(--space-40);
+}
+
+/* The message hangs in the gap under its field (the box gets position: relative from forms.js), so it never pushes the
+   layout. */
 .ds-field-error {
+  position: absolute;
+  top: calc(100% + var(--space-6));
+  left: 0;
+  right: 0;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: var(--space-6);
-  margin: var(--space-6) 0 0;
+  margin: 0;
+  line-height: 1.25;
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-medium);
   color: var(--color-state-error);

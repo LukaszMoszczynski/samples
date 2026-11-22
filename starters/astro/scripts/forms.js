@@ -1,5 +1,5 @@
 // Forms kit for samples: animated custom dropdowns (built over the native <select>, which stays the source of truth)
-// and a validation demo (required, e-mail, consent) with inline messages, a shake, focus on the first problem, and a
+// and a validation demo (required, e-mail, consent) with inline messages, a glow, focus on the first problem, and a
 // short "sending" pause before the form's own thank-you handler runs. Without JS the native controls and the browser's
 // own validation still work.
 import { gsap } from 'gsap';
@@ -137,13 +137,17 @@ function problemFor(field) {
   return '';
 }
 
-function anchorFor(field) {
-  if (field.type === 'checkbox' || field.type === 'radio') return field.closest('label') ?? field;
-  return field.closest('.ds-select') ?? field;
+// The box the message hangs under: the consent label for checkboxes, otherwise the field's own container. The message
+// is absolutely placed below it, in the gap, so showing it never moves anything on the page.
+function boxFor(field) {
+  if (field.type === 'checkbox' || field.type === 'radio') return field.closest('label') ?? field.parentElement;
+  return (field.closest('.ds-select') ?? field).parentElement;
 }
 
+const errorColour = () => getComputedStyle(document.documentElement).getPropertyValue('--color-state-error').trim() || '#b3261e';
+
 function showProblem(field, message, animate) {
-  const anchor = anchorFor(field);
+  const box = boxFor(field);
   const visual = field.closest('.ds-select')?.querySelector('.ds-select__button') ?? field;
   let note = document.getElementById(`${field.id || field.name}-error`);
   if (!message) {
@@ -151,7 +155,7 @@ function showProblem(field, message, animate) {
     visual.removeAttribute('aria-invalid');
     if (note) {
       if (reduceMotion) note.remove();
-      else gsap.to(note, { opacity: 0, height: 0, marginTop: 0, duration: 0.2, onComplete: () => note.remove() });
+      else gsap.to(note, { opacity: 0, duration: 0.2, onComplete: () => note.remove() });
     }
     return;
   }
@@ -161,14 +165,19 @@ function showProblem(field, message, animate) {
     note = document.createElement('p');
     note.className = 'ds-field-error';
     note.id = `${field.id || field.name}-error`;
-    anchor.insertAdjacentElement('afterend', note);
+    if (getComputedStyle(box).position === 'static') box.style.position = 'relative';
+    box.append(note);
     const describedBy = new Set((field.getAttribute('aria-describedby') ?? '').split(' ').filter(Boolean));
     describedBy.add(note.id);
     field.setAttribute('aria-describedby', [...describedBy].join(' '));
-    if (!reduceMotion) gsap.fromTo(note, { opacity: 0, y: -4 }, { opacity: 1, y: 0, duration: 0.25 });
+    if (!reduceMotion) gsap.fromTo(note, { opacity: 0 }, { opacity: 1, duration: 0.25 });
   }
   note.textContent = message;
-  if (animate && !reduceMotion) gsap.fromTo(anchor, { x: 0 }, { keyframes: { x: [0, -8, 8, -6, 6, -3, 0] }, duration: 0.45, ease: 'none' });
+  // A soft red glow that settles into the error outline: draws the eye, moves nothing.
+  if (animate && !reduceMotion) {
+    const colour = errorColour();
+    gsap.fromTo(visual, { boxShadow: `0 0 0 6px ${colour}55` }, { boxShadow: `0 0 0 1px ${colour}`, duration: 0.6, ease: 'power2.out', clearProps: 'boxShadow' });
+  }
 }
 
 function validate(form, animate) {
