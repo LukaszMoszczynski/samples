@@ -14,13 +14,13 @@ const { logo, logoAlt, items, cta } = Astro.props;
     </nav>
     <SignalButton text={cta.text} href={cta.href} />
     <button class="ds-site-header__burger" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="Menu" data-site-burger>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path class="ds-burger__line ds-burger__line--top" d="M4 8h16"/><path class="ds-burger__line ds-burger__line--middle" d="M4 12h16"/><path class="ds-burger__line ds-burger__line--bottom" d="M4 16h16"/></svg>
     </button>
   </div>
+</header>
   <div class="ds-container ds-site-header__drawer" id="site-drawer" hidden>
     <ul class="ds-site-header__menu" role="list">
       {items.map((item) => <li><a class="ds-site-header__link" href={item.href}>{item.text}</a></li>)}
     </ul>
     <SignalButton text={cta.text} href={cta.href} />
   </div>
-</header>

@@ -17,11 +17,28 @@ setScrolled();
 window.addEventListener('scroll', setScrolled, { passive: true });
 const burger = document.querySelector('[data-law-burger]');
 const drawer = document.getElementById('law-drawer');
+const menuMotionOff = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const setDrawer = (open) => {
   if (!burger || !drawer) return;
+  if ((burger.getAttribute('aria-expanded') === 'true') === open) return;
   burger.setAttribute('aria-expanded', String(open));
-  drawer.hidden = !open;
+  document.body.style.overflow = open ? 'hidden' : '';
+  const items = drawer.querySelectorAll('li, :scope > a');
+  gsap.killTweensOf([drawer, ...items]);
+  if (open) {
+    drawer.hidden = false;
+    if (menuMotionOff) return;
+    // The panel wipes down from under the header, then the links rise in one after another.
+    gsap.fromTo(drawer, { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 0.5, ease: 'power3.out' });
+    gsap.fromTo(items, { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, stagger: 0.05, delay: 0.12, ease: 'power3.out' });
+  } else if (menuMotionOff) {
+    drawer.hidden = true;
+  } else {
+    gsap.to(drawer, { clipPath: 'inset(0 0 100% 0)', duration: 0.35, ease: 'power2.in', onComplete: () => { drawer.hidden = true; gsap.set(drawer, { clearProps: 'clipPath' }); } });
+  }
 };
+// Close it when the screen grows past the phone menu, and on Escape (focus back to the burger).
+window.matchMedia('(min-width: 1100px)').addEventListener('change', (event) => { if (event.matches) setDrawer(false); });
 burger?.addEventListener('click', () => setDrawer(burger.getAttribute('aria-expanded') !== 'true'));
 drawer?.addEventListener('click', (event) => event.target.closest('a') && setDrawer(false));
 document.addEventListener('keydown', (event) => {

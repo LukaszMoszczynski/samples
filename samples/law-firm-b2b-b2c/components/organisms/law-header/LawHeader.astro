@@ -16,12 +16,12 @@ const current = (href: string) => (href === here ? 'page' : undefined);
     </nav>
     <InkButton text={cta.text} href={cta.href} />
     <button class="ds-law-header__burger" type="button" aria-expanded="false" aria-controls="law-drawer" aria-label="Menu" data-law-burger>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path class="ds-burger__line ds-burger__line--top" d="M4 8h16"/><path class="ds-burger__line ds-burger__line--bottom" d="M4 16h16"/></svg>
     </button>
   </div>
+</header>
   <div class="ds-container ds-law-header__drawer" id="law-drawer" hidden>
     <ul class="ds-law-header__menu" role="list">
       {items.map((item) => <li><a class="ds-law-header__link ds-ink-link" href={item.href} aria-current={current(item.href)}>{item.text}</a></li>)}
     </ul>
   </div>
-</header>
