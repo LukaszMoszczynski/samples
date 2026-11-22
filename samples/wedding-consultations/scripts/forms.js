@@ -133,8 +133,8 @@ function enhanceSelect(select) {
 
 const LANG = document.documentElement.lang === 'pl' ? 'pl' : 'en';
 const DATE_TEXT = {
-  pl: { placeholder: 'dd.mm.rrrr', weekdays: ['pon', 'wt', 'śr', 'czw', 'pt', 'sob', 'nd'], previous: 'Poprzedni miesiąc', next: 'Następny miesiąc', clear: 'Wyczyść', today: 'Dzisiaj', choose: 'Wybierz datę' },
-  en: { placeholder: 'dd/mm/yyyy', weekdays: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], previous: 'Previous month', next: 'Next month', clear: 'Clear', today: 'Today', choose: 'Choose a date' },
+  pl: { placeholder: 'dd.mm.rrrr', weekdays: ['pon', 'wt', 'śr', 'czw', 'pt', 'sob', 'nd'], previous: 'Poprzedni miesiąc', next: 'Następny miesiąc', previousYear: 'Poprzedni rok', nextYear: 'Następny rok', pickMonth: 'Wybierz miesiąc i rok', clear: 'Wyczyść', today: 'Dzisiaj', choose: 'Wybierz datę' },
+  en: { placeholder: 'dd/mm/yyyy', weekdays: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], previous: 'Previous month', next: 'Next month', previousYear: 'Previous year', nextYear: 'Next year', pickMonth: 'Choose month and year', clear: 'Clear', today: 'Today', choose: 'Choose a date' },
 }[LANG];
 const pad = (number) => String(number).padStart(2, '0');
 const toIso = (date) => `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
@@ -152,6 +152,8 @@ const addMonths = (date, months) => {
 const shown = (date) => (LANG === 'pl' ? `${pad(date.getDate())}.${pad(date.getMonth() + 1)}.${date.getFullYear()}` : `${pad(date.getDate())}/${pad(date.getMonth() + 1)}/${date.getFullYear()}`);
 const monthName = new Intl.DateTimeFormat(document.documentElement.lang || 'en', { month: 'long', year: 'numeric' });
 const fullDate = new Intl.DateTimeFormat(document.documentElement.lang || 'en', { dateStyle: 'full' });
+const shortMonth = new Intl.DateTimeFormat(document.documentElement.lang || 'en', { month: 'short' });
+const longMonth = new Intl.DateTimeFormat(document.documentElement.lang || 'en', { month: 'long', year: 'numeric' });
 const calendarIcon = '<svg class="ds-date__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>';
 const arrow = (path) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="${path}"/></svg>`;
 
@@ -191,25 +193,32 @@ function enhanceDate(input) {
   popup.className = 'ds-date__popup';
   popup.id = `${id}-popup`;
   popup.setAttribute('role', 'dialog');
+  popup.tabIndex = -1;
   popup.setAttribute('aria-label', label ? `${label.textContent.trim()}: ${DATE_TEXT.choose.toLowerCase()}` : DATE_TEXT.choose);
   popup.hidden = true;
   popup.innerHTML = `
     <div class="ds-date__head">
       <button type="button" class="ds-date__nav" data-date-move="-1" aria-label="${DATE_TEXT.previous}">${arrow('m15 6-6 6 6 6')}</button>
-      <p class="ds-date__month" id="${id}-month" aria-live="polite"></p>
+      <button type="button" class="ds-date__month" id="${id}-month" aria-live="polite" aria-expanded="false" data-date-mode><span data-date-title></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button>
       <button type="button" class="ds-date__nav" data-date-move="1" aria-label="${DATE_TEXT.next}">${arrow('m9 6 6 6-6 6')}</button>
     </div>
     <table class="ds-date__grid" role="grid" aria-labelledby="${id}-month">
       <thead><tr>${DATE_TEXT.weekdays.map((day) => `<th scope="col" class="ds-date__weekday">${day}</th>`).join('')}</tr></thead>
       <tbody></tbody>
     </table>
+    <div class="ds-date__months" hidden></div>
     <div class="ds-date__foot">
       <button type="button" class="ds-date__action" data-date-clear>${DATE_TEXT.clear}</button>
       <button type="button" class="ds-date__action" data-date-today>${DATE_TEXT.today}</button>
     </div>`;
   wrapper.append(button, popup);
   const body = popup.querySelector('tbody');
+  const table = popup.querySelector('.ds-date__grid');
+  const monthsGrid = popup.querySelector('.ds-date__months');
   const month = popup.querySelector('.ds-date__month');
+  const title = popup.querySelector('[data-date-title]');
+  const [previousButton, nextButton] = popup.querySelectorAll('.ds-date__nav');
+  let mode = 'days';
 
   let focus = fromIso(input.value) ?? (min && min > today ? min : today);
   const disabled = (date) => Boolean(min) && date < min;
@@ -218,7 +227,7 @@ function enhanceDate(input) {
     const selected = fromIso(input.value);
     const first = new Date(focus.getFullYear(), focus.getMonth(), 1);
     const start = addDays(first, -((first.getDay() + 6) % 7));
-    month.textContent = monthName.format(first);
+    title.textContent = monthName.format(first);
     body.innerHTML = '';
     for (let week = 0; week < 6; week += 1) {
       const row = document.createElement('tr');
@@ -245,6 +254,41 @@ function enhanceDate(input) {
     popup.querySelector('[data-date-today]').disabled = disabled(today);
     if (direction && !reduceMotion) gsap.fromTo(body, { x: direction * 18, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, ease: 'power2.out' });
   };
+  // Months view: the year between the arrows and its twelve months; a month fully before min is disabled.
+  const renderMonths = (direction = 0) => {
+    const year = focus.getFullYear();
+    title.textContent = String(year);
+    monthsGrid.innerHTML = '';
+    for (let index = 0; index < 12; index += 1) {
+      const first = new Date(year, index, 1);
+      const last = new Date(year, index + 1, 0);
+      const monthButton = document.createElement('button');
+      monthButton.type = 'button';
+      monthButton.className = 'ds-date__month-option';
+      monthButton.dataset.dateMonth = String(index);
+      monthButton.textContent = shortMonth.format(first).replace('.', '');
+      monthButton.setAttribute('aria-label', longMonth.format(first));
+      if (index === focus.getMonth()) monthButton.setAttribute('aria-current', 'true');
+      if (min && last < min) monthButton.disabled = true;
+      monthsGrid.append(monthButton);
+    }
+    if (direction && !reduceMotion) gsap.fromTo(monthsGrid, { x: direction * 18, opacity: 0 }, { x: 0, opacity: 1, duration: 0.3, ease: 'power2.out' });
+  };
+  const setMode = (next) => {
+    mode = next;
+    const months = mode === 'months';
+    table.hidden = months;
+    monthsGrid.hidden = !months;
+    month.setAttribute('aria-expanded', String(months));
+    month.setAttribute('aria-label', months ? `${focus.getFullYear()}: ${DATE_TEXT.pickMonth.toLowerCase()}` : DATE_TEXT.pickMonth);
+    previousButton.setAttribute('aria-label', months ? DATE_TEXT.previousYear : DATE_TEXT.previous);
+    nextButton.setAttribute('aria-label', months ? DATE_TEXT.nextYear : DATE_TEXT.next);
+    if (months) renderMonths(); else render();
+    const shown = months ? monthsGrid : table;
+    if (!reduceMotion) gsap.fromTo(shown, { opacity: 0, scale: 0.96 }, { opacity: 1, scale: 1, duration: 0.25, ease: 'power2.out' });
+    if (months) (monthsGrid.querySelector('[aria-current="true"]') ?? monthsGrid.querySelector('button:not(:disabled)'))?.focus();
+    else focusDay();
+  };
   const focusDay = () => popup.querySelector(`[data-date="${toIso(focus)}"]`)?.focus();
   const moveTo = (date) => {
     if (disabled(date)) date = min;
@@ -268,6 +312,13 @@ function enhanceDate(input) {
     if (!popup.hidden) return;
     document.dispatchEvent(new CustomEvent('ds-select-open', { detail: popup }));
     focus = fromIso(input.value) ?? (min && min > today ? min : today);
+    mode = 'days';
+    table.hidden = false;
+    monthsGrid.hidden = true;
+    month.setAttribute('aria-expanded', 'false');
+    month.setAttribute('aria-label', DATE_TEXT.pickMonth);
+    previousButton.setAttribute('aria-label', DATE_TEXT.previous);
+    nextButton.setAttribute('aria-label', DATE_TEXT.next);
     render();
     popup.hidden = false;
     button.setAttribute('aria-expanded', 'true');
@@ -293,7 +344,19 @@ function enhanceDate(input) {
     const target = event.target.closest('button');
     if (!target || target.disabled) return;
     if (target.dataset.date) { choose(fromIso(target.dataset.date)); close(true); }
-    else if (target.dataset.dateMove) moveTo(addMonths(focus, Number(target.dataset.dateMove)));
+    else if ('dateMode' in target.dataset) setMode(mode === 'days' ? 'months' : 'days');
+    else if (target.dataset.dateMonth) {
+      const index = Number(target.dataset.dateMonth);
+      const last = new Date(focus.getFullYear(), index + 1, 0).getDate();
+      focus = new Date(focus.getFullYear(), index, Math.min(focus.getDate(), last));
+      if (disabled(focus)) focus = min;
+      setMode('days');
+    } else if (target.dataset.dateMove && mode === 'months') {
+      const year = focus.getFullYear() + Number(target.dataset.dateMove);
+      if (min && year < min.getFullYear()) return;
+      focus = new Date(year, focus.getMonth(), 1);
+      renderMonths(Number(target.dataset.dateMove));
+    } else if (target.dataset.dateMove) moveTo(addMonths(focus, Number(target.dataset.dateMove)));
     else if ('dateClear' in target.dataset) { choose(null); close(true); }
     else if ('dateToday' in target.dataset) { choose(today); close(true); }
   });
