@@ -1,6 +1,7 @@
 // Behaviour and motion for the logistics sample (GSAP + ScrollTrigger + MotionPath).
 // Content is complete without JS; motion runs only when the visitor has not asked for reduced motion.
 import { gsap } from 'gsap';
+import { enhanceForms } from './forms.js';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MotionPathPlugin } from 'gsap/MotionPathPlugin';
 
@@ -8,6 +9,9 @@ gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);
 
 // Entrance targets are hidden by CSS from the first paint while <html data-motion> is set; tell the page we are here.
 document.documentElement.setAttribute('data-motion-ready', '');
+
+// Forms: animated dropdowns and the validation demo (see forms.js).
+enhanceForms();
 
 // Header: solid once the page scrolls; drawer on phones.
 const header = document.querySelector('[data-site-header]');

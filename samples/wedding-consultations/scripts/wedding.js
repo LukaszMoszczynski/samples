@@ -1,6 +1,7 @@
 // Behaviour and motion for the wedding sample (GSAP + ScrollTrigger + Draggable).
 // Content is complete without JS; motion runs only without a reduced-motion preference.
 import { gsap } from 'gsap';
+import { enhanceForms } from './forms.js';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Draggable } from 'gsap/Draggable';
 
@@ -8,6 +9,9 @@ gsap.registerPlugin(ScrollTrigger, Draggable);
 
 // Entrance targets are hidden by CSS from the first paint while <html data-motion> is set; tell the page we are here.
 document.documentElement.setAttribute('data-motion-ready', '');
+
+// Forms: animated dropdowns and the validation demo (see forms.js).
+enhanceForms();
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // Header: soft shadow once scrolled; drawer on narrow screens.
