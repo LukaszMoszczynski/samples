@@ -39,7 +39,7 @@ const { id, label, title, lead, facts } = Astro.props;
       </div>
       <div class="ds-quote__field">
         <label class="ds-quote__label" for="quote-date">Data załadunku</label>
-        <input class="ds-quote__input" id="quote-date" name="date" type="date" />
+        <input class="ds-quote__input" id="quote-date" name="date" type="date" data-min="today" />
       </div>
       <div class="ds-quote__field ds-quote__field--wide">
         <label class="ds-quote__label" for="quote-email">E-mail</label>
