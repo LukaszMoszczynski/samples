@@ -6,11 +6,12 @@
   "pages": [
     "index"
   ],
-  "summary": "Studio brandingu dla dojrzałych marek: hero jak film, mini-audyt marki w minutę, toczące się kółka i kursor-wstęga z kółek.",
+  "summary": "Studio brandingu dla dojrzałych marek: hero jak film, pływające kule w tle, marquee sterowane scrollem, mini-audyt marki i kursor-wstęga z kółek.",
   "direction": "Na luzie, ale na poważnie",
   "tags": [
     "Astro",
     "GSAP",
+    "Animacje w tle",
     "Marka z handoffu"
   ],
   "date": "2026-11-25"

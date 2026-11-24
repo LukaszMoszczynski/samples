@@ -1,0 +1,69 @@
+/* Marquee: a full-width band, two identical groups side by side so the loop is seamless; slight tilt for energy. */
+.ds-marquee {
+  position: relative;
+  z-index: 2;
+  overflow: clip;
+  padding-block: var(--space-20);
+  white-space: nowrap;
+}
+
+.ds-marquee--lemon {
+  background: var(--palette-accent-400);
+  color: var(--palette-secondary-800);
+}
+
+.ds-marquee--rose {
+  background: var(--palette-primary-600);
+  color: var(--palette-neutral-0);
+}
+
+.ds-marquee--plum {
+  background: var(--palette-secondary-950);
+  color: var(--palette-primary-400);
+}
+
+.ds-marquee__track {
+  display: flex;
+  width: max-content;
+  background: inherit;
+}
+
+.ds-marquee__group {
+  display: flex;
+  flex: none;
+}
+
+.ds-marquee__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-32);
+  padding-right: var(--space-32);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-48);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+}
+
+.ds-marquee__ball {
+  display: inline-block;
+  width: var(--size-24);
+  aspect-ratio: 1;
+  border-radius: var(--radius-full);
+  background: currentColor;
+  opacity: 0.8;
+}
+
+.ds-marquee--lemon .ds-marquee__item:nth-child(even) .ds-marquee__ball {
+  background: var(--palette-primary-600);
+  opacity: 1;
+}
+
+@media (max-width: 781px) {
+  .ds-marquee {
+    padding-block: var(--space-12);
+  }
+
+  .ds-marquee__item {
+    font-size: var(--font-size-36);
+  }
+}

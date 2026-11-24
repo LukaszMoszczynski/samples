@@ -1,0 +1,30 @@
+/* Scroll progress: fixed just under the sticky header; a 2px rose line and a small ball at its tip. */
+.ds-scroll-progress {
+  position: fixed;
+  top: var(--size-header-height);
+  left: 0;
+  right: 0;
+  z-index: 21;
+  height: var(--space-2);
+  pointer-events: none;
+}
+
+.ds-scroll-progress__line {
+  position: absolute;
+  inset: 0;
+  background: var(--palette-primary-600);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+.ds-scroll-progress__ball {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: var(--size-12);
+  aspect-ratio: 1;
+  margin-top: calc(var(--size-12) / -2);
+  margin-left: calc(var(--size-12) / -2);
+  border-radius: var(--radius-full);
+  background: var(--palette-primary-600);
+}

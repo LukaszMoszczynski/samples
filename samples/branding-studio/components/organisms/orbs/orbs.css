@@ -1,0 +1,61 @@
+/* Background orbs: a layer under the section's content. Soft-edged radial balls (no blur filter, cheap to move) and
+   one thin ring. Tones: light (cream and blush sections), rose (light rose sections), dark (plum sections). */
+.ds-orbs {
+  position: absolute;
+  inset: calc(var(--space-48) * -1);
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ds-orbs__orb {
+  position: absolute;
+  aspect-ratio: 1;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle at 50% 50%, var(--ds-orb-colour) 0%, color-mix(in srgb, var(--ds-orb-colour) 40%, transparent) 38%, transparent 70%);
+  will-change: transform;
+}
+
+.ds-orbs__orb--1 { top: -12%; left: -8%; width: calc(var(--size-160) * 3.4); }
+.ds-orbs__orb--2 { top: 30%; right: -10%; width: calc(var(--size-160) * 3); }
+.ds-orbs__orb--3 { bottom: -18%; left: 30%; width: calc(var(--size-160) * 2.6); }
+.ds-orbs__orb--4 { top: 8%; left: 52%; width: calc(var(--size-160) * 1.2); }
+.ds-orbs__orb--5 { bottom: 12%; left: 6%; width: calc(var(--size-160) * 0.9); }
+
+.ds-orbs__ring {
+  position: absolute;
+  top: 18%;
+  right: 14%;
+  width: calc(var(--size-160) * 2.2);
+  aspect-ratio: 1;
+  border: var(--space-2) dashed var(--ds-orb-ring);
+  border-radius: var(--radius-full);
+}
+
+.ds-orbs--light .ds-orbs__orb--1 { --ds-orb-colour: color-mix(in srgb, var(--palette-primary-400) 34%, transparent); }
+.ds-orbs--light .ds-orbs__orb--2 { --ds-orb-colour: color-mix(in srgb, var(--palette-accent-400) 42%, transparent); }
+.ds-orbs--light .ds-orbs__orb--3 { --ds-orb-colour: color-mix(in srgb, var(--palette-secondary-600) 14%, transparent); }
+.ds-orbs--light .ds-orbs__orb--4 { --ds-orb-colour: color-mix(in srgb, var(--palette-primary-600) 16%, transparent); }
+.ds-orbs--light .ds-orbs__orb--5 { --ds-orb-colour: color-mix(in srgb, var(--palette-accent-400) 50%, transparent); }
+.ds-orbs--light { --ds-orb-ring: color-mix(in srgb, var(--palette-primary-600) 18%, transparent); }
+
+.ds-orbs--rose .ds-orbs__orb--1 { --ds-orb-colour: color-mix(in srgb, var(--palette-neutral-0) 70%, transparent); }
+.ds-orbs--rose .ds-orbs__orb--2 { --ds-orb-colour: color-mix(in srgb, var(--palette-primary-400) 40%, transparent); }
+.ds-orbs--rose .ds-orbs__orb--3 { --ds-orb-colour: color-mix(in srgb, var(--palette-accent-400) 40%, transparent); }
+.ds-orbs--rose .ds-orbs__orb--4 { --ds-orb-colour: color-mix(in srgb, var(--palette-primary-600) 18%, transparent); }
+.ds-orbs--rose .ds-orbs__orb--5 { --ds-orb-colour: color-mix(in srgb, var(--palette-secondary-600) 16%, transparent); }
+.ds-orbs--rose { --ds-orb-ring: color-mix(in srgb, var(--palette-secondary-800) 14%, transparent); }
+
+.ds-orbs--dark .ds-orbs__orb--1 { --ds-orb-colour: color-mix(in srgb, var(--palette-primary-600) 42%, transparent); }
+.ds-orbs--dark .ds-orbs__orb--2 { --ds-orb-colour: color-mix(in srgb, var(--palette-secondary-600) 50%, transparent); }
+.ds-orbs--dark .ds-orbs__orb--3 { --ds-orb-colour: color-mix(in srgb, var(--palette-primary-400) 22%, transparent); }
+.ds-orbs--dark .ds-orbs__orb--4 { --ds-orb-colour: color-mix(in srgb, var(--palette-accent-400) 16%, transparent); }
+.ds-orbs--dark .ds-orbs__orb--5 { --ds-orb-colour: color-mix(in srgb, var(--palette-primary-400) 30%, transparent); }
+.ds-orbs--dark { --ds-orb-ring: color-mix(in srgb, var(--palette-accent-400) 22%, transparent); }
+
+@media (max-width: 781px) {
+  .ds-orbs__orb--1 { width: calc(var(--size-160) * 2.2); }
+  .ds-orbs__orb--2 { width: calc(var(--size-160) * 2); }
+  .ds-orbs__orb--3 { width: calc(var(--size-160) * 1.8); }
+  .ds-orbs__ring { width: calc(var(--size-160) * 1.4); }
+}

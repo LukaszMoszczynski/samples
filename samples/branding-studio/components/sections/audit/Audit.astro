@@ -3,6 +3,7 @@
 // Sample only: nothing is saved or sent. Without JS the questions still work as a form, the verdict needs the script.
 import Label from '../../atoms/label/Label.astro';
 import Cta from '../../atoms/cta/Cta.astro';
+import Orbs from '../../organisms/orbs/Orbs.astro';
 interface Props {
   label: string; title: string; accent: string; lead: string;
   questions: string[];
@@ -12,6 +13,8 @@ interface Props {
 const { label, title, accent, lead, questions, verdicts, cta } = Astro.props;
 ---
 <section class="ds-section ds-section--plum ds-audit" id="audyt" aria-labelledby="audit-title">
+  <span class="ds-wipe" aria-hidden="true" data-wipe></span>
+  <Orbs tone="dark" />
   <div class="ds-container ds-audit__grid">
     <div class="ds-audit__head" data-reveal>
       <Label text={label} />

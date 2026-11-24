@@ -3,10 +3,12 @@
 // line is struck through by a rose line when it arrives (site.js).
 import Label from '../../atoms/label/Label.astro';
 import Ball from '../../atoms/ball/Ball.astro';
+import Orbs from '../../organisms/orbs/Orbs.astro';
 interface Props { label: string; title: string; accent: string; text: string; forWhom: string[]; notFor: string }
 const { label, title, accent, text, forWhom, notFor } = Astro.props;
 ---
 <section class="ds-section ds-section--blush ds-manifesto" id="dla-kogo" aria-labelledby="manifesto-title">
+  <Orbs tone="light" />
   <div class="ds-container ds-manifesto__grid">
     <div class="ds-manifesto__head" data-reveal>
       <Label text={label} />

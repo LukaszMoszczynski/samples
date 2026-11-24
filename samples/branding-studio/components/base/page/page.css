@@ -139,3 +139,31 @@ strong {
 [hidden] {
   display: none !important;
 }
+
+/* Background layers: sections clip their orbs; content sits above them. */
+.ds-section {
+  overflow: clip;
+}
+
+:is(.ds-section, .ds-hero) > .ds-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Plum sections open from a ball: a plum layer the script wipes in as a growing circle. Without motion it is simply
+   the section's background. */
+.ds-wipe {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--palette-secondary-800);
+}
+
+[data-motion] .ds-section--plum {
+  background: var(--palette-neutral-50);
+}
+
+/* Split headings: each word rises from its own mask (site.js, SplitText). */
+.ds-split-mask {
+  padding-bottom: var(--space-4);
+}

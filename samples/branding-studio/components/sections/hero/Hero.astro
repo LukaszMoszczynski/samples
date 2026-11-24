@@ -6,6 +6,7 @@ import Cta from '../../atoms/cta/Cta.astro';
 import Ball from '../../atoms/ball/Ball.astro';
 import photo from '../../../assets/daria.webp?url';
 import photoSmall from '../../../assets/daria-560.webp?url';
+import Orbs from '../../organisms/orbs/Orbs.astro';
 interface Props {
   label: string;
   lines: string[];
@@ -18,6 +19,7 @@ interface Props {
 const { label, lines, accent, lead, primary, secondary, caption } = Astro.props;
 ---
 <section class="ds-hero" id="top" aria-labelledby="hero-title" data-hero>
+  <Orbs tone="dark" />
   <span class="ds-hero__bar ds-hero__bar--top" aria-hidden="true" data-hero-bar></span>
   <span class="ds-hero__bar ds-hero__bar--bottom" aria-hidden="true" data-hero-bar></span>
   <div class="ds-container ds-hero__grid">

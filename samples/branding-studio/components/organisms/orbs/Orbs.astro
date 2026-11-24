@@ -1,0 +1,14 @@
+---
+// Background orbs: soft balls in rose, plum and lemon behind a section's content. site.js lets them drift, breathe,
+// move with the scroll and lean away from the pointer; still under reduced motion. Decorative only.
+interface Props { tone?: 'light' | 'dark' | 'rose'; class?: string }
+const { tone = 'light', class: className } = Astro.props;
+---
+<div class:list={['ds-orbs', `ds-orbs--${tone}`, className]} aria-hidden="true" data-orbs>
+  <span class="ds-orbs__orb ds-orbs__orb--1" data-orb></span>
+  <span class="ds-orbs__orb ds-orbs__orb--2" data-orb></span>
+  <span class="ds-orbs__orb ds-orbs__orb--3" data-orb></span>
+  <span class="ds-orbs__orb ds-orbs__orb--4" data-orb></span>
+  <span class="ds-orbs__orb ds-orbs__orb--5" data-orb></span>
+  <span class="ds-orbs__ring" data-orb-ring></span>
+</div>

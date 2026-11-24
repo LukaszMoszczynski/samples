@@ -18,11 +18,11 @@
   overflow: hidden;
   border-radius: var(--radius-3xl);
   background: var(--palette-neutral-0);
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
+  transition: translate 0.5s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.5s ease;
 }
 
 .ds-cases__card:hover {
-  transform: translateY(calc(var(--space-6) * -1));
+  translate: 0 calc(var(--space-6) * -1);
   box-shadow: 0 var(--space-20) var(--space-40) color-mix(in srgb, var(--palette-secondary-800) 12%, transparent);
 }
 

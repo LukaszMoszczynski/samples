@@ -4,10 +4,12 @@
 import Label from '../../atoms/label/Label.astro';
 import Ball from '../../atoms/ball/Ball.astro';
 import photo from '../../../assets/daria-560.webp?url';
+import Orbs from '../../organisms/orbs/Orbs.astro';
 interface Props { label: string; title: string; quote: string; text: string; skills: string[] }
 const { label, title, quote, text, skills } = Astro.props;
 ---
 <section class="ds-section ds-about" id="o-mnie" aria-labelledby="about-title">
+  <Orbs tone="light" />
   <div class="ds-container ds-about__grid">
     <div class="ds-about__visual" aria-hidden="true">
       <span class="ds-about__circle" data-about-circle></span>

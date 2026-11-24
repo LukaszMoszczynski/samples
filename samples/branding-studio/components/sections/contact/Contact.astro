@@ -4,10 +4,13 @@
 import Label from '../../atoms/label/Label.astro';
 import Cta from '../../atoms/cta/Cta.astro';
 import Ball from '../../atoms/ball/Ball.astro';
+import Orbs from '../../organisms/orbs/Orbs.astro';
 interface Props { label: string; title: string; accent: string; lead: string; points: string[]; topics: string[] }
 const { label, title, accent, lead, points, topics } = Astro.props;
 ---
 <section class="ds-section ds-section--plum ds-contact" id="kontakt" aria-labelledby="contact-title">
+  <span class="ds-wipe" aria-hidden="true" data-wipe></span>
+  <Orbs tone="dark" />
   <Ball color="light-rose" class="ds-contact__ball ds-contact__ball--big" />
   <Ball color="lemon" class="ds-contact__ball ds-contact__ball--small" />
   <div class="ds-container ds-contact__grid">

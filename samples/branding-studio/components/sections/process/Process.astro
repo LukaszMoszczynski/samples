@@ -3,10 +3,12 @@
 // filling each step's circle as it passes (site.js). Phones: the track runs down the left.
 import Label from '../../atoms/label/Label.astro';
 import Ball from '../../atoms/ball/Ball.astro';
+import Orbs from '../../organisms/orbs/Orbs.astro';
 interface Props { label: string; title: string; accent: string; lead: string; steps: { name: string; time: string; text: string }[] }
 const { label, title, accent, lead, steps } = Astro.props;
 ---
 <section class="ds-section ds-process" id="jak-pracuje" aria-labelledby="process-title">
+  <Orbs tone="light" />
   <div class="ds-container">
     <div class="ds-section-head" data-reveal>
       <Label text={label} />

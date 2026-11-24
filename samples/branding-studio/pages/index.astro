@@ -14,6 +14,9 @@ import '../components/molecules/service-card/service-card.css';
 import '../components/organisms/site-header/site-header.css';
 import '../components/organisms/site-footer/site-footer.css';
 import '../components/organisms/cursor-ribbon/cursor-ribbon.css';
+import '../components/organisms/orbs/orbs.css';
+import '../components/organisms/marquee/marquee.css';
+import '../components/organisms/scroll-progress/scroll-progress.css';
 import '../components/sections/hero/hero.css';
 import '../components/sections/manifesto/manifesto.css';
 import '../components/sections/services/services.css';
@@ -26,6 +29,8 @@ import '../components/sections/contact/contact.css';
 
 import SiteHeader from '../components/organisms/site-header/SiteHeader.astro';
 import CursorRibbon from '../components/organisms/cursor-ribbon/CursorRibbon.astro';
+import Marquee from '../components/organisms/marquee/Marquee.astro';
+import ScrollProgress from '../components/organisms/scroll-progress/ScrollProgress.astro';
 import Hero from '../components/sections/hero/Hero.astro';
 import Manifesto from '../components/sections/manifesto/Manifesto.astro';
 import Services from '../components/sections/services/Services.astro';
@@ -48,6 +53,7 @@ const audit = { text: 'Zacznij od audytu', href: '#kontakt' };
 ---
 <Sample lang={sample.lang} title="oh!design – branding i strony dla dojrzałych marek (przykładowa strona)" description="Branding, strony i teksty dla dojrzałych marek, które wiedzą, że jakość nie krzyczy. Na luzie, ale na poważnie." fonts="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;700&family=Sora:wght@400;700&family=Source+Code+Pro:wght@400;500&display=swap">
   <SiteHeader items={nav} cta={audit} />
+  <ScrollProgress />
   <main>
     <Hero
       label="Dla kogo"
@@ -58,6 +64,7 @@ const audit = { text: 'Zacznij od audytu', href: '#kontakt' };
       secondary={{ text: 'Jak pracuję', href: '#jak-pracuje' }}
       caption="Daria · oh!design"
     />
+    <Marquee items={['Tylko dla dojrzałych marek', 'Branding', 'Strony www', 'Teksty i claim', 'Audyt marki']} tone="lemon" />
     <Manifesto
       label="Jak pracuję"
       title="na luzie,"
@@ -122,6 +129,7 @@ const audit = { text: 'Zacznij od audytu', href: '#kontakt' };
         { trade: 'Pracownia ceramiki', before: 'Pasja tworzenia z gliny.', after: 'Kubki, które przeżyją Twoją dietę.', colour: 'lemon' },
       ]}
     />
+    <Marquee items={['Było ładnie', 'Jest trafnie', 'Ostrze w bzdurę', 'Nigdy w człowieka']} tone="plum" reverse />
     <About
       label="O mnie"
       title="Cześć, tu Daria."
@@ -140,6 +148,7 @@ const audit = { text: 'Zacznij od audytu', href: '#kontakt' };
         { quote: 'Strona wreszcie mówi tak, jak my mówimy do klientów. Telefon dzwoni częściej.', who: 'Pracownia ceramiki' },
       ]}
     />
+    <Marquee items={['na luzie, ale na poważnie', 'Zacznij od audytu', 'oh!design']} tone="rose" />
     <Contact
       label="Kontakt"
       title="Zacznij"

@@ -17,7 +17,7 @@
   text-decoration: none;
   cursor: pointer;
   isolation: isolate;
-  transition: color 0.4s ease, border-color 0.4s ease, transform 0.2s ease;
+  transition: color 0.4s ease, border-color 0.4s ease;
 }
 
 .ds-cta::before {

@@ -4,9 +4,10 @@
 // The audit and the contact form are demos: nothing is saved or sent.
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { SplitText } from 'gsap/SplitText';
 import { enhanceForms } from './forms.js';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, SplitText);
 document.documentElement.setAttribute('data-motion-ready', '');
 enhanceForms();
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -92,13 +93,20 @@ if (!reduceMotion) {
   gsap.to('.ds-hero__ball--lemon', { yPercent: 80, ease: 'none', scrollTrigger: { trigger: '[data-hero]', start: 'top top', end: 'bottom top', scrub: true } });
 }
 
+// Entrance per kind: service cards flip up in 3D, makeover cards swing in from alternate sides, the rest rises.
+function entranceFrom(element, index) {
+  if (element.closest('.ds-services__grid')) return { opacity: 0, y: 60, rotationX: -40, transformPerspective: 900, transformOrigin: '50% 0%' };
+  if (element.matches('.ds-cases__card')) return { opacity: 0, x: index % 2 ? 80 : -80, rotation: index % 2 ? 4 : -4 };
+  return { opacity: 0, y: 36 };
+}
+
 // --- Sections rise in as they arrive; strikes draw through the old words ------------------------------------------
 
 if (!reduceMotion) {
   ScrollTrigger.batch('[data-reveal]', {
     start: 'top 86%',
     once: true,
-    onEnter: (elements) => gsap.fromTo(elements, { opacity: 0, y: 36 }, { opacity: 1, y: 0, duration: 1, stagger: 0.12, ease: soft, overwrite: true }),
+    onEnter: (elements) => elements.forEach((element, index) => gsap.fromTo(element, entranceFrom(element, index), { opacity: 1, x: 0, y: 0, rotation: 0, rotationX: 0, duration: 1.1, delay: index * 0.12, ease: soft, overwrite: true })),
   });
 
   document.querySelectorAll('.ds-manifesto [data-strike]').forEach((strike) => {
@@ -248,4 +256,147 @@ if (ribbon && !reduceMotion && window.matchMedia('(pointer: fine)').matches) {
       gsap.set(dots[index], { x: point.x + 14, y: point.y + 18 });
     });
   });
+}
+
+// --- Heavy layer (owner, 25 Nov: "heavy animation site, with background animations") ------------------------------
+// Smooth eases throughout, nothing bounces (brand brief). Loops pause while their section is off screen.
+
+if (!reduceMotion) {
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+  const pauseOffscreen = (trigger, loops) => ScrollTrigger.create({
+    trigger,
+    start: 'top bottom',
+    end: 'bottom top',
+    onToggle: (self) => loops.forEach((loop) => (self.isActive ? loop.resume() : loop.pause())),
+  });
+
+  // Background orbs: each drifts and breathes on its own clock, moves at its own depth with the scroll, and the whole
+  // layer leans away from the pointer (read on the section, the steady parent).
+  document.querySelectorAll('[data-orbs]').forEach((layer) => {
+    const section = layer.parentElement;
+    const orbs = [...layer.querySelectorAll('[data-orb]')];
+    const loops = orbs.map((orb, index) => gsap.to(orb, {
+      xPercent: gsap.utils.random(-35, 35),
+      yPercent: gsap.utils.random(-30, 30),
+      scale: gsap.utils.random(0.8, 1.25),
+      duration: gsap.utils.random(6, 11),
+      ease: 'sine.inOut',
+      yoyo: true,
+      repeat: -1,
+      delay: index * -1.7,
+    }));
+    const ring = layer.querySelector('[data-orb-ring]');
+    if (ring) loops.push(gsap.to(ring, { rotation: 360, duration: 60, ease: 'none', repeat: -1 }));
+    pauseOffscreen(section, loops);
+    orbs.forEach((orb, index) => gsap.fromTo(orb, { y: -(index + 1) * 40 }, { y: (index + 1) * 40, ease: 'none', scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: true } }));
+    if (finePointer) {
+      const leanX = gsap.quickTo(layer, 'x', { duration: 1.2, ease: soft });
+      const leanY = gsap.quickTo(layer, 'y', { duration: 1.2, ease: soft });
+      section.addEventListener('pointermove', (event) => {
+        const box = section.getBoundingClientRect();
+        leanX(((event.clientX - box.left) / box.width - 0.5) * -40);
+        leanY(((event.clientY - box.top) / box.height - 0.5) * -40);
+      });
+      section.addEventListener('pointerleave', () => { leanX(0); leanY(0); });
+    }
+  });
+
+  // Hero depth: the sun, ring, frame and balls follow the pointer at different depths; the sun breathes.
+  const hero = document.querySelector('[data-hero]');
+  if (hero) {
+    const breathe = gsap.fromTo('[data-hero-sun]', { scale: 1 }, { scale: 1.06, duration: 4, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 3, immediateRender: false });
+    pauseOffscreen(hero, [breathe]);
+    if (finePointer) {
+      const layers = [['[data-hero-sun]', 4], ['[data-hero-ring]', -6], ['[data-hero-frame]', 1.5], ['.ds-hero__ball--lemon', 14], ['.ds-hero__ball--rose', -10], ['.ds-hero__ball--small', 20]]
+        .map(([selector, depth]) => ({ depth, moveX: gsap.quickTo(selector, 'xPercent', { duration: 1, ease: soft }), moveY: gsap.quickTo(selector, 'yPercent', { duration: 1, ease: soft }) }));
+      hero.addEventListener('pointermove', (event) => {
+        const box = hero.getBoundingClientRect();
+        const offsetX = (event.clientX - box.left) / box.width - 0.5;
+        const offsetY = (event.clientY - box.top) / box.height - 0.5;
+        layers.forEach(({ depth, moveX, moveY }) => { moveX(offsetX * depth); moveY(offsetY * depth); });
+      });
+      hero.addEventListener('pointerleave', () => layers.forEach(({ moveX, moveY }) => { moveX(0); moveY(0); }));
+    }
+    // Leaving the hero: the copy drifts up and fades a little, the stage sinks (scroll-linked, reversible).
+    gsap.to('.ds-hero__copy', { yPercent: -18, opacity: 0.35, ease: 'none', scrollTrigger: { trigger: hero, start: 'center center', end: 'bottom top', scrub: true } });
+    gsap.to('[data-hero-stage]', { yPercent: 12, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
+  }
+
+  // Headings: every word rises from its own mask; the split is undone afterwards so the heading reads as one again.
+  document.querySelectorAll('.ds-section-head__title, .ds-manifesto__title').forEach((title) => {
+    const split = SplitText.create(title, { type: 'words', mask: 'words', aria: 'auto' });
+    gsap.set(split.words, { yPercent: 115, rotation: 6 });
+    ScrollTrigger.create({
+      trigger: title,
+      start: 'top 88%',
+      once: true,
+      onEnter: () => gsap.to(split.words, { yPercent: 0, rotation: 0, duration: 1, stagger: 0.06, ease: 'power4.out', delay: 0.15, onComplete: () => split.revert() }),
+    });
+  });
+
+  // Plum sections open from a ball: a circle grows from the top edge until it covers the section.
+  document.querySelectorAll('[data-wipe]').forEach((wipe) => {
+    gsap.fromTo(wipe, { clipPath: 'circle(0% at 50% 0%)' }, { clipPath: 'circle(150% at 50% 0%)', duration: 1.5, ease: 'power3.inOut', scrollTrigger: { trigger: wipe.parentElement, start: 'top 85%', once: true } });
+  });
+
+  // Marquees: endless, faster and slanted with the scroll speed, turning with the scroll direction, then settling.
+  document.querySelectorAll('[data-marquee]').forEach((marquee) => {
+    const track = marquee.querySelector('[data-marquee-track]');
+    const base = marquee.hasAttribute('data-marquee-reverse') ? -1 : 1;
+    const loop = gsap.fromTo(track, { xPercent: base > 0 ? 0 : -50 }, { xPercent: base > 0 ? -50 : 0, duration: 30, ease: 'none', repeat: -1 });
+    loop.totalTime(3000); // room to run backwards when the page scrolls up
+    const skew = gsap.quickTo(track, 'skewX', { duration: 0.5, ease: soft });
+    let settle = null;
+    ScrollTrigger.create({
+      trigger: marquee,
+      start: 'top bottom',
+      end: 'bottom top',
+      onToggle: (self) => (self.isActive ? loop.resume() : loop.pause()),
+      onUpdate: (self) => {
+        const velocity = self.getVelocity();
+        const heading = self.direction;
+        gsap.to(loop, { timeScale: heading * gsap.utils.clamp(1, 7, 1 + Math.abs(velocity) / 250), duration: 0.25, overwrite: true });
+        skew(gsap.utils.clamp(-10, 10, velocity / -120));
+        clearTimeout(settle);
+        settle = setTimeout(() => { gsap.to(loop, { timeScale: heading, duration: 1.2, overwrite: true }); skew(0); }, 140);
+      },
+    });
+  });
+
+  // Scroll progress: the line follows the page, the ball rolls at its tip.
+  const progress = document.querySelector('[data-scroll-progress]');
+  if (progress) {
+    progress.hidden = false;
+    const page = { trigger: document.body, start: 'top top', end: 'bottom bottom', scrub: 0.3 };
+    gsap.to('[data-scroll-line]', { scaleX: 1, ease: 'none', scrollTrigger: page });
+    gsap.to('[data-scroll-ball]', { left: '100%', rotation: 1080, ease: 'none', scrollTrigger: { ...page } });
+  }
+
+  // Magnetic CTAs: a button within reach leans toward the pointer (distance read from the page, not the button).
+  if (finePointer) {
+    const buttons = [...document.querySelectorAll('.ds-cta')].map((button) => ({
+      button,
+      moveX: gsap.quickTo(button, 'x', { duration: 0.6, ease: soft }),
+      moveY: gsap.quickTo(button, 'y', { duration: 0.6, ease: soft }),
+    }));
+    let frame = 0;
+    window.addEventListener('pointermove', (event) => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        buttons.forEach(({ button, moveX, moveY }) => {
+          const box = button.getBoundingClientRect();
+          if (!box.width) return;
+          const distanceX = event.clientX - (box.left + box.width / 2);
+          const distanceY = event.clientY - (box.top + box.height / 2);
+          const near = Math.hypot(distanceX, distanceY) < Math.max(box.width, 140);
+          moveX(near ? distanceX * 0.22 : 0);
+          moveY(near ? distanceY * 0.35 : 0);
+        });
+      });
+    }, { passive: true });
+  }
+
+  // About: the portrait floats a little against its circle while you scroll.
+  gsap.fromTo('.ds-about__photo', { yPercent: 8 }, { yPercent: -8, ease: 'none', scrollTrigger: { trigger: '.ds-about', start: 'top bottom', end: 'bottom top', scrub: true } });
 }

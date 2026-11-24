@@ -25,6 +25,15 @@ the meter, on cards, a huge rose sun behind the portrait (the change of scale fr
 - Service cards tilt a little toward the pointer, the corner ball grows; makeover cards lift and the ball rolls away.
 - Mini-audit: every "Tak" rolls a ball into the meter; the verdict changes with the count.
 - CTA: a ball grows from the arrow side and fills the pill. Menu: a small rose ball rolls under the link.
+- Heavy layer (owner's request, 25 Nov; goes beyond the brief's "subdued", eases stay smooth, nothing bounces):
+  - background orbs in every section (rose, plum, lemon) drift and breathe, move at their own depth with the scroll
+    and lean away from the pointer; a dashed ring turns slowly; loops pause off screen;
+  - hero depth: sun, ring, frame and balls follow the pointer at different depths, the sun breathes, the copy drifts
+    up and the portrait sinks as you leave the hero;
+  - three marquee bands of the brand's lines, faster and slanted with the scroll speed, turning with its direction;
+  - headings split into words that rise from masks; plum sections open as a circle growing from the top edge;
+  - service cards flip up in 3D, makeover cards swing in from alternate sides; magnetic CTAs; a scroll progress
+    line with a rolling ball under the header; the About portrait floats against its circle.
 - Everything respects reduced motion; content is complete without JS.
 
 ## Design system parts
