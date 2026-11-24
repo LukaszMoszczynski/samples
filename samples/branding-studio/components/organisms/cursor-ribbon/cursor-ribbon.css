@@ -1,0 +1,24 @@
+/* Cursor ribbon: fixed layer above the page that never takes the pointer; site.js sizes each dot smaller than the
+   one before. */
+.ds-cursor-ribbon {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.ds-cursor-ribbon__dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--size-12);
+  aspect-ratio: 1;
+  margin: calc(var(--size-12) / -2) 0 0 calc(var(--size-12) / -2);
+  border-radius: var(--radius-full);
+  opacity: 0;
+}
+
+.ds-cursor-ribbon__dot--rose { background: var(--palette-primary-600); }
+.ds-cursor-ribbon__dot--light-rose { background: var(--palette-primary-400); }
+.ds-cursor-ribbon__dot--plum { background: var(--palette-secondary-600); }

@@ -1,0 +1,194 @@
+/* Hero: plum, big Unbounded title with "Marek." in light rose, portrait in an arch with a rose gradient for depth,
+   a huge rose sun and a thin ring behind her (the surreal change of scale from the brief), balls in the frame.
+   Letterbox bars only exist for the intro: they sit off the edges unless the motion script plays the film. */
+.ds-hero {
+  position: relative;
+  overflow: clip;
+  padding-block: var(--space-64) calc(var(--space-64) * 1.5);
+  background:
+    radial-gradient(circle at 85% 20%, color-mix(in srgb, var(--palette-primary-600) 28%, transparent), transparent 55%),
+    var(--palette-secondary-800);
+  color: color-mix(in srgb, var(--palette-neutral-0) 86%, transparent);
+}
+
+.ds-hero__bar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  height: var(--space-64);
+  background: var(--palette-secondary-950);
+  transform: translateY(-100%);
+}
+
+.ds-hero__bar--top {
+  top: 0;
+}
+
+.ds-hero__bar--bottom {
+  bottom: 0;
+  transform: translateY(100%);
+}
+
+.ds-hero__grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  align-items: center;
+  gap: var(--space-64);
+}
+
+.ds-hero__copy {
+  display: grid;
+  gap: var(--space-24);
+}
+
+.ds-hero__title {
+  margin: 0;
+  color: var(--palette-neutral-0);
+  font-size: var(--font-size-80);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.04;
+}
+
+.ds-hero__line {
+  display: block;
+  overflow: clip;
+  padding-bottom: var(--space-6);
+}
+
+.ds-hero__line-inner {
+  display: inline-block;
+}
+
+.ds-hero__accent {
+  color: var(--palette-primary-400);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-hero__lead {
+  max-width: calc(var(--size-160) * 3);
+  margin: 0;
+  font-size: var(--font-size-lg);
+  line-height: 1.6;
+}
+
+.ds-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-12);
+  margin-top: var(--space-8);
+}
+
+.ds-hero__stage {
+  position: relative;
+  width: 100%;
+  max-width: calc(var(--size-160) * 3);
+  margin: 0 auto;
+  aspect-ratio: 4 / 5;
+}
+
+.ds-hero__sun {
+  position: absolute;
+  top: 6%;
+  left: -12%;
+  width: 78%;
+  aspect-ratio: 1;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle at 35% 30%, var(--palette-primary-400), var(--palette-primary-600) 70%);
+}
+
+.ds-hero__ring {
+  position: absolute;
+  right: -8%;
+  bottom: 4%;
+  width: 56%;
+  aspect-ratio: 1;
+  border: var(--space-2) solid color-mix(in srgb, var(--palette-accent-400) 80%, transparent);
+  border-radius: var(--radius-full);
+}
+
+.ds-hero__frame {
+  position: absolute;
+  inset: 4% 8% 0 14%;
+  overflow: hidden;
+  border-radius: var(--radius-full) var(--radius-full) var(--radius-4xl) var(--radius-4xl);
+  background: linear-gradient(180deg, var(--palette-secondary-100), var(--palette-primary-400));
+}
+
+.ds-hero__frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, color-mix(in srgb, var(--palette-secondary-800) 55%, transparent));
+}
+
+.ds-hero__photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 40% 20%;
+}
+
+.ds-hero__ball {
+  position: absolute;
+  z-index: 2;
+}
+
+.ds-hero__ball--lemon {
+  --ds-ball-size: var(--size-52);
+  right: 2%;
+  top: 30%;
+}
+
+.ds-hero__ball--rose {
+  --ds-ball-size: var(--size-160);
+  left: -6%;
+  bottom: -4%;
+  opacity: 0.92;
+}
+
+.ds-hero__ball--small {
+  --ds-ball-size: var(--size-20);
+  left: 10%;
+  top: 12%;
+}
+
+.ds-hero__caption {
+  position: absolute;
+  right: 0;
+  bottom: calc(var(--space-40) * -1);
+  z-index: 2;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  letter-spacing: calc(var(--font-size-small) * 0.08);
+}
+
+@media (max-width: 1023px) {
+  .ds-hero__title {
+    font-size: var(--font-size-48);
+  }
+}
+
+@media (max-width: 781px) {
+  .ds-hero {
+    padding-block: var(--space-40) var(--space-64);
+  }
+
+  .ds-hero__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-48);
+  }
+
+  .ds-hero__title {
+    font-size: var(--font-size-40);
+  }
+
+  .ds-hero__stage {
+    max-width: calc(var(--size-160) * 2);
+  }
+
+  .ds-hero__ball--rose {
+    --ds-ball-size: calc(var(--size-160) * 0.6);
+  }
+}

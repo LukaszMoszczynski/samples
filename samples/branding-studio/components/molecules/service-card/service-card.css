@@ -1,0 +1,90 @@
+/* Service card: white on cream, mono number, Unbounded name. Hover: the card lifts and tilts a little toward the
+   pointer (site.js reads the pointer on the steady parent), the corner ball grows. */
+.ds-service-card {
+  perspective: calc(var(--size-160) * 8);
+}
+
+.ds-service-card__inner {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: var(--space-12);
+  height: 100%;
+  box-sizing: border-box;
+  padding: var(--space-32) var(--space-28);
+  overflow: hidden;
+  border: var(--space-1) solid var(--palette-secondary-100);
+  border-radius: var(--radius-3xl);
+  background: var(--palette-neutral-0);
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
+  transform-style: preserve-3d;
+}
+
+.ds-service-card:hover .ds-service-card__inner {
+  border-color: var(--palette-primary-400);
+  box-shadow: 0 var(--space-20) var(--space-40) color-mix(in srgb, var(--palette-secondary-800) 14%, transparent);
+}
+
+.ds-service-card__ball {
+  --ds-ball-size: var(--size-40);
+  position: absolute;
+  top: var(--space-24);
+  right: var(--space-24);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ds-service-card:hover .ds-service-card__ball {
+  transform: scale(1.6) translate(var(--space-6), calc(var(--space-6) * -1));
+}
+
+.ds-service-card__number {
+  margin: 0;
+  color: var(--palette-secondary-600);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  letter-spacing: calc(var(--font-size-small) * 0.14);
+}
+
+.ds-service-card__tag {
+  justify-self: start;
+  margin: 0;
+  padding: var(--space-4) var(--space-12);
+  border-radius: var(--radius-full);
+  background: var(--palette-accent-400);
+  color: var(--palette-secondary-800);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-service-card__name {
+  margin: var(--space-8) 0 0;
+  font-size: var(--font-size-tile-title);
+  line-height: 1.2;
+}
+
+.ds-service-card__text {
+  margin: 0;
+}
+
+.ds-service-card__points {
+  display: grid;
+  gap: var(--space-6);
+  margin: var(--space-8) 0 0;
+  padding: var(--space-16) 0 0;
+  border-top: var(--space-1) solid var(--palette-secondary-100);
+  list-style: none;
+  font-size: var(--font-size-small);
+  color: var(--palette-secondary-800);
+}
+
+.ds-service-card__points li::before {
+  content: "→ ";
+  color: var(--palette-primary-600);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-service-card__inner,
+  .ds-service-card__ball {
+    transition: none;
+  }
+}

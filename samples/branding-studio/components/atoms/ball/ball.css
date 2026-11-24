@@ -1,0 +1,22 @@
+/* Ball: a flat circle with a soft highlight, so a roll reads as a roll. Size comes from the parent (--ds-ball-size). */
+.ds-ball {
+  display: block;
+  width: var(--ds-ball-size, var(--size-24));
+  aspect-ratio: 1;
+  border-radius: var(--radius-full);
+  background:
+    radial-gradient(circle at 32% 30%, color-mix(in srgb, var(--palette-neutral-0) 38%, transparent) 0 14%, transparent 15%),
+    var(--ds-ball-colour);
+}
+
+.ds-ball--rose { --ds-ball-colour: var(--palette-primary-600); }
+.ds-ball--light-rose { --ds-ball-colour: var(--palette-primary-400); }
+.ds-ball--lemon { --ds-ball-colour: var(--palette-accent-400); }
+.ds-ball--plum { --ds-ball-colour: var(--palette-secondary-800); }
+.ds-ball--cream { --ds-ball-colour: var(--palette-neutral-50); }
+
+.ds-ball--ring {
+  background: none;
+  border: var(--space-2) solid currentColor;
+  box-sizing: border-box;
+}

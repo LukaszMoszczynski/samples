@@ -1,0 +1,152 @@
+/* Contact: plum section, cream form card, lemon submit. Two balls drift in the corners (decorative, clipped). */
+.ds-contact {
+  overflow: clip;
+}
+
+.ds-contact__ball {
+  position: absolute;
+  pointer-events: none;
+}
+
+.ds-contact__ball--big {
+  --ds-ball-size: calc(var(--size-160) * 2);
+  right: calc(var(--size-160) * -0.8);
+  top: calc(var(--size-160) * -0.6);
+  opacity: 0.25;
+}
+
+.ds-contact__ball--small {
+  --ds-ball-size: var(--size-40);
+  left: 6%;
+  bottom: var(--space-48);
+}
+
+.ds-contact__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: var(--space-64);
+  align-items: start;
+}
+
+.ds-contact__head {
+  display: grid;
+  gap: var(--space-16);
+}
+
+.ds-contact__points {
+  display: grid;
+  gap: var(--space-8);
+  margin: var(--space-8) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-contact__points li::before {
+  content: "";
+  display: inline-block;
+  width: var(--size-12);
+  aspect-ratio: 1;
+  margin-right: var(--space-12);
+  border-radius: var(--radius-full);
+  background: var(--palette-accent-400);
+}
+
+.ds-contact__card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-20) var(--space-16);
+  padding: var(--space-40);
+  border-radius: var(--radius-3xl);
+  background: var(--palette-neutral-50);
+  color: var(--palette-neutral-600);
+}
+
+.ds-contact__field {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.ds-contact__field--wide {
+  grid-column: 1 / -1;
+}
+
+.ds-contact__label {
+  color: var(--palette-secondary-800);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-contact__input {
+  width: 100%;
+  min-height: var(--size-52);
+  box-sizing: border-box;
+  padding: var(--space-12) var(--space-16);
+  border: var(--space-1) solid var(--palette-neutral-400);
+  border-radius: var(--radius-lg);
+  background: var(--palette-neutral-0);
+  color: var(--palette-secondary-800);
+  font: inherit;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ds-contact__input:hover {
+  border-color: var(--palette-secondary-600);
+}
+
+.ds-contact__input:focus-visible {
+  outline: none;
+  border-color: var(--palette-primary-600);
+  box-shadow: 0 0 0 var(--space-4) color-mix(in srgb, var(--palette-primary-600) 20%, transparent);
+}
+
+.ds-contact__input::placeholder {
+  color: var(--palette-neutral-600);
+}
+
+.ds-contact__textarea {
+  resize: vertical;
+}
+
+.ds-contact__consent {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-12);
+  font-size: var(--font-size-small);
+}
+
+.ds-contact__consent input {
+  width: var(--size-20);
+  height: var(--size-20);
+  margin: 0;
+  accent-color: var(--palette-primary-600);
+}
+
+.ds-contact__thanks {
+  margin: 0;
+  padding: var(--space-16) var(--space-20);
+  border-radius: var(--radius-lg);
+  background: var(--palette-accent-400);
+  color: var(--palette-secondary-800);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-contact .ds-cta--lemon {
+  --ds-cta-fill: var(--palette-secondary-800);
+  background: var(--palette-secondary-800);
+  color: var(--palette-accent-400);
+}
+
+@media (max-width: 1023px) {
+  .ds-contact__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-40);
+  }
+}
+
+@media (max-width: 640px) {
+  .ds-contact__card {
+    grid-template-columns: 1fr;
+    padding: var(--space-24);
+  }
+}

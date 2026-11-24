@@ -1,0 +1,22 @@
+/* Label: mono capitals with a rose slash, wide tracking. Lemon slash on plum. */
+.ds-label {
+  margin: 0;
+  color: var(--palette-secondary-600);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: calc(var(--font-size-small) * 0.14);
+  text-transform: uppercase;
+}
+
+.ds-label__slash {
+  color: var(--palette-primary-600);
+}
+
+:is(.ds-section--plum, .ds-hero) .ds-label {
+  color: color-mix(in srgb, var(--palette-neutral-0) 82%, transparent);
+}
+
+:is(.ds-section--plum, .ds-hero) .ds-label__slash {
+  color: var(--palette-accent-400);
+}

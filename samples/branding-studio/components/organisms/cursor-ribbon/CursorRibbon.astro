@@ -1,0 +1,8 @@
+---
+// Cursor ribbon from the brief: a trail of balls in rose and plum that follows a mouse pointer (site.js). Decorative,
+// never catches clicks, only for a fine pointer and without a reduced-motion preference.
+const colours = ['rose', 'light-rose', 'plum', 'rose', 'light-rose', 'plum', 'rose', 'light-rose'];
+---
+<div class="ds-cursor-ribbon" aria-hidden="true" data-cursor-ribbon hidden>
+  {colours.map((colour) => <span class={`ds-cursor-ribbon__dot ds-cursor-ribbon__dot--${colour}`}></span>)}
+</div>

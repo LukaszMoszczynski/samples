@@ -1,0 +1,17 @@
+---
+// oh!design logo from the handoff (Logo set: Primary, Light; outlined SVG). Inline so the parts can move: the "o" is
+// a ball that rolls in, the "!" drops into place (site.js). The link names the brand; the drawing is decorative.
+import primary from '../../../assets/logo.svg?raw';
+import light from '../../../assets/logo-light.svg?raw';
+interface Props { href?: string; variant?: 'primary' | 'light'; class?: string }
+const { href = '#top', variant = 'primary', class: className } = Astro.props;
+const parts = ['h', 'o', 'bang', 'design'];
+let index = 0;
+const svg = (variant === 'light' ? light : primary)
+  .replace(/<svg /, '<svg aria-hidden="true" focusable="false" class="ds-logo__svg" ')
+  .replace(/ width="586" height="124"/, '')
+  .replace(/<path /g, () => `<path data-logo-part="${parts[index++] ?? 'part'}" `);
+---
+<a class:list={['ds-logo', `ds-logo--${variant}`, className]} href={href} aria-label="oh!design, strona główna">
+  <Fragment set:html={svg} />
+</a>

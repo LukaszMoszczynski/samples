@@ -1,0 +1,106 @@
+/* About: on cream, a rose circle much bigger than the portrait, the cut-out portrait in an arch on top, two balls.
+   The quote in Unbounded with a lemon-on-plum mark; skills as outline pills. */
+.ds-about {
+  overflow-x: clip;
+}
+
+.ds-about__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: var(--space-64);
+  align-items: center;
+}
+
+.ds-about__visual {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+}
+
+.ds-about__circle {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-full);
+  background: radial-gradient(circle at 40% 35%, var(--palette-primary-400), var(--palette-primary-600) 72%);
+}
+
+.ds-about__photo {
+  position: relative;
+  width: 46%;
+  height: auto;
+  border-radius: var(--radius-full) var(--radius-full) var(--radius-2xl) var(--radius-2xl);
+  box-shadow: 0 var(--space-24) var(--space-48) color-mix(in srgb, var(--palette-secondary-800) 30%, transparent);
+}
+
+.ds-about__ball {
+  position: absolute;
+}
+
+.ds-about__ball--lemon {
+  --ds-ball-size: var(--size-52);
+  top: 14%;
+  right: 16%;
+}
+
+.ds-about__ball--plum {
+  --ds-ball-size: var(--size-24);
+  bottom: 18%;
+  left: 18%;
+}
+
+.ds-about__copy {
+  display: grid;
+  gap: var(--space-20);
+}
+
+.ds-about__quote {
+  position: relative;
+  margin: 0;
+  padding-left: var(--space-24);
+  border-left: var(--space-2) solid var(--palette-primary-600);
+}
+
+.ds-about__quote p {
+  margin: 0;
+  color: var(--palette-secondary-800);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  line-height: 1.4;
+}
+
+.ds-about__text {
+  margin: 0;
+  font-size: var(--font-size-lg);
+}
+
+.ds-about__skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-about__skills li {
+  padding: var(--space-6) var(--space-16);
+  border: var(--space-1) solid var(--palette-secondary-800);
+  border-radius: var(--radius-full);
+  color: var(--palette-secondary-800);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+}
+
+@media (max-width: 1023px) {
+  .ds-about__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-40);
+  }
+
+  .ds-about__visual {
+    max-width: calc(var(--size-160) * 2.5);
+    width: 100%;
+    margin-inline: auto;
+  }
+}

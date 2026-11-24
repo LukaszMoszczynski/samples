@@ -1,0 +1,26 @@
+---
+// About Daria: the portrait small inside a huge rose circle (the change of scale from the brief), her stance as a
+// quote, three things she does. The circle grows a little as you scroll past (site.js).
+import Label from '../../atoms/label/Label.astro';
+import Ball from '../../atoms/ball/Ball.astro';
+import photo from '../../../assets/daria-560.webp?url';
+interface Props { label: string; title: string; quote: string; text: string; skills: string[] }
+const { label, title, quote, text, skills } = Astro.props;
+---
+<section class="ds-section ds-about" id="o-mnie" aria-labelledby="about-title">
+  <div class="ds-container ds-about__grid">
+    <div class="ds-about__visual" aria-hidden="true">
+      <span class="ds-about__circle" data-about-circle></span>
+      <img class="ds-about__photo" src={photo} width="560" height="839" alt="" loading="lazy" />
+      <Ball color="lemon" class="ds-about__ball ds-about__ball--lemon" />
+      <Ball color="plum" class="ds-about__ball ds-about__ball--plum" />
+    </div>
+    <div class="ds-about__copy" data-reveal>
+      <Label text={label} />
+      <h2 class="ds-section-head__title" id="about-title">{title}</h2>
+      <blockquote class="ds-about__quote"><p>{quote}</p></blockquote>
+      <p class="ds-about__text">{text}</p>
+      <ul class="ds-about__skills" role="list">{skills.map((skill) => <li>{skill}</li>)}</ul>
+    </div>
+  </div>
+</section>

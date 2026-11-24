@@ -1,0 +1,99 @@
+/* CTA pill: Sora semibold. Hover: a ball of the next colour grows from the arrow side and fills the pill (circles are
+   the brand's motion), the arrow slides on; press: a small settle. */
+.ds-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-10);
+  min-height: var(--size-52);
+  padding: var(--space-12) var(--space-28);
+  overflow: hidden;
+  border: var(--space-2) solid transparent;
+  border-radius: var(--radius-full);
+  font: inherit;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+  cursor: pointer;
+  isolation: isolate;
+  transition: color 0.4s ease, border-color 0.4s ease, transform 0.2s ease;
+}
+
+.ds-cta::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: var(--space-24);
+  z-index: -1;
+  width: var(--size-12);
+  aspect-ratio: 1;
+  border-radius: var(--radius-full);
+  background: var(--ds-cta-fill);
+  transform: translate(50%, -50%) scale(0);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ds-cta:hover::before,
+.ds-cta:focus-visible::before {
+  transform: translate(50%, -50%) scale(40);
+}
+
+.ds-cta__arrow {
+  display: inline-block;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ds-cta:hover .ds-cta__arrow {
+  transform: translateX(var(--space-4));
+}
+
+.ds-cta:active {
+  transform: scale(0.97);
+}
+
+.ds-cta--lemon {
+  --ds-cta-fill: var(--palette-neutral-0);
+  background: var(--palette-accent-400);
+  color: var(--palette-secondary-800);
+}
+
+.ds-cta--rose {
+  --ds-cta-fill: var(--palette-secondary-800);
+  background: var(--palette-primary-600);
+  color: var(--palette-neutral-0);
+}
+
+.ds-cta--outline {
+  --ds-cta-fill: var(--palette-secondary-800);
+  border-color: var(--palette-secondary-800);
+  background: transparent;
+  color: var(--palette-secondary-800);
+}
+
+.ds-cta--outline:hover {
+  color: var(--palette-neutral-0);
+}
+
+.ds-cta--outline-light {
+  --ds-cta-fill: var(--palette-neutral-0);
+  border-color: color-mix(in srgb, var(--palette-neutral-0) 70%, transparent);
+  background: transparent;
+  color: var(--palette-neutral-0);
+}
+
+.ds-cta--outline-light:hover {
+  color: var(--palette-secondary-800);
+}
+
+.ds-cta[aria-busy="true"] {
+  cursor: progress;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-cta,
+  .ds-cta::before,
+  .ds-cta__arrow {
+    transition: none;
+  }
+}

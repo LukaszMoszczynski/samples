@@ -1,0 +1,22 @@
+---
+// Offer: four services, the audit marked as the place to start.
+import Label from '../../atoms/label/Label.astro';
+import ServiceCard from '../../molecules/service-card/ServiceCard.astro';
+interface Props {
+  label: string; title: string; accent: string; lead: string;
+  services: { number: string; name: string; text: string; points: string[]; tag?: string; colour: 'rose' | 'plum' | 'lemon' | 'light-rose' }[];
+}
+const { label, title, accent, lead, services } = Astro.props;
+---
+<section class="ds-section ds-services" id="oferta" aria-labelledby="services-title">
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Label text={label} />
+      <h2 class="ds-section-head__title" id="services-title">{title} <span class="ds-accent">{accent}</span></h2>
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <div class="ds-services__grid">
+      {services.map((service) => <div data-reveal><ServiceCard {...service} /></div>)}
+    </div>
+  </div>
+</section>

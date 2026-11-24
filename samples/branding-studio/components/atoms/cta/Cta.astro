@@ -1,0 +1,9 @@
+---
+// Pill CTA from the identity: "Zacznij od audytu →". Lemon on plum grounds, rose on light grounds, or an outline.
+interface Props { text: string; href?: string; variant?: 'lemon' | 'rose' | 'outline' | 'outline-light'; type?: 'button' | 'submit'; class?: string }
+const { text, href, variant = 'rose', type = 'button', class: className } = Astro.props;
+const classes = ['ds-cta', `ds-cta--${variant}`, className];
+---
+{href
+  ? <a class:list={classes} href={href}><span class="ds-cta__text">{text}</span><span class="ds-cta__arrow" aria-hidden="true">→</span></a>
+  : <button class:list={classes} type={type}><span class="ds-cta__text">{text}</span><span class="ds-cta__arrow" aria-hidden="true">→</span></button>}

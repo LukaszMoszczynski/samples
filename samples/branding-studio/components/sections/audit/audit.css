@@ -1,0 +1,177 @@
+/* Mini-audit: plum section, a darker card with yes/no pills (lemon when "Tak", outline when "Nie") and a meter of
+   four slots the balls roll into. */
+.ds-audit__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: var(--space-64);
+  align-items: start;
+}
+
+.ds-audit__head {
+  display: grid;
+  gap: var(--space-16);
+}
+
+.ds-audit__card {
+  display: grid;
+  gap: var(--space-20);
+  padding: var(--space-40);
+  border-radius: var(--radius-3xl);
+  background: var(--palette-secondary-900);
+}
+
+.ds-audit__question {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12) var(--space-24);
+  margin: 0;
+  padding: 0 0 var(--space-20);
+  border: 0;
+  border-bottom: var(--space-1) solid color-mix(in srgb, var(--palette-neutral-0) 14%, transparent);
+}
+
+.ds-audit__legend {
+  float: left;
+  flex: 1 1 calc(var(--size-160) * 2);
+  padding: 0;
+  color: var(--palette-neutral-0);
+}
+
+.ds-audit__number {
+  margin-right: var(--space-8);
+  color: var(--palette-accent-400);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+}
+
+.ds-audit__answers {
+  display: flex;
+  gap: var(--space-8);
+}
+
+.ds-audit__answer {
+  position: relative;
+  cursor: pointer;
+}
+
+.ds-audit__answer input {
+  position: absolute;
+  opacity: 0;
+  inset: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.ds-audit__answer span {
+  display: inline-grid;
+  place-items: center;
+  min-width: var(--size-52);
+  min-height: var(--size-44);
+  padding-inline: var(--space-16);
+  box-sizing: border-box;
+  border: var(--space-1) solid color-mix(in srgb, var(--palette-neutral-0) 50%, transparent);
+  border-radius: var(--radius-full);
+  color: var(--palette-neutral-0);
+  font-weight: var(--font-weight-bold);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.ds-audit__answer:hover span {
+  border-color: var(--palette-accent-400);
+}
+
+.ds-audit__answer input:checked + span {
+  border-color: var(--palette-neutral-0);
+  background: var(--palette-neutral-0);
+  color: var(--palette-secondary-800);
+}
+
+.ds-audit__answer input[value="yes"]:checked + span {
+  border-color: var(--palette-accent-400);
+  background: var(--palette-accent-400);
+}
+
+.ds-audit__answer input:focus-visible + span {
+  outline: var(--focus-ring-width) solid var(--palette-accent-400);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-audit__result {
+  display: flex;
+  align-items: center;
+  gap: var(--space-24);
+  padding-block: var(--space-8);
+}
+
+.ds-audit__meter {
+  display: flex;
+  flex: none;
+  gap: var(--space-6);
+  padding: var(--space-6);
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--palette-neutral-0) 10%, transparent);
+}
+
+.ds-audit__slot {
+  display: grid;
+  place-items: center;
+  width: var(--size-24);
+  aspect-ratio: 1;
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--palette-neutral-0) 8%, transparent);
+}
+
+.ds-audit__dot {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: var(--radius-full);
+  background: var(--palette-primary-400);
+  transform: scale(0);
+}
+
+.ds-audit__dot.is-on {
+  transform: scale(1);
+}
+
+.ds-audit__verdict {
+  margin: 0;
+  color: var(--palette-neutral-0);
+  font-size: var(--font-size-lg);
+  line-height: 1.45;
+}
+
+.ds-audit__cta {
+  justify-self: start;
+}
+
+.ds-audit .ds-demo-note {
+  margin: 0;
+  color: color-mix(in srgb, var(--palette-neutral-0) 80%, transparent);
+}
+
+@media (max-width: 1023px) {
+  .ds-audit__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-40);
+  }
+}
+
+@media (max-width: 640px) {
+  .ds-audit__card {
+    padding: var(--space-24);
+  }
+
+  .ds-audit__result {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-audit__answer span {
+    transition: none;
+  }
+}

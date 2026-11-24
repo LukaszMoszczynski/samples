@@ -1,0 +1,6 @@
+---
+// Section label from the identity: "/ JAK PRACUJĘ" in Source Code Pro capitals.
+interface Props { text: string; class?: string }
+const { text, class: className } = Astro.props;
+---
+<p class:list={['ds-label', className]}><span class="ds-label__slash" aria-hidden="true">/</span> {text}</p>

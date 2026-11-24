@@ -1,0 +1,17 @@
+{
+  "slug": "branding-studio",
+  "stack": "astro",
+  "lang": "pl",
+  "title": "oh!design – studio brandingu (przykładowa strona)",
+  "pages": [
+    "index"
+  ],
+  "summary": "Studio brandingu dla dojrzałych marek: hero jak film, mini-audyt marki w minutę, toczące się kółka i kursor-wstęga z kółek.",
+  "direction": "Na luzie, ale na poważnie",
+  "tags": [
+    "Astro",
+    "GSAP",
+    "Marka z handoffu"
+  ],
+  "date": "2026-11-25"
+}

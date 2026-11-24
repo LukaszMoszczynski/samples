@@ -1,0 +1,30 @@
+---
+// Studio header: logo, menu, the rose "audit" CTA. Sticky on cream; a hairline once the page scrolls.
+// Phones: an overlay drawer after the header (site.js opens it).
+import Logo from '../../molecules/logo/Logo.astro';
+import Cta from '../../atoms/cta/Cta.astro';
+interface Props { items: { text: string; href: string }[]; cta: { text: string; href: string } }
+const { items, cta } = Astro.props;
+---
+<header class="ds-site-header" data-site-header>
+  <div class="ds-container ds-site-header__bar">
+    <Logo />
+    <nav class="ds-site-header__nav" aria-label="Menu główne">
+      <ul class="ds-site-header__menu" role="list">
+        {items.map((item) => <li><a class="ds-site-header__link" href={item.href}>{item.text}</a></li>)}
+      </ul>
+    </nav>
+    <div class="ds-site-header__cta"><Cta text={cta.text} href={cta.href} variant="rose" /></div>
+    <button class="ds-site-header__burger" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="Menu" data-site-burger>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path class="ds-burger__line ds-burger__line--top" d="M4 8h16" /><path class="ds-burger__line ds-burger__line--bottom" d="M4 16h16" /></svg>
+    </button>
+  </div>
+</header>
+<div class="ds-site-header__drawer" id="site-drawer" hidden>
+  <div class="ds-container">
+    <ul class="ds-site-header__menu" role="list">
+      {items.map((item) => <li><a class="ds-site-header__link" href={item.href}>{item.text}</a></li>)}
+    </ul>
+    <Cta text={cta.text} href={cta.href} variant="rose" />
+  </div>
+</div>

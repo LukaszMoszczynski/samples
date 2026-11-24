@@ -1,0 +1,161 @@
+---
+// oh!design: branding and websites for mature brands, built from Daria's brand handoff (palette, fonts, logo, brief,
+// portrait). The audit and the form are demos; the makeovers and the opinions are examples.
+import Sample from '../layouts/Sample.astro';
+import sample from '../sample.json';
+
+import '../components/base/page/page.css';
+import '../components/base/forms/forms.css';
+import '../components/atoms/label/label.css';
+import '../components/atoms/cta/cta.css';
+import '../components/atoms/ball/ball.css';
+import '../components/molecules/logo/logo.css';
+import '../components/molecules/service-card/service-card.css';
+import '../components/organisms/site-header/site-header.css';
+import '../components/organisms/site-footer/site-footer.css';
+import '../components/organisms/cursor-ribbon/cursor-ribbon.css';
+import '../components/sections/hero/hero.css';
+import '../components/sections/manifesto/manifesto.css';
+import '../components/sections/services/services.css';
+import '../components/sections/audit/audit.css';
+import '../components/sections/process/process.css';
+import '../components/sections/cases/cases.css';
+import '../components/sections/about/about.css';
+import '../components/sections/voices/voices.css';
+import '../components/sections/contact/contact.css';
+
+import SiteHeader from '../components/organisms/site-header/SiteHeader.astro';
+import CursorRibbon from '../components/organisms/cursor-ribbon/CursorRibbon.astro';
+import Hero from '../components/sections/hero/Hero.astro';
+import Manifesto from '../components/sections/manifesto/Manifesto.astro';
+import Services from '../components/sections/services/Services.astro';
+import Audit from '../components/sections/audit/Audit.astro';
+import Process from '../components/sections/process/Process.astro';
+import Cases from '../components/sections/cases/Cases.astro';
+import About from '../components/sections/about/About.astro';
+import Voices from '../components/sections/voices/Voices.astro';
+import Contact from '../components/sections/contact/Contact.astro';
+import SiteFooter from '../components/organisms/site-footer/SiteFooter.astro';
+
+const nav = [
+  { text: 'Oferta', href: '#oferta' },
+  { text: 'Audyt', href: '#audyt' },
+  { text: 'Jak pracuję', href: '#jak-pracuje' },
+  { text: 'Realizacje', href: '#realizacje' },
+  { text: 'O mnie', href: '#o-mnie' },
+];
+const audit = { text: 'Zacznij od audytu', href: '#kontakt' };
+---
+<Sample lang={sample.lang} title="oh!design – branding i strony dla dojrzałych marek (przykładowa strona)" description="Branding, strony i teksty dla dojrzałych marek, które wiedzą, że jakość nie krzyczy. Na luzie, ale na poważnie." fonts="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;500;700&family=Sora:wght@400;700&family=Source+Code+Pro:wght@400;500&display=swap">
+  <SiteHeader items={nav} cta={audit} />
+  <main>
+    <Hero
+      label="Dla kogo"
+      lines={['Tylko dla', 'dojrzałych.']}
+      accent="Marek."
+      lead="Branding i strony dla dojrzałych marek, które wiedzą, że jakość nie krzyczy."
+      primary={audit}
+      secondary={{ text: 'Jak pracuję', href: '#jak-pracuje' }}
+      caption="Daria · oh!design"
+    />
+    <Manifesto
+      label="Jak pracuję"
+      title="na luzie,"
+      accent="ale na poważnie."
+      text="Nie potakuję. Powiem Ci, że Twój claim nie działa, a potem naprawię go razem z logo, stroną i tekstami."
+      forWhom={['Firmy z historią, które wyrosły ze swojego logo', 'Marki prowadzone przez ludzi, nie przez komitet', 'Ci, którzy wolą jedno trafne zdanie niż dziesięć ładnych']}
+      notFor="Ktoś, kto potrzebuje logo na wczoraj i „coś w stylu Apple”"
+    />
+    <Services
+      label="Oferta"
+      title="Cztery rzeczy,"
+      accent="robione porządnie."
+      lead="Możesz wziąć jedną. Zwykle kończy się na trzech, bo jak już ruszamy claim, to logo zaczyna się wstydzić."
+      services={[
+        { number: '01', name: 'Audyt marki', tag: 'Start tutaj', colour: 'lemon', text: 'Szczera rozmowa i przegląd wszystkiego, co mówi Twoja marka. Także tego, czego mówić nie powinna.', points: ['Rozmowa 90 minut', 'Raport: co działa, co nie, co najpierw', 'Plan na trzy miesiące'] },
+        { number: '02', name: 'Identyfikacja', colour: 'rose', text: 'Logo, kolory i typografia, które pasują do tego, kim jesteś dziś. Nie do tego, kim byłeś w 2009.', points: ['Znak i logotyp', 'Paleta, fonty, zasady', 'Księga znaku do użycia'] },
+        { number: '03', name: 'Strona internetowa', colour: 'plum', text: 'Strona, która mówi, dla kogo jesteś, zanim ktoś zdąży przewinąć. I działa na telefonie.', points: ['Projekt i wdrożenie', 'Edycja treści bez programisty', 'SEO od pierwszego dnia'] },
+        { number: '04', name: 'Teksty i claim', colour: 'light-rose', text: 'Jedno zdanie, które zostaje w głowie, i teksty, które brzmią jak Ty, a nie jak regulamin.', points: ['Claim i ton marki', 'Teksty na stronę', 'Ściąga: jak pisać dalej'] },
+      ]}
+    />
+    <Audit
+      label="Audyt w minutę"
+      title="Sprawdźmy,"
+      accent="czy jest co robić."
+      lead="Cztery pytania, zero oceniania. No, prawie zero."
+      questions={[
+        'Czy Twój claim da się powtórzyć po jednym przeczytaniu?',
+        'Czy logo działa w rozmiarze ikonki w przeglądarce?',
+        'Czy strona mówi, dla kogo jesteś, zanim ktoś przewinie?',
+        'Czy Twoje teksty brzmią jak Ty, a nie jak regulamin?',
+      ]}
+      verdicts={[
+        'Szczerze? Jest co robić. I dobrze, bo to lubimy najbardziej.',
+        'Jeden punkt dla Ciebie. Reszta czeka na audyt, nie obrazi się.',
+        'Pół na pół. Klasyczna marka w średnim wieku: solidna, ale się zasiedziała.',
+        'Prawie idealnie. Prawie robi różnicę, sprawdźmy który punkt.',
+        'Cztery na cztery. Albo jesteś w świetnej formie, albo bardzo optymistyczny. Sprawdźmy.',
+      ]}
+      cta={audit}
+    />
+    <Process
+      label="Jak pracuję"
+      title="Po kolei,"
+      accent="bez zadęcia."
+      lead="Od pierwszej rozmowy do gotowej strony. Wiesz, co dzieje się w każdym tygodniu."
+      steps={[
+        { name: 'Audyt', time: 'Tydzień 1', text: 'Rozmawiamy, przeglądam markę, mówię wprost, co nie działa.' },
+        { name: 'Kierunek', time: 'Tydzień 2–3', text: 'Claim, ton i nastrój. Jedna propozycja, dobrze uzasadniona.' },
+        { name: 'Identyfikacja', time: 'Tydzień 4–6', text: 'Logo, kolory, typografia. Testujemy na prawdziwych materiałach.' },
+        { name: 'Strona i teksty', time: 'Tydzień 7–10', text: 'Projekt, wdrożenie i teksty. Na koniec szkolenie z edycji.' },
+      ]}
+    />
+    <Cases
+      label="Realizacje"
+      title="Było ładnie."
+      accent="Jest trafnie."
+      lead="Ostrze leci w bzdurę, nigdy w człowieka. Kilka claimów przed i po."
+      note="Przykładowe metamorfozy napisane dla tej próbki; w gotowej stronie znajdą się prawdziwe realizacje."
+      items={[
+        { trade: 'Biuro rachunkowe', before: 'Kompleksowa obsługa księgowa na najwyższym poziomie.', after: 'Księgowa, która oddzwania. Jeszcze dziś.', colour: 'rose' },
+        { trade: 'Kancelaria rodzinna', before: 'Profesjonalizm, doświadczenie, zaufanie.', after: 'Od 1994 roku mówimy po ludzku. Nawet w sądzie.', colour: 'plum' },
+        { trade: 'Pracownia ceramiki', before: 'Pasja tworzenia z gliny.', after: 'Kubki, które przeżyją Twoją dietę.', colour: 'lemon' },
+      ]}
+    />
+    <About
+      label="O mnie"
+      title="Cześć, tu Daria."
+      quote="Marki są jak ludzie: najciekawsze robią się po czterdziestce. Trzeba im tylko pomóc to powiedzieć."
+      text="Projektuję identyfikacje, strony i teksty dla firm, które mają już historię. Pracuję sama, więc rozmawiasz z osobą, która projektuje, a nie z działem obsługi klienta."
+      skills={['Branding', 'Strony www', 'Teksty i claim', 'Audyty marek']}
+    />
+    <Voices
+      label="Klienci"
+      title="Mówią,"
+      accent="że było warto."
+      note="Przykładowe opinie: w gotowej stronie znajdą się prawdziwe słowa klientów."
+      items={[
+        { quote: 'Usłyszeliśmy, że nasz claim brzmi jak ulotka z 2005 roku. Bolało jakieś pięć minut. Nowy działa od roku.', who: 'Właścicielka biura rachunkowego' },
+        { quote: 'Pierwszy raz ktoś zapytał, kim jesteśmy, zanim pokazał kolory.', who: 'Wspólnik kancelarii' },
+        { quote: 'Strona wreszcie mówi tak, jak my mówimy do klientów. Telefon dzwoni częściej.', who: 'Pracownia ceramiki' },
+      ]}
+    />
+    <Contact
+      label="Kontakt"
+      title="Zacznij"
+      accent="od audytu."
+      lead="Napisz kilka zdań o marce. Odpowiem w dwa dni robocze, z pierwszą szczerą uwagą gratis."
+      points={['Bez zobowiązań', 'Rozmowa online albo przy kawie', 'Wycena po audycie, nie przed']}
+      topics={['Claim i teksty', 'Logo i identyfikacja', 'Strona internetowa', 'Wszystko naraz, szczerze mówiąc']}
+    />
+  </main>
+  <SiteFooter
+    motto="na luzie, ale na poważnie."
+    columns={[
+      { title: 'Studio', links: [{ text: 'Oferta', href: '#oferta' }, { text: 'Jak pracuję', href: '#jak-pracuje' }, { text: 'Realizacje', href: '#realizacje' }, { text: 'O mnie', href: '#o-mnie' }] },
+      { title: 'Na start', links: [{ text: 'Audyt w minutę', href: '#audyt' }, { text: 'Opinie', href: '#opinie' }, { text: 'Kontakt', href: '#kontakt' }] },
+    ]}
+  />
+  <CursorRibbon />
+  <script src="../scripts/site.js"></script>
+</Sample>

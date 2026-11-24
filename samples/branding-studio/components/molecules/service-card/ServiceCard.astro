@@ -1,0 +1,16 @@
+---
+// One service: number, name, a short promise, what you get. The corner ball grows over the card on hover.
+import Ball from '../../atoms/ball/Ball.astro';
+interface Props { number: string; name: string; text: string; points: string[]; tag?: string; colour: 'rose' | 'plum' | 'lemon' | 'light-rose' }
+const { number, name, text, points, tag, colour } = Astro.props;
+---
+<article class:list={['ds-service-card', `ds-service-card--${colour}`]} data-tilt-host>
+  <div class="ds-service-card__inner" data-tilt>
+    <Ball color={colour} class="ds-service-card__ball" />
+    <p class="ds-service-card__number">{number}</p>
+    {tag && <p class="ds-service-card__tag">{tag}</p>}
+    <h3 class="ds-service-card__name">{name}</h3>
+    <p class="ds-service-card__text">{text}</p>
+    <ul class="ds-service-card__points" role="list">{points.map((point) => <li>{point}</li>)}</ul>
+  </div>
+</article>

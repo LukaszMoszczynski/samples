@@ -1,0 +1,119 @@
+/* Process: a hairline track behind four numbered circles; the rose fill and the rolling ball are driven by site.js.
+   Without motion the track is full and every circle is filled. */
+.ds-process__board {
+  --ds-process-dot: var(--size-52);
+  position: relative;
+}
+
+.ds-process__track {
+  position: absolute;
+  top: calc(var(--ds-process-dot) / 2);
+  left: calc(var(--ds-process-dot) / 2);
+  right: 0;
+  height: var(--space-2);
+  background: var(--palette-secondary-100);
+}
+
+.ds-process__track-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--palette-primary-600);
+  transform-origin: 0 50%;
+}
+
+.ds-process__roller {
+  --ds-ball-size: var(--size-20);
+  position: absolute;
+  top: calc(var(--ds-process-dot) / 2 - var(--size-20) / 2);
+  left: calc(var(--ds-process-dot) / 2 - var(--size-20) / 2);
+  z-index: 2;
+  opacity: 0;
+}
+
+.ds-process__steps {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-32);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-process__step {
+  display: grid;
+  align-content: start;
+  gap: var(--space-8);
+}
+
+.ds-process__dot {
+  display: grid;
+  place-items: center;
+  width: var(--ds-process-dot);
+  aspect-ratio: 1;
+  margin-bottom: var(--space-16);
+  border: var(--space-2) solid var(--palette-primary-600);
+  border-radius: var(--radius-full);
+  background: var(--palette-primary-600);
+  color: var(--palette-neutral-0);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  box-sizing: border-box;
+}
+
+.ds-process__step.is-waiting .ds-process__dot {
+  background: var(--palette-neutral-50);
+  color: var(--palette-secondary-800);
+}
+
+.ds-process__time {
+  margin: 0;
+  color: var(--palette-secondary-600);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  letter-spacing: calc(var(--font-size-small) * 0.1);
+  text-transform: uppercase;
+}
+
+.ds-process__name {
+  margin: 0;
+  font-size: var(--font-size-tile-title);
+  line-height: 1.2;
+}
+
+.ds-process__text {
+  margin: 0;
+}
+
+@media (max-width: 1023px) {
+  .ds-process__track {
+    top: calc(var(--ds-process-dot) / 2);
+    bottom: 0;
+    left: calc(var(--ds-process-dot) / 2 - var(--space-1));
+    right: auto;
+    width: var(--space-2);
+    height: auto;
+  }
+
+  .ds-process__track-fill {
+    transform-origin: 50% 0;
+  }
+
+  .ds-process__steps {
+    grid-template-columns: 1fr;
+    gap: var(--space-40);
+  }
+
+  .ds-process__step {
+    padding-left: calc(var(--ds-process-dot) + var(--space-20));
+  }
+
+  .ds-process__dot {
+    position: absolute;
+    left: 0;
+  }
+
+  .ds-process__step {
+    position: relative;
+  }
+}

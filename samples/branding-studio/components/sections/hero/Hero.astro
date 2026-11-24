@@ -1,0 +1,48 @@
+---
+// Hero "as a film" (brand brief): letterbox bars open, the title arrives line by line, Daria's portrait opens from a
+// circle, then the balls roll into the frame (site.js). Without JS everything is simply there.
+import Label from '../../atoms/label/Label.astro';
+import Cta from '../../atoms/cta/Cta.astro';
+import Ball from '../../atoms/ball/Ball.astro';
+import photo from '../../../assets/daria.webp?url';
+import photoSmall from '../../../assets/daria-560.webp?url';
+interface Props {
+  label: string;
+  lines: string[];
+  accent: string;
+  lead: string;
+  primary: { text: string; href: string };
+  secondary: { text: string; href: string };
+  caption: string;
+}
+const { label, lines, accent, lead, primary, secondary, caption } = Astro.props;
+---
+<section class="ds-hero" id="top" aria-labelledby="hero-title" data-hero>
+  <span class="ds-hero__bar ds-hero__bar--top" aria-hidden="true" data-hero-bar></span>
+  <span class="ds-hero__bar ds-hero__bar--bottom" aria-hidden="true" data-hero-bar></span>
+  <div class="ds-container ds-hero__grid">
+    <div class="ds-hero__copy">
+      <div data-hero-fade><Label text={label} /></div>
+      <h1 class="ds-hero__title" id="hero-title">
+        {lines.map((line) => <span class="ds-hero__line"><span class="ds-hero__line-inner" data-hero-line>{line}</span></span>)}
+        <span class="ds-hero__line"><span class="ds-hero__line-inner ds-hero__accent" data-hero-line>{accent}</span></span>
+      </h1>
+      <p class="ds-hero__lead" data-hero-fade>{lead}</p>
+      <div class="ds-hero__actions" data-hero-fade>
+        <Cta text={primary.text} href={primary.href} variant="lemon" />
+        <Cta text={secondary.text} href={secondary.href} variant="outline-light" />
+      </div>
+    </div>
+    <figure class="ds-hero__stage" data-hero-stage>
+      <span class="ds-hero__sun" aria-hidden="true" data-hero-sun></span>
+      <span class="ds-hero__ring" aria-hidden="true" data-hero-ring></span>
+      <div class="ds-hero__frame" data-hero-frame>
+        <img class="ds-hero__photo" src={photo} srcset={`${photoSmall} 560w, ${photo} 900w`} sizes="(max-width: 781px) 80vw, 460px" width="900" height="1349" alt="Daria, założycielka oh!design, w śliwkowym żakiecie, uśmiecha się i patrzy w bok" fetchpriority="high" />
+      </div>
+      <Ball color="lemon" class="ds-hero__ball ds-hero__ball--lemon" />
+      <Ball color="light-rose" class="ds-hero__ball ds-hero__ball--rose" />
+      <Ball color="rose" class="ds-hero__ball ds-hero__ball--small" />
+      <figcaption class="ds-hero__caption" data-hero-fade>{caption}</figcaption>
+    </figure>
+  </div>
+</section>

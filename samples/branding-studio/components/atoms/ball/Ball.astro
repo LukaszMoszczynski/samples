@@ -1,0 +1,6 @@
+---
+// A ball: the brand's circle motif ("kółka"). Decorative; colour and size by modifier.
+interface Props { color?: 'rose' | 'light-rose' | 'lemon' | 'plum' | 'cream' | 'ring'; class?: string }
+const { color = 'rose', class: className } = Astro.props;
+---
+<span class:list={['ds-ball', `ds-ball--${color}`, className]} aria-hidden="true"></span>

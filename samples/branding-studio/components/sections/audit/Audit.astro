@@ -1,0 +1,41 @@
+---
+// Mini-audit demo: four yes/no questions; each "yes" rolls a ball into the meter and the verdict changes (site.js).
+// Sample only: nothing is saved or sent. Without JS the questions still work as a form, the verdict needs the script.
+import Label from '../../atoms/label/Label.astro';
+import Cta from '../../atoms/cta/Cta.astro';
+interface Props {
+  label: string; title: string; accent: string; lead: string;
+  questions: string[];
+  verdicts: string[];
+  cta: { text: string; href: string };
+}
+const { label, title, accent, lead, questions, verdicts, cta } = Astro.props;
+---
+<section class="ds-section ds-section--plum ds-audit" id="audyt" aria-labelledby="audit-title">
+  <div class="ds-container ds-audit__grid">
+    <div class="ds-audit__head" data-reveal>
+      <Label text={label} />
+      <h2 class="ds-section-head__title" id="audit-title">{title} <span class="ds-accent">{accent}</span></h2>
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <form class="ds-audit__card" data-audit data-reveal data-verdicts={JSON.stringify(verdicts)}>
+      {questions.map((question, index) => (
+        <fieldset class="ds-audit__question">
+          <legend class="ds-audit__legend"><span class="ds-audit__number">0{index + 1}</span> {question}</legend>
+          <div class="ds-audit__answers">
+            <label class="ds-audit__answer"><input type="radio" name={`q${index}`} value="yes" /><span>Tak</span></label>
+            <label class="ds-audit__answer"><input type="radio" name={`q${index}`} value="no" /><span>Nie</span></label>
+          </div>
+        </fieldset>
+      ))}
+      <div class="ds-audit__result">
+        <div class="ds-audit__meter" aria-hidden="true">
+          {questions.map(() => <span class="ds-audit__slot"><span class="ds-audit__dot" data-audit-dot></span></span>)}
+        </div>
+        <p class="ds-audit__verdict" role="status" aria-live="polite" data-audit-verdict>Odpowiedz na cztery pytania. Szczerze, nikt nie patrzy.</p>
+      </div>
+      <Cta text={cta.text} href={cta.href} variant="lemon" class="ds-audit__cta" />
+      <p class="ds-demo-note">Demo: odpowiedzi zostają w przeglądarce, nic nie jest zapisywane.</p>
+    </form>
+  </div>
+</section>

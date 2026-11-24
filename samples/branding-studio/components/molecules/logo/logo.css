@@ -1,0 +1,24 @@
+/* Logo link: the outlined lockup at a set height; the parts keep their own box for the intro roll. */
+.ds-logo {
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-sm);
+  line-height: 0;
+}
+
+.ds-logo__svg {
+  height: var(--size-40);
+  width: auto;
+  overflow: visible;
+}
+
+.ds-logo__svg [data-logo-part] {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+}
+
+@media (max-width: 781px) {
+  .ds-logo__svg {
+    height: var(--size-24);
+  }
+}

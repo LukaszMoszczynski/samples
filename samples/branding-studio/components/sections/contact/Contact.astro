@@ -1,0 +1,45 @@
+---
+// Contact: "start with an audit". The forms kit validates; after the short "sending" pause the thank-you appears.
+// Sample only: nothing is sent (site.js).
+import Label from '../../atoms/label/Label.astro';
+import Cta from '../../atoms/cta/Cta.astro';
+import Ball from '../../atoms/ball/Ball.astro';
+interface Props { label: string; title: string; accent: string; lead: string; points: string[]; topics: string[] }
+const { label, title, accent, lead, points, topics } = Astro.props;
+---
+<section class="ds-section ds-section--plum ds-contact" id="kontakt" aria-labelledby="contact-title">
+  <Ball color="light-rose" class="ds-contact__ball ds-contact__ball--big" />
+  <Ball color="lemon" class="ds-contact__ball ds-contact__ball--small" />
+  <div class="ds-container ds-contact__grid">
+    <div class="ds-contact__head" data-reveal>
+      <Label text={label} />
+      <h2 class="ds-section-head__title" id="contact-title">{title} <span class="ds-accent">{accent}</span></h2>
+      <p class="ds-section-head__lead">{lead}</p>
+      <ul class="ds-contact__points" role="list">{points.map((point) => <li>{point}</li>)}</ul>
+    </div>
+    <form class="ds-contact__card" data-contact-form data-reveal>
+      <div class="ds-contact__field">
+        <label class="ds-contact__label" for="contact-name">Imię</label>
+        <input class="ds-contact__input" id="contact-name" name="name" autocomplete="given-name" required />
+      </div>
+      <div class="ds-contact__field">
+        <label class="ds-contact__label" for="contact-email">E-mail</label>
+        <input class="ds-contact__input" id="contact-email" name="email" type="email" autocomplete="email" required />
+      </div>
+      <div class="ds-contact__field ds-contact__field--wide">
+        <label class="ds-contact__label" for="contact-topic">Co Cię uwiera?</label>
+        <select class="ds-contact__input" id="contact-topic" name="topic" required>
+          <option value="">Wybierz</option>
+          {topics.map((topic) => <option>{topic}</option>)}
+        </select>
+      </div>
+      <div class="ds-contact__field ds-contact__field--wide">
+        <label class="ds-contact__label" for="contact-brand">Marka w dwóch zdaniach</label>
+        <textarea class="ds-contact__input ds-contact__textarea" id="contact-brand" name="brand" rows="4" placeholder="Kim jesteście, od kiedy i co Was wyróżnia. Bez przymiotników, jeśli się da."></textarea>
+      </div>
+      <label class="ds-contact__consent ds-contact__field--wide"><input type="checkbox" name="consent" required /><span>Zgadzam się na kontakt w sprawie audytu.</span></label>
+      <div class="ds-contact__field--wide"><Cta text="Zacznij od audytu" type="submit" variant="lemon" /></div>
+      <p class="ds-contact__thanks ds-contact__field--wide" role="status" data-contact-thanks hidden>Dzięki! Odezwę się w dwa dni robocze, z pierwszą szczerą uwagą gratis. (To przykładowy formularz: nic nie zostało wysłane.)</p>
+    </form>
+  </div>
+</section>

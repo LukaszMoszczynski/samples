@@ -1,0 +1,82 @@
+/* Manifesto: a big light-weight heading on the left, the stance and the for-whom list on the right. The strike is a
+   rose line drawn through the text (works across line breaks); without motion it is simply there. */
+.ds-manifesto__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-64);
+  align-items: start;
+}
+
+.ds-manifesto__head {
+  display: grid;
+  gap: var(--space-20);
+}
+
+.ds-manifesto__title {
+  margin: 0;
+  font-size: var(--font-size-80);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.05;
+}
+
+.ds-manifesto__text {
+  margin: 0 0 var(--space-32);
+  color: var(--palette-secondary-800);
+  font-size: var(--font-size-xl);
+  line-height: 1.5;
+}
+
+.ds-manifesto__list {
+  display: grid;
+  gap: var(--space-16);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-manifesto__item {
+  display: flex;
+  gap: var(--space-16);
+  align-items: baseline;
+  padding-bottom: var(--space-16);
+  border-bottom: var(--space-1) solid var(--palette-secondary-100);
+  font-size: var(--font-size-lg);
+}
+
+.ds-manifesto__ball {
+  --ds-ball-size: var(--size-16);
+  flex: none;
+  transform: translateY(var(--space-2));
+}
+
+.ds-manifesto__item--not {
+  color: var(--palette-secondary-600);
+  border-bottom: 0;
+}
+
+.ds-manifesto__item--not .ds-manifesto__ball {
+  color: var(--palette-secondary-600);
+}
+
+.ds-strike {
+  background: linear-gradient(var(--palette-primary-600), var(--palette-primary-600)) 0 55% / var(--ds-strike, 100%) var(--space-2) no-repeat;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+@media (max-width: 1023px) {
+  .ds-manifesto__title {
+    font-size: var(--font-size-48);
+  }
+}
+
+@media (max-width: 781px) {
+  .ds-manifesto__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-32);
+  }
+
+  .ds-manifesto__title {
+    font-size: var(--font-size-40);
+  }
+}

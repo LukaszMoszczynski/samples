@@ -1,0 +1,25 @@
+---
+// "Na luzie, ale na poważnie": the studio's stance and who it is (and is not) for. Balls as bullets; the "not for"
+// line is struck through by a rose line when it arrives (site.js).
+import Label from '../../atoms/label/Label.astro';
+import Ball from '../../atoms/ball/Ball.astro';
+interface Props { label: string; title: string; accent: string; text: string; forWhom: string[]; notFor: string }
+const { label, title, accent, text, forWhom, notFor } = Astro.props;
+---
+<section class="ds-section ds-section--blush ds-manifesto" id="dla-kogo" aria-labelledby="manifesto-title">
+  <div class="ds-container ds-manifesto__grid">
+    <div class="ds-manifesto__head" data-reveal>
+      <Label text={label} />
+      <h2 class="ds-manifesto__title" id="manifesto-title">{title}<br /><span class="ds-accent">{accent}</span></h2>
+    </div>
+    <div class="ds-manifesto__body" data-reveal>
+      <p class="ds-manifesto__text">{text}</p>
+      <ul class="ds-manifesto__list" role="list">
+        {forWhom.map((item, index) => (
+          <li class="ds-manifesto__item"><Ball color={index === 1 ? 'plum' : index === 2 ? 'lemon' : 'rose'} class="ds-manifesto__ball" />{item}</li>
+        ))}
+        <li class="ds-manifesto__item ds-manifesto__item--not"><Ball color="ring" class="ds-manifesto__ball" /><span><span class="ds-strike" data-strike>{notFor}</span></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
