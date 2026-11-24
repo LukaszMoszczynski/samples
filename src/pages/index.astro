@@ -3,6 +3,9 @@
 // sample's own colours, its visual direction and a short description. Styled like the owner's portfolio.
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import og from '../assets/og.jpg?url';
+import favicon from '../assets/favicon.svg?url';
+import touchIcon from '../assets/apple-touch-icon.png?url';
 
 interface SampleMeta { slug: string; stack: string; title: string; summary?: string; direction?: string; tags?: string[]; date?: string }
 const files = import.meta.glob<SampleMeta>('../../samples/*/sample.json', { eager: true, import: 'default' });
@@ -33,6 +36,17 @@ const samples = Object.values(files)
     <meta name="robots" content="noindex" />
     <title>Przykładowe strony – Łukasz Moszczyński</title>
     <meta name="description" content="Przykładowe strony przygotowane pod konkretne briefy: własny wygląd, animacje, jeden design system." />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Przykładowe strony – Łukasz Moszczyński" />
+    <meta property="og:description" content="Przykładowe strony przygotowane pod konkretne briefy: własny wygląd, animacje, jeden design system." />
+    <meta property="og:url" content={new URL(base, Astro.site).href} />
+    <meta property="og:locale" content="pl_PL" />
+    <meta property="og:image" content={new URL(og, Astro.site).href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href={favicon} />
+    <link rel="apple-touch-icon" href={touchIcon} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Manrope:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" />
