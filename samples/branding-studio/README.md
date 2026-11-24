@@ -30,9 +30,9 @@ the meter, on cards, a huge rose sun behind the portrait (the change of scale fr
     and lean away from the pointer; a dashed ring turns slowly; loops pause off screen;
   - hero depth: sun, ring, frame and balls follow the pointer at different depths, the sun breathes, the copy drifts
     up and the portrait sinks as you leave the hero;
-  - three marquee bands of the brand's lines, faster and slanted with the scroll speed, turning with its direction;
-  - headings split into words that rise from masks; plum sections open as a circle growing from the top edge;
-  - service cards flip up in 3D, makeover cards swing in from alternate sides; magnetic CTAs; a scroll progress
+  - the oh!design logo, large, draws itself after the hero: outlines letter by letter, the "o" rolls in as a ball,
+    the "!" drops, then the letters fill (marquee bands were tried and dropped as "cheap");
+  - service cards flip up in 3D, makeover cards swing in from alternate sides; magnetic CTAs (not the form buttons); a scroll progress
     line with a rolling ball under the header; the About portrait floats against its circle.
 - Everything respects reduced motion; content is complete without JS.
 

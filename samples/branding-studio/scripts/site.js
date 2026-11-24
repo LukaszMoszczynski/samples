@@ -83,7 +83,7 @@ if (!reduceMotion) {
   const logo = document.querySelector('.ds-site-header .ds-logo');
   if (logo) {
     gsap.timeline({ defaults: { ease: soft }, delay: 0.2 })
-      .fromTo(logo.querySelector('[data-logo-part="o"]'), { x: -60, rotation: -300, opacity: 0 }, { x: 0, rotation: 0, opacity: 1, duration: 1.2 })
+      .fromTo(logo.querySelector('[data-logo-part="o"]'), { x: -60, rotation: -300, opacity: 0, transformOrigin: '50% 50%' }, { x: 0, rotation: 0, opacity: 1, duration: 1.2 })
       .fromTo(logo.querySelectorAll('[data-logo-part="h"], [data-logo-part="design"]'), { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: 0.7, stagger: 0.1 }, 0.3)
       .fromTo(logo.querySelector('[data-logo-part="bang"]'), { y: -24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: 'power2.out' }, 0.75);
   }
@@ -258,7 +258,7 @@ if (ribbon && !reduceMotion && window.matchMedia('(pointer: fine)').matches) {
   });
 }
 
-// --- Heavy layer (owner, 25 Nov: "heavy animation site, with background animations") ------------------------------
+// --- Heavy layer (owner, 25 Nov: "heavy animation site, with background animations"; marquees dropped as "cheap") ------------------------------
 // Smooth eases throughout, nothing bounces (brand brief). Loops pause while their section is off screen.
 
 if (!reduceMotion) {
@@ -339,28 +339,17 @@ if (!reduceMotion) {
     gsap.fromTo(wipe, { clipPath: 'circle(0% at 50% 0%)' }, { clipPath: 'circle(150% at 50% 0%)', duration: 1.5, ease: 'power3.inOut', scrollTrigger: { trigger: wipe.parentElement, start: 'top 85%', once: true } });
   });
 
-  // Marquees: endless, faster and slanted with the scroll speed, turning with the scroll direction, then settling.
-  document.querySelectorAll('[data-marquee]').forEach((marquee) => {
-    const track = marquee.querySelector('[data-marquee-track]');
-    const base = marquee.hasAttribute('data-marquee-reverse') ? -1 : 1;
-    const loop = gsap.fromTo(track, { xPercent: base > 0 ? 0 : -50 }, { xPercent: base > 0 ? -50 : 0, duration: 30, ease: 'none', repeat: -1 });
-    loop.totalTime(3000); // room to run backwards when the page scrolls up
-    const skew = gsap.quickTo(track, 'skewX', { duration: 0.5, ease: soft });
-    let settle = null;
-    ScrollTrigger.create({
-      trigger: marquee,
-      start: 'top bottom',
-      end: 'bottom top',
-      onToggle: (self) => (self.isActive ? loop.resume() : loop.pause()),
-      onUpdate: (self) => {
-        const velocity = self.getVelocity();
-        const heading = self.direction;
-        gsap.to(loop, { timeScale: heading * gsap.utils.clamp(1, 7, 1 + Math.abs(velocity) / 250), duration: 0.25, overwrite: true });
-        skew(gsap.utils.clamp(-10, 10, velocity / -120));
-        clearTimeout(settle);
-        settle = setTimeout(() => { gsap.to(loop, { timeScale: heading, duration: 1.2, overwrite: true }); skew(0); }, 140);
-      },
-    });
+  // Logo draw: the outlines draw letter by letter (the "o" first), then fill; the "o" rolls in as a ball, the "!"
+  // drops into place, the outlines fade. Plays once, to the end.
+  document.querySelectorAll('[data-logo-draw]').forEach((mark) => {
+    const part = (name) => mark.querySelector(`[data-logo-part="${name}"]`);
+    const order = ['o', 'h', 'bang', 'design'].map(part).filter(Boolean);
+    gsap.timeline({ scrollTrigger: { trigger: mark, start: 'top 80%', once: true }, defaults: { ease: soft } })
+      .fromTo(order, { strokeDashoffset: 1000 }, { strokeDashoffset: 0, duration: 1.8, stagger: 0.35, ease: 'power2.inOut' })
+      .fromTo(part('o'), { x: -120, rotation: -360, transformOrigin: '50% 50%' }, { x: 0, rotation: 0, duration: 1.6, ease: 'power3.out' }, 0)
+      .fromTo(order, { fillOpacity: 0 }, { fillOpacity: 1, duration: 0.8, stagger: 0.2 }, 1.4)
+      .fromTo(part('bang'), { y: -40 }, { y: 0, duration: 0.8, ease: 'power2.out' }, 1.6)
+      .to(order, { strokeOpacity: 0, duration: 0.8 }, 2.6);
   });
 
   // Scroll progress: the line follows the page, the ball rolls at its tip.
@@ -374,7 +363,7 @@ if (!reduceMotion) {
 
   // Magnetic CTAs: a button within reach leans toward the pointer (distance read from the page, not the button).
   if (finePointer) {
-    const buttons = [...document.querySelectorAll('.ds-cta')].map((button) => ({
+    const buttons = [...document.querySelectorAll('.ds-cta')].filter((button) => !button.closest('form')).map((button) => ({
       button,
       moveX: gsap.quickTo(button, 'x', { duration: 0.6, ease: soft }),
       moveY: gsap.quickTo(button, 'y', { duration: 0.6, ease: soft }),
@@ -390,8 +379,8 @@ if (!reduceMotion) {
           const distanceX = event.clientX - (box.left + box.width / 2);
           const distanceY = event.clientY - (box.top + box.height / 2);
           const near = Math.hypot(distanceX, distanceY) < Math.max(box.width, 140);
-          moveX(near ? distanceX * 0.22 : 0);
-          moveY(near ? distanceY * 0.35 : 0);
+          moveX(near ? gsap.utils.clamp(-12, 12, distanceX * 0.18) : 0);
+          moveY(near ? gsap.utils.clamp(-6, 6, distanceY * 0.18) : 0);
         });
       });
     }, { passive: true });

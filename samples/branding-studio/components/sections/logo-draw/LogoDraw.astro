@@ -1,0 +1,28 @@
+---
+// The oh!design logo, large, drawn by hand when it arrives (site.js): each letter's outline draws, then fills; the
+// "o" rolls in as a ball and the "!" drops into place. Outlined SVG from the handoff (Logo set: Primary, Light).
+import primary from '../../../assets/logo.svg?raw';
+import light from '../../../assets/logo-light.svg?raw';
+import Orbs from '../../organisms/orbs/Orbs.astro';
+import Label from '../../atoms/label/Label.astro';
+interface Props { tone?: 'light' | 'dark'; label: string; line: string }
+const { tone = 'light', label, line } = Astro.props;
+const parts = ['h', 'o', 'bang', 'design'];
+let index = 0;
+const svg = (tone === 'dark' ? light : primary)
+  .replace(/<svg /, '<svg aria-hidden="true" focusable="false" class="ds-logo-draw__svg" ')
+  .replace(/ width="586" height="124"/, '')
+  .replace(/<path d="/g, '<path pathLength="1000" d="')
+  .replace(/fill="(#[0-9A-Fa-f]{6})"/g, (match, colour) => `fill="${colour}" stroke="${colour}"`)
+  .replace(/<path /g, () => `<path data-logo-part="${parts[index++] ?? 'part'}" `);
+---
+<section class:list={['ds-section', 'ds-logo-draw', `ds-logo-draw--${tone}`]} aria-label="oh!design">
+  <Orbs tone={tone === 'dark' ? 'dark' : 'light'} />
+  <div class="ds-container ds-logo-draw__inner">
+    <div class="ds-logo-draw__mark" data-logo-draw><Fragment set:html={svg} /></div>
+    <div class="ds-logo-draw__caption" data-reveal>
+      <Label text={label} />
+      <p class="ds-logo-draw__line">{line}</p>
+    </div>
+  </div>
+</section>

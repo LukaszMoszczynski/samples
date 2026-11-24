@@ -13,10 +13,10 @@
   color: var(--palette-primary-600);
 }
 
-:is(.ds-section--plum, .ds-hero) .ds-label {
+:is(.ds-section--plum, .ds-hero, .ds-logo-draw--dark) .ds-label {
   color: color-mix(in srgb, var(--palette-neutral-0) 82%, transparent);
 }
 
-:is(.ds-section--plum, .ds-hero) .ds-label__slash {
+:is(.ds-section--plum, .ds-hero, .ds-logo-draw--dark) .ds-label__slash {
   color: var(--palette-accent-400);
 }

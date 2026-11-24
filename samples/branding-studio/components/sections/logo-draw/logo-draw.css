@@ -1,0 +1,57 @@
+/* Logo draw: the lockup across most of the container, a mono label and one line under it. The outlines start
+   undrawn and unfilled only when the drawing will play (html[data-motion]); otherwise the logo is simply there. */
+.ds-logo-draw--dark {
+  background: var(--palette-secondary-800);
+  color: color-mix(in srgb, var(--palette-neutral-0) 86%, transparent);
+}
+
+.ds-logo-draw__inner {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-32);
+  text-align: center;
+}
+
+.ds-logo-draw__mark {
+  width: 100%;
+  max-width: calc(var(--size-160) * 5.5);
+}
+
+.ds-logo-draw__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.ds-logo-draw__svg path {
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  stroke-opacity: 0;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+}
+
+[data-motion] .ds-logo-draw__svg path {
+  fill-opacity: 0;
+  stroke-opacity: 1;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.ds-logo-draw__caption {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-8);
+}
+
+.ds-logo-draw__line {
+  margin: 0;
+  color: var(--palette-secondary-800);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+}
+
+.ds-logo-draw--dark .ds-logo-draw__line {
+  color: var(--palette-neutral-0);
+}
