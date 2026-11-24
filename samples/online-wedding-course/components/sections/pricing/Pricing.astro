@@ -1,0 +1,71 @@
+---
+// Packages and the demo shop: "Do koszyka" adds a package to the cart panel (a dialog), which goes on to a short
+// checkout step. Sample only: nothing is charged or sent (plan.js). In the finished site: WooCommerce.
+import Overline from '../../atoms/overline/Overline.astro';
+import PillButton from '../../atoms/pill-button/PillButton.astro';
+interface Plan { id: string; name: string; price: number; note: string; points: string[]; featured?: boolean }
+interface Props { label: string; title: string; accent: string; lead: string; plans: Plan[] }
+const { label, title, accent, lead, plans } = Astro.props;
+const money = (value: number) => `${value.toLocaleString('pl-PL')} zł`;
+---
+<section class="ds-section ds-pricing" id="cennik" aria-labelledby="cennik-title">
+  <div class="ds-container">
+    <div class="ds-section-head ds-section-head--center" data-reveal>
+      <Overline text={label} />
+      <h2 class="ds-section-head__title" id="cennik-title">{title} <span class="ds-accent">{accent}</span></h2>
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <ul class="ds-pricing__list" role="list">
+      {plans.map((plan) => (
+        <li class="ds-pricing__item" data-reveal>
+          <article class:list={['ds-price-card', { 'ds-price-card--featured': plan.featured }]} aria-labelledby={`plan-${plan.id}`}>
+            {plan.featured && <p class="ds-price-card__badge">Najczęściej wybierany</p>}
+            <h3 class="ds-price-card__name" id={`plan-${plan.id}`}>{plan.name}</h3>
+            <p class="ds-price-card__price">{money(plan.price)}</p>
+            <p class="ds-price-card__note">{plan.note}</p>
+            <ul class="ds-price-card__points" role="list">{plan.points.map((point) => <li>{point}</li>)}</ul>
+            <PillButton text="Do koszyka" variant={plan.featured ? 'gold' : 'plum'} data={{ 'data-cart-add': plan.id, 'data-name': plan.name, 'data-price': String(plan.price) }} />
+          </article>
+        </li>
+      ))}
+    </ul>
+    <p class="ds-demo-note ds-pricing__note">Ceny przykładowe. Koszyk i płatność to demo: nic nie jest pobierane ani wysyłane.</p>
+  </div>
+  <dialog class="ds-cart" aria-labelledby="cart-title" data-cart>
+    <div class="ds-cart__panel">
+      <div class="ds-cart__head">
+        <h2 class="ds-cart__title" id="cart-title">Wasz koszyk</h2>
+        <button class="ds-cart__close" type="button" aria-label="Zamknij koszyk" data-cart-close>×</button>
+      </div>
+      <div data-cart-step="list">
+        <p class="ds-cart__empty" data-cart-empty>Koszyk jest pusty. Wybierzcie pakiet.</p>
+        <ul class="ds-cart__items" role="list" data-cart-items></ul>
+        <p class="ds-cart__total" data-cart-total-row hidden><span>Razem</span><strong data-cart-total>0 zł</strong></p>
+        <PillButton text="Przejdź do płatności" data={{ 'data-cart-checkout': '' }} />
+      </div>
+      <form class="ds-cart__checkout" data-cart-step="checkout" data-checkout-form hidden>
+        <p class="ds-cart__step">Krok 2 z 2 · Dane i płatność (demo)</p>
+        <div class="ds-cart__field">
+          <label class="ds-cart__label" for="checkout-email">E-mail do dostępu</label>
+          <input class="ds-cart__input" id="checkout-email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="ds-cart__field">
+          <label class="ds-cart__label" for="checkout-pay">Płatność</label>
+          <select class="ds-cart__input" id="checkout-pay" name="pay">
+            <option>BLIK</option>
+            <option>Szybki przelew</option>
+            <option>Karta</option>
+          </select>
+        </div>
+        <label class="ds-cart__consent"><input type="checkbox" name="terms" required /><span>Akceptuję regulamin kursu (demo).</span></label>
+        <p class="ds-cart__total"><span>Do zapłaty</span><strong data-cart-total>0 zł</strong></p>
+        <PillButton text="Zapłać (demo)" type="submit" />
+        <button class="ds-cart__back" type="button" data-cart-back>← Wróć do koszyka</button>
+      </form>
+      <div class="ds-cart__thanks" data-cart-step="thanks" hidden role="status">
+        <p class="ds-cart__thanks-title">Dziękujemy!</p>
+        <p>W prawdziwym sklepie tu przyjdzie potwierdzenie i dostęp do kursu. To demo: nic nie zostało pobrane ani wysłane.</p>
+      </div>
+    </div>
+  </dialog>
+</section>

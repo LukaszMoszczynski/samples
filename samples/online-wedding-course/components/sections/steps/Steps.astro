@@ -1,0 +1,26 @@
+---
+// How the course works, on plum: three steps joined by a gold line that draws as the section scrolls in.
+import Overline from '../../atoms/overline/Overline.astro';
+interface Props { label: string; title: string; accent: string; steps: { title: string; text: string }[] }
+const { label, title, accent, steps } = Astro.props;
+---
+<section class="ds-section ds-section--plum ds-steps" id="jak" aria-labelledby="jak-title">
+  <div class="ds-container">
+    <div class="ds-section-head ds-section-head--center" data-reveal>
+      <Overline text={label} />
+      <h2 class="ds-section-head__title" id="jak-title">{title} <span class="ds-accent">{accent}</span></h2>
+    </div>
+    <div class="ds-steps__track">
+      <svg class="ds-steps__line" viewBox="0 0 1000 20" preserveAspectRatio="none" aria-hidden="true"><path d="M0 10 C 160 -2, 340 22, 500 10 S 840 -2, 1000 10" pathLength="1000" data-draw data-steps-line /></svg>
+      <ol class="ds-steps__list" role="list">
+        {steps.map((step, index) => (
+          <li class="ds-steps__item" data-reveal>
+            <span class="ds-steps__number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <h3 class="ds-steps__title">{step.title}</h3>
+            <p class="ds-steps__text">{step.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>

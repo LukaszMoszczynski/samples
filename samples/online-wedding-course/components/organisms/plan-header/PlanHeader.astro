@@ -1,0 +1,34 @@
+---
+// Course header: wordmark, menu, the demo cart and the sign-up button. Sticky; a soft line once the page scrolls.
+// Phones: an overlay drawer after the header (plan.js opens it).
+import Wordmark from '../../molecules/wordmark/Wordmark.astro';
+import PillButton from '../../atoms/pill-button/PillButton.astro';
+interface Props { items: { text: string; href: string }[]; cta: { text: string; href: string } }
+const { items, cta } = Astro.props;
+---
+<header class="ds-plan-header" data-plan-header>
+  <div class="ds-container ds-plan-header__bar">
+    <Wordmark />
+    <nav class="ds-plan-header__nav" aria-label="Menu główne">
+      <ul class="ds-plan-header__menu" role="list">
+        {items.map((item) => <li><a class="ds-plan-header__link" href={item.href}>{item.text}</a></li>)}
+      </ul>
+    </nav>
+    <button class="ds-plan-header__cart" type="button" data-cart-open aria-label="Koszyk, 0 produktów">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8z" /><path d="M9 8V6.5a3 3 0 0 1 6 0V8" /></svg>
+      <span class="ds-plan-header__count" data-cart-count hidden>0</span>
+    </button>
+    <div class="ds-plan-header__cta"><PillButton text={cta.text} href={cta.href} /></div>
+    <button class="ds-plan-header__burger" type="button" aria-expanded="false" aria-controls="plan-drawer" aria-label="Menu" data-plan-burger>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path class="ds-burger__line ds-burger__line--top" d="M4 8h16" /><path class="ds-burger__line ds-burger__line--bottom" d="M4 16h16" /></svg>
+    </button>
+  </div>
+</header>
+<div class="ds-plan-header__drawer" id="plan-drawer" hidden>
+  <div class="ds-container">
+    <ul class="ds-plan-header__menu" role="list">
+      {items.map((item) => <li><a class="ds-plan-header__link" href={item.href}>{item.text}</a></li>)}
+    </ul>
+    <PillButton text={cta.text} href={cta.href} />
+  </div>
+</div>

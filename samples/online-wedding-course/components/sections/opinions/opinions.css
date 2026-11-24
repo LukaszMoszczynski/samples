@@ -1,0 +1,94 @@
+/* Opinions: white cards on blush, a large gold quote mark, initials in a heart. The card tilts slightly toward the
+   pointer (plan.js reads the pointer on the list item, the card's steady parent). */
+.ds-opinions__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-24);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  perspective: calc(var(--size-160) * 8);
+}
+
+.ds-opinions__item {
+  display: grid;
+}
+
+.ds-opinions__note {
+  text-align: center;
+}
+
+.ds-opinion {
+  position: relative;
+  display: grid;
+  align-content: space-between;
+  gap: var(--space-24);
+  margin: 0;
+  padding: var(--space-64) var(--space-32) var(--space-32);
+  border-radius: var(--radius-3xl);
+  background: var(--palette-neutral-0);
+  transition: box-shadow 0.4s ease;
+  will-change: transform;
+}
+
+.ds-opinions__item:hover .ds-opinion {
+  box-shadow: 0 var(--space-24) var(--space-48) color-mix(in srgb, var(--palette-secondary-800) 12%, transparent);
+}
+
+.ds-opinion__mark {
+  position: absolute;
+  top: var(--space-8);
+  left: var(--space-28);
+  color: var(--palette-accent-400);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-112);
+  line-height: 1;
+}
+
+.ds-opinion__quote {
+  margin: 0;
+}
+
+.ds-opinion__quote p {
+  margin: 0;
+  color: var(--palette-secondary-800);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  line-height: 1.4;
+}
+
+.ds-opinion__who {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  font-size: var(--font-size-small);
+}
+
+.ds-opinion__heart {
+  width: var(--size-44);
+  height: var(--size-44);
+}
+
+.ds-opinion__heart path {
+  fill: var(--palette-primary-50);
+  stroke: var(--palette-accent-400);
+  stroke-width: 3;
+}
+
+.ds-opinion__heart text {
+  fill: var(--palette-secondary-800);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-36);
+}
+
+@media (max-width: 1023px) {
+  .ds-opinions__list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-opinion {
+    transition: none;
+  }
+}

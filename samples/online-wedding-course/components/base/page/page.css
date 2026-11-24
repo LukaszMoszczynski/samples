@@ -1,0 +1,139 @@
+/* Page base (course sample): smooth anchor scrolling (off for reduced motion), room for the sticky header, container,
+   section rhythm, the section heading (accent by colour, never italics: the heading face has one style) and the
+   motion start states. */
+html {
+  scroll-padding-top: calc(var(--size-header-height) + var(--space-16));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--color-surface-page);
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-weight: var(--font-weight-regular);
+  line-height: 1.65;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--color-text-default);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+}
+
+strong {
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: calc(var(--layout-container) + var(--space-gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
+}
+
+.ds-section {
+  padding-block: var(--space-section-y);
+}
+
+.ds-section--ecru {
+  background: var(--palette-secondary-50);
+}
+
+.ds-section--blush {
+  background: var(--color-surface-soft);
+}
+
+.ds-section--plum {
+  background: var(--palette-secondary-800);
+  color: color-mix(in srgb, var(--palette-neutral-0) 86%, transparent);
+}
+
+.ds-section--plum :is(h2, h3) {
+  color: var(--palette-neutral-0);
+}
+
+.ds-section-head {
+  display: grid;
+  gap: var(--space-16);
+  max-width: calc(var(--layout-container) * 0.6);
+  margin-bottom: var(--space-48);
+}
+
+.ds-section-head--center {
+  margin-inline: auto;
+  justify-items: center;
+  text-align: center;
+}
+
+.ds-section-head__title {
+  margin: 0;
+  font-size: var(--font-size-48);
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+/* The accent words: rosewood on light grounds, the lighter rosewood on plum (large text only). */
+.ds-accent {
+  color: var(--palette-primary-600);
+}
+
+.ds-section--plum .ds-accent {
+  color: var(--palette-primary-400);
+}
+
+.ds-section-head__lead {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  line-height: 1.6;
+}
+
+@media (max-width: 781px) {
+  .ds-section-head__title {
+    font-size: var(--font-size-36);
+  }
+}
+
+.ds-visually-hidden {
+  position: absolute;
+  width: var(--space-1);
+  height: var(--space-1);
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.ds-demo-note {
+  margin: var(--space-16) 0 0;
+  font-size: var(--font-size-small);
+  letter-spacing: calc(var(--font-size-small) * 0.04);
+}
+
+:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Entrance targets start hidden from the first paint while the script is coming (html[data-motion], set in the head
+   only without a reduced-motion preference); the script animates them in. */
+[data-motion] :is([data-reveal], [data-hero-fade]) {
+  opacity: 0;
+}
+
+[data-motion] [data-draw] {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+/* Anything marked hidden stays hidden, whatever display a component sets. */
+[hidden] {
+  display: none !important;
+}

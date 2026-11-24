@@ -1,0 +1,22 @@
+---
+// Questions: native details/summary (works without JS); plan.js lets the answer rise in.
+import Overline from '../../atoms/overline/Overline.astro';
+interface Props { label: string; title: string; accent: string; items: { question: string; answer: string }[] }
+const { label, title, accent, items } = Astro.props;
+---
+<section class="ds-section ds-plan-faq" id="pytania" aria-labelledby="pytania-title">
+  <div class="ds-container ds-plan-faq__grid">
+    <div class="ds-section-head" data-reveal>
+      <Overline text={label} />
+      <h2 class="ds-section-head__title" id="pytania-title">{title} <span class="ds-accent">{accent}</span></h2>
+    </div>
+    <div class="ds-plan-faq__list" data-reveal>
+      {items.map((item) => (
+        <details class="ds-plan-faq__item" data-faq>
+          <summary class="ds-plan-faq__question">{item.question}<span class="ds-plan-faq__icon" aria-hidden="true"></span></summary>
+          <p class="ds-plan-faq__answer">{item.answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

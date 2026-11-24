@@ -1,0 +1,12 @@
+---
+// Logo lockup: the clover mark and the P·L·A·N wordmark with its micro-hearts (outlined from the identity file).
+import Clover from '../../atoms/clover/Clover.astro';
+import logo from '../../../assets/logo.svg?url';
+import logoLight from '../../../assets/logo-light.svg?url';
+interface Props { href?: string; light?: boolean }
+const { href = '#top', light = false } = Astro.props;
+---
+<a class:list={['ds-wordmark', { 'ds-wordmark--light': light }]} href={href} aria-label="P·L·A·N, strona główna">
+  <Clover class="ds-wordmark__mark" />
+  <img class="ds-wordmark__text" src={light ? logoLight : logo} alt="" width="303" height="75" />
+</a>

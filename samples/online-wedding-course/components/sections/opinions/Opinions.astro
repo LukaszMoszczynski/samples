@@ -1,0 +1,30 @@
+---
+// Couples' words: three quote cards with initials in a heart. Marked as examples until real reviews come in.
+import Overline from '../../atoms/overline/Overline.astro';
+interface Props { label: string; title: string; accent: string; items: { quote: string; who: string; initials: string }[] }
+const { label, title, accent, items } = Astro.props;
+const heart = 'M50 88C20 66 6 50 6 32 6 18 17 8 30 8c9 0 16 5 20 13 4-8 11-13 20-13 13 0 24 10 24 24 0 18-14 34-44 56z';
+---
+<section class="ds-section ds-section--blush ds-opinions" id="opinie" aria-labelledby="opinie-title">
+  <div class="ds-container">
+    <div class="ds-section-head ds-section-head--center" data-reveal>
+      <Overline text={label} />
+      <h2 class="ds-section-head__title" id="opinie-title">{title} <span class="ds-accent">{accent}</span></h2>
+    </div>
+    <ul class="ds-opinions__list" role="list">
+      {items.map((item) => (
+        <li class="ds-opinions__item" data-reveal>
+          <figure class="ds-opinion">
+            <span class="ds-opinion__mark" aria-hidden="true">“</span>
+            <blockquote class="ds-opinion__quote"><p>{item.quote}</p></blockquote>
+            <figcaption class="ds-opinion__who">
+              <svg class="ds-opinion__heart" viewBox="0 0 100 100" aria-hidden="true"><path d={heart} /><text x="50" y="44" text-anchor="middle" dominant-baseline="middle">{item.initials}</text></svg>
+              {item.who}
+            </figcaption>
+          </figure>
+        </li>
+      ))}
+    </ul>
+    <p class="ds-demo-note ds-opinions__note">Przykładowe opinie: w gotowej stronie znajdą się prawdziwe słowa par z kursu.</p>
+  </div>
+</section>

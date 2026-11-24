@@ -1,0 +1,17 @@
+{
+  "slug": "online-wedding-course",
+  "stack": "astro",
+  "lang": "pl",
+  "title": "Kurs online dla par – przykładowa strona",
+  "pages": [
+    "index"
+  ],
+  "summary": "Kurs online dla par: koniczyna z czterech serc pokazuje moduł, w którym jesteście, panel kursu z listą do odhaczenia i demo sklepu z koszykiem.",
+  "direction": "Book-like elegance",
+  "tags": [
+    "Astro",
+    "GSAP",
+    "Sklep: WooCommerce (demo)"
+  ],
+  "date": "2026-11-24"
+}

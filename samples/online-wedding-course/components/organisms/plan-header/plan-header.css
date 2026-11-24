@@ -1,0 +1,183 @@
+/* Course header: ecru glass bar, links whose gold underline draws in, cart with a count badge. */
+.ds-plan-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--color-surface-page) 90%, transparent);
+  backdrop-filter: blur(var(--space-12));
+  border-bottom: var(--space-1) solid transparent;
+  transition: border-color 0.4s ease;
+}
+
+.ds-plan-header.is-scrolled {
+  border-bottom-color: var(--color-border-default);
+}
+
+.ds-plan-header__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-24);
+  min-height: var(--size-header-height);
+}
+
+.ds-plan-header__nav {
+  margin-left: auto;
+}
+
+.ds-plan-header__menu {
+  display: flex;
+  gap: var(--space-28);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-plan-header__link {
+  position: relative;
+  color: var(--palette-secondary-800);
+  font-size: var(--font-size-body);
+  text-decoration: none;
+}
+
+.ds-plan-header__link::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 calc(var(--space-4) * -1);
+  height: var(--space-1);
+  background: var(--palette-accent-400);
+  transform: scaleX(0);
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.ds-plan-header__link:hover::after,
+.ds-plan-header__link[aria-current="true"]::after {
+  transform: scaleX(1);
+}
+
+.ds-plan-header__cart {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: var(--size-44);
+  height: var(--size-44);
+  padding: 0;
+  border: var(--space-1) solid var(--color-border-default);
+  border-radius: var(--radius-full);
+  background: var(--palette-neutral-0);
+  color: var(--palette-secondary-800);
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.ds-plan-header__cart:hover {
+  border-color: var(--palette-accent-400);
+}
+
+.ds-plan-header__cart svg {
+  width: var(--size-20);
+  height: var(--size-20);
+}
+
+.ds-plan-header__count {
+  position: absolute;
+  top: calc(var(--space-4) * -1);
+  right: calc(var(--space-4) * -1);
+  display: grid;
+  place-items: center;
+  min-width: var(--size-20);
+  height: var(--size-20);
+  border-radius: var(--radius-full);
+  background: var(--palette-secondary-800);
+  color: var(--palette-neutral-0);
+  font-size: var(--font-size-small);
+  line-height: 1;
+}
+
+.ds-plan-header__burger {
+  display: none;
+  width: var(--size-44);
+  height: var(--size-44);
+  padding: 0;
+  border: var(--space-1) solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--palette-secondary-800);
+  cursor: pointer;
+}
+
+.ds-plan-header__burger svg {
+  width: var(--size-20);
+  height: var(--size-20);
+}
+
+.ds-plan-header__drawer {
+  position: fixed;
+  inset: var(--size-header-height) 0 0;
+  z-index: 19;
+  overflow-y: auto;
+  background: var(--color-surface-page);
+  padding-block: var(--space-8) var(--space-32);
+  border-top: var(--space-1) solid var(--color-border-default);
+}
+
+.ds-plan-header__drawer .ds-plan-header__menu {
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: var(--space-24);
+}
+
+.ds-plan-header__drawer .ds-plan-header__link {
+  display: block;
+  padding-block: var(--space-12);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+}
+
+.ds-plan-header__drawer .ds-plan-header__link::after {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .ds-plan-header__nav,
+  .ds-plan-header__cta {
+    display: none;
+  }
+
+  .ds-plan-header__cart {
+    margin-left: auto;
+  }
+
+  .ds-plan-header__burger {
+    display: inline-grid;
+    place-items: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ds-plan-header__drawer {
+    display: none;
+  }
+}
+
+/* Burger: the lines turn into a cross while the menu is open. */
+.ds-burger__line {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+[aria-expanded="true"] .ds-burger__line--top {
+  transform: translateY(var(--space-4)) rotate(45deg);
+}
+
+[aria-expanded="true"] .ds-burger__line--bottom {
+  transform: translateY(calc(var(--space-4) * -1)) rotate(-45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-plan-header,
+  .ds-plan-header__link::after,
+  .ds-burger__line {
+    transition: none;
+  }
+}

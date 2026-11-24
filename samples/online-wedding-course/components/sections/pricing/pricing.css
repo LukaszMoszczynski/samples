@@ -1,0 +1,289 @@
+/* Packages: two cards, the featured one on plum with a gold button. Cart: a side panel dialog that slides in. */
+.ds-pricing__list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-24);
+  max-width: calc(var(--layout-container) * 0.8);
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-pricing__item {
+  display: grid;
+}
+
+.ds-pricing__note {
+  text-align: center;
+}
+
+.ds-price-card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: var(--space-12);
+  padding: var(--space-40);
+  border: var(--space-1) solid var(--color-border-default);
+  border-radius: var(--radius-3xl);
+  background: var(--palette-neutral-0);
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.ds-price-card:hover {
+  transform: translateY(calc(var(--space-6) * -1));
+  box-shadow: 0 var(--space-24) var(--space-48) color-mix(in srgb, var(--palette-secondary-800) 12%, transparent);
+}
+
+.ds-price-card--featured {
+  border-color: var(--palette-secondary-800);
+  background: var(--palette-secondary-800);
+  color: color-mix(in srgb, var(--palette-neutral-0) 86%, transparent);
+}
+
+.ds-price-card__badge {
+  margin: 0;
+  padding: var(--space-4) var(--space-12);
+  border: var(--space-1) solid var(--palette-accent-400);
+  border-radius: var(--radius-full);
+  color: var(--palette-accent-400);
+  font-size: var(--font-size-small);
+  letter-spacing: calc(var(--font-size-small) * 0.12);
+  text-transform: uppercase;
+}
+
+.ds-price-card__name {
+  margin: 0;
+  font-size: var(--font-size-2xl);
+}
+
+.ds-price-card--featured .ds-price-card__name,
+.ds-price-card--featured .ds-price-card__price {
+  color: var(--palette-neutral-0);
+}
+
+.ds-price-card__price {
+  margin: 0;
+  color: var(--palette-secondary-800);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-48);
+  line-height: 1.1;
+}
+
+.ds-price-card__note {
+  margin: 0;
+  font-size: var(--font-size-small);
+}
+
+.ds-price-card__points {
+  display: grid;
+  gap: var(--space-10);
+  margin: var(--space-12) 0 var(--space-24);
+  padding: var(--space-20) 0 0;
+  border-top: var(--space-1) solid color-mix(in srgb, currentColor 20%, transparent);
+  list-style: none;
+}
+
+.ds-price-card__points li {
+  position: relative;
+  padding-left: var(--space-28);
+}
+
+.ds-price-card__points li::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--font-size-body) * 0.35);
+  left: 0;
+  width: var(--space-14);
+  height: var(--space-14);
+  background: var(--palette-accent-400);
+  clip-path: path("M7 13C3 10 .5 7.8.5 5 .5 3 2 1.5 4 1.5c1.3 0 2.4.7 3 1.8.6-1.1 1.7-1.8 3-1.8 2 0 3.5 1.5 3.5 3.5 0 2.8-2.5 5-6.5 8z");
+}
+
+.ds-price-card .ds-pill-button {
+  margin-top: auto;
+}
+
+/* Cart panel */
+.ds-cart {
+  width: min(100%, calc(var(--size-160) * 2.8));
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  margin: 0 0 0 auto;
+  padding: 0;
+  border: 0;
+  background: var(--color-surface-page);
+  color: var(--color-text-muted);
+}
+
+.ds-cart::backdrop {
+  background: color-mix(in srgb, var(--palette-secondary-950) 45%, transparent);
+  backdrop-filter: blur(var(--space-4));
+}
+
+.ds-cart__panel {
+  display: grid;
+  gap: var(--space-20);
+  padding: var(--space-32) var(--space-28);
+}
+
+.ds-cart__panel > [data-cart-step] {
+  display: grid;
+  gap: var(--space-16);
+}
+
+.ds-cart__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ds-cart__title {
+  margin: 0;
+  font-size: var(--font-size-2xl);
+}
+
+.ds-cart__close {
+  width: var(--size-44);
+  height: var(--size-44);
+  border: var(--space-1) solid var(--color-border-default);
+  border-radius: var(--radius-full);
+  background: var(--palette-neutral-0);
+  color: var(--palette-secondary-800);
+  font-size: var(--font-size-xl);
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+}
+
+.ds-cart__close:hover {
+  transform: rotate(90deg);
+}
+
+.ds-cart__empty {
+  margin: 0;
+}
+
+.ds-cart__items {
+  display: grid;
+  gap: var(--space-10);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-cart__item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-16);
+  border: var(--space-1) solid var(--color-border-default);
+  border-radius: var(--radius-lg);
+  background: var(--palette-neutral-0);
+  color: var(--palette-secondary-800);
+}
+
+.ds-cart__remove {
+  padding: var(--space-4) var(--space-8);
+  border: 0;
+  background: none;
+  color: var(--color-text-muted);
+  font: inherit;
+  font-size: var(--font-size-small);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.ds-cart__total {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding-top: var(--space-16);
+  border-top: var(--space-1) solid var(--color-border-default);
+  color: var(--palette-secondary-800);
+}
+
+.ds-cart__total strong {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-cart__step {
+  margin: 0;
+  color: var(--palette-primary-800);
+  font-size: var(--font-size-small);
+  letter-spacing: calc(var(--font-size-small) * 0.12);
+  text-transform: uppercase;
+}
+
+.ds-cart__field {
+  display: grid;
+  gap: var(--space-6);
+  margin-bottom: var(--space-20);
+}
+
+.ds-cart__label {
+  color: var(--palette-secondary-800);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-cart__input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--size-52);
+  padding: var(--space-12) var(--space-16);
+  border: var(--space-1) solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--palette-neutral-0);
+  color: var(--palette-secondary-800);
+  font: inherit;
+}
+
+.ds-cart__consent {
+  display: flex;
+  gap: var(--space-10);
+  margin-bottom: var(--space-20);
+  font-size: var(--font-size-small);
+}
+
+.ds-cart__consent input {
+  accent-color: var(--palette-secondary-800);
+}
+
+.ds-cart__back {
+  justify-self: start;
+  padding: var(--space-8) 0;
+  border: 0;
+  background: none;
+  color: var(--palette-secondary-800);
+  font: inherit;
+  cursor: pointer;
+}
+
+.ds-cart__thanks-title {
+  margin: 0;
+  color: var(--palette-secondary-800);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-36);
+}
+
+@media (max-width: 781px) {
+  .ds-pricing__list {
+    grid-template-columns: 1fr;
+  }
+
+  .ds-price-card {
+    padding: var(--space-28) var(--space-20);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-price-card,
+  .ds-cart__close {
+    transition: none;
+  }
+}

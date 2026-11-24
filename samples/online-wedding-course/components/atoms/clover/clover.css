@@ -1,0 +1,42 @@
+/* Clover of four hearts: a thin gold outline; the active heart gets a soft fill, the others are dimmed. */
+.ds-clover {
+  display: block;
+  overflow: visible;
+}
+
+.ds-clover__heart {
+  fill: var(--palette-primary-50);
+  fill-opacity: 0;
+  stroke: var(--palette-accent-400);
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  transition: fill-opacity 0.6s ease, stroke-width 0.6s ease;
+}
+
+.ds-clover__part {
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+
+.ds-clover:has(.is-active) .ds-clover__part:not(.is-active) {
+  opacity: 0.38;
+}
+
+.ds-clover__part.is-active .ds-clover__heart {
+  fill-opacity: 1;
+  stroke-width: 2;
+}
+
+.ds-clover__letter {
+  fill: var(--palette-primary-600);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-small);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-clover__heart,
+  .ds-clover__part {
+    transition: none;
+  }
+}

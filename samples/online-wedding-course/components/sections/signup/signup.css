@@ -1,0 +1,134 @@
+/* Sign-up: text on the left, a white form card with the clover on the right. */
+.ds-signup__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-64);
+}
+
+.ds-signup__grid .ds-section-head {
+  margin-bottom: var(--space-28);
+}
+
+.ds-signup__points {
+  display: grid;
+  gap: var(--space-12);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--palette-secondary-800);
+}
+
+.ds-signup__points li {
+  position: relative;
+  padding-left: var(--space-28);
+}
+
+.ds-signup__points li::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--font-size-body) * 0.75);
+  left: 0;
+  width: var(--space-14);
+  height: var(--space-1);
+  background: var(--palette-accent-400);
+}
+
+.ds-signup__card {
+  position: relative;
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-48) var(--space-40) var(--space-40);
+  border-radius: var(--radius-3xl);
+  background: var(--palette-neutral-0);
+  box-shadow: 0 var(--space-32) var(--space-64) color-mix(in srgb, var(--palette-secondary-800) 10%, transparent);
+}
+
+.ds-signup__clover {
+  position: absolute;
+  top: calc(var(--space-40) * -1);
+  right: var(--space-32);
+  width: calc(var(--size-40) * 2);
+  height: calc(var(--size-40) * 2);
+}
+
+.ds-signup__clover .ds-clover__heart {
+  fill: var(--palette-neutral-0);
+  fill-opacity: 1;
+}
+
+.ds-signup__clover .ds-clover__part.is-lit .ds-clover__heart {
+  fill: var(--palette-primary-50);
+}
+
+.ds-signup__field {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.ds-signup__label {
+  color: var(--palette-secondary-800);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-signup__input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--size-52);
+  padding: var(--space-12) var(--space-16);
+  border: var(--space-1) solid var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--palette-neutral-0);
+  color: var(--palette-secondary-800);
+  font: inherit;
+  transition: border-color 0.3s ease;
+}
+
+.ds-signup__input:hover {
+  border-color: var(--palette-secondary-600);
+}
+
+.ds-signup__input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.ds-signup__consent {
+  display: flex;
+  gap: var(--space-10);
+  font-size: var(--font-size-small);
+}
+
+.ds-signup__consent input {
+  flex: none;
+  width: var(--size-18);
+  height: var(--size-18);
+  accent-color: var(--palette-secondary-800);
+}
+
+.ds-signup__card .ds-pill-button {
+  justify-self: start;
+}
+
+.ds-signup__thanks {
+  margin: var(--space-16) 0 0;
+  color: var(--palette-primary-800);
+}
+
+@media (max-width: 1023px) {
+  .ds-signup__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 781px) {
+  .ds-signup__card {
+    padding: var(--space-48) var(--space-20) var(--space-28);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-signup__input {
+    transition: none;
+  }
+}

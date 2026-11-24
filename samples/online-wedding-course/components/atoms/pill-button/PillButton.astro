@@ -1,0 +1,11 @@
+---
+// Pill button: plum (default), gold for plum grounds, or an outline. A light sweep crosses it on hover and the arrow
+// slides on. Renders <a> with href, otherwise <button>.
+interface Props { text: string; href?: string; variant?: 'plum' | 'gold' | 'outline'; type?: 'button' | 'submit'; arrow?: boolean; data?: Record<string, string> }
+const { text, href, variant = 'plum', type = 'button', arrow = true, data = {} } = Astro.props;
+const Tag = href ? 'a' : 'button';
+---
+<Tag class:list={['ds-pill-button', `ds-pill-button--${variant}`]} href={href} type={href ? undefined : type} {...data}>
+  <span class="ds-pill-button__text">{text}</span>
+  {arrow && <span class="ds-pill-button__arrow" aria-hidden="true">→</span>}
+</Tag>

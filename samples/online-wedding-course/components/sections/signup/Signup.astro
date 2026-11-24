@@ -1,0 +1,39 @@
+---
+// Free first lesson: a short form (names, e-mail, wedding date, consent). Sample only: the forms kit validates and the
+// clover's hearts light up one by one before the thank-you; nothing is sent (plan.js).
+import Overline from '../../atoms/overline/Overline.astro';
+import PillButton from '../../atoms/pill-button/PillButton.astro';
+import Clover from '../../atoms/clover/Clover.astro';
+interface Props { label: string; title: string; accent: string; lead: string; points: string[] }
+const { label, title, accent, lead, points } = Astro.props;
+---
+<section class="ds-section ds-section--ecru ds-signup" id="zapisy" aria-labelledby="zapisy-title">
+  <div class="ds-container ds-signup__grid">
+    <div data-reveal>
+      <div class="ds-section-head">
+        <Overline text={label} />
+        <h2 class="ds-section-head__title" id="zapisy-title">{title} <span class="ds-accent">{accent}</span></h2>
+        <p class="ds-section-head__lead">{lead}</p>
+      </div>
+      <ul class="ds-signup__points" role="list">{points.map((point) => <li>{point}</li>)}</ul>
+    </div>
+    <form class="ds-signup__card" data-signup-form data-reveal>
+      <Clover class="ds-signup__clover" />
+      <div class="ds-signup__field">
+        <label class="ds-signup__label" for="signup-names">Wasze imiona</label>
+        <input class="ds-signup__input" id="signup-names" name="names" autocomplete="off" placeholder="Ola i Marek" required />
+      </div>
+      <div class="ds-signup__field">
+        <label class="ds-signup__label" for="signup-email">E-mail</label>
+        <input class="ds-signup__input" id="signup-email" name="email" type="email" autocomplete="email" required />
+      </div>
+      <div class="ds-signup__field">
+        <label class="ds-signup__label" for="signup-date">Data ślubu (jeśli już jest)</label>
+        <input class="ds-signup__input" id="signup-date" name="date" type="date" data-min="today" />
+      </div>
+      <label class="ds-signup__consent"><input type="checkbox" name="consent" required /><span>Zgadzam się na wysłanie lekcji i wiadomości o kursie.</span></label>
+      <PillButton text="Wyślijcie mi lekcję" type="submit" />
+      <p class="ds-signup__thanks" role="status" data-signup-thanks hidden>Dziękujemy! Pierwsza lekcja jest w drodze. (To przykładowy formularz: nic nie zostało wysłane.)</p>
+    </form>
+  </div>
+</section>

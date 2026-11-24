@@ -1,0 +1,83 @@
+/* Steps on plum: gold numerals in rings, a gold line behind them. */
+.ds-steps__track {
+  position: relative;
+}
+
+.ds-steps__line {
+  position: absolute;
+  top: var(--space-32);
+  left: 16%;
+  width: 68%;
+  height: var(--space-20);
+  overflow: visible;
+}
+
+.ds-steps__line path {
+  fill: none;
+  stroke: var(--palette-accent-400);
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+}
+
+.ds-steps__list {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-40);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-steps__item {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-12);
+  text-align: center;
+}
+
+.ds-steps__number {
+  display: grid;
+  place-items: center;
+  width: calc(var(--size-40) * 2);
+  aspect-ratio: 1;
+  border: var(--space-1) solid var(--palette-accent-400);
+  border-radius: var(--radius-full);
+  background: var(--palette-secondary-800);
+  color: var(--palette-accent-400);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.ds-steps__item:hover .ds-steps__number {
+  background: var(--palette-accent-400);
+  color: var(--palette-secondary-800);
+}
+
+.ds-steps__title {
+  margin: var(--space-8) 0 0;
+  font-size: var(--font-size-2xl);
+  line-height: 1.2;
+}
+
+.ds-steps__text {
+  max-width: calc(var(--size-160) * 2);
+  margin: 0;
+}
+
+@media (max-width: 781px) {
+  .ds-steps__line {
+    display: none;
+  }
+
+  .ds-steps__list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-steps__number {
+    transition: none;
+  }
+}

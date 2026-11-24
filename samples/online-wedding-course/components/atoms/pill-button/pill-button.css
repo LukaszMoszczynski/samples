@@ -1,0 +1,91 @@
+/* Pill button: the identity's "Zapisy trwają →". Plum with white text, gold with plum text on plum grounds, or an
+   outline. Hover: a light sweep and the arrow slides; press: a small settle. */
+.ds-pill-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-12);
+  min-height: var(--size-52);
+  padding: var(--space-12) var(--space-28);
+  overflow: hidden;
+  border: var(--space-1) solid transparent;
+  border-radius: var(--radius-full);
+  font: inherit;
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: calc(var(--font-size-body) * 0.02);
+  text-decoration: none;
+  cursor: pointer;
+  isolation: isolate;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.ds-pill-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(105deg, transparent 30%, color-mix(in srgb, var(--palette-neutral-0) 28%, transparent) 50%, transparent 70%);
+  transform: translateX(-110%);
+  transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.ds-pill-button:hover::after {
+  transform: translateX(110%);
+}
+
+.ds-pill-button__arrow {
+  display: inline-block;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ds-pill-button:hover .ds-pill-button__arrow {
+  transform: translateX(var(--space-6));
+}
+
+.ds-pill-button:active {
+  transform: scale(0.97);
+}
+
+.ds-pill-button--plum {
+  background: var(--palette-secondary-800);
+  color: var(--palette-neutral-0);
+}
+
+.ds-pill-button--plum:hover {
+  background: var(--palette-primary-800);
+  box-shadow: 0 var(--space-8) var(--space-24) color-mix(in srgb, var(--palette-secondary-800) 24%, transparent);
+}
+
+.ds-pill-button--gold {
+  background: var(--palette-accent-400);
+  color: var(--palette-secondary-800);
+}
+
+.ds-pill-button--gold:hover {
+  background: color-mix(in srgb, var(--palette-accent-400) 86%, var(--palette-neutral-0));
+}
+
+.ds-pill-button--outline {
+  border-color: color-mix(in srgb, var(--palette-secondary-800) 40%, transparent);
+  background: transparent;
+  color: var(--palette-secondary-800);
+}
+
+.ds-pill-button--outline:hover {
+  border-color: var(--palette-secondary-800);
+  background: var(--palette-neutral-0);
+}
+
+.ds-pill-button[aria-busy="true"] {
+  cursor: progress;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-pill-button,
+  .ds-pill-button::after,
+  .ds-pill-button__arrow {
+    transition: none;
+  }
+}

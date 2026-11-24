@@ -1,0 +1,43 @@
+---
+// Course hero: motto with the accent in rosewood, lead, two actions, the four values, and the large clover whose
+// hearts hold soft "photo" fields (placeholders until the identity photos are licensed). The outline draws in.
+import Overline from '../../atoms/overline/Overline.astro';
+import PillButton from '../../atoms/pill-button/PillButton.astro';
+import Clover from '../../atoms/clover/Clover.astro';
+interface Props {
+  label: string; title: string; accent: string; lead: string;
+  primary: { text: string; href: string }; secondary: { text: string; href: string };
+  values: string[]; facts: { value: string; label: string }[];
+}
+const { label, title, accent, lead, primary, secondary, values, facts } = Astro.props;
+---
+<section class="ds-plan-hero" id="top" aria-labelledby="hero-title">
+  <svg class="ds-plan-hero__defs" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="hero-fill-0" x1="0" y1="0" x2="1" y2="1"><stop class="ds-plan-hero__stop--ecru" offset="0" /><stop class="ds-plan-hero__stop--blush" offset="1" /></linearGradient>
+      <linearGradient id="hero-fill-1" x1="1" y1="0" x2="0" y2="1"><stop class="ds-plan-hero__stop--blush" offset="0" /><stop class="ds-plan-hero__stop--rose" offset="1" /></linearGradient>
+      <linearGradient id="hero-fill-2" x1="0" y1="1" x2="1" y2="0"><stop class="ds-plan-hero__stop--grey" offset="0" /><stop class="ds-plan-hero__stop--ecru" offset="1" /></linearGradient>
+      <linearGradient id="hero-fill-3" x1="1" y1="1" x2="0" y2="0"><stop class="ds-plan-hero__stop--gold" offset="0" /><stop class="ds-plan-hero__stop--ecru" offset="1" /></linearGradient>
+    </defs>
+  </svg>
+  <div class="ds-container ds-plan-hero__grid">
+    <div class="ds-plan-hero__text">
+      <div data-hero-fade><Overline text={label} /></div>
+      <h1 class="ds-plan-hero__title" id="hero-title" data-hero-fade>{title} <span class="ds-accent">{accent}</span></h1>
+      <p class="ds-plan-hero__lead" data-hero-fade>{lead}</p>
+      <div class="ds-plan-hero__actions" data-hero-fade>
+        <PillButton text={primary.text} href={primary.href} />
+        <PillButton text={secondary.text} href={secondary.href} variant="outline" arrow={false} />
+      </div>
+      <ul class="ds-plan-hero__values" role="list" aria-label="Co dostajecie" data-hero-fade>
+        {values.map((value) => <li>{value}</li>)}
+      </ul>
+    </div>
+    <div class="ds-plan-hero__art">
+      <Clover class="ds-plan-hero__clover" letters draw label="Koniczyna z czterech serc: Pragnienia, Lekkość, Atmosfera, Na zawsze" />
+      <dl class="ds-plan-hero__facts" data-hero-fade>
+        {facts.map((fact) => <div class="ds-plan-hero__fact"><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}
+      </dl>
+    </div>
+  </div>
+</section>

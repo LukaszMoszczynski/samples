@@ -1,0 +1,136 @@
+---
+// Online wedding-planning course for couples, built from a brand handoff (palette, fonts, brief). The shop is a demo
+// (in the finished site: WordPress + WooCommerce); prices, numbers and reviews are examples.
+import Sample from '../layouts/Sample.astro';
+import sample from '../sample.json';
+
+import '../components/base/page/page.css';
+import '../components/base/forms/forms.css';
+import '../components/atoms/clover/clover.css';
+import '../components/atoms/overline/overline.css';
+import '../components/atoms/pill-button/pill-button.css';
+import '../components/molecules/wordmark/wordmark.css';
+import '../components/organisms/plan-header/plan-header.css';
+import '../components/organisms/plan-footer/plan-footer.css';
+import '../components/sections/plan-hero/plan-hero.css';
+import '../components/sections/modules/modules.css';
+import '../components/sections/steps/steps.css';
+import '../components/sections/course-panel/course-panel.css';
+import '../components/sections/pricing/pricing.css';
+import '../components/sections/opinions/opinions.css';
+import '../components/sections/plan-faq/plan-faq.css';
+import '../components/sections/signup/signup.css';
+
+import PlanHeader from '../components/organisms/plan-header/PlanHeader.astro';
+import PlanHero from '../components/sections/plan-hero/PlanHero.astro';
+import Modules from '../components/sections/modules/Modules.astro';
+import Steps from '../components/sections/steps/Steps.astro';
+import CoursePanel from '../components/sections/course-panel/CoursePanel.astro';
+import Pricing from '../components/sections/pricing/Pricing.astro';
+import Opinions from '../components/sections/opinions/Opinions.astro';
+import PlanFaq from '../components/sections/plan-faq/PlanFaq.astro';
+import Signup from '../components/sections/signup/Signup.astro';
+import PlanFooter from '../components/organisms/plan-footer/PlanFooter.astro';
+
+const nav = [
+  { text: 'Kurs', href: '#kurs' },
+  { text: 'Jak to działa', href: '#jak' },
+  { text: 'Panel', href: '#panel' },
+  { text: 'Cennik', href: '#cennik' },
+  { text: 'Pytania', href: '#pytania' },
+];
+const modules = [
+  { letter: 'P', name: 'Pragnienia', length: '8 lekcji', title: 'Od marzeń do planu', text: 'Zanim padnie pierwsza data: czego naprawdę chcecie, co jest dla Was ważne i na co jesteście gotowi wydać pieniądze.', lessons: ['Wasza wizja dnia', 'Priorytety we dwoje', 'Budżet, który nie dzieli', 'Lista gości bez nerwów'] },
+  { letter: 'L', name: 'Lekkość', length: '8 lekcji', title: 'Kolejność, która zdejmuje ciężar', text: 'Co załatwić najpierw, co może poczekać, a co spokojnie odpuścić. Każda decyzja po kolei, bez wyścigu z kalendarzem.', lessons: ['Kalendarz przygotowań', 'Usługodawcy: jak wybierać', 'Umowy bez niespodzianek', 'Co możecie odpuścić'] },
+  { letter: 'A', name: 'Atmosfera', length: '8 lekcji', title: 'Dzień, który jest Wasz', text: 'Styl, muzyka, goście i detale, które zostają w pamięci. Tak, żeby ślub wyglądał jak Wy, a nie jak katalog.', lessons: ['Styl i dekoracje', 'Muzyka i rytm przyjęcia', 'Komfort gości', 'Detale, które zostają'] },
+  { letter: 'N', name: 'Na zawsze', length: '8 lekcji', title: 'Spokój w dniu ślubu i po nim', text: 'Harmonogram dnia, kto czym się zajmuje, plan B na deszcz i spóźnienia. Wy macie tylko cieszyć się sobą.', lessons: ['Harmonogram dnia', 'Kto co koordynuje', 'Plan B', 'Po weselu: podziękowania'] },
+];
+---
+<Sample lang={sample.lang} title="P·L·A·N. Kurs online dla świadomych par (przykładowa strona)" description="Kurs online dla par: cztery moduły od pierwszych marzeń do spokojnego dnia ślubu. Planuj z sercem, działaj z planem." fonts="https://fonts.googleapis.com/css2?family=Gilda+Display&family=Libre+Franklin:wght@300;400;600&display=swap">
+  <PlanHeader items={nav} cta={{ text: 'Zapisy trwają', href: '#cennik' }} />
+  <main>
+    <PlanHero
+      label="Kurs online dla świadomych par"
+      title="Planuj z sercem,"
+      accent="działaj z planem."
+      lead="Cztery moduły, które prowadzą Was od pierwszych marzeń do spokojnego dnia ślubu. Wiedza, gotowe listy i Wasz plan, w Waszym tempie."
+      primary={{ text: 'Zapisy trwają', href: '#cennik' }}
+      secondary={{ text: 'Pierwsza lekcja za darmo', href: '#zapisy' }}
+      values={['Wiedza', 'Plan', 'Spokój', 'Wasz dzień']}
+      facts={[{ value: '4', label: 'moduły' }, { value: '32', label: 'lekcje wideo' }, { value: '12 mies.', label: 'dostępu' }]}
+    />
+    <Modules
+      label="Cztery moduły"
+      title="Od pragnień"
+      accent="do na zawsze."
+      lead="Każda litera to jeden etap. Koniczyna pokazuje, w której części kursu jesteście."
+      modules={modules}
+    />
+    <Steps
+      label="Jak to działa"
+      title="Prosto,"
+      accent="w Waszym tempie."
+      steps={[
+        { title: 'Zapisujecie się', text: 'Dostęp do kursu dostajecie od razu, na 12 miesięcy.' },
+        { title: 'Uczycie się razem', text: 'Krótkie lekcje, które obejrzycie wieczorem we dwoje. Albo osobno, gdy tak wygodniej.' },
+        { title: 'Macie gotowy plan', text: 'Listy, budżet i harmonogram dnia, wypełnione Waszymi decyzjami.' },
+      ]}
+    />
+    <CoursePanel
+      label="Wasz panel"
+      title="Wszystko w jednym miejscu,"
+      accent="krok po kroku."
+      lead="Lekcje, listy do odhaczenia i postęp całego planu. Spróbujcie: zaznaczcie pierwsze zadania."
+      modules={modules.map((module) => module.name)}
+      lesson="Od czego zacząć planowanie wesela?"
+      tasks={['Każde z Was zapisuje trzy rzeczy, bez których nie wyobraża sobie tego dnia', 'Ustalacie wstępną liczbę gości', 'Określacie budżet: kwota, z którą jest Wam spokojnie', 'Wybieracie porę roku i dwa, trzy możliwe miesiące', 'Zapisujecie, czego na pewno nie chcecie']}
+    />
+    <Pricing
+      label="Zapisy trwają"
+      title="Wybierzcie"
+      accent="swój pakiet."
+      lead="Jednorazowa płatność, dostęp od razu po zakupie."
+      plans={[
+        { id: 'kurs', name: 'Kurs P·L·A·N.', price: 490, note: 'dostęp na 12 miesięcy', points: ['4 moduły, 32 lekcje wideo', 'Listy, budżet i harmonogram do pobrania', 'Panel z postępem Waszego planu', 'Aktualizacje kursu w cenie'] },
+        { id: 'kurs-konsultacja', name: 'Kurs + konsultacja', price: 790, note: 'dostęp na 12 miesięcy i 60 minut rozmowy', featured: true, points: ['Wszystko z kursu', '60 minut konsultacji online we dwoje', 'Przegląd Waszego planu i budżetu', 'Odpowiedzi na Wasze pytania'] },
+      ]}
+    />
+    <Opinions
+      label="Pary o kursie"
+      title="Spokojniej,"
+      accent="niż myśleliśmy."
+      items={[
+        { quote: 'Po pierwszym module wiedzieliśmy, czego chcemy. Reszta decyzji była już prosta.', who: 'Para z kursu', initials: 'A·M' },
+        { quote: 'Lekcje oglądaliśmy wieczorami przy herbacie. Pierwszy raz planowanie było przyjemne.', who: 'Para z kursu', initials: 'K·T' },
+        { quote: 'Harmonogram dnia z czwartego modułu dostali wszyscy usługodawcy. Zero telefonów w dniu ślubu.', who: 'Para z kursu', initials: 'J·P' },
+      ]}
+    />
+    <PlanFaq
+      label="Pytania"
+      title="Zanim"
+      accent="zaczniecie."
+      items={[
+        { question: 'Dla kogo jest ten kurs?', answer: 'Dla par, które chcą zorganizować ślub i wesele samodzielnie, świadomie i bez presji. Także dla tych, które już zaczęły i potrzebują porządku.' },
+        { question: 'Ile czasu zajmuje kurs?', answer: 'Lekcje trwają po 10–15 minut. Większość par przechodzi cały kurs w kilka tygodni, ale dostęp macie przez 12 miesięcy.' },
+        { question: 'Czy potrzebujemy daty ślubu?', answer: 'Nie. Pierwszy moduł pomaga ją wybrać, razem z porą roku i budżetem.' },
+        { question: 'Ślub za mniej niż pół roku. Czy to ma sens?', answer: 'Tak. Kurs pokazuje kolejność spraw; przy krótszym czasie pomaga zdecydować, co jest najważniejsze.' },
+        { question: 'Jak płacimy?', answer: 'Jednorazowo: BLIK, szybki przelew lub karta. Fakturę dostajecie mailem.' },
+      ]}
+    />
+    <Signup
+      label="Na dobry początek"
+      title="Pierwsza lekcja"
+      accent="za darmo."
+      lead="„Od czego zacząć planowanie wesela?” Wyślemy ją na Wasz e-mail, razem z listą pierwszych kroków."
+      points={['15 minut wideo dla Was dwojga', 'Lista pierwszych pięciu decyzji', 'Bez zobowiązań']}
+    />
+  </main>
+  <PlanFooter
+    motto="Planuj z sercem, działaj z planem."
+    columns={[
+      { title: 'Kurs', links: [{ text: 'Moduły', href: '#kurs' }, { text: 'Jak to działa', href: '#jak' }, { text: 'Panel', href: '#panel' }, { text: 'Cennik', href: '#cennik' }] },
+      { title: 'Dla par', links: [{ text: 'Pierwsza lekcja', href: '#zapisy' }, { text: 'Opinie', href: '#opinie' }, { text: 'Pytania', href: '#pytania' }] },
+    ]}
+  />
+  <script src="../scripts/plan.js"></script>
+</Sample>

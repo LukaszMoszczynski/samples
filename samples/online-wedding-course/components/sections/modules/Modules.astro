@@ -1,0 +1,46 @@
+---
+// The course's four modules. Desktop: a sticky clover on the left lights the heart of the module in view (plan.js) and
+// its letters link to the modules; phones: every module card carries its own small clover with its heart lit.
+import Overline from '../../atoms/overline/Overline.astro';
+import Clover from '../../atoms/clover/Clover.astro';
+interface Module { letter: string; name: string; title: string; text: string; lessons: string[]; length: string }
+interface Props { label: string; title: string; accent: string; lead: string; modules: Module[] }
+const { label, title, accent, lead, modules } = Astro.props;
+---
+<section class="ds-section ds-modules" id="kurs" aria-labelledby="kurs-title">
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Overline text={label} />
+      <h2 class="ds-section-head__title" id="kurs-title">{title} <span class="ds-accent">{accent}</span></h2>
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <div class="ds-modules__grid">
+      <aside class="ds-modules__guide" aria-label="Moduły kursu">
+        <div class="ds-modules__sticky">
+          <Clover class="ds-modules__clover" letters active={0} />
+          <ol class="ds-modules__nav" role="list">
+            {modules.map((module, index) => (
+              <li><a class="ds-modules__nav-link" href={`#modul-${index + 1}`} data-module-link={index} aria-current={index === 0 ? 'true' : undefined}><span class="ds-modules__nav-letter">{module.letter}</span>{module.name}</a></li>
+            ))}
+          </ol>
+        </div>
+      </aside>
+      <ol class="ds-modules__list" role="list">
+        {modules.map((module, index) => (
+          <li class="ds-modules__item" id={`modul-${index + 1}`} data-module={index} data-reveal>
+            <article class="ds-module-card" aria-labelledby={`modul-${index + 1}-title`}>
+              <Clover class="ds-module-card__clover" active={index} />
+              <p class="ds-module-card__meta">Moduł {index + 1} · {module.name} · {module.length}</p>
+              <h3 class="ds-module-card__title" id={`modul-${index + 1}-title`}>{module.title}</h3>
+              <p class="ds-module-card__text">{module.text}</p>
+              <ul class="ds-module-card__lessons" role="list">
+                {module.lessons.map((lesson) => <li>{lesson}</li>)}
+              </ul>
+              <span class="ds-module-card__letter" aria-hidden="true">{module.letter}</span>
+            </article>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,23 @@
+---
+// The course mark's shape: a clover of four hearts (P·L·A·N), drawn as a thin gold outline. `active` lights one heart
+// and dims the rest, so a visitor always sees which part of the course they are in. `letters` puts P, L, A, N in the
+// hearts. `draw` marks the outlines for the drawing intro (plan.js). Decorative unless `label` is given.
+interface Props { active?: number; letters?: boolean; draw?: boolean; label?: string; class?: string; id?: string; data?: string }
+const { active = -1, letters = false, draw = false, label, class: className = '', id } = Astro.props;
+// One heart of the mark (Figma: a 132 square plus two 132 circles, tip toward the centre, 8 apart), in a 418 box.
+const heart = 'M205 205V73A66 66 0 0 0 73 73A66 66 0 0 0 73 205Z';
+const parts = [
+  { letter: 'P', angle: 0, x: 62, y: 62 },
+  { letter: 'L', angle: 90, x: 138, y: 62 },
+  { letter: 'A', angle: 180, x: 138, y: 138 },
+  { letter: 'N', angle: 270, x: 62, y: 138 },
+];
+---
+<svg class:list={['ds-clover', className]} id={id} viewBox="0 0 200 200" role={label ? 'img' : undefined} aria-label={label} aria-hidden={label ? undefined : 'true'} data-clover>
+  {parts.map((part, index) => (
+    <g class:list={['ds-clover__part', { 'is-active': index === active }]} data-clover-part={index}>
+      <path class="ds-clover__heart" d={heart} transform={`scale(0.4785) rotate(${part.angle} 209 209)`} pathLength="1000" data-draw={draw ? '' : undefined} />
+      {letters && <text class="ds-clover__letter" x={part.x} y={part.y} text-anchor="middle" dominant-baseline="middle">{part.letter}</text>}
+    </g>
+  ))}
+</svg>
