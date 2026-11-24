@@ -18,7 +18,7 @@ Atmosfera, Na zawsze), holds the "photos" and shows where you are.
   the clover sways slowly.
 - Modules: a sticky clover lights the heart of the module in view and dims the others (from the brand brief: "always
   show which part we are in"); on phones each module card carries its own clover.
-- Steps: a gold line draws with the scroll. Sections rise in as they arrive.
+- Steps: a gold line draws once, to the end, as the steps arrive. Sections rise in as they arrive.
 - Course panel: ticking tasks draws the tick, moves the progress and fills the module's heart.
 - Shop: "Do koszyka" pops the cart count and slides the cart panel in; checkout step and thank-you.
 - Opinions: a deck of cards (drag aside, Previous / Next, arrow keys); the top card flies off with a turn.

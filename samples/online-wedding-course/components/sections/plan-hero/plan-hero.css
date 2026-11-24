@@ -115,7 +115,7 @@
 
 .ds-plan-hero__clover .ds-clover__heart {
   fill-opacity: 1;
-  stroke-width: 1.6;
+  stroke-width: 1.4;
 }
 
 .ds-plan-hero__clover [data-clover-part="0"] .ds-clover__heart { fill: url(#hero-fill-0); }

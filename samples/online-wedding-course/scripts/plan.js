@@ -168,7 +168,7 @@ if (!reduceMotion) {
   });
   const line = document.querySelector('[data-steps-line]');
   if (line) {
-    gsap.fromTo(line, { strokeDashoffset: 1000 }, { strokeDashoffset: 0, ease: 'none', scrollTrigger: { trigger: '.ds-steps__track', start: 'top 80%', end: 'top 35%', scrub: 0.6 } });
+    gsap.fromTo(line, { strokeDashoffset: 1000 }, { strokeDashoffset: 0, duration: 1.8, ease: 'power2.inOut', scrollTrigger: { trigger: '.ds-steps__track', start: 'top 85%', once: true } });
   }
 } else {
   document.querySelectorAll('[data-draw]').forEach((path) => { path.style.strokeDashoffset = '0'; });

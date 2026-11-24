@@ -15,8 +15,7 @@
 .ds-steps__line path {
   fill: none;
   stroke: var(--palette-accent-400);
-  stroke-width: 1.2;
-  vector-effect: non-scaling-stroke;
+  stroke-width: 1.4;
 }
 
 .ds-steps__list {
