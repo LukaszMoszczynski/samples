@@ -3,9 +3,10 @@
 // where you are. The shop, the panel and the forms are demos: nothing is saved, charged or sent.
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Draggable } from 'gsap/Draggable';
 import { enhanceForms } from './forms.js';
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, Draggable);
 document.documentElement.setAttribute('data-motion-ready', '');
 enhanceForms();
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -267,26 +268,79 @@ if (dialog) {
   renderCart();
 }
 
-// --- Opinions: a slight tilt toward the pointer, read on the card's steady parent -------------------------------------
+// --- Opinions: a deck of cards. Drag the top card aside, or Previous / Next, or the arrow keys on the deck ------------
 
-if (!reduceMotion && window.matchMedia('(hover: hover)').matches) {
-  document.querySelectorAll('.ds-opinions__item').forEach((item) => {
-    const card = item.querySelector('.ds-opinion');
-    item.addEventListener('pointermove', (event) => {
-      const box = item.getBoundingClientRect();
-      const x = (event.clientX - box.left) / box.width - 0.5;
-      const y = (event.clientY - box.top) / box.height - 0.5;
-      gsap.to(card, { rotationY: x * 6, rotationX: y * -6, y: -4, duration: 0.5, ease: 'power2.out' });
+const opinions = document.querySelector('[data-opinions]');
+const opinionDeck = opinions?.querySelector('[data-opinion-deck]');
+if (opinionDeck) {
+  opinions.classList.add('is-deck');
+  const cards = [...opinionDeck.querySelectorAll('[data-opinion]')];
+  const order = [...cards];
+  const total = order.length;
+  const announce = opinions.querySelector('[data-opinion-announce]');
+  const tilts = [0, 3, -3, 4];
+  const pose = (index) => ({ x: index * 10, y: index * 14, rotation: tilts[index] ?? 0, scale: 1 - index * 0.04, opacity: index > 2 ? 0 : 1, zIndex: total - index });
+  const layout = (animate) => {
+    order.forEach((card, index) => {
+      card.setAttribute('aria-hidden', String(index !== 0));
+      if (animate && !reduceMotion) gsap.to(card, { ...pose(index), duration: 0.55, ease: 'power3.out' });
+      else gsap.set(card, pose(index));
     });
-    item.addEventListener('pointerleave', () => gsap.to(card, { rotationY: 0, rotationX: 0, y: 0, duration: 0.6, ease: 'power2.out' }));
+    if (announce) announce.textContent = `Opinia ${cards.indexOf(order[0]) + 1} z ${total}`;
+  };
+  const next = (direction = 1) => {
+    const top = order[0];
+    const finish = () => { order.push(order.shift()); gsap.set(top, { x: 0, rotation: 0 }); layout(true); };
+    if (reduceMotion) { finish(); return; }
+    gsap.to(top, { x: direction * 520, rotation: direction * 18, opacity: 0, duration: 0.45, ease: 'power2.in', onComplete: finish });
+  };
+  const previous = () => {
+    order.unshift(order.pop());
+    if (!reduceMotion) gsap.set(order[0], { x: -520, rotation: -18, opacity: 0, zIndex: total + 1 });
+    layout(true);
+  };
+  layout(false);
+  opinions.querySelector('[data-opinion-next]').addEventListener('click', () => next(1));
+  opinions.querySelector('[data-opinion-prev]').addEventListener('click', previous);
+  opinionDeck.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowRight') { event.preventDefault(); next(1); }
+    if (event.key === 'ArrowLeft') { event.preventDefault(); previous(); }
+  });
+  Draggable.create(cards, {
+    type: 'x',
+    onPress() { if (this.target !== order[0]) this.endDrag(); },
+    onDrag() { gsap.set(this.target, { rotation: this.x / 24 }); },
+    onRelease() {
+      if (Math.abs(this.x) > 110) next(Math.sign(this.x));
+      else gsap.to(this.target, { x: 0, rotation: 0, duration: 0.5, ease: 'back.out(2)' });
+    },
   });
 }
 
-// --- Questions: the answer rises in when a question opens ----------------------------------------------------------------
+// --- Questions: the answer slides open and shut, its words rise in, the heart fills (CSS) and beats once -------------
 
-document.querySelectorAll('[data-faq]').forEach((item) => item.addEventListener('toggle', () => {
-  if (item.open && !reduceMotion) gsap.fromTo(item.querySelector('.ds-plan-faq__answer'), { opacity: 0, y: -8 }, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' });
-}));
+document.querySelectorAll('[data-faq]').forEach((item) => {
+  const summary = item.querySelector('summary');
+  const body = item.querySelector('.ds-plan-faq__body');
+  const answer = item.querySelector('.ds-plan-faq__answer');
+  const heart = item.querySelector('.ds-plan-faq__heart');
+  if (reduceMotion || !summary || !body) return;
+  summary.addEventListener('click', (event) => {
+    event.preventDefault();
+    gsap.killTweensOf([body, answer]);
+    if (!item.open) {
+      item.open = true;
+      gsap.fromTo(body, { height: 0 }, { height: 'auto', duration: 0.55, ease: 'power3.out', clearProps: 'height' });
+      gsap.fromTo(answer, { opacity: 0, y: 12 }, { opacity: 1, y: 0, duration: 0.5, delay: 0.1, ease: 'power2.out' });
+      gsap.timeline()
+        .to(heart, { scale: 1.25, duration: 0.18, ease: 'power2.out', transformOrigin: '50% 60%' })
+        .to(heart, { scale: 1, duration: 0.4, ease: 'power2.inOut', clearProps: 'transform' });
+    } else {
+      gsap.to(answer, { opacity: 0, y: -6, duration: 0.2, ease: 'power1.in' });
+      gsap.fromTo(body, { height: body.offsetHeight }, { height: 0, duration: 0.4, ease: 'power3.inOut', onComplete: () => { item.open = false; gsap.set([body, answer], { clearProps: 'all' }); } });
+    }
+  });
+});
 
 // --- Sign-up: after the forms kit's check, the clover's hearts light one by one, then the thank-you -----------------
 

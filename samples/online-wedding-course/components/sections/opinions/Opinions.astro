@@ -1,33 +1,38 @@
 ---
-// Couples' words: three quote cards with initials in a heart. Marked as examples until real reviews come in.
+// Couples about the course: a deck of cards (white, a gold inner frame, a plum seal with the P·L·A·N heart). plan.js
+// turns the column into a deck: drag the top card aside, Previous / Next, or the arrow keys. Without JS the cards sit in
+// a column. The quotes are examples, marked as such.
 import Overline from '../../atoms/overline/Overline.astro';
 import Heart from '../../atoms/heart/Heart.astro';
+import PillButton from '../../atoms/pill-button/PillButton.astro';
 import Divider from '../../molecules/divider/Divider.astro';
-interface Props { label: string; title: string; accent: string; items: { quote: string; who: string; initials: string }[] }
-const { label, title, accent, items } = Astro.props;
-const heart = 'M112.7 206L19.4 112.7A66 66 0 0 1 112.7 19.4A66 66 0 0 1 206 112.7Z';
+interface Props { label: string; title: string; accent: string; hint: string; note: string; items: { quote: string; who: string }[] }
+const { label, title, accent, hint, note, items } = Astro.props;
 ---
-<section class="ds-section ds-section--blush ds-opinions" id="opinie" aria-labelledby="opinie-title">
-  <div class="ds-container">
-    <div class="ds-section-head ds-section-head--center" data-reveal>
-      <Overline text={label} />
-      <h2 class="ds-section-head__title" id="opinie-title">{title} <span class="ds-accent">{accent}</span></h2>
-      <Divider />
+<section class="ds-section ds-section--blush ds-opinions" id="opinie" aria-labelledby="opinie-title" data-opinions>
+  <div class="ds-container ds-opinions__grid">
+    <div data-reveal>
+      <div class="ds-section-head">
+        <Overline text={label} />
+        <h2 class="ds-section-head__title" id="opinie-title">{title} <span class="ds-accent">{accent}</span></h2>
+        <Divider />
+        <p class="ds-opinions__hint">{hint}</p>
+      </div>
+      <div class="ds-opinions__controls">
+        <PillButton text="← Poprzednia" variant="outline" icon="none" data={{ 'data-opinion-prev': '' }} />
+        <PillButton text="Następna" data={{ 'data-opinion-next': '' }} />
+      </div>
+      <p class="ds-demo-note">{note}</p>
+      <p class="ds-visually-hidden" aria-live="polite" data-opinion-announce></p>
     </div>
-    <ul class="ds-opinions__list" role="list">
+    <div class="ds-opinions__deck" role="group" tabindex="0" aria-label="Opinie par: strzałki zmieniają kartkę" data-opinion-deck data-reveal>
       {items.map((item) => (
-        <li class="ds-opinions__item" data-reveal>
-          <figure class="ds-opinion">
-            <span class="ds-opinion__mark" aria-hidden="true">“</span>
-            <blockquote class="ds-opinion__quote"><p>{item.quote}</p></blockquote>
-            <figcaption class="ds-opinion__who">
-              <svg class="ds-opinion__heart" viewBox="0 0 226 207" aria-hidden="true"><path d={heart} /><text x="113" y="100" text-anchor="middle" dominant-baseline="middle">{item.initials}</text></svg>
-              {item.who}
-            </figcaption>
-          </figure>
-        </li>
+        <figure class="ds-opinion" data-opinion>
+          <span class="ds-opinion__seal" aria-hidden="true"><Heart variant="gold" class="ds-opinion__seal-heart" /></span>
+          <blockquote class="ds-opinion__quote">{item.quote}</blockquote>
+          <figcaption class="ds-opinion__who">{item.who}</figcaption>
+        </figure>
       ))}
-    </ul>
-    <p class="ds-demo-note ds-opinions__note">Przykładowe opinie: w gotowej stronie znajdą się prawdziwe słowa par z kursu.</p>
+    </div>
   </div>
 </section>

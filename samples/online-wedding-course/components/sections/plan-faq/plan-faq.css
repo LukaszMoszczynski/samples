@@ -1,4 +1,4 @@
-/* Questions: hairline rows, a gold plus that turns into a minus. */
+/* Questions: hairline rows, a gold heart outline that fills with rosewood when the question opens. */
 .ds-plan-faq__grid {
   display: grid;
   grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
@@ -10,7 +10,38 @@
 }
 
 .ds-plan-faq__item {
+  position: relative;
   border-bottom: var(--space-1) solid var(--color-border-default);
+}
+
+/* A gold line draws under the row on hover and stays while the question is open. */
+.ds-plan-faq__item::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 calc(var(--space-1) * -1);
+  height: var(--space-1);
+  background: var(--palette-accent-400);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.ds-plan-faq__item:hover::after,
+.ds-plan-faq__item[open]::after {
+  transform: scaleX(1);
+}
+
+.ds-plan-faq__body {
+  overflow: hidden;
+}
+
+.ds-plan-faq__question {
+  transition: color 0.3s ease, padding-left 0.4s cubic-bezier(0.34, 1.3, 0.64, 1);
+}
+
+.ds-plan-faq__question:hover,
+.ds-plan-faq__item[open] .ds-plan-faq__question {
+  padding-left: var(--space-8);
 }
 
 .ds-plan-faq__question {
@@ -37,37 +68,35 @@
 }
 
 .ds-plan-faq__icon {
-  position: relative;
+  display: grid;
   flex: none;
+  place-items: center;
   width: var(--size-40);
   height: var(--size-40);
-  border: var(--space-1) solid var(--palette-accent-400);
-  border-radius: var(--radius-full);
-  transition: background-color 0.3s ease;
 }
 
-.ds-plan-faq__icon::before,
-.ds-plan-faq__icon::after {
-  content: "";
-  position: absolute;
-  inset: 50% auto auto 50%;
-  width: var(--space-14);
-  height: var(--space-1);
-  background: var(--palette-secondary-800);
-  transform: translate(-50%, -50%);
-  transition: transform 0.35s ease;
+.ds-plan-faq__heart {
+  width: var(--size-24);
+  height: var(--size-24);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.ds-plan-faq__icon::after {
-  transform: translate(-50%, -50%) rotate(90deg);
+.ds-plan-faq__heart .ds-heart__shape {
+  fill: transparent;
+  transition: fill 0.4s ease, stroke 0.4s ease;
 }
 
-.ds-plan-faq__item[open] .ds-plan-faq__icon {
-  background: var(--palette-accent-400);
+.ds-plan-faq__question:hover .ds-plan-faq__heart {
+  transform: scale(1.12);
 }
 
-.ds-plan-faq__item[open] .ds-plan-faq__icon::after {
-  transform: translate(-50%, -50%) rotate(0deg);
+.ds-plan-faq__question:hover .ds-plan-faq__heart .ds-heart__shape {
+  fill: var(--palette-primary-50);
+}
+
+.ds-plan-faq__item[open] .ds-plan-faq__heart .ds-heart__shape {
+  fill: var(--palette-primary-400);
+  stroke: var(--palette-primary-400);
 }
 
 .ds-plan-faq__answer {
@@ -95,9 +124,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ds-plan-faq__question,
-  .ds-plan-faq__icon,
-  .ds-plan-faq__icon::before,
-  .ds-plan-faq__icon::after {
+  .ds-plan-faq__item::after,
+  .ds-plan-faq__heart,
+  .ds-plan-faq__heart .ds-heart__shape {
     transition: none;
   }
 }

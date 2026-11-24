@@ -21,7 +21,11 @@ Atmosfera, Na zawsze), holds the "photos" and shows where you are.
 - Steps: a gold line draws with the scroll. Sections rise in as they arrive.
 - Course panel: ticking tasks draws the tick, moves the progress and fills the module's heart.
 - Shop: "Do koszyka" pops the cart count and slides the cart panel in; checkout step and thank-you.
-- Opinions tilt slightly toward the pointer; FAQ answers rise in; the sign-up lights the clover's hearts one by one.
+- Opinions: a deck of cards (drag aside, Previous / Next, arrow keys); the top card flies off with a turn.
+- Questions: the answer slides open and shut, its words rise in; the heart outline fills and beats once; a gold line
+  draws under the row on hover and while open.
+- Menu links: a micro-heart pops in above the link on hover and on the current section.
+- The sign-up lights the clover's hearts one by one.
 - Small hearts (from the handoff's motion board, each plays once): three micro-hearts rise from a heart button on
   hover; the label's micro-heart beats once when its section arrives; the gold dividers' hearts light up one by one.
 - Quiet brand hearts drift up behind the hero (taken from the wedding sample, fewer and slower; paused off screen).

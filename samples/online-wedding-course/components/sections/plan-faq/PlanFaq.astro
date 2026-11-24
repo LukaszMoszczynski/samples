@@ -1,6 +1,8 @@
 ---
-// Questions: native details/summary (works without JS); plan.js lets the answer rise in.
+// Questions: native details/summary (works without JS). The heart outline fills when a question opens; plan.js slides
+// the answer open and shut, the words rise in, the heart beats once, and a gold line draws under the open row.
 import Overline from '../../atoms/overline/Overline.astro';
+import Heart from '../../atoms/heart/Heart.astro';
 interface Props { label: string; title: string; accent: string; items: { question: string; answer: string }[] }
 const { label, title, accent, items } = Astro.props;
 ---
@@ -13,8 +15,8 @@ const { label, title, accent, items } = Astro.props;
     <div class="ds-plan-faq__list" data-reveal>
       {items.map((item) => (
         <details class="ds-plan-faq__item" data-faq>
-          <summary class="ds-plan-faq__question">{item.question}<span class="ds-plan-faq__icon" aria-hidden="true"></span></summary>
-          <p class="ds-plan-faq__answer">{item.answer}</p>
+          <summary class="ds-plan-faq__question">{item.question}<span class="ds-plan-faq__icon" aria-hidden="true"><Heart variant="outline" class="ds-plan-faq__heart" /></span></summary>
+          <div class="ds-plan-faq__body"><p class="ds-plan-faq__answer">{item.answer}</p></div>
         </details>
       ))}
     </div>

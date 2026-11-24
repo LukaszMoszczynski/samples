@@ -1,94 +1,122 @@
-/* Opinions: white cards on blush, a large gold quote mark, initials in a heart. The card tilts slightly toward the
-   pointer (plan.js reads the pointer on the list item, the card's steady parent). */
-.ds-opinions__list {
+/* Opinions: a deck of cards on blush. White card, a gold inner frame, a plum seal holding a gold P·L·A·N heart. Drag
+   the top card aside, or Previous / Next, or the arrow keys; it flies off with a little turn and slips to the back.
+   Without JS the cards sit in a column. */
+.ds-opinions__grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: var(--space-24);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: var(--space-64);
+}
+
+.ds-opinions__hint {
   margin: 0;
-  padding: 0;
-  list-style: none;
-  perspective: calc(var(--size-160) * 8);
 }
 
-.ds-opinions__item {
+.ds-opinions__controls {
+  display: none;
+  flex-wrap: wrap;
+  gap: var(--space-12);
+}
+
+.ds-opinions.is-deck .ds-opinions__controls {
+  display: flex;
+}
+
+.ds-opinions__deck {
   display: grid;
+  gap: var(--space-40);
+  width: 100%;
+  max-width: calc(var(--layout-container) * 0.46);
+  min-width: 0;
+  padding-top: var(--space-24);
 }
 
-.ds-opinions__note {
-  text-align: center;
+.ds-opinions.is-deck .ds-opinions__deck {
+  gap: 0;
+  padding-block: var(--space-24) var(--space-48);
+  touch-action: pan-y;
+}
+
+.ds-opinions__deck:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--space-16);
+  border-radius: var(--radius-sm);
 }
 
 .ds-opinion {
   position: relative;
   display: grid;
-  align-content: space-between;
-  gap: var(--space-24);
+  gap: var(--space-20);
   margin: 0;
-  padding: var(--space-64) var(--space-32) var(--space-32);
-  border-radius: var(--radius-3xl);
+  padding: var(--space-56) var(--space-40) var(--space-40);
+  border-radius: var(--radius-sm);
   background: var(--palette-neutral-0);
-  transition: box-shadow 0.4s ease;
-  will-change: transform;
+  box-shadow:
+    0 0 0 var(--space-1) var(--color-border-default),
+    0 var(--space-24) var(--space-48) color-mix(in srgb, var(--palette-secondary-800) 12%, transparent);
+  text-align: center;
 }
 
-.ds-opinions__item:hover .ds-opinion {
-  box-shadow: 0 var(--space-24) var(--space-48) color-mix(in srgb, var(--palette-secondary-800) 12%, transparent);
-}
-
-.ds-opinion__mark {
+.ds-opinion::before {
+  content: "";
   position: absolute;
-  top: var(--space-8);
-  left: var(--space-28);
-  color: var(--palette-accent-400);
-  font-family: var(--font-heading);
-  font-size: var(--font-size-112);
-  line-height: 1;
+  inset: var(--space-12);
+  border: var(--space-1) solid color-mix(in srgb, var(--palette-accent-400) 70%, transparent);
+  border-radius: var(--radius-xs);
+  pointer-events: none;
+}
+
+.ds-opinions.is-deck .ds-opinion {
+  grid-area: 1 / 1;
+  cursor: grab;
+  user-select: none;
+}
+
+.ds-opinions.is-deck .ds-opinion:active {
+  cursor: grabbing;
+}
+
+.ds-opinion__seal {
+  position: absolute;
+  top: calc(var(--space-20) * -1);
+  left: calc(50% - var(--space-20));
+  display: grid;
+  place-items: center;
+  width: var(--size-40);
+  height: var(--size-40);
+  border-radius: var(--radius-full);
+  background: var(--palette-secondary-800);
+  box-shadow: 0 var(--space-4) var(--space-12) color-mix(in srgb, var(--palette-secondary-800) 35%, transparent);
+}
+
+.ds-opinion__seal-heart {
+  width: var(--size-16);
+  height: var(--size-16);
 }
 
 .ds-opinion__quote {
   margin: 0;
-}
-
-.ds-opinion__quote p {
-  margin: 0;
   color: var(--palette-secondary-800);
   font-family: var(--font-heading);
-  font-size: var(--font-size-xl);
-  line-height: 1.4;
+  font-size: var(--font-size-2xl);
+  line-height: 1.35;
+  text-wrap: balance;
 }
 
 .ds-opinion__who {
-  display: flex;
-  align-items: center;
-  gap: var(--space-12);
+  color: var(--palette-primary-800);
   font-size: var(--font-size-small);
+  letter-spacing: calc(var(--font-size-small) * 0.18);
+  text-transform: uppercase;
 }
 
-.ds-opinion__heart {
-  width: var(--size-44);
-  height: var(--size-44);
-}
-
-.ds-opinion__heart path {
-  fill: var(--palette-primary-50);
-  stroke: var(--palette-accent-400);
-  stroke-width: 3;
-}
-
-.ds-opinion__heart text {
-  fill: var(--palette-secondary-800);
-  font-family: var(--font-heading);
-  font-size: var(--font-size-36);
-}
-
-@media (max-width: 1023px) {
-  .ds-opinions__list {
-    grid-template-columns: 1fr;
+@media (max-width: 899px) {
+  .ds-opinions__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-40);
   }
-}
 
-@media (prefers-reduced-motion: reduce) {
   .ds-opinion {
-    transition: none;
+    padding: var(--space-48) var(--space-24) var(--space-28);
   }
 }
