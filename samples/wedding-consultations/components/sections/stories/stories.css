@@ -1,6 +1,12 @@
 /* Stories: recommendations as a deck of wedding cards (white, a gold inner frame, a heart seal), fanned slightly. Drag
    the top card aside, or use Previous / Next, or the arrow keys; the card flies off with a little turn and slips to the
    back. Without JS (or before it runs) the cards sit in a simple column. */
+/* A card dragged or flung past the screen edge must not widen the page (no sideways scroll). clip, not hidden: no
+   scroll box, so sticky and vertical scrolling stay as they are. */
+.ds-stories {
+  overflow-x: clip;
+}
+
 .ds-stories__grid {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);

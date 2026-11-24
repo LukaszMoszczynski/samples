@@ -1,6 +1,12 @@
 /* Opinions: a deck of cards on blush. White card, a gold inner frame, a plum seal holding a gold P·L·A·N heart. Drag
    the top card aside, or Previous / Next, or the arrow keys; it flies off with a little turn and slips to the back.
    Without JS the cards sit in a column. */
+/* A card dragged or flung past the screen edge must not widen the page (no sideways scroll). clip, not hidden: no
+   scroll box, so sticky and vertical scrolling stay as they are. */
+.ds-opinions {
+  overflow-x: clip;
+}
+
 .ds-opinions__grid {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
