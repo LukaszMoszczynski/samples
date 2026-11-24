@@ -1,6 +1,17 @@
 ---
-// Overline: the identity's small label, Libre Franklin in capitals with wide tracking, after a tiny gold heart.
+// Overline: the identity's small label, Libre Franklin in capitals with wide tracking, under a short gold line.
+// " · " in the text becomes a micro-heart (rosewood on light, gold on plum); without it a heart leads the text.
+// The first heart beats once when the label arrives (plan.js).
+import Heart from '../heart/Heart.astro';
 interface Props { text: string; tag?: 'p' | 'span' }
 const { text, tag: Tag = 'p' } = Astro.props;
+const parts = text.split(' · ');
 ---
-<Tag class="ds-overline"><svg class="ds-overline__heart" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 88C20 66 6 50 6 32 6 18 17 8 30 8c9 0 16 5 20 13 4-8 11-13 20-13 13 0 24 10 24 24 0 18-14 34-44 56z" /></svg>{text}</Tag>
+<Tag class="ds-overline">
+  <span class="ds-overline__line" aria-hidden="true"></span>
+  <span class="ds-overline__text">
+    {parts.length > 1
+      ? parts.map((part, index) => <>{index > 0 && <><Heart class="ds-overline__heart" data={index === 1 ? { 'data-beat': '' } : {}} /><span class="ds-visually-hidden"> · </span></>}{part}</>)
+      : <><Heart class="ds-overline__heart" data={{ 'data-beat': '' }} />{text}</>}
+  </span>
+</Tag>

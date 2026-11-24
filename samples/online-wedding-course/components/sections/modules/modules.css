@@ -89,6 +89,10 @@
 }
 
 .ds-module-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-10);
   margin: 0;
   color: var(--palette-primary-800);
   font-size: var(--font-size-small);
@@ -193,4 +197,9 @@
   .ds-module-card__letter {
     transition: none;
   }
+}
+
+.ds-module-card__heart {
+  width: var(--size-12);
+  height: var(--size-12);
 }

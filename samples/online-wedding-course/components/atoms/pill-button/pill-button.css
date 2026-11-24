@@ -1,5 +1,6 @@
-/* Pill button: the identity's "Zapisy trwają →". Plum with white text, gold with plum text on plum grounds, or an
-   outline. Hover: a light sweep and the arrow slides; press: a small settle. */
+/* Pill button: the identity's "Zapisy trwają ♥". Rosewood with white text and a gold micro-heart, gold with plum text
+   and a plum heart on plum grounds, or an outline. Hover: a light sweep, the heart lifts (and plan.js sends three
+   micro-hearts up); press: a small settle. */
 .ds-pill-button {
   position: relative;
   display: inline-flex;
@@ -35,6 +36,16 @@
   transform: translateX(110%);
 }
 
+.ds-pill-button__heart {
+  width: var(--size-12);
+  height: var(--size-12);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ds-pill-button:hover .ds-pill-button__heart {
+  transform: translateY(calc(var(--space-2) * -1)) scale(1.15);
+}
+
 .ds-pill-button__arrow {
   display: inline-block;
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -48,14 +59,14 @@
   transform: scale(0.97);
 }
 
-.ds-pill-button--plum {
-  background: var(--palette-secondary-800);
+.ds-pill-button--rose {
+  background: var(--palette-primary-600);
   color: var(--palette-neutral-0);
 }
 
-.ds-pill-button--plum:hover {
+.ds-pill-button--rose:hover {
   background: var(--palette-primary-800);
-  box-shadow: 0 var(--space-8) var(--space-24) color-mix(in srgb, var(--palette-secondary-800) 24%, transparent);
+  box-shadow: 0 var(--space-8) var(--space-24) color-mix(in srgb, var(--palette-primary-800) 28%, transparent);
 }
 
 .ds-pill-button--gold {
@@ -65,6 +76,14 @@
 
 .ds-pill-button--gold:hover {
   background: color-mix(in srgb, var(--palette-accent-400) 86%, var(--palette-neutral-0));
+}
+
+.ds-pill-button--gold .ds-heart__shape {
+  fill: var(--palette-secondary-800);
+}
+
+.ds-pill-button--outline .ds-heart__shape {
+  fill: var(--palette-primary-400);
 }
 
 .ds-pill-button--outline {
@@ -85,6 +104,7 @@
 @media (prefers-reduced-motion: reduce) {
   .ds-pill-button,
   .ds-pill-button::after,
+  .ds-pill-button__heart,
   .ds-pill-button__arrow {
     transition: none;
   }

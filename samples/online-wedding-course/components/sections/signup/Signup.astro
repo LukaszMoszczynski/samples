@@ -2,12 +2,15 @@
 // Free first lesson: a short form (names, e-mail, wedding date, consent). Sample only: the forms kit validates and the
 // clover's hearts light up one by one before the thank-you; nothing is sent (plan.js).
 import Overline from '../../atoms/overline/Overline.astro';
+import Heart from '../../atoms/heart/Heart.astro';
+import Divider from '../../molecules/divider/Divider.astro';
 import PillButton from '../../atoms/pill-button/PillButton.astro';
 import Clover from '../../atoms/clover/Clover.astro';
 interface Props { label: string; title: string; accent: string; lead: string; points: string[] }
 const { label, title, accent, lead, points } = Astro.props;
 ---
 <section class="ds-section ds-section--ecru ds-signup" id="zapisy" aria-labelledby="zapisy-title">
+  <Heart variant="outline" class="ds-corner-heart ds-signup__corner" />
   <div class="ds-container ds-signup__grid">
     <div data-reveal>
       <div class="ds-section-head">
@@ -16,6 +19,7 @@ const { label, title, accent, lead, points } = Astro.props;
         <p class="ds-section-head__lead">{lead}</p>
       </div>
       <ul class="ds-signup__points" role="list">{points.map((point) => <li>{point}</li>)}</ul>
+      <Heart variant="echo" class="ds-signup__echo" />
     </div>
     <form class="ds-signup__card" data-signup-form data-reveal>
       <Clover class="ds-signup__clover" />

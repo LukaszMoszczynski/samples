@@ -1,14 +1,18 @@
 ---
 // How the course works, on plum: three steps joined by a gold line that draws as the section scrolls in.
 import Overline from '../../atoms/overline/Overline.astro';
+import Heart from '../../atoms/heart/Heart.astro';
+import Divider from '../../molecules/divider/Divider.astro';
 interface Props { label: string; title: string; accent: string; steps: { title: string; text: string }[] }
 const { label, title, accent, steps } = Astro.props;
 ---
 <section class="ds-section ds-section--plum ds-steps" id="jak" aria-labelledby="jak-title">
+  <Heart variant="outline" class="ds-corner-heart ds-steps__corner" />
   <div class="ds-container">
     <div class="ds-section-head ds-section-head--center" data-reveal>
       <Overline text={label} />
       <h2 class="ds-section-head__title" id="jak-title">{title} <span class="ds-accent">{accent}</span></h2>
+      <Divider />
     </div>
     <div class="ds-steps__track">
       <svg class="ds-steps__line" viewBox="0 0 1000 20" preserveAspectRatio="none" aria-hidden="true"><path d="M0 10 C 160 -2, 340 22, 500 10 S 840 -2, 1000 10" pathLength="1000" data-draw data-steps-line /></svg>

@@ -1,14 +1,31 @@
-/* Overline: capitals, about 18% tracking, gold heart before the text. */
+/* Overline: a short gold line above, capitals with about 18% tracking, micro-hearts as separators. */
 .ds-overline {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-10);
+  display: grid;
+  justify-items: start;
+  gap: var(--space-14);
   margin: 0;
   color: var(--palette-primary-800);
   font-size: var(--font-size-small);
   font-weight: var(--font-weight-medium);
   letter-spacing: calc(var(--font-size-small) * 0.18);
   text-transform: uppercase;
+}
+
+.ds-section-head--center .ds-overline {
+  justify-items: center;
+}
+
+.ds-overline__line {
+  width: var(--space-32);
+  height: var(--space-1);
+  background: var(--palette-accent-400);
+}
+
+.ds-overline__text {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-10);
 }
 
 .ds-section--plum .ds-overline {
@@ -18,7 +35,8 @@
 .ds-overline__heart {
   width: var(--size-12);
   height: var(--size-12);
-  fill: none;
-  stroke: var(--palette-accent-400);
-  stroke-width: 8;
+}
+
+.ds-section--plum .ds-overline__heart .ds-heart__shape {
+  fill: var(--palette-accent-400);
 }

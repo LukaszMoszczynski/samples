@@ -8,6 +8,29 @@
     var(--color-surface-page);
 }
 
+.ds-plan-hero__drift {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.ds-plan-hero__drift-item {
+  position: absolute;
+  bottom: calc(var(--space-40) * -1);
+  opacity: 0;
+}
+
+.ds-plan-hero__drift-heart {
+  display: block;
+  width: var(--size-20);
+  height: var(--size-20);
+}
+
+.ds-plan-hero__grid {
+  position: relative;
+}
+
 .ds-plan-hero__defs {
   position: absolute;
   width: 0;
@@ -67,10 +90,15 @@
   text-transform: uppercase;
 }
 
-.ds-plan-hero__values li + li::before {
-  content: "·";
-  margin-right: var(--space-16);
-  color: var(--palette-accent-500);
+.ds-plan-hero__values li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-16);
+}
+
+.ds-plan-hero__value-heart {
+  width: var(--size-12);
+  height: var(--size-12);
 }
 
 .ds-plan-hero__art {

@@ -1,11 +1,14 @@
 ---
-// Pill button: plum (default), gold for plum grounds, or an outline. A light sweep crosses it on hover and the arrow
-// slides on. Renders <a> with href, otherwise <button>.
-interface Props { text: string; href?: string; variant?: 'plum' | 'gold' | 'outline'; type?: 'button' | 'submit'; arrow?: boolean; data?: Record<string, string> }
-const { text, href, variant = 'plum', type = 'button', arrow = true, data = {} } = Astro.props;
+// Pill button: rosewood (default) with a gold micro-heart, gold with a plum heart for plum grounds, or an outline.
+// A light sweep crosses it on hover and three micro-hearts rise from it (plan.js). Renders <a> with href, otherwise
+// <button>. `icon` "arrow" keeps the arrow, "none" drops the icon.
+import Heart from '../heart/Heart.astro';
+interface Props { text: string; href?: string; variant?: 'rose' | 'gold' | 'outline'; type?: 'button' | 'submit'; icon?: 'heart' | 'arrow' | 'none'; data?: Record<string, string> }
+const { text, href, variant = 'rose', type = 'button', icon = 'heart', data = {} } = Astro.props;
 const Tag = href ? 'a' : 'button';
 ---
-<Tag class:list={['ds-pill-button', `ds-pill-button--${variant}`]} href={href} type={href ? undefined : type} {...data}>
+<Tag class:list={['ds-pill-button', `ds-pill-button--${variant}`]} href={href} type={href ? undefined : type} data-rise={icon === 'heart' ? '' : undefined} {...data}>
   <span class="ds-pill-button__text">{text}</span>
-  {arrow && <span class="ds-pill-button__arrow" aria-hidden="true">→</span>}
+  {icon === 'heart' && <Heart variant="gold" class="ds-pill-button__heart" />}
+  {icon === 'arrow' && <span class="ds-pill-button__arrow" aria-hidden="true">→</span>}
 </Tag>

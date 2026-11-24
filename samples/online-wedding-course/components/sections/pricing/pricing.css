@@ -85,19 +85,29 @@
 }
 
 .ds-price-card__points li {
-  position: relative;
-  padding-left: var(--space-28);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-12);
 }
 
-.ds-price-card__points li::before {
-  content: "";
-  position: absolute;
-  top: calc(var(--font-size-body) * 0.35);
-  left: 0;
-  width: var(--space-14);
-  height: var(--space-14);
-  background: var(--palette-accent-400);
-  clip-path: path("M7 13C3 10 .5 7.8.5 5 .5 3 2 1.5 4 1.5c1.3 0 2.4.7 3 1.8.6-1.1 1.7-1.8 3-1.8 2 0 3.5 1.5 3.5 3.5 0 2.8-2.5 5-6.5 8z");
+.ds-price-card__bullet {
+  width: var(--size-12);
+  height: var(--size-12);
+  margin-top: calc(var(--font-size-body) * 0.4);
+}
+
+.ds-price-card {
+  overflow: hidden;
+}
+
+.ds-price-card > :not(.ds-corner-heart) {
+  position: relative;
+}
+
+.ds-price-card__corner {
+  right: calc(var(--space-40) * -1);
+  bottom: calc(var(--space-56) * -1);
+  width: calc(var(--size-160) * 1.1);
 }
 
 .ds-price-card .ds-pill-button {

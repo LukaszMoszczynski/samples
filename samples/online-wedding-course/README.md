@@ -9,7 +9,7 @@ the cart, the checkout step and the course panel are working demo screens marked
 
 ## Visual direction
 "Book-like elegance": ecru and warm greys as the base, rosewood and plum as character, gold as the accent (60 / 30 /
-10). Gilda Display for headings (one style: accents are made with colour, never italics), Libre Franklin Light for
+10), with more gold in the graphics (lines, outlines, micro-hearts; never in text) and the P·L·A·N heart as a motif. Gilda Display for headings (one style: accents are made with colour, never italics), Libre Franklin Light for
 text, capitals with wide tracking for labels. The mark's shape, a clover of four hearts (P·L·A·N: Pragnienia, Lekkość,
 Atmosfera, Na zawsze), holds the "photos" and shows where you are.
 
@@ -22,6 +22,10 @@ Atmosfera, Na zawsze), holds the "photos" and shows where you are.
 - Course panel: ticking tasks draws the tick, moves the progress and fills the module's heart.
 - Shop: "Do koszyka" pops the cart count and slides the cart panel in; checkout step and thank-you.
 - Opinions tilt slightly toward the pointer; FAQ answers rise in; the sign-up lights the clover's hearts one by one.
+- Small hearts (from the handoff's motion board, each plays once): three micro-hearts rise from a heart button on
+  hover; the label's micro-heart beats once when its section arrives; the gold dividers' hearts light up one by one.
+- Quiet brand hearts drift up behind the hero (taken from the wedding sample, fewer and slower; paused off screen).
+  The brand board says "no loops": this is the one deliberate exception, easy to turn into a single pass.
 - Everything respects reduced motion; content is complete without JS.
 
 ## Design system parts
@@ -29,7 +33,10 @@ Atmosfera, Na zawsze), holds the "photos" and shows where you are.
 
 ## New in this sample
 - Clover (`components/atoms/clover/`): the brand's four-heart mark as a component with an active heart.
-- Overline, Pill button (`components/atoms/`): the identity's label and "Zapisy trwają →" button.
+- Heart (`components/atoms/heart/`): one clover heart turned upright; outline, rosewood, gold, tint and echo variants.
+- Overline, Pill button (`components/atoms/`): the label under a short gold line with micro-hearts, and the rosewood
+  "Zapisy trwają ♥" button.
+- Divider (`components/molecules/divider/`): gold hairlines with micro-hearts that light up one by one.
 - Wordmark (`components/molecules/wordmark/`): the logo lockup, clover mark plus the outlined wordmark.
 - Header and footer (`components/organisms/plan-header`, `plan-footer`): menu, demo cart, phone overlay drawer.
 - Sections: hero, modules with the clover guide, steps, course panel demo, pricing with the cart dialog, opinions, FAQ,

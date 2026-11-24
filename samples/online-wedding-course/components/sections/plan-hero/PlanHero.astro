@@ -1,15 +1,18 @@
 ---
-// Course hero: motto with the accent in rosewood, lead, two actions, the four values, and the large clover whose
+// Course hero: motto with the accent in rosewood, lead, two actions, the four values with micro-hearts, quiet hearts drifting up behind, and the large clover whose
 // hearts hold soft "photo" fields (placeholders until the identity photos are licensed). The outline draws in.
 import Overline from '../../atoms/overline/Overline.astro';
 import PillButton from '../../atoms/pill-button/PillButton.astro';
 import Clover from '../../atoms/clover/Clover.astro';
+import Heart from '../../atoms/heart/Heart.astro';
 interface Props {
   label: string; title: string; accent: string; lead: string;
   primary: { text: string; href: string }; secondary: { text: string; href: string };
   values: string[]; facts: { value: string; label: string }[];
 }
 const { label, title, accent, lead, primary, secondary, values, facts } = Astro.props;
+// Background hearts drifting up behind the hero (from the wedding sample, made quieter: fewer, slower, brand hearts).
+const drift = Array.from({ length: 8 }, (_, index) => ({ left: 6 + ((index * 41) % 88), size: 0.7 + ((index * 7) % 6) / 10, variant: index % 3 === 0 ? 'outline' : 'rose' }));
 ---
 <section class="ds-plan-hero" id="top" aria-labelledby="hero-title">
   <svg class="ds-plan-hero__defs" aria-hidden="true" focusable="false">
@@ -20,6 +23,9 @@ const { label, title, accent, lead, primary, secondary, values, facts } = Astro.
       <linearGradient id="hero-fill-3" x1="1" y1="1" x2="0" y2="0"><stop class="ds-plan-hero__stop--gold" offset="0" /><stop class="ds-plan-hero__stop--ecru" offset="1" /></linearGradient>
     </defs>
   </svg>
+  <div class="ds-plan-hero__drift" aria-hidden="true">
+    {drift.map((item) => <span class="ds-plan-hero__drift-item" style={`left:${item.left}%`} data-scale={item.size} data-drift-heart><Heart variant={item.variant as 'outline' | 'rose'} class="ds-plan-hero__drift-heart" /></span>)}
+  </div>
   <div class="ds-container ds-plan-hero__grid">
     <div class="ds-plan-hero__text">
       <div data-hero-fade><Overline text={label} /></div>
@@ -27,10 +33,10 @@ const { label, title, accent, lead, primary, secondary, values, facts } = Astro.
       <p class="ds-plan-hero__lead" data-hero-fade>{lead}</p>
       <div class="ds-plan-hero__actions" data-hero-fade>
         <PillButton text={primary.text} href={primary.href} />
-        <PillButton text={secondary.text} href={secondary.href} variant="outline" arrow={false} />
+        <PillButton text={secondary.text} href={secondary.href} variant="outline" icon="none" />
       </div>
       <ul class="ds-plan-hero__values" role="list" aria-label="Co dostajecie" data-hero-fade>
-        {values.map((value) => <li>{value}</li>)}
+        {values.map((value, index) => <li>{index > 0 && <Heart class="ds-plan-hero__value-heart" />}{value}</li>)}
       </ul>
     </div>
     <div class="ds-plan-hero__art">

@@ -81,3 +81,19 @@
     transition: none;
   }
 }
+
+/* Section frame for the gold corner heart (cut by the section edge). */
+.ds-steps {
+  position: relative;
+  overflow: hidden;
+}
+
+.ds-steps__corner {
+  right: calc(var(--space-40) * -1);
+  bottom: calc(var(--size-160) * -0.75);
+  width: calc(var(--size-160) * 1.3);
+}
+
+.ds-steps .ds-container {
+  position: relative;
+}

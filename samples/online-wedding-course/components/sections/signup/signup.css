@@ -132,3 +132,33 @@
     transition: none;
   }
 }
+
+/* Gold corner heart cut by the section edge, and the large tint heart with its gold echo under the list. */
+.ds-signup {
+  position: relative;
+  overflow: hidden;
+}
+
+.ds-signup__corner {
+  right: auto;
+  left: calc(var(--space-64) * -1);
+  bottom: calc(var(--size-160) * -0.5);
+  width: calc(var(--size-160) * 1.6);
+}
+
+.ds-signup__echo {
+  display: block;
+  width: calc(var(--size-160) * 0.9);
+  height: auto;
+  margin-top: var(--space-40);
+}
+
+.ds-signup__grid {
+  position: relative;
+}
+
+@media (max-width: 1023px) {
+  .ds-signup__echo {
+    display: none;
+  }
+}

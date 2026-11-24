@@ -1,0 +1,13 @@
+---
+// The brand's heart: one heart of the P·L·A·N clover (a square plus two circles), turned upright. Variants from the
+// handoff's motif board: gold outline, rosewood, gold, rose tint, and "echo" (tint heart with a gold contour moved up
+// and to the right). Always decorative.
+interface Props { variant?: 'outline' | 'rose' | 'gold' | 'tint' | 'echo'; class?: string; data?: Record<string, string> }
+const { variant = 'rose', class: className = '', data = {} } = Astro.props;
+const heart = 'M112.7 206L19.4 112.7A66 66 0 0 1 112.7 19.4A66 66 0 0 1 206 112.7Z';
+const echo = variant === 'echo';
+---
+<svg class:list={['ds-heart', `ds-heart--${variant}`, className]} viewBox={echo ? '0 -28 254 235' : '0 0 226 207'} aria-hidden="true" focusable="false" {...data}>
+  {echo && <path class="ds-heart__fill" d={heart} />}
+  <path class="ds-heart__shape" d={heart} transform={echo ? 'translate(28 -28)' : undefined} pathLength="1000" />
+</svg>

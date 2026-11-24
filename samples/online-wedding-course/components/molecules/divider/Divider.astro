@@ -1,0 +1,12 @@
+---
+// Divider: thin gold lines with micro-hearts between them. With motion the hearts light up one by one as the divider
+// arrives (plan.js), then stay; `count` 1 gives the plain separator from the motif board.
+import Heart from '../../atoms/heart/Heart.astro';
+interface Props { count?: number; class?: string }
+const { count = 4, class: className = '' } = Astro.props;
+---
+<div class:list={['ds-divider', className]} aria-hidden="true" data-divider>
+  <span class="ds-divider__line"></span>
+  {Array.from({ length: count }, () => <Heart variant="gold" class="ds-divider__heart" />)}
+  <span class="ds-divider__line"></span>
+</div>

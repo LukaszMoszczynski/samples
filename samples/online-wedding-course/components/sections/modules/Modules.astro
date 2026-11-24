@@ -3,6 +3,7 @@
 // its letters link to the modules; phones: every module card carries its own small clover with its heart lit.
 import Overline from '../../atoms/overline/Overline.astro';
 import Clover from '../../atoms/clover/Clover.astro';
+import Heart from '../../atoms/heart/Heart.astro';
 interface Module { letter: string; name: string; title: string; text: string; lessons: string[]; length: string }
 interface Props { label: string; title: string; accent: string; lead: string; modules: Module[] }
 const { label, title, accent, lead, modules } = Astro.props;
@@ -30,7 +31,7 @@ const { label, title, accent, lead, modules } = Astro.props;
           <li class="ds-modules__item" id={`modul-${index + 1}`} data-module={index} data-reveal>
             <article class="ds-module-card" aria-labelledby={`modul-${index + 1}-title`}>
               <Clover class="ds-module-card__clover" active={index} />
-              <p class="ds-module-card__meta">Moduł {index + 1} · {module.name} · {module.length}</p>
+              <p class="ds-module-card__meta">Moduł {index + 1}<Heart class="ds-module-card__heart" /><span class="ds-visually-hidden"> · </span>{module.name}<span aria-hidden="true">·</span><span class="ds-visually-hidden"> </span>{module.length}</p>
               <h3 class="ds-module-card__title" id={`modul-${index + 1}-title`}>{module.title}</h3>
               <p class="ds-module-card__text">{module.text}</p>
               <ul class="ds-module-card__lessons" role="list">

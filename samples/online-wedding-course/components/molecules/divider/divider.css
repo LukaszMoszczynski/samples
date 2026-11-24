@@ -1,0 +1,34 @@
+/* Divider: gold hairlines and gold micro-hearts. Before plan.js lights them, the hearts wait in rose tint. */
+.ds-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.ds-divider__line {
+  width: var(--space-40);
+  height: var(--space-1);
+  background: var(--palette-accent-400);
+}
+
+.ds-divider__line:first-child {
+  margin-right: var(--space-4);
+}
+
+.ds-divider__line:last-child {
+  margin-left: var(--space-4);
+}
+
+.ds-divider__heart {
+  width: var(--size-12);
+  height: var(--size-12);
+}
+
+[data-motion] .ds-divider__heart:not(.is-lit) .ds-heart__shape {
+  fill: var(--palette-primary-50);
+}
+
+.ds-section--plum [data-motion] .ds-divider__heart:not(.is-lit) .ds-heart__shape,
+[data-motion] .ds-section--plum .ds-divider__heart:not(.is-lit) .ds-heart__shape {
+  fill: color-mix(in srgb, var(--palette-accent-400) 25%, transparent);
+}

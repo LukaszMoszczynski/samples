@@ -79,6 +79,67 @@ if (!reduceMotion) {
   gsap.to('.ds-plan-hero__clover', { rotation: 3, duration: 6, ease: 'sine.inOut', yoyo: true, repeat: -1, delay: 2.6, transformOrigin: '50% 50%' });
 }
 
+// --- Small hearts (the handoff's motion board; each plays once, never a loop) ------------------------------------------
+
+const heartPath = 'M112.7 206L19.4 112.7A66 66 0 0 1 112.7 19.4A66 66 0 0 1 206 112.7Z';
+if (!reduceMotion) {
+  // 1 · Rise: hovering a heart button sends three micro-hearts up about 24 px; they fade (about 1.2 s, once per hover).
+  // They live in a fixed layer on top of the page, so the button's own clipping and layout stay untouched.
+  const gold = getComputedStyle(document.documentElement).getPropertyValue('--palette-accent-400').trim();
+  document.querySelectorAll('[data-rise]').forEach((button) => {
+    let busy = false;
+    button.addEventListener('pointerenter', () => {
+      if (busy) return;
+      busy = true;
+      const icon = button.querySelector('.ds-pill-button__heart') ?? button;
+      const box = icon.getBoundingClientRect();
+      [-12, 0, 12].forEach((offset, index) => {
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('viewBox', '0 0 226 207');
+        svg.setAttribute('aria-hidden', 'true');
+        svg.innerHTML = `<path d="${heartPath}" fill="${gold}" />`;
+        Object.assign(svg.style, { position: 'fixed', left: `${box.left + box.width / 2 - 5 + offset}px`, top: `${box.top - 4}px`, width: '10px', height: '10px', pointerEvents: 'none', zIndex: '60' });
+        document.body.append(svg);
+        gsap.fromTo(svg, { y: 0, opacity: 0, scale: 0.6 }, { y: -24 - index * 4, opacity: 1, scale: 1, duration: 0.5, delay: index * 0.12, ease: 'power2.out' });
+        gsap.to(svg, { opacity: 0, y: -32 - index * 4, duration: 0.6, delay: 0.55 + index * 0.12, ease: 'power1.in', onComplete: () => svg.remove() });
+      });
+      setTimeout(() => { busy = false; }, 1300);
+    });
+  });
+
+  // 2 · Beat once: the label's micro-heart beats when its section arrives (100 → 115 → 100%, about 600 ms).
+  gsap.utils.toArray('[data-beat]').forEach((heart) => {
+    ScrollTrigger.create({ trigger: heart, start: 'top 85%', once: true, onEnter: () => {
+      gsap.timeline({ delay: 0.3 })
+        .to(heart, { scale: 1.15, duration: 0.2, ease: 'power2.out', transformOrigin: '50% 60%' })
+        .to(heart, { scale: 1, duration: 0.4, ease: 'power2.inOut' });
+    } });
+  });
+
+  // 3 · One by one: the divider's micro-hearts light up about 120 ms apart as it arrives, then stay.
+  gsap.utils.toArray('[data-divider]').forEach((divider) => {
+    const hearts = divider.querySelectorAll('.ds-divider__heart');
+    ScrollTrigger.create({ trigger: divider, start: 'top 88%', once: true, onEnter: () => {
+      hearts.forEach((heart, index) => setTimeout(() => heart.classList.add('is-lit'), 250 + index * 120));
+    } });
+  });
+
+  // Background: brand hearts drift up behind the hero (from the wedding sample, made quieter); paused off screen.
+  const driftTimelines = gsap.utils.toArray('[data-drift-heart]').map((heart, index) => {
+    const scale = Number(heart.dataset.scale) || 1;
+    const duration = gsap.utils.random(14, 22);
+    gsap.set(heart, { scale, opacity: 0 });
+    return gsap.timeline({ repeat: -1, delay: 2.5 + index * 1.6 })
+      .fromTo(heart, { y: 0, x: 0, rotation: gsap.utils.random(-15, 15) }, { y: () => -(heart.parentElement.offsetHeight + 80), x: gsap.utils.random(-30, 30), rotation: gsap.utils.random(-25, 25), duration, ease: 'none' })
+      .to(heart, { opacity: 0.45, duration: duration * 0.2 }, 0)
+      .to(heart, { opacity: 0, duration: duration * 0.25 }, duration * 0.75);
+  });
+  const hero = document.querySelector('.ds-plan-hero');
+  if (hero && driftTimelines.length) {
+    ScrollTrigger.create({ trigger: hero, start: 'top bottom', end: 'bottom top', onToggle: (self) => driftTimelines.forEach((timeline) => (self.isActive ? timeline.resume() : timeline.pause())) });
+  }
+}
+
 // --- Modules: the sticky clover lights the heart of the module in view -------------------------------------------------
 
 const guideParts = [...document.querySelectorAll('.ds-modules__clover [data-clover-part]')];

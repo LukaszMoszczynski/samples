@@ -2,6 +2,8 @@
 // Packages and the demo shop: "Do koszyka" adds a package to the cart panel (a dialog), which goes on to a short
 // checkout step. Sample only: nothing is charged or sent (plan.js). In the finished site: WooCommerce.
 import Overline from '../../atoms/overline/Overline.astro';
+import Heart from '../../atoms/heart/Heart.astro';
+import Divider from '../../molecules/divider/Divider.astro';
 import PillButton from '../../atoms/pill-button/PillButton.astro';
 interface Plan { id: string; name: string; price: number; note: string; points: string[]; featured?: boolean }
 interface Props { label: string; title: string; accent: string; lead: string; plans: Plan[] }
@@ -13,18 +15,20 @@ const money = (value: number) => `${value.toLocaleString('pl-PL')} zł`;
     <div class="ds-section-head ds-section-head--center" data-reveal>
       <Overline text={label} />
       <h2 class="ds-section-head__title" id="cennik-title">{title} <span class="ds-accent">{accent}</span></h2>
+      <Divider />
       <p class="ds-section-head__lead">{lead}</p>
     </div>
     <ul class="ds-pricing__list" role="list">
       {plans.map((plan) => (
         <li class="ds-pricing__item" data-reveal>
           <article class:list={['ds-price-card', { 'ds-price-card--featured': plan.featured }]} aria-labelledby={`plan-${plan.id}`}>
+            <Heart variant="outline" class="ds-corner-heart ds-price-card__corner" />
             {plan.featured && <p class="ds-price-card__badge">Najczęściej wybierany</p>}
             <h3 class="ds-price-card__name" id={`plan-${plan.id}`}>{plan.name}</h3>
             <p class="ds-price-card__price">{money(plan.price)}</p>
             <p class="ds-price-card__note">{plan.note}</p>
-            <ul class="ds-price-card__points" role="list">{plan.points.map((point) => <li>{point}</li>)}</ul>
-            <PillButton text="Do koszyka" variant={plan.featured ? 'gold' : 'plum'} data={{ 'data-cart-add': plan.id, 'data-name': plan.name, 'data-price': String(plan.price) }} />
+            <ul class="ds-price-card__points" role="list">{plan.points.map((point) => <li><Heart variant={plan.featured ? 'gold' : 'rose'} class="ds-price-card__bullet" />{point}</li>)}</ul>
+            <PillButton text="Do koszyka" variant={plan.featured ? 'gold' : 'rose'} data={{ 'data-cart-add': plan.id, 'data-name': plan.name, 'data-price': String(plan.price) }} />
           </article>
         </li>
       ))}
