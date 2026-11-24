@@ -17,7 +17,8 @@ the meter, on cards, a huge rose sun behind the portrait (the change of scale fr
 ## Motion
 - Hero as a film: letterbox bars open, the title arrives line by line, the portrait opens from a circle while the photo
   settles, the ring turns in, two balls roll into the frame; in the header the logo's "o" rolls in and the "!" drops.
-- Cursor ribbon (from the brief): a trail of balls in rose and plum follows a mouse pointer and fades when it rests.
+- Ball cursor (from the brief): a rose ball replaces the arrow (a ring over anything clickable, the text cursor in
+  fields) and a trail of balls in rose and plum follows it, fading when the mouse rests.
 - Sections rise in softly; nothing bounces.
 - Manifesto and makeovers: a rose line strikes through the old words, then the new claim rises in.
 - Process: the track draws once and a ball rolls along it, filling each step's circle as it passes (down the left on
@@ -26,7 +27,8 @@ the meter, on cards, a huge rose sun behind the portrait (the change of scale fr
 - Mini-audit: every "Tak" rolls a ball into the meter; the verdict changes with the count.
 - CTA: a ball grows from the arrow side and fills the pill. Menu: a small rose ball rolls under the link.
 - Heavy layer (owner's request, 25 Nov; goes beyond the brief's "subdued", eases stay smooth, nothing bounces):
-  - background orbs in every section (rose, plum, lemon) drift and breathe, move at their own depth with the scroll
+  - background orbs in every section (rose, plum, lemon) travel across the whole section, leg after leg, and breathe;
+    they move at their own depth with the scroll
     and lean away from the pointer; a dashed ring turns slowly; loops pause off screen;
   - hero depth: sun, ring, frame and balls follow the pointer at different depths, the sun breathes, the copy drifts
     up and the portrait sinks as you leave the hero;

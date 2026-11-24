@@ -1,8 +1,10 @@
 ---
-// Cursor ribbon from the brief: a trail of balls in rose and plum that follows a mouse pointer (site.js). Decorative,
-// never catches clicks, only for a fine pointer and without a reduced-motion preference.
-const colours = ['rose', 'light-rose', 'plum', 'rose', 'light-rose', 'plum', 'rose', 'light-rose'];
+// Ball cursor from the brief ("kursor-wstęga kółek w różach i śliwce"): a rose lead ball replaces the arrow and a
+// trail of balls in rose and plum follows it (site.js). Decorative, never catches clicks, only for a mouse and without
+// a reduced-motion preference; otherwise the system cursor stays.
+const colours = ['light-rose', 'plum', 'rose', 'light-rose', 'plum', 'rose', 'light-rose'];
 ---
 <div class="ds-cursor-ribbon" aria-hidden="true" data-cursor-ribbon hidden>
   {colours.map((colour) => <span class={`ds-cursor-ribbon__dot ds-cursor-ribbon__dot--${colour}`}></span>)}
+  <span class="ds-cursor-ribbon__lead" data-cursor-lead></span>
 </div>

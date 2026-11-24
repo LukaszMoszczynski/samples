@@ -1,5 +1,6 @@
-/* Cursor ribbon: fixed layer above the page that never takes the pointer; site.js sizes each dot smaller than the
-   one before. */
+/* Ball cursor: fixed layer above the page that never takes the pointer. The lead is a rose ball with a cream edge
+   (visible on plum and on cream); over links and buttons it opens into a ring, pressed it shrinks; over text fields
+   it hides and the system text cursor shows. The trail dots get smaller one by one (site.js). */
 .ds-cursor-ribbon {
   position: fixed;
   inset: 0;
@@ -8,17 +9,59 @@
   overflow: hidden;
 }
 
-.ds-cursor-ribbon__dot {
+.ds-cursor-ribbon__dot,
+.ds-cursor-ribbon__lead {
   position: absolute;
   top: 0;
   left: 0;
-  width: var(--size-12);
   aspect-ratio: 1;
-  margin: calc(var(--size-12) / -2) 0 0 calc(var(--size-12) / -2);
   border-radius: var(--radius-full);
   opacity: 0;
+}
+
+.ds-cursor-ribbon__dot {
+  width: var(--size-12);
+  margin: calc(var(--size-12) / -2) 0 0 calc(var(--size-12) / -2);
 }
 
 .ds-cursor-ribbon__dot--rose { background: var(--palette-primary-600); }
 .ds-cursor-ribbon__dot--light-rose { background: var(--palette-primary-400); }
 .ds-cursor-ribbon__dot--plum { background: var(--palette-secondary-600); }
+
+.ds-cursor-ribbon__lead {
+  width: var(--size-16);
+  margin: calc(var(--size-16) / -2) 0 0 calc(var(--size-16) / -2);
+  box-sizing: border-box;
+  border: var(--space-2) solid var(--palette-neutral-50);
+  background: var(--palette-primary-600);
+  transition: scale 0.35s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s ease, border-color 0.3s ease, opacity 0.2s ease;
+}
+
+.ds-cursor-ribbon__lead.is-link {
+  scale: 2.6;
+  border-width: var(--space-1);
+  border-color: var(--palette-primary-600);
+  background: color-mix(in srgb, var(--palette-primary-400) 25%, transparent);
+}
+
+.ds-cursor-ribbon__lead.is-down {
+  scale: 0.7;
+}
+
+.ds-cursor-ribbon__lead.is-link.is-down {
+  scale: 2;
+}
+
+.ds-cursor-ribbon__lead.is-text {
+  scale: 0;
+}
+
+/* The system arrow goes while the ball cursor runs; text fields keep the text cursor. */
+.ds-has-ball-cursor,
+.ds-has-ball-cursor * {
+  cursor: none !important;
+}
+
+.ds-has-ball-cursor :is(input:not([type="radio"]):not([type="checkbox"]), textarea) {
+  cursor: text !important;
+}

@@ -234,26 +234,39 @@ contactForm?.addEventListener('submit', (event) => {
 const ribbon = document.querySelector('[data-cursor-ribbon]');
 if (ribbon && !reduceMotion && window.matchMedia('(pointer: fine)').matches) {
   ribbon.hidden = false;
-  const dots = [...ribbon.children];
+  // The lead ball replaces the arrow (html.ds-has-ball-cursor hides the system cursor, text fields keep theirs); it sits
+  // exactly on the pointer and opens into a ring over anything clickable. The trail follows the lead.
+  const lead = ribbon.querySelector('[data-cursor-lead]');
+  const dots = [...ribbon.querySelectorAll('.ds-cursor-ribbon__dot')];
   const points = dots.map(() => ({ x: -100, y: -100 }));
   const pointer = { x: -100, y: -100 };
+  const moveLead = { x: gsap.quickSetter(lead, 'x', 'px'), y: gsap.quickSetter(lead, 'y', 'px') };
   let idle = null;
-  dots.forEach((dot, index) => gsap.set(dot, { scale: 1 - index * 0.09 }));
+  document.documentElement.classList.add('ds-has-ball-cursor');
+  dots.forEach((dot, index) => gsap.set(dot, { scale: 0.8 - index * 0.08 }));
   window.addEventListener('pointermove', (event) => {
     if (event.pointerType !== 'mouse') return;
     pointer.x = event.clientX;
     pointer.y = event.clientY;
+    moveLead.x(pointer.x);
+    moveLead.y(pointer.y);
+    gsap.to(lead, { opacity: 1, duration: 0.2, overwrite: 'auto' });
+    const target = event.target instanceof Element ? event.target : null;
+    lead.classList.toggle('is-link', Boolean(target?.closest('a, button, label, [role="option"], input[type="radio"], input[type="checkbox"]')));
+    lead.classList.toggle('is-text', Boolean(target?.closest('input:not([type="radio"]):not([type="checkbox"]), textarea')));
     gsap.to(dots, { opacity: 0.85, duration: 0.3, overwrite: 'auto' });
     clearTimeout(idle);
     idle = setTimeout(() => gsap.to(dots, { opacity: 0, duration: 0.8, stagger: 0.04 }), 700);
   }, { passive: true });
-  document.documentElement.addEventListener('pointerleave', () => gsap.to(dots, { opacity: 0, duration: 0.4 }));
+  window.addEventListener('pointerdown', () => lead.classList.add('is-down'));
+  window.addEventListener('pointerup', () => lead.classList.remove('is-down'));
+  document.documentElement.addEventListener('pointerleave', () => gsap.to([lead, ...dots], { opacity: 0, duration: 0.4 }));
   gsap.ticker.add(() => {
     points.forEach((point, index) => {
       const target = index === 0 ? pointer : points[index - 1];
       point.x += (target.x - point.x) * 0.35;
       point.y += (target.y - point.y) * 0.35;
-      gsap.set(dots[index], { x: point.x + 14, y: point.y + 18 });
+      gsap.set(dots[index], { x: point.x, y: point.y });
     });
   });
 }
@@ -270,25 +283,36 @@ if (!reduceMotion) {
     onToggle: (self) => loops.forEach((loop) => (self.isActive ? loop.resume() : loop.pause())),
   });
 
-  // Background orbs: each drifts and breathes on its own clock, moves at its own depth with the scroll, and the whole
-  // layer leans away from the pointer (read on the section, the steady parent).
+  // Background orbs travel: each wanders across its whole section, leg after leg to a new random spot (smooth, no
+  // stops), breathing as it goes; they move at their own depth with the scroll, and the whole layer leans away from
+  // the pointer (read on the section, the steady parent). Everything pauses while the section is off screen.
   document.querySelectorAll('[data-orbs]').forEach((layer) => {
     const section = layer.parentElement;
     const orbs = [...layer.querySelectorAll('[data-orb]')];
-    const loops = orbs.map((orb, index) => gsap.to(orb, {
-      xPercent: gsap.utils.random(-35, 35),
-      yPercent: gsap.utils.random(-30, 30),
-      scale: gsap.utils.random(0.8, 1.25),
-      duration: gsap.utils.random(6, 11),
-      ease: 'sine.inOut',
-      yoyo: true,
-      repeat: -1,
-      delay: index * -1.7,
-    }));
+    const legs = new Map();
+    let onScreen = false;
+    const travel = (orb) => {
+      const size = orb.offsetWidth;
+      const x = gsap.utils.random(-orb.offsetLeft - size * 0.4, layer.clientWidth - orb.offsetLeft - size * 0.6);
+      const y = gsap.utils.random(-orb.offsetTop - size * 0.4, layer.clientHeight - orb.offsetTop - size * 0.6);
+      const leg = gsap.to(orb, { x, y, duration: gsap.utils.random(9, 16), ease: 'sine.inOut', onComplete: () => travel(orb) });
+      if (!onScreen) leg.pause();
+      legs.set(orb, leg);
+    };
+    orbs.forEach(travel);
+    const loops = orbs.map((orb, index) => gsap.to(orb, { scale: gsap.utils.random(0.75, 1.3), duration: gsap.utils.random(4, 7), ease: 'sine.inOut', yoyo: true, repeat: -1, delay: index * -1.3 }));
     const ring = layer.querySelector('[data-orb-ring]');
     if (ring) loops.push(gsap.to(ring, { rotation: 360, duration: 60, ease: 'none', repeat: -1 }));
-    pauseOffscreen(section, loops);
-    orbs.forEach((orb, index) => gsap.fromTo(orb, { y: -(index + 1) * 40 }, { y: (index + 1) * 40, ease: 'none', scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: true } }));
+    ScrollTrigger.create({
+      trigger: section,
+      start: 'top bottom',
+      end: 'bottom top',
+      onToggle: (self) => {
+        onScreen = self.isActive;
+        [...loops, ...legs.values()].forEach((tween) => (onScreen ? tween.resume() : tween.pause()));
+      },
+    });
+    orbs.forEach((orb, index) => gsap.fromTo(orb, { yPercent: -(index + 1) * 6 }, { yPercent: (index + 1) * 6, ease: 'none', scrollTrigger: { trigger: section, start: 'top bottom', end: 'bottom top', scrub: true } }));
     if (finePointer) {
       const leanX = gsap.quickTo(layer, 'x', { duration: 1.2, ease: soft });
       const leanY = gsap.quickTo(layer, 'y', { duration: 1.2, ease: soft });
