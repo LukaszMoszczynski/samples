@@ -5,7 +5,7 @@ const { logo, items, cta } = Astro.props;
 ---
 <header class="ds-wed-header" data-wed-header>
   <div class="ds-container ds-wed-header__bar">
-    <a class="ds-wed-header__logo" href="#top"><img src={logo} alt="ViaVilla, konsultacje ślubne" width="210" height="44" /></a>
+    <a class="ds-wed-header__logo" href="#top"><img src={logo} alt="Twoja Sala, konsultacje ślubne" width="210" height="44" /></a>
     <nav class="ds-wed-header__nav" aria-label="Menu główne">
       <ul class="ds-wed-header__menu" role="list">
         {items.map((item) => <li><a class="ds-wed-header__link" href={item.href}>{item.text}</a></li>)}

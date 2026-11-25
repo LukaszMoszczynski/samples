@@ -1,9 +1,9 @@
 // Every Astro sample for the index and the samples menu: name, summary, direction, tags, its three brand colours
-// (read from brand.css) and its link-preview image (assets/og.jpg). Newest first.
+// (read from brand.css) and its link-preview image (assets/og.jpg). Newest first; a sample with "unlisted": true stays online but is left out.
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-interface SampleMeta { slug: string; stack: string; title: string; summary?: string; direction?: string; tags?: string[]; date?: string }
+interface SampleMeta { slug: string; stack: string; title: string; summary?: string; direction?: string; tags?: string[]; date?: string; unlisted?: boolean }
 
 export interface SampleCard {
   slug: string;
@@ -39,7 +39,7 @@ export const PORTFOLIO_URL = 'https://lukaszmoszczynski.github.io/pl/';
 
 export function sampleCards(base: string): SampleCard[] {
   return Object.values(files)
-    .filter((sample) => sample.stack === 'astro')
+    .filter((sample) => sample.stack === 'astro' && !sample.unlisted)
     .sort((first, second) => (second.date ?? '').localeCompare(first.date ?? ''))
     .map((sample) => ({
       slug: sample.slug,
