@@ -2,6 +2,9 @@
    portfolio's dark look: ink on near-black, the portfolio orange for focus and the call to action. Each row carries
    its sample's colours (--sm-primary, --sm-accent) for the hover sweep. */
 .sm-burger {
+  /* Above the menu (z-index 46) wherever the button sits, also inside the index's fixed top bar. */
+  position: relative;
+  z-index: 47;
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -97,6 +100,9 @@
   inset: 0;
   z-index: 46;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  /* The index's top bar lets clicks through (pointer-events: none); the menu inside it must catch them and scroll. */
+  pointer-events: auto;
   background: radial-gradient(circle at 80% 10%, color-mix(in srgb, var(--sm-tint) 28%, transparent), transparent 55%), #0d0a15;
   color: #f4f0fb;
   font: 400 16px/1.6 "Manrope", system-ui, sans-serif;

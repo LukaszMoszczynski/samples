@@ -120,7 +120,8 @@ const gets = [
 
       /* Journey: five full-screen panels that stick and stack, each sliding over the one before. */
       .journey { position: relative; }
-      .panel { position: sticky; top: 0; min-height: 100svh; display: grid; align-items: center; overflow: clip; border-radius: 40px 40px 0 0; box-shadow: 0 -24px 60px rgb(0 0 0 / 0.35); }
+      /* --stick: a panel taller than the screen sticks by its bottom edge (set in the script), so none of it is skipped. */
+      .panel { position: sticky; top: var(--stick, 0px); min-height: 100svh; display: grid; align-items: center; overflow: clip; border-radius: 40px 40px 0 0; box-shadow: 0 -24px 60px rgb(0 0 0 / 0.35); }
       .panel--rose { background: #d92558; color: #ffffff; }
       .panel--plum { background: #57083b; color: #ffffff; }
       .panel--lemon { background: #fff584; color: #2b1230; }
@@ -162,7 +163,7 @@ const gets = [
       [data-motion] :is([data-rise], .h1-line > span, [data-bubble], [data-swatch], [data-tick]) { opacity: 0; }
 
       @media (max-width: 900px) {
-        .panel { position: relative; min-height: 0; border-radius: 28px 28px 0 0; }
+        .panel { border-radius: 28px 28px 0 0; }
         .panel__inner { grid-template-columns: 1fr; gap: 40px; padding-block: 96px 56px; }
         .chat { margin-left: 0; }
         .brandkit { height: 300px; }
@@ -341,6 +342,10 @@ const gets = [
       import { ScrollTrigger } from 'gsap/ScrollTrigger';
       gsap.registerPlugin(ScrollTrigger);
       document.documentElement.setAttribute('data-motion-ready', '');
+      // A panel taller than the screen (phones) sticks once its bottom edge reaches the screen's bottom edge.
+      const stickPanels = () => document.querySelectorAll('.panel').forEach((panel) => panel.style.setProperty('--stick', `${Math.min(0, window.innerHeight - panel.offsetHeight)}px`));
+      stickPanels();
+      ScrollTrigger.addEventListener('refreshInit', stickPanels);
       if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         // Hero: the lines rise from their masks, the rest follows; the sample-coloured orbs travel behind.
         gsap.timeline({ defaults: { ease: 'power4.out' } })
@@ -355,13 +360,11 @@ const gets = [
         ScrollTrigger.batch('main > .section [data-rise], .final [data-rise]', { start: 'top 88%', once: true, onEnter: (items) => gsap.fromTo(items, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: 'power3.out' }) });
         gsap.fromTo('#probki .sm-row', { x: -60, opacity: 0 }, { x: 0, opacity: 1, duration: 1, stagger: 0.1, ease: 'power3.out', scrollTrigger: { trigger: '#probki .sm-rows', start: 'top 85%', once: true } });
         gsap.to('[data-ring]', { rotation: 360, duration: 50, ease: 'none', repeat: -1 });
-        // Journey: as each panel slides over the one before, the one beneath sinks back and dims (wide screens, where
-        // the panels stack); each panel plays its own small scene once when it arrives.
+        // Journey: as each panel slides over the one before, the one beneath sinks back and dims (every width);
+        // each panel plays its own small scene once when it arrives.
         const panels = gsap.utils.toArray('.panel');
-        gsap.matchMedia().add('(min-width: 901px)', () => {
-          panels.slice(0, -1).forEach((panel, index) => {
-            gsap.to(panel.querySelector('[data-panel]'), { scale: 0.9, opacity: 0.35, ease: 'none', scrollTrigger: { trigger: panels[index + 1], start: 'top bottom', end: 'top top', scrub: true } });
-          });
+        panels.slice(0, -1).forEach((panel, index) => {
+          gsap.to(panel.querySelector('[data-panel]'), { scale: 0.9, opacity: 0.35, ease: 'none', scrollTrigger: { trigger: panels[index + 1], start: 'top bottom', end: 'top top', scrub: true } });
         });
         const scene = (panel, play) => ScrollTrigger.create({ trigger: panel, start: 'top 55%', once: true, onEnter: play });
         scene(panels[0], () => gsap.fromTo('[data-bubble]', { y: 30, opacity: 0, scale: 0.9 }, { y: 0, opacity: 1, scale: 1, duration: 0.7, stagger: 0.5, ease: 'power3.out' }));
