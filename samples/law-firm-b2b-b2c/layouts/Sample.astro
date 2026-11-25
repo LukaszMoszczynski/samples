@@ -5,6 +5,8 @@
 import '../ds/tokens/shared.css';
 import '../brand.css';
 import '../ds/components/base/base.css';
+// The floating samples menu (one shared component for every sample; this path holds once copied to samples/<slug>/).
+import SamplesMenu from '../../../src/components/SamplesMenu.astro';
 
 interface Props {
   lang: 'pl' | 'en';
@@ -19,6 +21,7 @@ const favicon = assets['../assets/favicon.svg'];
 const touchIcon = assets['../assets/apple-touch-icon.png'];
 const site = Astro.site ?? new URL('https://lukaszmoszczynski.github.io');
 const pageUrl = new URL(Astro.url.pathname, site).href;
+const slug = Astro.url.pathname.split('/').filter(Boolean).at(1);
 ---
 <!doctype html>
 <html lang={lang}>
@@ -50,5 +53,6 @@ const pageUrl = new URL(Astro.url.pathname, site).href;
   </head>
   <body>
     <slot />
+    <SamplesMenu variant="floating" current={slug} />
   </body>
 </html>

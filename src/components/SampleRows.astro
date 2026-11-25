@@ -1,0 +1,25 @@
+---
+// The samples as a designer list: number, big name, direction and tags. Hover paints the row in the sample's own
+// colour and shows its preview next to the pointer (samples-menu.js); phones show the preview in the row instead.
+import type { SampleCard } from './samples-data';
+interface Props { samples: SampleCard[]; current?: string; size?: 'page' | 'menu'; headingLevel?: 'h2' | 'h3' }
+const { samples, current, size = 'page', headingLevel = 'h3' } = Astro.props;
+const Heading = headingLevel;
+---
+<ol class:list={['sm-rows', `sm-rows--${size}`]} role="list" data-sm-rows>
+  {samples.map((sample, index) => (
+    <li class="sm-row" style={`--sm-primary:${sample.colours.primary};--sm-accent:${sample.colours.accent};--sm-dark:${sample.colours.dark}`} data-sm-row-item>
+      <a class="sm-row__link" href={sample.href} data-sm-row data-preview={sample.preview} aria-current={sample.slug === current ? 'page' : undefined}>
+        <span class="sm-row__num" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+        {sample.preview && <img class="sm-row__thumb" src={sample.preview} alt="" width="1200" height="630" loading="lazy" />}
+        <span class="sm-row__text">
+          <Heading class="sm-row__name">{sample.name}</Heading>
+          <span class="sm-row__meta">{[sample.direction, ...sample.tags].filter(Boolean).join(' · ')}</span>
+        </span>
+        {sample.slug === current
+          ? <span class="sm-row__here">Tu jesteś</span>
+          : <span class="sm-row__arrow" aria-hidden="true">→</span>}
+      </a>
+    </li>
+  ))}
+</ol>

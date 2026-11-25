@@ -1,0 +1,333 @@
+/* Samples menu + designer rows. Outside every sample (served by one build), so it uses its own plain values, in the
+   portfolio's dark look: ink on near-black, the portfolio orange for focus and the call to action. Each row carries
+   its sample's colours (--sm-primary, --sm-accent) for the hover sweep. */
+.sm-burger {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 6px 6px 6px 20px;
+  border: 0;
+  border-radius: 999px;
+  background: #f4f0fb;
+  color: #0d0a15;
+  font: 600 15px/1 "Manrope", system-ui, sans-serif;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+.sm-burger:hover {
+  transform: scale(1.04);
+}
+
+.sm-burger[aria-expanded="true"] {
+  background: #f07a3e;
+  color: #0d0a15;
+}
+
+.sm-burger--floating {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 47;
+  background: #0d0a15;
+  color: #f4f0fb;
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.35), 0 0 0 1px rgb(255 255 255 / 0.14);
+}
+
+.sm-burger__icon {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #0d0a15;
+}
+
+.sm-burger--floating .sm-burger__icon,
+.sm-burger[aria-expanded="true"] .sm-burger__icon {
+  background: #f07a3e;
+}
+
+.sm-burger--floating[aria-expanded="true"] .sm-burger__icon {
+  background: #0d0a15;
+}
+
+.sm-burger__icon i {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  height: 2px;
+  border-radius: 2px;
+  background: #f4f0fb;
+  transition: transform 0.45s cubic-bezier(0.65, 0, 0.35, 1), width 0.3s ease;
+}
+
+.sm-burger--floating .sm-burger__icon i,
+.sm-burger[aria-expanded="true"] .sm-burger__icon i {
+  background: #0d0a15;
+}
+
+.sm-burger--floating[aria-expanded="true"] .sm-burger__icon i {
+  background: #f4f0fb;
+}
+
+.sm-burger__icon i:first-child { transform: translateY(-4px); }
+.sm-burger__icon i:last-child { transform: translateY(4px); right: 14px; }
+.sm-burger:hover .sm-burger__icon i:last-child { right: 10px; }
+.sm-burger[aria-expanded="true"] .sm-burger__icon i:first-child { transform: rotate(45deg); }
+.sm-burger[aria-expanded="true"] .sm-burger__icon i:last-child { transform: rotate(-45deg); right: 10px; }
+
+.sm-burger:focus-visible,
+.sm-menu a:focus-visible,
+.sm-rows a:focus-visible {
+  outline: 2px solid #f07a3e;
+  outline-offset: 3px;
+}
+
+.sm-locked {
+  overflow: hidden;
+}
+
+/* The full-screen menu. */
+.sm-menu {
+  --sm-tint: #f07a3e;
+  position: fixed;
+  inset: 0;
+  z-index: 46;
+  overflow-y: auto;
+  background: radial-gradient(circle at 80% 10%, color-mix(in srgb, var(--sm-tint) 28%, transparent), transparent 55%), #0d0a15;
+  color: #f4f0fb;
+  font: 400 16px/1.6 "Manrope", system-ui, sans-serif;
+  transition: --sm-tint 0.6s ease;
+}
+
+.sm-menu[hidden] {
+  display: none !important;
+}
+
+.sm-menu__inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 112px 24px 120px;
+}
+
+.sm-menu__kicker {
+  margin: 0 0 16px;
+  color: #f07a3e;
+  font: 400 13px/1.4 "IBM Plex Mono", ui-monospace, monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.sm-menu__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 28px;
+  margin-top: 48px;
+}
+
+.sm-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 26px;
+  border-radius: 999px;
+  background: #f07a3e;
+  color: #0d0a15;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.sm-cta span {
+  transition: transform 0.3s ease;
+}
+
+.sm-cta:hover span {
+  transform: translateX(4px);
+}
+
+.sm-link {
+  color: #f4f0fb;
+  text-decoration: underline;
+  text-decoration-color: rgb(244 240 251 / 0.4);
+  text-underline-offset: 4px;
+}
+
+.sm-link:hover {
+  text-decoration-color: #f07a3e;
+}
+
+/* Designer rows: number, big name, meta line, arrow; a sweep in the sample's colour on hover. */
+.sm-rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgb(244 240 251 / 0.14);
+}
+
+.sm-row {
+  border-bottom: 1px solid rgb(244 240 251 / 0.14);
+}
+
+.sm-row__link {
+  position: relative;
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px 24px;
+  padding: 22px 16px;
+  overflow: hidden;
+  color: #f4f0fb;
+  text-decoration: none;
+  isolation: isolate;
+}
+
+.sm-row__link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(100deg, var(--sm-primary) 0%, color-mix(in srgb, var(--sm-primary) 70%, var(--sm-dark)) 100%);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sm-row__link:hover::before,
+.sm-row__link:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.sm-row__num {
+  align-self: start;
+  padding-top: 0.5em;
+  color: #b6a9d4;
+  font: 400 13px/1 "IBM Plex Mono", ui-monospace, monospace;
+}
+
+.sm-row__thumb {
+  display: none;
+}
+
+.sm-row__text {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.sm-row__name {
+  margin: 0;
+  font: 700 clamp(28px, 4.6vw, 64px)/1.02 "Unbounded", "Arial Black", sans-serif;
+  letter-spacing: -0.03em;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.sm-rows--page .sm-row__name {
+  font-size: clamp(30px, 5.4vw, 80px);
+}
+
+.sm-row__link:hover .sm-row__name {
+  transform: translateX(16px);
+}
+
+.sm-row__meta {
+  color: #b6a9d4;
+  font: 400 13px/1.5 "IBM Plex Mono", ui-monospace, monospace;
+  transition: color 0.3s ease;
+}
+
+.sm-row__link:hover .sm-row__meta,
+.sm-row__link:hover .sm-row__num {
+  color: #ffffff;
+}
+
+.sm-row__arrow {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 1px solid rgb(244 240 251 / 0.3);
+  border-radius: 50%;
+  font-size: 22px;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.sm-row__link:hover .sm-row__arrow {
+  border-color: #ffffff;
+  background: #ffffff;
+  color: #0d0a15;
+  transform: rotate(-45deg);
+}
+
+.sm-row__here {
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #f4f0fb;
+  color: #0d0a15;
+  font: 500 12px/1 "IBM Plex Mono", ui-monospace, monospace;
+}
+
+/* Hovering one row quiets the others. */
+.sm-rows:hover .sm-row__link:not(:hover) {
+  opacity: 0.45;
+}
+
+.sm-row__link {
+  transition: opacity 0.3s ease;
+}
+
+/* The preview that follows the pointer. */
+.sm-follow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 48;
+  width: 380px;
+  height: auto;
+  border-radius: 14px;
+  box-shadow: 0 30px 60px rgb(0 0 0 / 0.45);
+  pointer-events: none;
+  opacity: 0;
+}
+
+@media (max-width: 720px) {
+  .sm-row__link {
+    grid-template-columns: 96px minmax(0, 1fr);
+    padding: 16px 4px;
+  }
+
+  .sm-row__num,
+  .sm-row__arrow {
+    display: none;
+  }
+
+  .sm-row__thumb {
+    display: block;
+    width: 96px;
+    height: auto;
+    border-radius: 10px;
+  }
+
+  .sm-row__here {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  .sm-burger__label {
+    font-size: 14px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sm-burger,
+  .sm-burger__icon i,
+  .sm-row__link,
+  .sm-row__link::before,
+  .sm-row__name,
+  .sm-row__arrow {
+    transition: none;
+  }
+}

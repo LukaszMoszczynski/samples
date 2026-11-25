@@ -1,0 +1,33 @@
+---
+// Samples menu: a burger (also on desktop) that opens a full-screen menu of every sample, growing as a circle from
+// the button. "top" sits in the index's top bar; "floating" is a round button in a sample's bottom-left corner, so a
+// visitor can jump to the other samples. Styles and behaviour live outside any sample (one build serves all).
+import SampleRows from './SampleRows.astro';
+import { sampleCards, CONTACT_URL, PORTFOLIO_URL } from './samples-data';
+import './samples-menu.css';
+interface Props { variant?: 'top' | 'floating'; current?: string }
+const { variant = 'top', current } = Astro.props;
+const base = import.meta.env.BASE_URL;
+const samples = sampleCards(base);
+---
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700&family=Manrope:wght@400;600&family=IBM+Plex+Mono:wght@400;500&display=swap" />
+<button class:list={['sm-burger', `sm-burger--${variant}`]} type="button" aria-expanded="false" aria-controls="samples-menu" data-sm-open>
+  <span class="sm-burger__label">{variant === 'floating' ? 'Więcej próbek' : 'Menu'}</span>
+  <span class="sm-burger__icon" aria-hidden="true"><i></i><i></i></span>
+</button>
+<div class="sm-menu" id="samples-menu" role="dialog" aria-modal="true" aria-label="Przykładowe strony" hidden data-sm-menu>
+  <div class="sm-menu__inner">
+    <p class="sm-menu__kicker">Przykładowe strony · {samples.length}</p>
+    <SampleRows samples={samples} current={current} size="menu" headingLevel="h2" />
+    <div class="sm-menu__foot">
+      <a class="sm-cta" href={CONTACT_URL}>Zamów stronę dla siebie <span aria-hidden="true">→</span></a>
+      <a class="sm-link" href={base}>Wszystkie próbki</a>
+      <a class="sm-link" href={PORTFOLIO_URL}>Portfolio</a>
+    </div>
+  </div>
+</div>
+<img class="sm-follow" alt="" aria-hidden="true" data-sm-follow hidden />
+<script>
+  import { initSamplesMenu } from './samples-menu.js';
+  initSamplesMenu();
+</script>
