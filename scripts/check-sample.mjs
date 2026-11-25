@@ -11,7 +11,7 @@ import { checkBrandCss, loadAllowedNames } from './check-brand.mjs';
 import { checkCssValues } from './lib/check-css-values.mjs';
 
 const WIDTHS = [400, 1440];
-const PORT = 4329;
+const PORT = Number(process.env.SAMPLE_PORT) || 4329; // SAMPLE_PORT lets several checks run side by side
 const BASE = '/samples/';
 
 function fail(group, problems) {
@@ -55,7 +55,7 @@ async function browserChecks(slug) {
   } catch (error) {
     if (error.message.startsWith('port')) throw error;
   }
-  const server = spawn(process.execPath, ['node_modules/astro/bin/astro.mjs', 'preview', '--port', String(PORT)], { stdio: 'ignore' });
+  const server = spawn(process.execPath, ['node_modules/astro/bin/astro.mjs', 'preview', '--port', String(PORT), '--ignore-lock'], { stdio: 'ignore' });
   const problems = [];
   try {
     await waitFor(`http://localhost:${PORT}${BASE}${slug}/`);

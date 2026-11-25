@@ -7,7 +7,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import sharp from 'sharp';
 
-const PORT = 4397;
+const PORT = Number(process.env.OG_PORT) || 4397; // OG_PORT lets several runs go side by side
 const BASE = '/samples/';
 const args = process.argv.slice(2);
 const build = !args.includes('--no-build');
@@ -64,7 +64,7 @@ async function waitFor(url) {
 }
 
 if (build) execSync('node node_modules/astro/bin/astro.mjs build', { stdio: 'ignore' });
-const server = spawn(process.execPath, ['node_modules/astro/bin/astro.mjs', 'preview', '--port', String(PORT)], { stdio: 'ignore' });
+const server = spawn(process.execPath, ['node_modules/astro/bin/astro.mjs', 'preview', '--port', String(PORT), '--ignore-lock'], { stdio: 'ignore' });
 try {
   await waitFor(`http://localhost:${PORT}${BASE}`);
   const { chromium } = await import('playwright');
