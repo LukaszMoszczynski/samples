@@ -36,6 +36,8 @@ the meter, on cards, a huge rose sun behind the portrait (the change of scale fr
     the "!" drops, then the letters fill (marquee bands were tried and dropped as "cheap");
   - service cards flip up in 3D, makeover cards swing in from alternate sides; magnetic CTAs (not the form buttons); a scroll progress
     line with a rolling ball under the header; the About portrait floats against its circle.
+- Designer menu (owner: no row of links on desktop): a burger at every width opens a full-screen plum menu growing as
+  a circle from the button; huge numbered words rise from masks, a lemon ball rolls to the hovered word.
 - Everything respects reduced motion; content is complete without JS.
 
 ## Design system parts

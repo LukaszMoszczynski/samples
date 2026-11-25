@@ -1,30 +1,42 @@
 ---
-// Studio header: logo, menu, the rose "audit" CTA. Sticky on cream; a hairline once the page scrolls.
-// Phones: an overlay drawer after the header (site.js opens it).
+// Studio header: logo, the rose "audit" CTA and a burger at every width (owner: a designer menu, not a row of links).
+// The burger opens a full-screen plum menu after the header (site.js): it grows as a circle from the button, the
+// big numbered links rise in, a ball rolls to the link under the pointer.
 import Logo from '../../molecules/logo/Logo.astro';
 import Cta from '../../atoms/cta/Cta.astro';
-interface Props { items: { text: string; href: string }[]; cta: { text: string; href: string } }
-const { items, cta } = Astro.props;
+import Label from '../../atoms/label/Label.astro';
+interface Props { items: { text: string; href: string }[]; cta: { text: string; href: string }; motto?: string }
+const { items, cta, motto = 'na luzie, ale na poważnie.' } = Astro.props;
 ---
 <header class="ds-site-header" data-site-header>
   <div class="ds-container ds-site-header__bar">
     <Logo />
-    <nav class="ds-site-header__nav" aria-label="Menu główne">
-      <ul class="ds-site-header__menu" role="list">
-        {items.map((item) => <li><a class="ds-site-header__link" href={item.href}>{item.text}</a></li>)}
-      </ul>
-    </nav>
     <div class="ds-site-header__cta"><Cta text={cta.text} href={cta.href} variant="rose" /></div>
-    <button class="ds-site-header__burger" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="Menu" data-site-burger>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path class="ds-burger__line ds-burger__line--top" d="M4 8h16" /><path class="ds-burger__line ds-burger__line--bottom" d="M4 16h16" /></svg>
+    <button class="ds-site-header__burger" type="button" aria-expanded="false" aria-controls="site-drawer" data-site-burger>
+      <span class="ds-site-header__burger-label" data-burger-label>Menu</span>
+      <span class="ds-site-header__burger-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path class="ds-burger__line ds-burger__line--top" d="M4 8h16" /><path class="ds-burger__line ds-burger__line--bottom" d="M4 16h16" /></svg>
+      </span>
     </button>
   </div>
 </header>
-<div class="ds-site-header__drawer" id="site-drawer" hidden>
-  <div class="ds-container">
-    <ul class="ds-site-header__menu" role="list">
-      {items.map((item) => <li><a class="ds-site-header__link" href={item.href}>{item.text}</a></li>)}
-    </ul>
-    <Cta text={cta.text} href={cta.href} variant="rose" />
+<nav class="ds-site-header__drawer" id="site-drawer" aria-label="Menu główne" hidden data-site-drawer>
+  <span class="ds-site-header__drawer-ball" aria-hidden="true" data-drawer-ball></span>
+  <div class="ds-container ds-site-header__drawer-grid">
+    <ol class="ds-site-header__menu" role="list">
+      {items.map((item, index) => (
+        <li class="ds-site-header__item">
+          <a class="ds-site-header__link" href={item.href} data-drawer-link>
+            <span class="ds-site-header__num" aria-hidden="true">0{index + 1}</span>
+            <span class="ds-site-header__word"><span>{item.text}</span></span>
+          </a>
+        </li>
+      ))}
+    </ol>
+    <div class="ds-site-header__side" data-drawer-side>
+      <Label text="Zacznijmy" />
+      <p class="ds-site-header__motto">{motto}</p>
+      <Cta text={cta.text} href={cta.href} variant="lemon" />
+    </div>
   </div>
-</div>
+</nav>

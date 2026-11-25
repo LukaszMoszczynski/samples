@@ -20,7 +20,8 @@ const setScrolled = () => header?.classList.toggle('is-scrolled', window.scrollY
 setScrolled();
 window.addEventListener('scroll', setScrolled, { passive: true });
 
-document.querySelectorAll('.ds-site-header__nav .ds-site-header__link').forEach((link) => {
+// The menu marks the section in view.
+document.querySelectorAll('[data-drawer-link]').forEach((link) => {
   const section = document.querySelector(link.getAttribute('href'));
   if (!section) return;
   ScrollTrigger.create({
@@ -31,35 +32,71 @@ document.querySelectorAll('.ds-site-header__nav .ds-site-header__link').forEach(
   });
 });
 
+// Designer menu (every width): the plum layer grows as a circle from the burger, the big words rise from their masks,
+// the side column follows; closing shrinks it back into the button. Focus stays inside while open.
 const burger = document.querySelector('[data-site-burger]');
 const drawer = document.getElementById('site-drawer');
+const burgerLabel = burger?.querySelector('[data-burger-label]');
+const drawerBall = drawer?.querySelector('[data-drawer-ball]');
+const circleAt = () => {
+  const button = burger.getBoundingClientRect();
+  const layer = drawer.getBoundingClientRect();
+  return `${Math.round(button.left + button.width / 2 - layer.left)}px ${Math.round(button.top + button.height / 2 - layer.top)}px`;
+};
+const reach = () => Math.ceil(Math.hypot(window.innerWidth, window.innerHeight));
 function setDrawer(open) {
   if (!burger || !drawer) return;
   if ((burger.getAttribute('aria-expanded') === 'true') === open) return;
   burger.setAttribute('aria-expanded', String(open));
+  if (burgerLabel) burgerLabel.textContent = open ? 'Zamknij' : 'Menu';
   document.body.style.overflow = open ? 'hidden' : '';
-  const items = drawer.querySelectorAll('li, .ds-cta');
-  gsap.killTweensOf([drawer, ...items]);
+  const words = drawer.querySelectorAll('.ds-site-header__word > span');
+  const rest = drawer.querySelectorAll('.ds-site-header__num, [data-drawer-side] > *');
+  gsap.killTweensOf([drawer, ...words, ...rest]);
   if (open) {
     drawer.hidden = false;
-    if (reduceMotion) return;
-    gsap.fromTo(drawer, { clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)', duration: 0.5, ease: soft });
-    gsap.fromTo(items, { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, stagger: 0.05, delay: 0.12, ease: soft });
-  } else if (reduceMotion) {
-    drawer.hidden = true;
+    drawer.scrollTop = 0;
+    if (!reduceMotion) {
+      gsap.fromTo(drawer, { clipPath: `circle(0px at ${circleAt()})` }, { clipPath: `circle(${reach()}px at ${circleAt()})`, duration: 0.9, ease: 'power3.inOut', onComplete: () => gsap.set(drawer, { clearProps: 'clipPath' }) });
+      gsap.fromTo(words, { yPercent: 110 }, { yPercent: 0, duration: 0.9, stagger: 0.07, delay: 0.3, ease: 'power4.out' });
+      gsap.fromTo(rest, { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, stagger: 0.05, delay: 0.45, ease: soft });
+    }
+    drawer.querySelector('a')?.focus({ preventScroll: true });
   } else {
-    gsap.to(drawer, { clipPath: 'inset(0 0 100% 0)', duration: 0.35, ease: 'power2.in', onComplete: () => { drawer.hidden = true; gsap.set(drawer, { clearProps: 'clipPath' }); } });
+    gsap.to(drawerBall, { opacity: 0, duration: 0.2 });
+    const done = () => { drawer.hidden = true; gsap.set(drawer, { clearProps: 'clipPath' }); };
+    if (reduceMotion) done();
+    else gsap.fromTo(drawer, { clipPath: `circle(${reach()}px at ${circleAt()})` }, { clipPath: `circle(0px at ${circleAt()})`, duration: 0.6, ease: 'power3.in', onComplete: done });
   }
 }
 burger?.addEventListener('click', () => setDrawer(burger.getAttribute('aria-expanded') !== 'true'));
 drawer?.addEventListener('click', (event) => event.target.closest('a') && setDrawer(false));
-window.matchMedia('(min-width: 1024px)').addEventListener('change', (event) => { if (event.matches) setDrawer(false); });
 document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && burger?.getAttribute('aria-expanded') === 'true') {
+  if (burger?.getAttribute('aria-expanded') !== 'true') return;
+  if (event.key === 'Escape') {
     setDrawer(false);
     burger.focus();
+    return;
   }
+  if (event.key !== 'Tab') return;
+  const stops = [burger, ...drawer.querySelectorAll('a')];
+  const index = stops.indexOf(document.activeElement);
+  if (event.shiftKey && index <= 0) { event.preventDefault(); stops.at(-1).focus(); }
+  else if (!event.shiftKey && index === stops.length - 1) { event.preventDefault(); stops[0].focus(); }
 });
+// A lemon ball rolls to the link under the pointer, landing just after the word.
+if (drawerBall && !reduceMotion) {
+  drawer.querySelectorAll('[data-drawer-link]').forEach((link) => {
+    link.addEventListener('pointerenter', () => {
+      const layer = drawer.getBoundingClientRect();
+      const word = link.querySelector('.ds-site-header__word > span').getBoundingClientRect();
+      const x = word.right - layer.left + 24 + 20; // after the word, which slides 24 right on hover
+      const y = word.top - layer.top + drawer.scrollTop + word.height / 2 - 12;
+      const from = gsap.getProperty(drawerBall, 'y');
+      gsap.to(drawerBall, { x, y, opacity: 1, rotation: `+=${Math.round((y - from) * 2)}`, duration: 0.6, ease: soft });
+    });
+  });
+}
 
 // --- Hero as a film: bars close in and open, the title arrives line by line, the portrait opens from a circle, the
 // --- balls roll into the frame; the header logo's "o" rolls in and the "!" drops into place -------------------------

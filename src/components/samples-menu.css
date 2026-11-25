@@ -160,6 +160,12 @@
   text-decoration-color: #f07a3e;
 }
 
+/* Samples carry their own heading, link and list styles; the menu sets its own so none of them leak in. */
+.sm-menu :is(h2, h3, p, a, li),
+.sm-rows :is(h2, h3, p, a, li) {
+  letter-spacing: normal;
+}
+
 /* Designer rows: number, big name, meta line, arrow; a sweep in the sample's colour on hover. */
 .sm-rows {
   margin: 0;
@@ -220,6 +226,8 @@
 
 .sm-row__name {
   margin: 0;
+  color: #f4f0fb;
+  text-transform: none;
   font: 700 clamp(28px, 4.6vw, 64px)/1.02 "Unbounded", "Arial Black", sans-serif;
   letter-spacing: -0.03em;
   transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
