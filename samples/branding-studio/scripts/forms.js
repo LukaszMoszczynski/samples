@@ -399,14 +399,17 @@ function problemFor(field) {
 // is absolutely placed below it, in the gap, so showing it never moves anything on the page.
 function boxFor(field) {
   if (field.type === 'checkbox' || field.type === 'radio') return field.closest('label') ?? field.parentElement;
-  return (field.closest('.ds-select') ?? field).parentElement;
+  return (field.closest('.ds-select, .ds-date') ?? field).parentElement;
 }
+
+// The control people see and focus: the custom dropdown or calendar button over a hidden native field, else the field.
+const visibleControl = (field) => field.closest('.ds-select, .ds-date')?.querySelector('.ds-select__button, .ds-date__button') ?? field;
 
 const errorColour = () => getComputedStyle(document.documentElement).getPropertyValue('--color-state-error').trim() || '#b3261e';
 
 function showProblem(field, message, animate) {
   const box = boxFor(field);
-  const visual = field.closest('.ds-select')?.querySelector('.ds-select__button') ?? field;
+  const visual = visibleControl(field);
   let note = document.getElementById(`${field.id || field.name}-error`);
   if (!message) {
     field.removeAttribute('aria-invalid');
@@ -425,9 +428,11 @@ function showProblem(field, message, animate) {
     note.id = `${field.id || field.name}-error`;
     if (getComputedStyle(box).position === 'static') box.style.position = 'relative';
     box.append(note);
-    const describedBy = new Set((field.getAttribute('aria-describedby') ?? '').split(' ').filter(Boolean));
-    describedBy.add(note.id);
-    field.setAttribute('aria-describedby', [...describedBy].join(' '));
+    [field, visual].forEach((element) => {
+      const describedBy = new Set((element.getAttribute('aria-describedby') ?? '').split(' ').filter(Boolean));
+      describedBy.add(note.id);
+      element.setAttribute('aria-describedby', [...describedBy].join(' '));
+    });
     if (!reduceMotion) gsap.fromTo(note, { opacity: 0 }, { opacity: 1, duration: 0.25 });
   }
   note.textContent = message;
@@ -468,7 +473,7 @@ export function enhanceForms(root = document) {
     form.dataset.checked = 'true';
     const first = validate(form, true);
     if (first) {
-      const target = first.closest('.ds-select')?.querySelector('.ds-select__button') ?? first;
+      const target = visibleControl(first);
       target.focus({ preventScroll: true });
       target.scrollIntoView({ block: 'center', behavior: reduceMotion ? 'auto' : 'smooth' });
       return;

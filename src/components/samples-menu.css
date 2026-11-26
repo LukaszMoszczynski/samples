@@ -36,6 +36,14 @@
   background: #0d0a15;
   color: #f4f0fb;
   box-shadow: 0 12px 32px rgb(0 0 0 / 0.35), 0 0 0 1px rgb(255 255 255 / 0.14);
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease, translate 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease;
+}
+
+/* Scrolling down: the floating button slides below the screen edge; it returns on scrolling up (samples-menu.js). */
+.sm-burger--tucked {
+  translate: 0 calc(100% + 28px);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .sm-burger__icon {

@@ -26,7 +26,7 @@ const guests = [1, 2, 3, 4, 5, 6, 7, 8].map((count) => ({ text: count === 1 ? '1
     </div>
     <form class="ds-reservation__card ds-form" data-booking-form data-reveal>
       <p class="ds-reservation__ticket" aria-hidden="true">Rezerwacja stolika</p>
-      <Field id="booking-date" name="date" label="Data" type="date" minToday />
+      <Field id="booking-date" name="date" label="Data" type="date" minToday required />
       <Field id="booking-time" name="time" label="Godzina" type="select" options={times.map((time) => ({ text: time, selected: time === '19:00' }))} />
       <Field id="booking-guests" name="guests" label="Liczba gości" type="select" options={guests} />
       <Field id="booking-seat" name="seat" label="Gdzie usiąść" type="select" options={[{ text: 'Bez znaczenia' }, { text: 'Sala' }, { text: 'Przy oknie' }, { text: 'Przy barze' }]} />

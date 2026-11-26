@@ -15,17 +15,8 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
 
 const now = new Date();
 const today = now.getDay(); // 0 = Sunday
-const pad = (number) => String(number).padStart(2, '0');
-const toIso = (date) => `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
 // Opening hours by weekday (Sunday first), the same as in the Visit section.
 const opening = [[12, 20], [12, 22], [12, 22], [12, 22], [12, 22], [12, 23], [12, 23]];
-
-// The booking date starts at tomorrow, so the calendar opens on a sensible day (the field allows today onwards).
-const bookingDate = document.getElementById('booking-date');
-if (bookingDate) {
-  const tomorrow = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1);
-  bookingDate.value = toIso(tomorrow);
-}
 
 // Forms: animated dropdowns, the calendar and the validation demo (see forms.js).
 enhanceForms();

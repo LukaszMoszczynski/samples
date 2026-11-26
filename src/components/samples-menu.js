@@ -44,6 +44,25 @@ export function initSamplesMenu() {
     }
   }
 
+  // The floating button steps aside while the visitor scrolls down (so it never covers a price or a label for long)
+  // and comes back on scrolling up, near the top or the bottom of the page, and whenever it has focus or the menu is open.
+  if (button.classList.contains('sm-burger--floating')) {
+    let lastY = window.scrollY;
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const y = window.scrollY;
+      const nearEdge = y < 160 || window.innerHeight + y > document.documentElement.scrollHeight - 160;
+      const tucked = !open && !button.matches(':focus-visible') && !nearEdge && y > lastY + 4;
+      if (Math.abs(y - lastY) > 4 || nearEdge) {
+        button.classList.toggle('sm-burger--tucked', tucked);
+        lastY = y;
+      }
+    };
+    window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    button.addEventListener('focus', () => button.classList.remove('sm-burger--tucked'));
+  }
+
   button.addEventListener('click', () => setOpen(!open));
   menu.addEventListener('click', (event) => { if (event.target.closest('a')) setOpen(false); });
   document.addEventListener('keydown', (event) => {
