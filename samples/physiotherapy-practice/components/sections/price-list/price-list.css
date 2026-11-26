@@ -1,0 +1,113 @@
+/* Price list: heading and NFZ note on the left, price groups on the right; rows with a dotted leader. */
+.ds-price-list__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: var(--space-64);
+  align-items: start;
+}
+
+.ds-price-list__nfz {
+  display: grid;
+  gap: var(--space-8);
+  padding: var(--space-24);
+  border-left: var(--space-4) solid var(--palette-accent-500);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+  background: var(--color-surface-card);
+  line-height: 1.55;
+}
+
+.ds-price-list__nfz-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-price-list__groups {
+  display: grid;
+  gap: var(--space-40);
+}
+
+.ds-price-list__group-title {
+  margin-bottom: var(--space-8);
+  font-size: var(--font-size-xl);
+  line-height: var(--font-line-height-xl);
+}
+
+.ds-price-list__rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-price-list__row {
+  display: grid;
+  grid-template-columns: auto minmax(var(--space-24), 1fr) auto auto;
+  align-items: baseline;
+  gap: var(--space-12);
+  padding-block: var(--space-14);
+  border-bottom: 1px solid var(--color-border-default);
+}
+
+.ds-price-list__name {
+  display: grid;
+  gap: var(--space-2);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-price-list__note {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-regular);
+}
+
+.ds-price-list__leader {
+  align-self: center;
+  border-bottom: 2px dotted var(--palette-primary-400);
+}
+
+.ds-price-list__duration {
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.ds-price-list__price {
+  min-width: calc(var(--size-40) * 2);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  text-align: right;
+  white-space: nowrap;
+}
+
+@media (max-width: 899px) {
+  .ds-price-list__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-32);
+  }
+
+  .ds-price-list__nfz {
+    margin-bottom: var(--space-8);
+  }
+}
+
+@media (max-width: 599px) {
+  .ds-price-list__row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--space-4) var(--space-12);
+  }
+
+  .ds-price-list__leader {
+    display: none;
+  }
+
+  .ds-price-list__duration {
+    grid-row: 2;
+    font-size: var(--font-size-body);
+  }
+
+  .ds-price-list__price {
+    grid-row: 1 / span 2;
+    grid-column: 2;
+    align-self: center;
+  }
+}

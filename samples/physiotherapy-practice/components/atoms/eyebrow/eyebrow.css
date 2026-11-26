@@ -1,0 +1,24 @@
+/* Eyebrow: small uppercase label with a wave in front of it. */
+.ds-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-10);
+  margin: 0;
+  color: var(--palette-primary-800);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: calc(var(--space-1) * 1.5);
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.ds-eyebrow__wave {
+  width: var(--size-24);
+  height: auto;
+  flex-shrink: 0;
+  color: var(--palette-primary-600);
+}
+
+.ds-eyebrow--coral .ds-eyebrow__wave {
+  color: var(--palette-accent-500);
+}

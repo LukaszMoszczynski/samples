@@ -1,0 +1,107 @@
+/* Exercise tips: heading with the breathing ring beside it, then three exercise cards. */
+.ds-exercise-tips__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  align-items: end;
+  gap: var(--space-40);
+  margin-bottom: var(--space-48);
+}
+
+.ds-exercise-tips__head .ds-section-head {
+  margin-bottom: 0;
+}
+
+.ds-exercise-tips__breath {
+  display: flex;
+  align-items: center;
+  gap: var(--space-24);
+  padding: var(--space-20) var(--space-24);
+  border-radius: var(--radius-3xl);
+  background: var(--color-surface-soft);
+}
+
+.ds-exercise-tips__ring {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: calc(var(--size-52) * 2);
+  height: calc(var(--size-52) * 2);
+}
+
+.ds-exercise-tips__ring-wave,
+.ds-exercise-tips__ring-core {
+  position: absolute;
+  border-radius: var(--radius-full);
+}
+
+.ds-exercise-tips__ring-wave {
+  inset: 0;
+  border: 2px solid var(--palette-primary-600);
+  background: color-mix(in srgb, var(--palette-primary-400) 35%, transparent);
+  transform: scale(0.86);
+}
+
+.ds-exercise-tips__ring-core {
+  inset: 22%;
+  background: var(--color-surface-card);
+}
+
+.ds-exercise-tips__ring-word {
+  position: relative;
+  color: var(--palette-primary-800);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-1);
+  text-transform: uppercase;
+}
+
+.ds-exercise-tips__breath-copy {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.ds-exercise-tips__breath-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.3;
+}
+
+.ds-exercise-tips__breath-text {
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.ds-exercise-tips__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-20);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (max-width: 1023px) {
+  .ds-exercise-tips__head {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-24);
+  }
+
+  .ds-exercise-tips__list {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: calc(var(--size-160) * 3.4);
+  }
+}
+
+@media (max-width: 479px) {
+  .ds-exercise-tips__breath {
+    gap: var(--space-16);
+    padding: var(--space-16);
+  }
+
+  .ds-exercise-tips__ring {
+    width: calc(var(--size-40) * 2);
+    height: calc(var(--size-40) * 2);
+  }
+}

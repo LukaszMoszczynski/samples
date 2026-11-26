@@ -1,0 +1,95 @@
+/* Therapist card: centred portrait over the text; lifts and tilts the portrait on hover. */
+.ds-therapist-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-10);
+  height: 100%;
+  padding: var(--space-28);
+  border-radius: var(--radius-3xl);
+  background: var(--color-surface-card);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease;
+}
+
+.ds-therapist-card__portrait {
+  width: calc(var(--size-160) * 0.9);
+  margin-bottom: var(--space-12);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ds-therapist-card__name {
+  font-size: var(--font-size-2xl);
+  line-height: var(--font-line-height-2xl);
+}
+
+.ds-therapist-card__role {
+  color: var(--palette-primary-800);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-therapist-card__text {
+  color: var(--color-text-muted);
+  line-height: 1.55;
+}
+
+.ds-therapist-card__focus {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin: var(--space-6) 0 var(--space-12);
+  padding: 0;
+  list-style: none;
+}
+
+.ds-therapist-card__focus li {
+  padding: var(--space-4) var(--space-12);
+  border-radius: var(--radius-full);
+  background: var(--palette-primary-50);
+  color: var(--palette-primary-800);
+  font-size: var(--font-size-body);
+}
+
+.ds-therapist-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  margin-top: auto;
+  color: var(--palette-accent-500);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+}
+
+.ds-therapist-card__link svg {
+  width: var(--size-16);
+  height: var(--size-16);
+  transition: transform 0.3s ease;
+}
+
+.ds-therapist-card__link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius-xs);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .ds-therapist-card:hover {
+    transform: translateY(calc(var(--space-6) * -1));
+    box-shadow: 0 var(--space-24) var(--space-48) calc(var(--space-20) * -1) color-mix(in srgb, var(--palette-secondary-800) 28%, transparent);
+  }
+
+  .ds-therapist-card:hover .ds-therapist-card__portrait {
+    transform: rotate(-4deg) scale(1.04);
+  }
+
+  .ds-therapist-card__link:hover svg {
+    transform: translateX(var(--space-4));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-therapist-card,
+  .ds-therapist-card__portrait,
+  .ds-therapist-card__link svg {
+    transition: none;
+  }
+}

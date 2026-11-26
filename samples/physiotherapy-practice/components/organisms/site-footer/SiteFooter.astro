@@ -1,0 +1,39 @@
+---
+// Site footer: brand and a short line, link columns, contact, the health and sample notes.
+import BrandMark from '../../atoms/brand-mark/BrandMark.astro';
+interface Props {
+  name: string;
+  about: string;
+  columns: { title: string; links: { text: string; href: string }[] }[];
+  contact: string[];
+  notes: string[];
+}
+const { name, about, columns, contact, notes } = Astro.props;
+---
+<footer class="ds-site-footer">
+  <div class="ds-container">
+    <div class="ds-site-footer__grid">
+      <div class="ds-site-footer__brand">
+        <BrandMark name={name} tone="light" />
+        <p class="ds-site-footer__about">{about}</p>
+      </div>
+      {columns.map((column) => (
+        <nav class="ds-site-footer__column" aria-label={column.title}>
+          <p class="ds-site-footer__title">{column.title}</p>
+          <ul class="ds-site-footer__links" role="list">
+            {column.links.map((link) => <li><a class="ds-site-footer__link" href={link.href}>{link.text}</a></li>)}
+          </ul>
+        </nav>
+      ))}
+      <div class="ds-site-footer__column">
+        <p class="ds-site-footer__title">Kontakt</p>
+        <ul class="ds-site-footer__links" role="list">
+          {contact.map((line) => <li>{line}</li>)}
+        </ul>
+      </div>
+    </div>
+    <div class="ds-site-footer__bottom">
+      {notes.map((note) => <p>{note}</p>)}
+    </div>
+  </div>
+</footer>

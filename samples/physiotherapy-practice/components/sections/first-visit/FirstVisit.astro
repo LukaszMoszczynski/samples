@@ -1,0 +1,37 @@
+---
+// First visit, step by step: four steps on a flowing line that draws itself once as the section comes in (physio.js),
+// each with its rough time. A plain numbered list without JS.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+interface Props { id: string; label: string; title: string; lead: string; steps: { title: string; text: string; time: string }[]; bring: string[] }
+const { id, label, title, lead, steps, bring } = Astro.props;
+---
+<section class="ds-section ds-first-visit" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow text={label} />
+      <h2 class="ds-section-head__title" id={`${id}-title`}>{title}</h2>
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <div class="ds-first-visit__track" data-visit-track>
+      <svg class="ds-first-visit__wave" viewBox="0 0 1200 80" preserveAspectRatio="none" fill="none" aria-hidden="true">
+        <path d="M0 40C100 0 200 0 300 40s200 40 300 0 200-40 300 0 200 40 300 0" pathLength="1000" data-draw data-visit-line />
+      </svg>
+      <ol class="ds-first-visit__steps" role="list">
+        {steps.map((step, index) => (
+          <li class="ds-first-visit__step" data-visit-step>
+            <span class="ds-first-visit__number" aria-hidden="true">{index + 1}</span>
+            <p class="ds-first-visit__time">{step.time}</p>
+            <h3 class="ds-first-visit__title"><span class="ds-visually-hidden">Krok {index + 1}: </span>{step.title}</h3>
+            <p class="ds-first-visit__text">{step.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+    <div class="ds-first-visit__bring" data-reveal>
+      <p class="ds-first-visit__bring-title">Weź ze sobą</p>
+      <ul class="ds-first-visit__bring-list" role="list">
+        {bring.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,86 @@
+/* Pill button: rounded, generous, calm. The shine is a soft light band that crosses the button on hover. */
+.ds-pill-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-10);
+  min-height: var(--size-52);
+  padding: var(--space-14) var(--space-28);
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid transparent;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+}
+
+.ds-pill-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 30%, color-mix(in srgb, var(--palette-neutral-0) 38%, transparent) 50%, transparent 70%);
+  transform: translateX(-110%);
+  pointer-events: none;
+}
+
+.ds-pill-button--solid {
+  background: var(--palette-accent-500);
+  color: var(--palette-neutral-0);
+}
+
+.ds-pill-button--ghost {
+  border-color: color-mix(in srgb, var(--palette-secondary-800) 35%, transparent);
+  background: transparent;
+  color: var(--palette-secondary-800);
+}
+
+.ds-pill-button--soft {
+  background: var(--palette-primary-50);
+  color: var(--palette-primary-800);
+}
+
+.ds-pill-button__arrow {
+  width: var(--size-18);
+  height: var(--size-18);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ds-pill-button:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .ds-pill-button:hover {
+    transform: translateY(calc(var(--space-2) * -1));
+    box-shadow: 0 var(--space-12) var(--space-24) calc(var(--space-8) * -1) color-mix(in srgb, var(--palette-secondary-800) 35%, transparent);
+  }
+
+  .ds-pill-button:hover::after {
+    transform: translateX(110%);
+    transition: transform 0.8s ease;
+  }
+
+  .ds-pill-button:hover .ds-pill-button__arrow {
+    transform: translateX(var(--space-4));
+  }
+}
+
+.ds-pill-button--ghost:hover {
+  border-color: var(--palette-secondary-800);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-pill-button,
+  .ds-pill-button__arrow {
+    transition: none;
+  }
+}

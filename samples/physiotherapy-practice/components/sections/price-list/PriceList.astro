@@ -1,0 +1,39 @@
+---
+// Price list: groups of rows (name, short note, duration, price) with a dotted leader, and the NFZ / private note.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+interface Row { name: string; note?: string; duration: string; price: string }
+interface Props { id: string; label: string; title: string; lead: string; groups: { title: string; rows: Row[] }[]; nfz: { title: string; text: string } }
+const { id, label, title, lead, groups, nfz } = Astro.props;
+---
+<section class="ds-section ds-price-list" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container ds-price-list__grid">
+    <div>
+      <div class="ds-section-head" data-reveal>
+        <Eyebrow text={label} />
+        <h2 class="ds-section-head__title" id={`${id}-title`}>{title}</h2>
+        <p class="ds-section-head__lead">{lead}</p>
+      </div>
+      <aside class="ds-price-list__nfz" aria-labelledby={`${id}-nfz`} data-reveal>
+        <p class="ds-price-list__nfz-title" id={`${id}-nfz`}>{nfz.title}</p>
+        <p>{nfz.text}</p>
+      </aside>
+    </div>
+    <div class="ds-price-list__groups">
+      {groups.map((group) => (
+        <div class="ds-price-list__group" data-reveal>
+          <h3 class="ds-price-list__group-title">{group.title}</h3>
+          <ul class="ds-price-list__rows" role="list">
+            {group.rows.map((row) => (
+              <li class="ds-price-list__row">
+                <span class="ds-price-list__name">{row.name}{row.note && <span class="ds-price-list__note">{row.note}</span>}</span>
+                <span class="ds-price-list__leader" aria-hidden="true"></span>
+                <span class="ds-price-list__duration">{row.duration}</span>
+                <span class="ds-price-list__price">{row.price}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

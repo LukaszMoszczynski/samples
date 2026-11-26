@@ -1,0 +1,75 @@
+---
+// "Gdzie boli?": a body drawn in soft lines with a spot per area, real buttons for every area, and one answer panel
+// per area (what we often hear, what may help). physio.js shows the chosen panel and pulses its spot; without JS every
+// panel is on the page. The spots in the drawing answer pointer clicks too, the buttons are the keyboard way in.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import PillButton from '../../atoms/pill-button/PillButton.astro';
+interface Area { id: string; name: string; x: number; y: number; problems: string[]; treatments: string[] }
+interface Props { id: string; label: string; title: string; lead: string; note: string; areas: Area[] }
+const { id, label, title, lead, note, areas } = Astro.props;
+---
+<section class="ds-section ds-section--soft ds-body-map" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow text={label} />
+      <h2 class="ds-section-head__title" id={`${id}-title`}>{title}</h2>
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <div class="ds-body-map__grid">
+      <div class="ds-body-map__figure" data-reveal>
+        <svg viewBox="0 0 200 420" fill="none" aria-hidden="true" data-body-figure>
+          <g class="ds-body-map__body">
+            <circle cx="100" cy="38" r="22" />
+            <path d="M100 60v16" />
+            <path d="M70 92c10-10 50-10 60 0l-6 104c-8 10-40 10-48 0z" />
+            <path d="M68 96c-12 30-18 64-20 92-1 14-3 26-4 34" />
+            <path d="M132 96c12 30 18 64 20 92 1 14 3 26 4 34" />
+            <path d="M88 206c-4 40-6 70-4 104 2 30 0 56-2 82l-14 8" />
+            <path d="M112 206c4 40 6 70 4 104-2 30 0 56 2 82l14 8" />
+            <path class="ds-body-map__spine" d="M100 96v96" />
+          </g>
+          {areas.map((area) => (
+            <g class="ds-body-map__spot" data-body-spot={area.id}>
+              <circle class="ds-body-map__halo" cx={area.x} cy={area.y} r="14" data-body-halo />
+              <circle class="ds-body-map__dot" cx={area.x} cy={area.y} r="7" />
+            </g>
+          ))}
+        </svg>
+      </div>
+      <div class="ds-body-map__side">
+        <ul class="ds-body-map__areas" role="list" data-reveal>
+          {areas.map((area, index) => (
+            <li>
+              <button class="ds-body-map__area" type="button" aria-pressed={index === 0 ? 'true' : 'false'} aria-controls={`obszar-${area.id}`} data-body-area={area.id}>
+                <span class="ds-body-map__area-dot" aria-hidden="true"></span>{area.name}
+              </button>
+            </li>
+          ))}
+        </ul>
+        <div class="ds-body-map__answers" aria-live="polite" data-reveal>
+          {areas.map((area) => (
+            <article class="ds-body-map__panel" id={`obszar-${area.id}`} data-body-panel={area.id} aria-labelledby={`obszar-${area.id}-title`}>
+              <h3 class="ds-body-map__panel-title" id={`obszar-${area.id}-title`}>{area.name}</h3>
+              <div class="ds-body-map__columns">
+                <div>
+                  <p class="ds-body-map__caption">Najczęściej słyszymy</p>
+                  <ul class="ds-body-map__list" role="list">
+                    {area.problems.map((problem) => <li>{problem}</li>)}
+                  </ul>
+                </div>
+                <div>
+                  <p class="ds-body-map__caption">Co może pomóc</p>
+                  <ul class="ds-body-map__treatments" role="list">
+                    {area.treatments.map((treatment) => <li><a class="ds-body-map__treatment" href="#rezerwacja" data-book-service={treatment}>{treatment}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5" /></svg></a></li>)}
+                  </ul>
+                </div>
+              </div>
+              <PillButton text="Umów konsultację" href="#rezerwacja" variant="soft" attributes={{ 'data-book-service': 'Konsultacja z badaniem' }} />
+            </article>
+          ))}
+        </div>
+        <p class="ds-body-map__note">{note}</p>
+      </div>
+    </div>
+  </div>
+</section>

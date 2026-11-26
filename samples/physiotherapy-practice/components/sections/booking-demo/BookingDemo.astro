@@ -1,0 +1,94 @@
+---
+// Booking demo: service, therapist, day (forms-kit calendar, future days only), free hours for that day, contact, and
+// a live summary. physio.js marks taken hours (made up from the date, so it looks lived-in), fills the summary and
+// shows a thank-you. Nothing is sent or saved. Without JS it is a plain form with every hour open.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import PillButton from '../../atoms/pill-button/PillButton.astro';
+interface Service { title: string; duration: string; price: string }
+interface Props { id: string; label: string; title: string; lead: string; services: Service[]; therapists: string[]; hours: string[] }
+const { id, label, title, lead, services, therapists, hours } = Astro.props;
+---
+<section class="ds-section ds-section--soft ds-booking" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow text={label} tone="coral" />
+      <h2 class="ds-section-head__title" id={`${id}-title`}>{title}</h2>
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <div class="ds-booking__grid">
+      <form class="ds-booking__form" data-booking-form data-reveal>
+        <p class="ds-booking__demo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 8v5M12 16v.5" /></svg>
+          Demo rezerwacji: formularz nic nie wysyła i niczego nie zapisuje.
+        </p>
+        <div class="ds-booking__field">
+          <label class="ds-booking__label" for="booking-service">Zabieg</label>
+          <select class="ds-booking__input" id="booking-service" name="service" data-booking-service>
+            {services.map((service) => <option value={service.title} data-duration={service.duration} data-price={service.price}>{service.title}</option>)}
+          </select>
+        </div>
+        <div class="ds-booking__field">
+          <label class="ds-booking__label" for="booking-therapist">Fizjoterapeuta</label>
+          <select class="ds-booking__input" id="booking-therapist" name="therapist" data-booking-therapist>
+            <option value="Dowolna osoba">Pierwszy wolny (dowolna osoba)</option>
+            {therapists.map((therapist) => <option value={therapist}>{therapist}</option>)}
+          </select>
+        </div>
+        <div class="ds-booking__field ds-booking__field--wide">
+          <label class="ds-booking__label" for="booking-date">Dzień wizyty</label>
+          <input class="ds-booking__input" id="booking-date" name="date" type="date" data-min="today" required data-booking-date />
+        </div>
+        <fieldset class="ds-booking__field ds-booking__field--wide ds-booking__slots">
+          <legend class="ds-booking__label">Godzina</legend>
+          <p class="ds-booking__hint" data-booking-hint aria-live="polite">Wolne godziny pokażą się po wyborze dnia.</p>
+          <div class="ds-booking__slot-list" data-booking-slots>
+            {hours.map((hour, index) => (
+              <label class="ds-booking__slot">
+                <input class="ds-booking__slot-input" type="radio" name="slot" value={hour} checked={index === 0} />
+                <span>{hour}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+        <div class="ds-booking__field">
+          <label class="ds-booking__label" for="booking-name">Imię i nazwisko</label>
+          <input class="ds-booking__input" id="booking-name" name="name" autocomplete="name" required />
+        </div>
+        <div class="ds-booking__field">
+          <label class="ds-booking__label" for="booking-phone">Telefon</label>
+          <input class="ds-booking__input" id="booking-phone" name="phone" type="tel" autocomplete="tel" placeholder="np. 600 000 000" required />
+        </div>
+        <div class="ds-booking__field ds-booking__field--wide">
+          <label class="ds-booking__label" for="booking-email">E-mail (potwierdzenie i przypomnienie)</label>
+          <input class="ds-booking__input" id="booking-email" name="email" type="email" autocomplete="email" placeholder="imie@example.com" />
+        </div>
+        <div class="ds-booking__field ds-booking__field--wide">
+          <label class="ds-booking__label" for="booking-note">Co dolega? (opcjonalnie)</label>
+          <textarea class="ds-booking__input ds-booking__textarea" id="booking-note" name="note" rows="3" placeholder="np. ból kolana od dwóch tygodni, po bieganiu"></textarea>
+        </div>
+        <label class="ds-booking__consent ds-booking__field--wide">
+          <input type="checkbox" name="consent" required />
+          <span>Zgadzam się na kontakt w sprawie tej wizyty.</span>
+        </label>
+        <div class="ds-booking__submit ds-booking__field--wide">
+          <PillButton text="Zarezerwuj termin" type="submit" arrow />
+        </div>
+        <div class="ds-booking__thanks ds-booking__field--wide" role="status" hidden data-booking-thanks>
+          <p class="ds-booking__thanks-title">Dziękujemy, termin wstępnie zarezerwowany.</p>
+          <p data-booking-thanks-text>To przykład: w gotowej stronie dostaniesz SMS i e-mail z potwierdzeniem.</p>
+        </div>
+      </form>
+      <aside class="ds-booking__summary" aria-labelledby="booking-summary-title" data-reveal>
+        <p class="ds-booking__summary-title" id="booking-summary-title">Twoja wizyta</p>
+        <dl class="ds-booking__summary-list">
+          <div><dt>Zabieg</dt><dd data-summary="service">{services[0].title}</dd></div>
+          <div><dt>Fizjoterapeuta</dt><dd data-summary="therapist">Pierwszy wolny</dd></div>
+          <div><dt>Termin</dt><dd data-summary="when">wybierz dzień i godzinę</dd></div>
+          <div><dt>Czas</dt><dd data-summary="duration">{services[0].duration}</dd></div>
+          <div><dt>Cena</dt><dd data-summary="price">{services[0].price}</dd></div>
+        </dl>
+        <p class="ds-booking__summary-note">Płatność na miejscu, kartą lub gotówką. Wizytę można odwołać bez opłat do 24 godzin przed terminem.</p>
+      </aside>
+    </div>
+  </div>
+</section>
