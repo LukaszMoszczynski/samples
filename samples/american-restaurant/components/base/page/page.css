@@ -1,0 +1,164 @@
+/* Page base for the diner sample: smooth anchor scrolling (off for reduced motion), room for the sticky header,
+   soda-fountain cream, night sections, the checkerboard strip, the container, the section rhythm and the section
+   heading, focus rings and the start states of everything the script animates in. */
+html {
+  scroll-padding-top: calc(var(--size-header-height) + var(--space-16));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background: var(--palette-neutral-50);
+  color: var(--palette-secondary-800);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+::selection {
+  background: var(--palette-primary-600);
+  color: var(--palette-neutral-0);
+}
+
+.ds-container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: calc(var(--layout-container) + var(--space-gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
+}
+
+.ds-section {
+  padding-block: var(--space-section-y);
+}
+
+/* Night: midnight blue with a faint star dust, for the hero, the smokehouse and the specials board. */
+.ds-section--night {
+  background-color: var(--palette-secondary-900);
+  background-image:
+    radial-gradient(color-mix(in srgb, var(--palette-neutral-0) 22%, transparent) 1px, transparent 2px),
+    radial-gradient(color-mix(in srgb, var(--palette-accent-400) 18%, transparent) 1px, transparent 2px);
+  background-size: calc(var(--space-64) * 2) calc(var(--space-64) * 2), calc(var(--space-64) * 3) calc(var(--space-64) * 3);
+  background-position: 0 0, var(--space-40) var(--space-56);
+  color: var(--palette-neutral-0);
+}
+
+.ds-section--paper {
+  background: var(--palette-neutral-0);
+}
+
+/* Black-and-white checkerboard strip, the diner floor. */
+.ds-checker {
+  height: var(--space-24);
+  background-color: var(--palette-neutral-0);
+  background-image: conic-gradient(var(--palette-secondary-900) 25%, transparent 0 50%, var(--palette-secondary-900) 0 75%, transparent 0);
+  background-size: var(--space-24) var(--space-24);
+}
+
+.ds-checker--small {
+  height: var(--space-12);
+  background-size: var(--space-12) var(--space-12);
+}
+
+.ds-section-head {
+  display: grid;
+  gap: var(--space-16);
+  max-width: calc(var(--layout-container) * 0.62);
+  margin-bottom: var(--space-48);
+}
+
+.ds-section-head--center {
+  justify-items: center;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.ds-section-head__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  line-height: var(--font-line-height-3xl);
+  font-weight: var(--font-weight-regular);
+  text-wrap: balance;
+}
+
+.ds-section-head__title em {
+  color: var(--palette-primary-600);
+  font-style: normal;
+}
+
+.ds-section--night .ds-section-head__title em {
+  color: var(--palette-primary-400);
+}
+
+.ds-section-head__lead {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  line-height: 1.55;
+  color: var(--palette-neutral-600);
+  text-wrap: pretty;
+}
+
+.ds-section--night .ds-section-head__lead {
+  color: color-mix(in srgb, var(--palette-neutral-0) 82%, transparent);
+}
+
+.ds-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+input:focus-visible + .ds-shake__chip {
+  outline: var(--focus-ring-width) solid var(--palette-primary-600);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-section--night a:focus-visible,
+.ds-section--night button:focus-visible,
+.ds-section--night input:focus-visible + .ds-shake__chip {
+  outline-color: var(--palette-accent-400);
+}
+
+/* Entrance targets start hidden from the first paint while the script is coming (html[data-motion], set in the head
+   only without a reduced-motion preference); the script animates them in. */
+[data-motion] [data-reveal],
+[data-motion] [data-hero-item],
+[data-motion] [data-smoke] {
+  opacity: 0;
+}
+
+/* Unlit neon: the glass tubes show faintly until the sign flickers on. */
+[data-motion] [data-neon] {
+  opacity: 0.18;
+}
+
+/* Drawn lines start undrawn while motion is on; the script draws them (dash 1000 → 0). */
+[data-motion] [data-draw] path,
+[data-motion] [data-draw] circle,
+[data-motion] [data-draw] ellipse,
+[data-motion] [data-draw] line,
+[data-motion] [data-draw] rect,
+[data-motion] [data-draw] polyline {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+[data-motion] [data-draw] [data-fill] {
+  fill-opacity: 0;
+}
+
+/* Anything marked hidden stays hidden, whatever display a component sets. */
+[hidden] {
+  display: none !important;
+}

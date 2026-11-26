@@ -1,0 +1,115 @@
+/* Form fields for the booking and takeaway forms: condensed label over a cream field with a navy rim, a consent row
+   and the thank-you note. The forms kit (forms.js + base/forms) turns selects and dates into animated pickers. */
+.ds-form {
+  --color-shadow-lift: color-mix(in srgb, var(--palette-secondary-900) 24%, transparent);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-20);
+}
+
+.ds-field {
+  display: grid;
+  gap: var(--space-8);
+  min-width: 0;
+}
+
+.ds-field--wide {
+  grid-column: 1 / -1;
+}
+
+.ds-field__label {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-1);
+  text-transform: uppercase;
+  color: var(--palette-secondary-900);
+}
+
+.ds-field__input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--size-52);
+  padding: 0 var(--space-16);
+  border: 2px solid var(--palette-secondary-900);
+  border-radius: var(--radius-md);
+  background: var(--palette-neutral-0);
+  color: var(--palette-secondary-900);
+  font: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ds-field__input:hover {
+  box-shadow: 0 var(--space-4) 0 var(--palette-secondary-900);
+}
+
+textarea.ds-field__input {
+  min-height: calc(var(--size-52) * 2);
+  padding-block: var(--space-14);
+  resize: vertical;
+}
+
+.ds-field__input::placeholder {
+  color: var(--palette-neutral-600);
+}
+
+.ds-field__input:focus-visible {
+  outline: var(--focus-ring-width) solid var(--palette-primary-600);
+  outline-offset: var(--space-2);
+}
+
+.ds-form__consent {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: var(--space-12);
+  align-items: flex-start;
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  color: var(--palette-neutral-600);
+}
+
+.ds-form__consent input {
+  flex-shrink: 0;
+  width: var(--size-20);
+  height: var(--size-20);
+  margin: var(--space-2) 0 0;
+  accent-color: var(--palette-primary-600);
+}
+
+.ds-form__submit {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
+.ds-form__thanks {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: var(--space-12);
+  align-items: flex-start;
+  margin: 0;
+  padding: var(--space-16) var(--space-20);
+  border: 2px solid var(--palette-accent-500);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--palette-accent-400) 22%, var(--palette-neutral-0));
+  color: var(--palette-secondary-900);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-form__thanks svg {
+  flex-shrink: 0;
+  width: var(--size-24);
+  height: var(--size-24);
+  color: var(--palette-accent-500);
+}
+
+@media (max-width: 599px) {
+  .ds-form {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-field__input {
+    transition: none;
+  }
+}

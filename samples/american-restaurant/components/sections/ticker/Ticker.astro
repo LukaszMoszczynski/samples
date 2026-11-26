@@ -1,0 +1,16 @@
+---
+// Ticker: a cherry-red band of what is on the grill, sliding sideways without end (diner.js), stars between words.
+// The copy is listed twice so the loop has no seam; the second copy is hidden from screen readers.
+interface Props { items: string[]; label: string }
+const { items, label } = Astro.props;
+const star = '<svg class="ds-ticker__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.6 6.9L22 9.3l-5.8 4.6 2.1 7.1L12 17l-6.3 4 2.1-7.1L2 9.3l7.4-.4z"/></svg>';
+---
+<section class="ds-ticker" aria-label={label}>
+  <div class="ds-ticker__track" data-ticker>
+    {[0, 1].map((copy) => (
+      <ul class="ds-ticker__list" role="list" aria-hidden={copy === 1 ? 'true' : undefined}>
+        {items.map((item) => <li class="ds-ticker__item">{item}<Fragment set:html={star} /></li>)}
+      </ul>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,25 @@
+---
+// Menu item: the dish name, a dotted leader to the price, a line of description, marks (hit, ostre, wege, weekend)
+// and an "add to takeaway order" button. The button appears only with JS (order.js), the rest is plain content.
+import type { Dish } from '../../../data/menu';
+interface Props { dish: Dish }
+const { dish } = Astro.props;
+const tagText = { hit: 'Hit', ostre: 'Ostre', wege: 'Wege', weekend: 'Sob–nd' };
+---
+<article class="ds-menu-item">
+  <div class="ds-menu-item__head">
+    <h4 class="ds-menu-item__name">{dish.name}</h4>
+    <span class="ds-menu-item__leader" aria-hidden="true"></span>
+    <p class="ds-menu-item__price"><span class="ds-visually-hidden">Cena: </span>{dish.price} zł</p>
+  </div>
+  <p class="ds-menu-item__text">{dish.text}</p>
+  <div class="ds-menu-item__foot">
+    {dish.tags?.length
+      ? <ul class="ds-menu-item__tags" role="list">{dish.tags.map((tag) => <li class={`ds-menu-item__tag ds-menu-item__tag--${tag}`}>{tagText[tag]}</li>)}</ul>
+      : <span></span>}
+    <button class="ds-menu-item__add" type="button" hidden data-add-dish={dish.id} data-name={dish.name} data-price={dish.price} aria-label={`Dodaj ${dish.name} do zamówienia na wynos`}>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+      <span data-add-label>Dodaj</span>
+    </button>
+  </div>
+</article>

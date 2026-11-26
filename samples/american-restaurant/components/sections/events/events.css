@@ -1,0 +1,158 @@
+/* Events: three night tickets with a chrome rim, a perforated edge and a shine that follows the pointer; a private
+   party band below. */
+.ds-events {
+  overflow-x: clip;
+}
+
+.ds-events__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-28);
+  margin: 0 0 var(--space-48);
+  padding: 0;
+  list-style: none;
+  perspective: calc(var(--size-160) * 6);
+}
+
+.ds-events__slot {
+  display: flex;
+}
+
+.ds-events__card {
+  --shine-x: 50%;
+  --shine-y: 0%;
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: var(--space-14);
+  width: 100%;
+  overflow: hidden;
+  padding: var(--space-28);
+  border: var(--space-3) solid var(--palette-secondary-100);
+  border-radius: var(--radius-2xl);
+  background: var(--palette-secondary-800);
+  transform-style: preserve-3d;
+  transition: box-shadow 0.3s ease;
+}
+
+/* Perforation: a row of punched holes down the ticket's left side. */
+.ds-events__card::before {
+  content: "";
+  position: absolute;
+  inset: var(--space-16) auto var(--space-16) var(--space-8);
+  width: var(--space-6);
+  background: radial-gradient(circle, var(--palette-secondary-900) 45%, transparent 50%) 0 0 / var(--space-6) var(--space-14) repeat-y;
+}
+
+.ds-events__slot:hover .ds-events__card {
+  box-shadow: 0 0 var(--space-32) color-mix(in srgb, var(--palette-primary-400) 35%, transparent);
+}
+
+.ds-events__shine {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--shine-x) var(--shine-y), color-mix(in srgb, var(--palette-neutral-0) 22%, transparent), transparent 45%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.ds-events__slot:hover .ds-events__shine {
+  opacity: 1;
+}
+
+.ds-events__when {
+  justify-self: start;
+  margin: 0;
+  padding: var(--space-4) var(--space-14);
+  border-radius: var(--radius-full);
+  background: var(--palette-primary-600);
+  color: var(--palette-neutral-0);
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-1);
+  text-transform: uppercase;
+}
+
+.ds-events__art {
+  width: calc(var(--size-160) * 0.75);
+  margin-block: var(--space-4);
+}
+
+.ds-events__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  line-height: var(--font-line-height-xl);
+  font-weight: var(--font-weight-regular);
+}
+
+.ds-events__text {
+  margin: 0;
+  color: color-mix(in srgb, var(--palette-neutral-0) 84%, transparent);
+}
+
+.ds-events__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  margin: var(--space-4) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-events__facts li {
+  padding: var(--space-2) var(--space-10);
+  border: 1px solid color-mix(in srgb, var(--palette-accent-400) 70%, transparent);
+  border-radius: var(--radius-full);
+  color: var(--palette-accent-400);
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-events__party {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-24);
+  padding: var(--space-28) var(--space-32);
+  border: 2px dashed color-mix(in srgb, var(--palette-neutral-0) 35%, transparent);
+  border-radius: var(--radius-2xl);
+}
+
+.ds-events__party-title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  line-height: var(--font-line-height-xl);
+  font-weight: var(--font-weight-regular);
+  color: var(--palette-primary-400);
+}
+
+.ds-events__party-text {
+  max-width: calc(var(--size-160) * 4);
+  margin: var(--space-6) 0 0;
+  color: color-mix(in srgb, var(--palette-neutral-0) 84%, transparent);
+}
+
+@media (max-width: 1023px) {
+  .ds-events__list {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: calc(var(--size-160) * 3.6);
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 479px) {
+  .ds-events__party {
+    padding: var(--space-20);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-events__card,
+  .ds-events__shine {
+    transition: none;
+  }
+}

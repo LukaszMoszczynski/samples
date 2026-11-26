@@ -1,0 +1,191 @@
+/* Visit: three info blocks and the drawn map (mint ground, navy roads with a dashed centre line, a cherry pin). */
+.ds-visit__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-48);
+}
+
+.ds-visit__info {
+  display: grid;
+  gap: var(--space-32);
+}
+
+.ds-visit__title {
+  margin: 0 0 var(--space-12);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-1);
+  text-transform: uppercase;
+  color: var(--palette-primary-600);
+}
+
+.ds-visit__hours {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-visit__hour {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-16);
+  padding: var(--space-10) var(--space-12);
+  border-bottom: 2px dotted color-mix(in srgb, var(--palette-secondary-900) 25%, transparent);
+}
+
+.ds-visit__hour.is-today {
+  border-radius: var(--radius-sm);
+  background: var(--palette-secondary-900);
+  color: var(--palette-neutral-0);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-visit__today {
+  margin-left: var(--space-10);
+  padding: 0 var(--space-8);
+  border-radius: var(--radius-full);
+  background: var(--palette-accent-400);
+  color: var(--palette-secondary-900);
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+}
+
+.ds-visit__time {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-visit__small {
+  margin: var(--space-12) 0 0;
+  color: var(--palette-neutral-600);
+}
+
+.ds-visit__address {
+  display: grid;
+  gap: var(--space-4);
+  font-style: normal;
+}
+
+.ds-visit__address a {
+  justify-self: start;
+  color: var(--palette-primary-600);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-visit__ways {
+  display: grid;
+  gap: var(--space-10);
+  margin: 0;
+}
+
+.ds-visit__way dt {
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-visit__way dd {
+  margin: 0;
+  color: var(--palette-neutral-600);
+}
+
+.ds-visit__map {
+  position: sticky;
+  top: calc(var(--size-header-height) + var(--space-24));
+  margin: 0;
+}
+
+.ds-visit__map-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: var(--space-3) solid var(--palette-secondary-900);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--space-8) var(--space-8) 0 var(--palette-secondary-900);
+}
+
+.ds-visit__map-ground {
+  fill: color-mix(in srgb, var(--palette-accent-400) 30%, var(--palette-neutral-0));
+}
+
+.ds-visit__map-park {
+  fill: color-mix(in srgb, var(--palette-accent-400) 65%, var(--palette-neutral-0));
+}
+
+.ds-visit__map-lot {
+  fill: var(--palette-secondary-100);
+}
+
+.ds-visit__map-roads {
+  fill: none;
+  stroke: var(--palette-secondary-800);
+  stroke-width: 26;
+  stroke-linecap: round;
+}
+
+.ds-visit__map-lines {
+  fill: none;
+  stroke: var(--palette-neutral-0);
+  stroke-width: 3;
+  stroke-dasharray: 14 12;
+}
+
+.ds-visit__map-label {
+  fill: var(--palette-secondary-900);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-20);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-2);
+}
+
+.ds-visit__map-shield path {
+  fill: var(--palette-neutral-0);
+  stroke: var(--palette-secondary-900);
+  stroke-width: 3;
+}
+
+.ds-visit__map-shield text {
+  fill: var(--palette-secondary-900);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-20);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-visit__map-pin path {
+  fill: var(--palette-primary-600);
+  stroke: var(--palette-secondary-900);
+  stroke-width: 3;
+}
+
+.ds-visit__map-pin circle {
+  fill: var(--palette-neutral-0);
+}
+
+.ds-visit__map-caption {
+  margin-top: var(--space-16);
+  color: var(--palette-neutral-600);
+}
+
+/* With motion the roads start undrawn and the pin waits above the map. */
+[data-motion] .ds-visit__map-roads path {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+[data-motion] .ds-visit__map-lines,
+[data-motion] [data-map-pin] {
+  opacity: 0;
+}
+
+@media (max-width: 899px) {
+  .ds-visit__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ds-visit__map {
+    position: static;
+  }
+}

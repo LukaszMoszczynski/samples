@@ -1,0 +1,46 @@
+---
+// Specials: a felt letter board with the special of each weekday (today's row lights up, diner.js) and the happy hour
+// card with a live line: "on now, X min left" / "today from 15:00" / "back on Monday", plus a bar of the time left.
+// With motion the board's rows slide in like letters pressed into felt.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+interface Props {
+  id: string; eyebrow: string; title: string; lead: string;
+  days: { day: string; weekday: number; text: string; price: string }[];
+  happy: { title: string; time: string; deals: string[]; start: number; end: number; weekdays: number[] };
+}
+const { id, eyebrow, title, lead, days, happy } = Astro.props;
+---
+<section class="ds-section ds-section--paper ds-specials" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container ds-specials__grid">
+    <div class="ds-specials__side">
+      <div class="ds-section-head" data-reveal>
+        <Eyebrow text={eyebrow} />
+        <h2 class="ds-section-head__title" id={`${id}-title`} set:html={title} />
+        <p class="ds-section-head__lead">{lead}</p>
+      </div>
+      <div class="ds-specials__happy" data-reveal data-happy data-start={happy.start} data-end={happy.end} data-weekdays={happy.weekdays.join(',')}>
+        <p class="ds-specials__happy-title">{happy.title}</p>
+        <p class="ds-specials__happy-time">{happy.time}</p>
+        <ul class="ds-specials__happy-deals" role="list">
+          {happy.deals.map((deal) => <li>{deal}</li>)}
+        </ul>
+        <div class="ds-specials__happy-bar" aria-hidden="true"><span data-happy-bar></span></div>
+        <p class="ds-specials__happy-status" data-happy-status>Codziennie od poniedziałku do piątku.</p>
+      </div>
+    </div>
+    <div class="ds-specials__board" data-reveal>
+      <div class="ds-specials__felt">
+        <p class="ds-specials__board-title" aria-hidden="true">Dania dnia</p>
+        <ul class="ds-specials__rows" role="list">
+          {days.map((row) => (
+            <li class="ds-specials__row" data-weekday={row.weekday} data-board-row>
+              <span class="ds-specials__day">{row.day}<span class="ds-specials__today" data-today-label hidden><span class="ds-visually-hidden">, </span><span aria-hidden="true">▸ </span>dziś</span></span>
+              <span class="ds-specials__text">{row.text}</span>
+              <span class="ds-specials__price">{row.price}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

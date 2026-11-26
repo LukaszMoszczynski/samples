@@ -1,0 +1,10 @@
+---
+// Eyebrow: a small condensed label between two stars, like the lettering on a diner sign. tone="night" on dark.
+interface Props { text: string; tone?: 'day' | 'night' }
+const { text, tone = 'day' } = Astro.props;
+---
+<p class={`ds-eyebrow ds-eyebrow--${tone}`}>
+  <svg class="ds-eyebrow__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.6 6.9L22 9.3l-5.8 4.6 2.1 7.1L12 17l-6.3 4 2.1-7.1L2 9.3l7.4-.4z" /></svg>
+  <span>{text}</span>
+  <svg class="ds-eyebrow__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.6 6.9L22 9.3l-5.8 4.6 2.1 7.1L12 17l-6.3 4 2.1-7.1L2 9.3l7.4-.4z" /></svg>
+</p>

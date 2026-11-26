@@ -1,0 +1,226 @@
+---
+// American diner home page: components made for this brief (components/), on the design system's tokens.
+// Copy, dishes, prices, hours, events and reviews are example content written for the brief.
+import Sample from '../layouts/Sample.astro';
+import sample from '../sample.json';
+import { categories, dishes } from '../data/menu';
+
+import '../components/base/page/page.css';
+import '../components/base/forms/forms.css';
+import '../components/atoms/diner-button/diner-button.css';
+import '../components/atoms/eyebrow/eyebrow.css';
+import '../components/molecules/logo/logo.css';
+import '../components/molecules/diner-art/diner-art.css';
+import '../components/molecules/menu-item/menu-item.css';
+import '../components/molecules/field/field.css';
+import '../components/organisms/site-header/site-header.css';
+import '../components/organisms/site-footer/site-footer.css';
+import '../components/sections/neon-hero/neon-hero.css';
+import '../components/sections/ticker/ticker.css';
+import '../components/sections/menu-board/menu-board.css';
+import '../components/sections/shake-bar/shake-bar.css';
+import '../components/sections/takeaway/takeaway.css';
+import '../components/sections/smokehouse/smokehouse.css';
+import '../components/sections/specials/specials.css';
+import '../components/sections/booking/booking.css';
+import '../components/sections/events/events.css';
+import '../components/sections/reviews/reviews.css';
+import '../components/sections/visit/visit.css';
+
+import SiteHeader from '../components/organisms/site-header/SiteHeader.astro';
+import NeonHero from '../components/sections/neon-hero/NeonHero.astro';
+import Ticker from '../components/sections/ticker/Ticker.astro';
+import MenuBoard from '../components/sections/menu-board/MenuBoard.astro';
+import ShakeBar from '../components/sections/shake-bar/ShakeBar.astro';
+import Takeaway from '../components/sections/takeaway/Takeaway.astro';
+import Smokehouse from '../components/sections/smokehouse/Smokehouse.astro';
+import Specials from '../components/sections/specials/Specials.astro';
+import Booking from '../components/sections/booking/Booking.astro';
+import Events from '../components/sections/events/Events.astro';
+import Reviews from '../components/sections/reviews/Reviews.astro';
+import Visit from '../components/sections/visit/Visit.astro';
+import SiteFooter from '../components/organisms/site-footer/SiteFooter.astro';
+
+const name = 'Twój Diner';
+const phone = '+48 600 000 066';
+const email = 'stolik@example.com';
+const nav = [
+  { text: 'Menu', href: '#menu' },
+  { text: 'Wędzarnia', href: '#wedzarnia' },
+  { text: 'Dania dnia', href: '#dania-dnia' },
+  { text: 'Wydarzenia', href: '#wydarzenia' },
+  { text: 'Kontakt', href: '#kontakt' },
+];
+const halfHours = (from: number, to: number) => Array.from({ length: (to - from) * 2 + 1 }, (_, index) => {
+  const minutes = from * 60 + index * 30;
+  return `${Math.floor(minutes / 60)}:${minutes % 60 === 0 ? '00' : '30'}`;
+});
+---
+<Sample lang={sample.lang} title={sample.title} description="Przykładowa strona amerykańskiej restauracji: menu z filtrem kategorii, wędzarnia BBQ, dania dnia i happy hour, zamówienie na wynos i rezerwacja stolika." fonts="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@600;700&family=Shrikhand&display=swap">
+  <SiteHeader
+    name={name}
+    items={nav}
+    cta={{ text: 'Zarezerwuj', href: '#rezerwacja' }}
+    order={{ text: 'Na wynos', href: '#na-wynos' }}
+    note={`Rezerwacje i zamówienia telefoniczne: ${phone}`}
+  />
+  <main>
+    <NeonHero
+      eyebrow="Amerykański diner w centrum"
+      title="Burgery, żeberka z wędzarni i shake’i <em>do późna</em>"
+      lead="Smash burgery prosto z płyty, żeberka i brisket wędzone przez 12 godzin, skrzydełka w czterech sosach, a w weekend stosy pancakes. Usiądź w boksie przy oknie albo zabierz wszystko na wynos."
+      primary={{ text: 'Zarezerwuj stolik', href: '#rezerwacja' }}
+      secondary={{ text: 'Zamów na wynos', href: '#menu' }}
+      status="Otwarte codziennie od 12:00"
+      facts={[
+        { value: '12 h', label: 'w wędzarni' },
+        { value: '180 g', label: 'wołowiny w burgerze' },
+        { value: 'sob–nd', label: 'brunch od 9:00' },
+      ]}
+    />
+    <Ticker
+      label="Co dziś na grillu"
+      items={['Smash burgery', 'Żeberka wędzone 12 h', 'Brisket', 'Skrzydełka Buffalo', 'Shake’i na lodach', 'Pancakes w weekend', 'Happy hour 15–18']}
+    />
+    <MenuBoard
+      id="menu"
+      eyebrow="Karta"
+      title="Menu jak <em>z drogi 66</em>"
+      lead="Wybierz kategorię albo przejrzyj całą kartę. Przycisk „Dodaj” wrzuca danie do zamówienia na wynos."
+      categories={categories}
+      dishes={dishes}
+      note="Ceny w złotych, z VAT. Alergeny podamy przy stoliku i przez telefon. Każdy burger możemy podać bez glutenu, w bułce z kukurydzy."
+    />
+    <ShakeBar
+      id="shake-bar"
+      eyebrow="Shake bar"
+      title="Gęste jak w <em>soda fountain</em>"
+      lead="Lody kręcimy na miejscu każdego ranka, a shake’a podajemy w wysokiej szklance z bitą śmietaną i wisienką. Wybierz smak i patrz, jak się nalewa."
+      shakes={dishes.filter((dish) => dish.category === 'shakes')}
+    />
+    <Takeaway
+      id="na-wynos"
+      eyebrow="Na wynos"
+      title="Zamów i odbierz <em>w 25 minut</em>"
+      lead="Dodaj dania z menu, wybierz godzinę odbioru i zostaw telefon. SMS przyjdzie, gdy torba będzie gotowa przy barze."
+      phone={phone}
+      times={['Jak najszybciej (ok. 25 min)', ...halfHours(13, 21).map((time) => `Na ${time}`)]}
+    />
+    <Smokehouse
+      id="wedzarnia"
+      eyebrow="Wędzarnia"
+      title="Dwanaście godzin <em>dymu i cierpliwości</em>"
+      lead="Nasz smoker pracuje od 22:00 do 10:00. Mięso z polskich gospodarstw, drewno bukowe i dębowe, żadnych skrótów ani płynnego dymu."
+      hours={12}
+      steps={[
+        { title: 'Natarcie', text: 'Mieszanka jedenastu przypraw, papryka, czarny pieprz i brązowy cukier. Noc w chłodni.' },
+        { title: 'Drewno', text: 'Buk i dąb sezonowane przez rok. Dają spokojny, słodkawy dym bez goryczy.' },
+        { title: '12 godzin w 110 °C', text: 'Pitmaster pilnuje ognia i temperatury przez całą noc, co godzinę zagląda pod pokrywę.' },
+        { title: 'Odpoczynek i glazura', text: 'Godzina odpoczynku w papierze, potem glazura z naszego sosu BBQ i prosto na deskę.' },
+      ]}
+      figures={[
+        { value: 110, suffix: ' °C', label: 'stała temperatura dymu' },
+        { value: 180, suffix: ' kg', label: 'mięsa w tygodniu' },
+        { value: 2, suffix: '', label: 'gatunki drewna: buk i dąb' },
+      ]}
+      cta={{ text: 'Zobacz dania BBQ', href: '#menu' }}
+    />
+    <Specials
+      id="dania-dnia"
+      eyebrow="Dania dnia i happy hour"
+      title="Każdy dzień ma <em>swój talerz</em>"
+      lead="Na tablicy przy wejściu codziennie inne danie w lepszej cenie. Dzisiejszy wiersz świeci na zielono."
+      days={[
+        { day: 'Poniedziałek', weekday: 1, text: 'Smash Double + frytki', price: '39 zł' },
+        { day: 'Wtorek', weekday: 2, text: 'Skrzydełka: druga porcja za pół ceny', price: 'od 17:00' },
+        { day: 'Środa', weekday: 3, text: 'Mac & cheese z brisketem', price: '36 zł' },
+        { day: 'Czwartek', weekday: 4, text: 'Pulled pork sandwich + lemoniada', price: '42 zł' },
+        { day: 'Piątek', weekday: 5, text: 'Talerz pitmastera dla 2', price: '139 zł' },
+        { day: 'Sobota', weekday: 6, text: 'Pancakes + kawa bez limitu', price: '35 zł' },
+        { day: 'Niedziela', weekday: 0, text: 'Chicken & waffles + shake', price: '49 zł' },
+      ]}
+      happy={{
+        title: 'Happy hour',
+        time: 'Pon–pt, 15:00–18:00',
+        deals: ['Shake’i i lemoniady 30% taniej', 'Frytki do każdego burgera za 5 zł', 'Krążki cebulowe 2 za 1'],
+        start: 15,
+        end: 18,
+        weekdays: [1, 2, 3, 4, 5],
+      }}
+    />
+    <Booking
+      id="rezerwacja"
+      eyebrow="Rezerwacja"
+      title="Zarezerwuj <em>boks przy oknie</em>"
+      lead="Wybierz dzień, godzinę i liczbę osób. Potwierdzenie przyjdzie SMS-em, a w dniu wizyty przypomnimy o stoliku."
+      rules={[
+        'Stoliki rezerwujemy dla 1–10 osób; większe grupy zapraszamy na imprezę zamkniętą.',
+        'Trzymamy stolik 15 minut po godzinie rezerwacji.',
+        'Rezerwacja jest bezpłatna, płacisz na miejscu.',
+        'Brunch w weekend: rezerwacje od 9:00 do 12:00.',
+      ]}
+      phone={phone}
+      times={halfHours(12, 21)}
+    />
+    <Events
+      id="wydarzenia"
+      eyebrow="Wydarzenia"
+      title="Wieczory z <em>muzyką i grami</em>"
+      lead="Co tydzień coś się dzieje. Wstęp wolny, a stolik na wydarzenie zarezerwujesz tak jak na zwykły wieczór."
+      items={[
+        { drawing: 'guitar', when: 'Czwartki · 20:00', title: 'Koncerty na żywo', text: 'Rock’n’roll, blues i country w wykonaniu lokalnych zespołów. Scena tuż przy barze.', facts: ['wstęp wolny', 'do 23:00'] },
+        { drawing: 'dice', when: 'Wtorki · 19:00', title: 'Wieczór gier', text: 'Quiz o Ameryce, planszówki i turniej na flipperze. Drużyny do 6 osób, nagrody z kuchni.', facts: ['quiz o 20:00', 'skrzydełka −50%'] },
+        { drawing: 'burger', when: 'Ostatnia sobota miesiąca', title: 'Wyzwanie Big Diner', text: 'Burger z czterema kotletami, frytki i shake. Zjesz w 20 minut, płacisz zero i trafiasz na ścianę sławy.', facts: ['zapisy przy barze', 'dla 18+'] },
+      ]}
+      party={{
+        title: 'Urodziny, firma, wieczór kawalerski?',
+        text: 'Sala przy scenie mieści 40 osób. Ułożymy menu z wędzarni, ustawimy szafę grającą i zajmiemy się resztą.',
+        cta: { text: 'Zapytaj o imprezę', href: '#rezerwacja' },
+      }}
+    />
+    <Reviews
+      id="opinie"
+      eyebrow="Opinie gości"
+      title="Wracają <em>po więcej</em>"
+      note="Przykładowe opinie napisane do tej strony. W gotowej stronie pokażemy prawdziwe opinie gości, np. z Google."
+      items={[
+        { check: 'Rachunek nr 0412', quote: 'Smash Double z chrupiącą skórką jak w Teksasie. Do tego truskawkowy shake i wiem, gdzie wrócę w piątek.', author: 'Kuba', stars: 5 },
+        { check: 'Rachunek nr 0587', quote: 'Brisket rozpada się pod widelcem. Talerz pitmastera dla dwojga spokojnie wystarczył na trzy osoby.', author: 'Magda', stars: 5 },
+        { check: 'Rachunek nr 0633', quote: 'Wtorkowy quiz to nasz stały punkt tygodnia. Obsługa szybka, choć w czwartek przy koncercie trzeba poczekać.', author: 'Paweł', stars: 4 },
+      ]}
+    />
+    <Visit
+      id="kontakt"
+      eyebrow="Odwiedź nas"
+      title="Przy skrzyżowaniu, <em>neon widać z daleka</em>"
+      hours={[
+        { days: 'Poniedziałek – czwartek', weekdays: [1, 2, 3, 4], time: '12:00–22:00' },
+        { days: 'Piątek', weekdays: [5], time: '12:00–24:00' },
+        { days: 'Sobota', weekdays: [6], time: '9:00–24:00' },
+        { days: 'Niedziela', weekdays: [0], time: '9:00–21:00' },
+      ]}
+      brunch="Brunch w soboty i niedziele 9:00–13:00. Kuchnia przyjmuje zamówienia do pół godziny przed zamknięciem."
+      address={[name, 'ul. Przykładowa 66', '00-066 Miasto']}
+      ways={[
+        { label: 'Samochód', text: 'Bezpłatny parking dla gości tuż za budynkiem, 30 miejsc.' },
+        { label: 'Komunikacja', text: 'Przystanek Skrzyżowanie, 2 minuty pieszo; tramwaj i trzy linie autobusów.' },
+        { label: 'Dostępność', text: 'Wejście bez progów, boksy z ruchomym stołem, toaleta dla osób z niepełnosprawnością.' },
+      ]}
+      phone={phone}
+      email={email}
+    />
+  </main>
+  <SiteFooter
+    name={name}
+    about="Amerykański diner: burgery z płyty, mięsa z własnej wędzarni, shake’i na lodach kręconych na miejscu i weekendowy brunch."
+    invite={{ title: 'Neon już się <em>świeci</em>', primary: { text: 'Zarezerwuj stolik', href: '#rezerwacja' }, secondary: { text: 'Zamów na wynos', href: '#menu' } }}
+    columns={[
+      { title: 'Jedzenie', links: [{ text: 'Menu', href: '#menu' }, { text: 'Shake bar', href: '#shake-bar' }, { text: 'Wędzarnia', href: '#wedzarnia' }, { text: 'Dania dnia', href: '#dania-dnia' }] },
+      { title: 'Dla gości', links: [{ text: 'Na wynos', href: '#na-wynos' }, { text: 'Rezerwacja', href: '#rezerwacja' }, { text: 'Wydarzenia', href: '#wydarzenia' }, { text: 'Opinie', href: '#opinie' }] },
+    ]}
+    contact={{ title: 'Kontakt', lines: [phone, email, 'ul. Przykładowa 66, Miasto'], social: [{ network: 'instagram', href: '#' }, { network: 'facebook', href: '#' }] }}
+    copyright={`© 2026 ${name}. Przykładowa strona.`}
+    legal={[{ text: 'Polityka prywatności', href: '#' }, { text: 'Alergeny', href: '#menu' }]}
+  />
+  <script src="../scripts/diner.js"></script>
+</Sample>

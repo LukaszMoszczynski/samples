@@ -1,0 +1,186 @@
+/* Specials: the happy hour card in cherry red and the felt letter board in a chrome frame, white condensed capitals
+   on grooved felt; today's row in neon mint. */
+.ds-specials {
+  overflow-x: clip;
+}
+
+.ds-specials__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-56);
+}
+
+.ds-specials__side {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.ds-specials__side .ds-section-head {
+  margin-bottom: var(--space-24);
+}
+
+.ds-specials__happy {
+  display: grid;
+  gap: var(--space-12);
+  padding: var(--space-28);
+  border: var(--space-3) solid var(--palette-secondary-900);
+  border-radius: var(--radius-2xl);
+  background: var(--palette-primary-600);
+  color: var(--palette-neutral-0);
+  box-shadow: var(--space-8) var(--space-8) 0 var(--palette-secondary-900);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ds-specials__happy:hover {
+  transform: rotate(-1deg) translateY(calc(var(--space-4) * -1));
+}
+
+.ds-specials__happy-title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  line-height: var(--font-line-height-2xl);
+}
+
+.ds-specials__happy-time {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-1);
+  text-transform: uppercase;
+}
+
+.ds-specials__happy-deals {
+  display: grid;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0 0 0 var(--space-20);
+}
+
+.ds-specials__happy-bar {
+  height: var(--space-10);
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--palette-secondary-900) 45%, transparent);
+}
+
+.ds-specials__happy-bar span {
+  display: block;
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--palette-accent-400);
+  box-shadow: 0 0 var(--space-12) var(--palette-accent-400);
+}
+
+.ds-specials__happy-status {
+  margin: 0;
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-specials__board {
+  padding: var(--space-14);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(135deg, var(--palette-neutral-0), var(--palette-secondary-100) 40%, var(--palette-secondary-600) 100%);
+  box-shadow: var(--space-12) var(--space-12) 0 var(--palette-secondary-900);
+  transform: rotate(1.2deg);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ds-specials__board:hover {
+  transform: rotate(0deg);
+}
+
+.ds-specials__felt {
+  padding: var(--space-28) var(--space-28) var(--space-32);
+  border-radius: var(--radius-sm);
+  background-color: var(--palette-neutral-900);
+  background-image: repeating-linear-gradient(180deg, transparent 0 var(--space-8), color-mix(in srgb, var(--palette-neutral-0) 7%, transparent) var(--space-8) var(--space-10));
+  color: var(--palette-neutral-0);
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-2);
+  text-transform: uppercase;
+}
+
+.ds-specials__board-title {
+  margin: 0 0 var(--space-20);
+  font-size: var(--font-size-3xl);
+  line-height: 1;
+  text-align: center;
+}
+
+.ds-specials__rows {
+  display: grid;
+  gap: var(--space-14);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-specials__row {
+  display: grid;
+  grid-template-columns: calc(var(--size-160) * 1.05) minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: var(--space-14);
+  font-size: var(--font-size-lg);
+  line-height: 1.25;
+}
+
+.ds-specials__day {
+  color: color-mix(in srgb, var(--palette-neutral-0) 70%, transparent);
+}
+
+.ds-specials__price {
+  white-space: nowrap;
+}
+
+.ds-specials__row.is-today {
+  color: var(--palette-accent-400);
+  text-shadow: 0 0 var(--space-10) color-mix(in srgb, var(--palette-accent-400) 60%, transparent);
+}
+
+.ds-specials__row.is-today .ds-specials__day {
+  color: inherit;
+}
+
+.ds-specials__today {
+  display: block;
+  font-size: var(--font-size-body);
+  white-space: nowrap;
+}
+
+@media (max-width: 1023px) {
+  .ds-specials__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-40);
+  }
+}
+
+@media (max-width: 599px) {
+  .ds-specials__board {
+    transform: none;
+  }
+
+  .ds-specials__felt {
+    padding: var(--space-20) var(--space-16);
+  }
+
+  .ds-specials__row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    row-gap: var(--space-2);
+  }
+
+  .ds-specials__day {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-specials__happy,
+  .ds-specials__board {
+    transition: none;
+  }
+}

@@ -1,0 +1,69 @@
+---
+// Shake bar: pick a flavour and the glass drains and fills again in its colour, the cream puffs up and the cherry
+// drops on top (diner.js). The glass fills once when it scrolls into view. "Add" puts the chosen shake in the
+// takeaway demo. Without JS the flavours are a plain list with prices.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import type { Dish } from '../../../data/menu';
+interface Props { id: string; eyebrow: string; title: string; lead: string; shakes: Dish[] }
+const { id, eyebrow, title, lead, shakes } = Astro.props;
+const first = shakes[0];
+---
+<section class="ds-section ds-section--paper ds-shake" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container ds-shake__grid">
+    <div class="ds-shake__stage" data-reveal>
+      <div class="ds-shake__counter" aria-hidden="true"></div>
+      <svg class="ds-shake__glass" viewBox="0 0 240 340" aria-hidden="true" data-shake-glass data-flavor={first.id}>
+        <defs>
+          <clipPath id="shake-glass-shape"><path d="M52 104h136l-22 196H74z" /></clipPath>
+        </defs>
+        <path class="ds-shake__straw" d="M138 120L172 6" />
+        <g data-shake-top>
+          <path class="ds-shake__cream" d="M44 106c-6-22 18-30 30-18 4-20 34-24 44-8 10-14 38-10 40 6 16-6 36 6 30 20z" />
+          <path class="ds-shake__cream-line" d="M70 98c8-6 18-4 22 2M128 92c8-4 18 0 20 6" />
+        </g>
+        <g data-shake-cherry>
+          <path class="ds-shake__stem" d="M120 48c2-12 8-18 20-22" />
+          <circle class="ds-shake__cherry" cx="120" cy="58" r="13" />
+          <circle class="ds-shake__cherry-shine" cx="115" cy="53" r="3.5" />
+        </g>
+        <g clip-path="url(#shake-glass-shape)">
+          <g class="ds-shake__liquid" data-shake-liquid>
+            <path d="M30 112q15-8 30 0t30 0 30 0 30 0 30 0 30 0V310H30z" />
+          </g>
+          <path class="ds-shake__bubbles" d="M90 180h.01M130 220h.01M110 260h.01M150 160h.01" />
+        </g>
+        <path class="ds-shake__outline" d="M52 104h136l-22 196H74z" />
+        <path class="ds-shake__shine" d="M70 130l12 150" />
+        <path class="ds-shake__foot" d="M100 300h40l4 14h-48zM84 314h72a6 6 0 0 1 6 6v4H78v-4a6 6 0 0 1 6-6z" />
+      </svg>
+    </div>
+    <div class="ds-shake__copy">
+      <div class="ds-section-head" data-reveal>
+        <Eyebrow text={eyebrow} />
+        <h2 class="ds-section-head__title" id={`${id}-title`} set:html={title} />
+        <p class="ds-section-head__lead">{lead}</p>
+      </div>
+      <fieldset class="ds-shake__flavours" data-reveal>
+        <legend class="ds-shake__legend">Wybierz smak</legend>
+        {shakes.map((shake, index) => (
+          <label class="ds-shake__option">
+            <input class="ds-visually-hidden" type="radio" name="shake" value={shake.id} checked={index === 0} data-shake-option data-name={shake.name} data-price={shake.price} data-text={shake.text} />
+            <span class={`ds-shake__chip ds-shake__chip--${shake.id}`}>
+              <span class="ds-shake__swatch" aria-hidden="true"></span>
+              <span>{shake.name}</span>
+              <span class="ds-shake__chip-price">{shake.price} zł</span>
+            </span>
+          </label>
+        ))}
+      </fieldset>
+      <div class="ds-shake__chosen" data-reveal>
+        <p class="ds-shake__chosen-name" data-shake-name>{first.name}</p>
+        <p class="ds-shake__chosen-text" data-shake-text>{first.text}</p>
+        <button class="ds-menu-item__add ds-shake__add" type="button" hidden data-add-dish={first.id} data-name={`Shake ${first.name.toLowerCase()}`} data-price={first.price} data-shake-add aria-label={`Dodaj do zamówienia: shake ${first.name.toLowerCase()}`}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+          <span data-add-label>Dodaj do zamówienia</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

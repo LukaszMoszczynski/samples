@@ -1,0 +1,36 @@
+---
+// Diner button: a chunky pill with a chrome rim. cherry (main action), mint (neon mint on dark), chrome (light, on
+// any background) and ghost (outline on night sections). Hover: lifts, the rim shadow grows and a shine sweeps across.
+// A link when href is given, otherwise a button; any other attribute (data-*, aria-*) goes through.
+interface Props {
+  text: string;
+  href?: string;
+  variant?: 'cherry' | 'mint' | 'chrome' | 'ghost';
+  size?: 'normal' | 'small';
+  type?: 'button' | 'submit';
+  class?: string;
+  icon?: 'arrow' | 'plus' | 'bag' | 'calendar';
+  [key: string]: unknown;
+}
+const { text, href, variant = 'cherry', size = 'normal', type = 'button', class: extra, icon, ...rest } = Astro.props;
+const icons = {
+  arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  plus: '<path d="M12 5v14M5 12h14"/>',
+  bag: '<path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>',
+  calendar: '<rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/>',
+};
+const classes = ['ds-diner-button', `ds-diner-button--${variant}`, { 'ds-diner-button--small': size === 'small' }, extra];
+---
+{href
+  ? (
+    <a class:list={classes} href={href} {...rest}>
+      <span class="ds-diner-button__text">{text}</span>
+      {icon && <svg class="ds-diner-button__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><Fragment set:html={icons[icon]} /></svg>}
+    </a>
+  )
+  : (
+    <button class:list={classes} type={type} {...rest}>
+      <span class="ds-diner-button__text">{text}</span>
+      {icon && <svg class="ds-diner-button__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><Fragment set:html={icons[icon]} /></svg>}
+    </button>
+  )}

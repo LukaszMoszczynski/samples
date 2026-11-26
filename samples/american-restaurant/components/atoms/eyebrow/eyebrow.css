@@ -1,0 +1,25 @@
+/* Eyebrow: condensed capitals between two small stars. */
+.ds-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-10);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-2);
+  line-height: 1.2;
+  text-transform: uppercase;
+  color: var(--palette-primary-600);
+}
+
+.ds-eyebrow--night {
+  color: var(--palette-accent-400);
+}
+
+.ds-eyebrow__star {
+  flex-shrink: 0;
+  width: var(--size-12);
+  height: var(--size-12);
+  fill: currentColor;
+}

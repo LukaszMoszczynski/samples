@@ -1,0 +1,70 @@
+/* Diner art: ink outlines over flat fills, all from the palette (mixed where a dish needs a warmer tone). */
+.ds-art {
+  --art-ink: var(--palette-secondary-900);
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.ds-art--night {
+  --art-ink: var(--palette-neutral-0);
+}
+
+.ds-art__lines,
+.ds-art__smoke {
+  fill: none;
+  stroke: var(--art-ink);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ds-art--smoker .ds-art__lines {
+  stroke-width: 4;
+}
+
+.ds-art__smoke {
+  stroke: color-mix(in srgb, var(--palette-secondary-100) 80%, transparent);
+  stroke-width: 5;
+}
+
+.ds-art__fill--bun {
+  fill: color-mix(in srgb, var(--palette-primary-400) 28%, var(--palette-neutral-100));
+}
+
+.ds-art__fill--leaf {
+  fill: var(--palette-accent-400);
+}
+
+.ds-art__fill--cheese {
+  fill: color-mix(in srgb, var(--palette-primary-400) 14%, var(--palette-neutral-0));
+}
+
+.ds-art__fill--patty {
+  fill: color-mix(in srgb, var(--palette-primary-800) 45%, var(--palette-secondary-900));
+}
+
+.ds-art__fill--red {
+  fill: var(--palette-primary-600);
+}
+
+.ds-art__fill--sauce {
+  fill: color-mix(in srgb, var(--palette-primary-800) 75%, var(--palette-secondary-900));
+}
+
+.ds-art__fill--cream {
+  fill: var(--palette-neutral-0);
+}
+
+.ds-art__fill--pink {
+  fill: color-mix(in srgb, var(--palette-primary-400) 45%, var(--palette-neutral-0));
+}
+
+.ds-art__fill--chrome {
+  fill: var(--palette-secondary-100);
+}
+
+.ds-art__fill--dark {
+  fill: var(--palette-secondary-700);
+}

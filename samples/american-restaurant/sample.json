@@ -1,0 +1,18 @@
+{
+  "slug": "american-restaurant",
+  "stack": "astro",
+  "lang": "pl",
+  "title": "Twój Diner – amerykańska restauracja (przykładowa strona)",
+  "pages": [
+    "index"
+  ],
+  "summary": "Amerykański diner: neon zapalający się nocą, menu z filtrem kategorii, wędzarnia BBQ z licznikiem 12 godzin, shake bar, zamówienie na wynos i rezerwacja stolika.",
+  "direction": "Neon roadside diner",
+  "tags": [
+    "Astro",
+    "GSAP",
+    "Na wynos (demo)",
+    "Rezerwacja (demo)"
+  ],
+  "date": "2026-11-26"
+}

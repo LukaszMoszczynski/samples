@@ -1,0 +1,221 @@
+/* Neon hero: night sky, copy on the left, the roadside sign on the right, the checkerboard floor along the bottom. */
+.ds-neon-hero {
+  position: relative;
+  padding-bottom: 0;
+  overflow-x: clip;
+}
+
+/* A soft red-and-mint haze behind the sign, as if the neon lit the night. */
+.ds-neon-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 74% 38%, color-mix(in srgb, var(--palette-primary-400) 22%, transparent), transparent 42%),
+    radial-gradient(circle at 60% 80%, color-mix(in srgb, var(--palette-accent-400) 12%, transparent), transparent 40%);
+  pointer-events: none;
+}
+
+.ds-neon-hero__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: var(--space-48);
+  padding-bottom: var(--space-section-y);
+}
+
+.ds-neon-hero__copy {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-24);
+}
+
+.ds-neon-hero__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-4xl);
+  line-height: var(--font-line-height-4xl);
+  font-weight: var(--font-weight-regular);
+  text-wrap: balance;
+}
+
+.ds-neon-hero__title em {
+  color: var(--palette-primary-400);
+  font-style: normal;
+  text-shadow: 0 0 var(--space-16) color-mix(in srgb, var(--palette-primary-400) 70%, transparent);
+}
+
+.ds-neon-hero__lead {
+  max-width: calc(var(--size-160) * 3.5);
+  margin: 0;
+  font-size: var(--font-size-lg);
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--palette-neutral-0) 86%, transparent);
+}
+
+.ds-neon-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-16);
+}
+
+.ds-neon-hero__status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-10);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-1);
+  text-transform: uppercase;
+  color: var(--palette-accent-400);
+}
+
+.ds-neon-hero__dot {
+  width: var(--size-12);
+  height: var(--size-12);
+  border-radius: var(--radius-full);
+  background: var(--palette-accent-400);
+  box-shadow: 0 0 var(--space-8) var(--palette-accent-400);
+}
+
+.ds-neon-hero__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8) var(--space-12);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-neon-hero__facts li {
+  padding: var(--space-6) var(--space-14);
+  border: 1px solid color-mix(in srgb, var(--palette-neutral-0) 30%, transparent);
+  border-radius: var(--radius-full);
+  color: color-mix(in srgb, var(--palette-neutral-0) 86%, transparent);
+}
+
+.ds-neon-hero__facts strong {
+  color: var(--palette-neutral-0);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-lg);
+}
+
+.ds-neon-hero__sign-wrap {
+  justify-self: center;
+  width: 100%;
+  max-width: calc(var(--size-160) * 3.2);
+}
+
+.ds-neon-hero__sign {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.ds-neon-hero__stop-light {
+  stop-color: var(--palette-neutral-0);
+}
+
+.ds-neon-hero__stop-mid {
+  stop-color: var(--palette-secondary-100);
+}
+
+.ds-neon-hero__stop-dark {
+  stop-color: var(--palette-secondary-600);
+}
+
+.ds-neon-hero__pole {
+  fill: url(#sign-chrome);
+}
+
+.ds-neon-hero__chain {
+  fill: none;
+  stroke: var(--palette-secondary-100);
+  stroke-width: 3;
+  stroke-dasharray: 4 3;
+}
+
+.ds-neon-hero__board {
+  fill: var(--palette-secondary-950);
+  stroke: url(#sign-chrome);
+  stroke-width: 8;
+}
+
+.ds-neon-hero__tube {
+  fill: none;
+  stroke: var(--palette-primary-400);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+/* While motion is on the tube starts undrawn; the script draws it (dash 1000 → 0) before the letters light up. */
+[data-motion] [data-sign-tube] {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+.ds-neon-hero__script {
+  fill: var(--palette-accent-400);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-80);
+}
+
+.ds-neon-hero__letter {
+  fill: var(--palette-primary-400);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-120);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-neon-hero__tagline {
+  fill: var(--palette-neutral-100);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-20);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-4);
+}
+
+.ds-neon-hero__bulb {
+  fill: var(--palette-neutral-0);
+  stroke: var(--palette-secondary-600);
+  stroke-width: 1;
+}
+
+.ds-neon-hero__box {
+  fill: var(--palette-secondary-950);
+  stroke: url(#sign-chrome);
+  stroke-width: 5;
+}
+
+.ds-neon-hero__box-tube {
+  fill: none;
+  stroke: var(--palette-accent-400);
+  stroke-width: 2;
+}
+
+.ds-neon-hero__open {
+  fill: var(--palette-accent-400);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-36);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-2);
+}
+
+.ds-neon-hero__floor {
+  position: relative;
+}
+
+@media (max-width: 899px) {
+  .ds-neon-hero__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-40);
+  }
+
+  .ds-neon-hero__sign-wrap {
+    max-width: calc(var(--size-160) * 2.6);
+  }
+}

@@ -1,0 +1,64 @@
+---
+// Neon hero: the night-time roadside sign. With motion the neon tube draws itself, the letters flicker on one by one,
+// the bulbs around the board start to chase and the "N" keeps buzzing now and then (diner.js). The sign's small box
+// says OTWARTE or ZAMKNIĘTE from today's hours. Copy on the left with both main actions and today's status.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import DinerButton from '../../atoms/diner-button/DinerButton.astro';
+interface Link { text: string; href: string }
+interface Props {
+  eyebrow: string; title: string; lead: string; primary: Link; secondary: Link; status: string;
+  facts: { value: string; label: string }[];
+}
+const { eyebrow, title, lead, primary, secondary, status, facts } = Astro.props;
+const letters = [
+  { letter: 'D', x: 110 }, { letter: 'I', x: 168 }, { letter: 'N', x: 228, buzz: true }, { letter: 'E', x: 300 }, { letter: 'R', x: 370 },
+];
+const bulbs = Array.from({ length: 13 }, (_, index) => 72 + index * 28);
+---
+<section class="ds-section ds-section--night ds-neon-hero" id="top" aria-labelledby="hero-title">
+  <div class="ds-container ds-neon-hero__grid">
+    <div class="ds-neon-hero__copy">
+      <div data-hero-item><Eyebrow text={eyebrow} tone="night" /></div>
+      <h1 class="ds-neon-hero__title" id="hero-title" data-hero-item set:html={title} />
+      <p class="ds-neon-hero__lead" data-hero-item>{lead}</p>
+      <div class="ds-neon-hero__actions" data-hero-item>
+        <DinerButton text={primary.text} href={primary.href} icon="calendar" />
+        <DinerButton text={secondary.text} href={secondary.href} variant="mint" icon="bag" />
+      </div>
+      <p class="ds-neon-hero__status" data-hero-item><span class="ds-neon-hero__dot" aria-hidden="true"></span><span data-open-status>{status}</span></p>
+      <ul class="ds-neon-hero__facts" role="list" data-hero-item>
+        {facts.map((fact) => <li><strong>{fact.value}</strong> {fact.label}</li>)}
+      </ul>
+    </div>
+    <div class="ds-neon-hero__sign-wrap">
+      <svg class="ds-neon-hero__sign" viewBox="0 0 480 480" role="img" aria-label="Neon: Twój Diner, otwarte" data-sign>
+        <defs>
+          <filter id="neon-glow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="5" result="blur" />
+            <feMerge><feMergeNode in="blur" /><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+          </filter>
+          <linearGradient id="sign-chrome" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" class="ds-neon-hero__stop-light" />
+            <stop offset="0.5" class="ds-neon-hero__stop-mid" />
+            <stop offset="1" class="ds-neon-hero__stop-dark" />
+          </linearGradient>
+        </defs>
+        <rect class="ds-neon-hero__pole" x="226" y="290" width="28" height="190" rx="4" />
+        <path class="ds-neon-hero__chain" d="M184 300v22M296 300v22" />
+        <path class="ds-neon-hero__board" d="M60 40h360a24 24 0 0 1 24 24v212a24 24 0 0 1-24 24H60a24 24 0 0 1-24-24V64a24 24 0 0 1 24-24z" />
+        <path class="ds-neon-hero__tube" pathLength="1000" filter="url(#neon-glow)" data-sign-tube d="M68 56h344a16 16 0 0 1 16 16v196a16 16 0 0 1-16 16H68a16 16 0 0 1-16-16V72a16 16 0 0 1 16-16z" />
+        <text class="ds-neon-hero__script" x="240" y="124" text-anchor="middle" filter="url(#neon-glow)" data-neon data-sign-script>Twój</text>
+        {letters.map((item) => (
+          <text class="ds-neon-hero__letter" x={item.x} y="236" text-anchor="middle" filter="url(#neon-glow)" data-neon data-sign-letter data-buzz={item.buzz ? '' : undefined}>{item.letter}</text>
+        ))}
+        <text class="ds-neon-hero__tagline" x="240" y="268" text-anchor="middle">BURGERY · BBQ · SHAKE’I</text>
+        {bulbs.map((x) => <circle class="ds-neon-hero__bulb" cx={x} cy="40" r="5" data-bulb />)}
+        {bulbs.map((x) => <circle class="ds-neon-hero__bulb" cx={x} cy="300" r="5" data-bulb />)}
+        <rect class="ds-neon-hero__box" x="150" y="322" width="180" height="50" rx="12" />
+        <rect class="ds-neon-hero__box-tube" x="158" y="330" width="164" height="34" rx="8" filter="url(#neon-glow)" data-neon data-sign-open-box />
+        <text class="ds-neon-hero__open" x="240" y="357" text-anchor="middle" filter="url(#neon-glow)" data-neon data-sign-open>OTWARTE</text>
+      </svg>
+    </div>
+  </div>
+  <div class="ds-checker ds-neon-hero__floor" aria-hidden="true"></div>
+</section>

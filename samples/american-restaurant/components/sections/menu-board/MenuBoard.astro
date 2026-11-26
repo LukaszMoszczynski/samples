@@ -1,0 +1,61 @@
+---
+// Menu board: the whole menu on a diner menu card, grouped by category, with category filter pills (diner.js).
+// The pills appear only with JS; without it every group is listed. Filtered groups fade and rise in place, and the
+// drawing beside the card changes to the chosen category. Every dish has an "add" button for the takeaway demo.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import DinerArt from '../../molecules/diner-art/DinerArt.astro';
+import MenuItem from '../../molecules/menu-item/MenuItem.astro';
+import DinerButton from '../../atoms/diner-button/DinerButton.astro';
+import type { Category, Dish } from '../../../data/menu';
+interface Props { id: string; eyebrow: string; title: string; lead: string; categories: Category[]; dishes: Dish[]; note: string }
+const { id, eyebrow, title, lead, categories, dishes, note } = Astro.props;
+---
+<section class="ds-section ds-menu" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-section-head ds-section-head--center" data-reveal>
+      <Eyebrow text={eyebrow} />
+      <h2 class="ds-section-head__title" id={`${id}-title`} set:html={title} />
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <div class="ds-menu__filters" role="group" aria-label="Pokaż kategorię" data-menu-filters hidden>
+      <button class="ds-menu__pill" type="button" aria-pressed="true" data-menu-filter="all">Wszystko</button>
+      {categories.map((category) => (
+        <button class="ds-menu__pill" type="button" aria-pressed="false" data-menu-filter={category.id}>{category.name}</button>
+      ))}
+    </div>
+    <p class="ds-visually-hidden" aria-live="polite" data-menu-status></p>
+    <div class="ds-menu__layout">
+      <aside class="ds-menu__aside" aria-label="Wybrana kategoria" data-reveal>
+        <div class="ds-menu__plate">
+          {categories.map((category, index) => (
+            <div class="ds-menu__art" data-menu-art={category.id} hidden={index !== 0}>
+              <DinerArt name={category.drawing} />
+            </div>
+          ))}
+        </div>
+        <p class="ds-menu__aside-name" data-menu-aside-name>Cała karta</p>
+        <p class="ds-menu__aside-note" data-menu-aside-note>{dishes.length} pozycji: od smash burgerów po weekendowe pancakes.</p>
+        <DinerButton text="Twoje zamówienie" href="#na-wynos" variant="chrome" size="small" icon="bag" />
+      </aside>
+      <div class="ds-menu__card" data-reveal>
+        <div class="ds-menu__card-top">
+          <p class="ds-menu__card-title" aria-hidden="true">Menu</p>
+          <p class="ds-menu__card-sub" aria-hidden="true">codziennie od 12:00 · brunch sob–nd od 9:00</p>
+        </div>
+        <div class="ds-checker ds-checker--small" aria-hidden="true"></div>
+        <div class="ds-menu__groups">
+          {categories.map((category) => (
+            <div class="ds-menu__group" data-menu-group={category.id} data-name={category.name} data-note={category.note}>
+              <h3 class="ds-menu__group-title">{category.name}</h3>
+              <p class="ds-menu__group-note">{category.note}</p>
+              <ul class="ds-menu__list" role="list">
+                {dishes.filter((dish) => dish.category === category.id).map((dish) => <li><MenuItem dish={dish} /></li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+        <p class="ds-menu__note">{note}</p>
+      </div>
+    </div>
+  </div>
+</section>

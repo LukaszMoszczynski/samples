@@ -1,0 +1,48 @@
+---
+// Takeaway (demo): the order as a diner guest check (items added from the menu and the shake bar, quantity buttons,
+// the sum) next to a pick-up form. Sending runs the forms kit check, then a thank-you with the order summary; nothing
+// is sent and nothing is paid (order.js). An empty order cannot be sent: the check says so.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import DinerButton from '../../atoms/diner-button/DinerButton.astro';
+import Field from '../../molecules/field/Field.astro';
+interface Props { id: string; eyebrow: string; title: string; lead: string; phone: string; times: string[] }
+const { id, eyebrow, title, lead, phone, times } = Astro.props;
+---
+<section class="ds-section ds-takeaway" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow text={eyebrow} />
+      <h2 class="ds-section-head__title" id={`${id}-title`} set:html={title} />
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <div class="ds-takeaway__grid">
+      <div class="ds-takeaway__check" data-reveal data-cart tabindex="-1">
+        <div class="ds-takeaway__check-head">
+          <p class="ds-takeaway__check-title">Twoje zamówienie</p>
+          <p class="ds-takeaway__demo">Demo</p>
+        </div>
+        <p class="ds-takeaway__empty" data-cart-empty>Na razie pusto. Dodaj dania przyciskiem „Dodaj” w menu albo wybierz shake’a. Wolisz zadzwonić? <a href={`tel:${phone.replace(/\s/g, '')}`}>{phone}</a></p>
+        <ul class="ds-takeaway__lines" role="list" data-cart-list></ul>
+        <div class="ds-takeaway__total" data-cart-total-row hidden>
+          <span>Razem</span>
+          <span data-cart-total>0 zł</span>
+        </div>
+        <p class="ds-takeaway__hint">Płatność przy odbiorze, kartą lub gotówką. Opakowania bez plastiku.</p>
+        <p class="ds-takeaway__problem" role="alert" data-cart-problem hidden>Dodaj co najmniej jedno danie, zanim wyślesz zamówienie.</p>
+        <p class="ds-visually-hidden" aria-live="polite" data-cart-status></p>
+      </div>
+      <form class="ds-takeaway__form ds-form" data-order-form data-reveal>
+        <Field id="order-time" name="time" label="Odbiór" type="select" options={times.map((time, index) => ({ text: time, selected: index === 0 }))} wide />
+        <Field id="order-name" name="name" label="Imię" autocomplete="given-name" placeholder="np. Kasia" required />
+        <Field id="order-phone" name="phone" label="Telefon" type="tel" autocomplete="tel" placeholder="np. 600 000 000" required />
+        <Field id="order-notes" name="notes" label="Uwagi do zamówienia" type="textarea" placeholder="np. burger bez cebuli, sos osobno" wide />
+        <label class="ds-form__consent"><input type="checkbox" name="consent" required /> Zgadzam się na SMS, gdy zamówienie będzie gotowe do odbioru.</label>
+        <div class="ds-form__submit"><DinerButton text="Zamów na wynos" type="submit" icon="bag" /></div>
+        <p class="ds-form__thanks" role="status" hidden data-order-thanks>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13c2 1.5 3.6 3.4 5 5.4C11.8 12.6 15.6 8 20.4 4.6" /></svg>
+          <span data-order-summary>Dziękujemy! To przykładowa strona: zamówienie nie zostało wysłane.</span>
+        </p>
+      </form>
+    </div>
+  </div>
+</section>

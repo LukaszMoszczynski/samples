@@ -1,0 +1,115 @@
+/* Diner button: chunky pill, condensed capitals, a chrome rim drawn as a hard offset shadow. */
+.ds-diner-button {
+  --diner-button-bg: var(--palette-primary-600);
+  --diner-button-fg: var(--palette-neutral-0);
+  --diner-button-rim: var(--palette-secondary-900);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-10);
+  min-height: var(--size-52);
+  padding: 0 var(--space-28);
+  overflow: hidden;
+  border: 2px solid var(--diner-button-rim);
+  border-radius: var(--radius-full);
+  background: var(--diner-button-bg);
+  color: var(--diner-button-fg);
+  box-shadow: 0 var(--space-4) 0 var(--diner-button-rim);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-1);
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, background-color 0.2s ease;
+}
+
+/* The shine: a pale band that sweeps across on hover. */
+.ds-diner-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, color-mix(in srgb, var(--palette-neutral-0) 45%, transparent) 50%, transparent 65%);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+
+.ds-diner-button:hover {
+  transform: translateY(calc(var(--space-2) * -1));
+  box-shadow: 0 var(--space-6) 0 var(--diner-button-rim);
+}
+
+.ds-diner-button:hover::after {
+  transform: translateX(120%);
+  transition: transform 0.7s ease;
+}
+
+.ds-diner-button:active {
+  transform: translateY(var(--space-2));
+  box-shadow: 0 var(--space-2) 0 var(--diner-button-rim);
+}
+
+.ds-diner-button__text {
+  position: relative;
+}
+
+.ds-diner-button__icon {
+  position: relative;
+  flex-shrink: 0;
+  width: var(--size-20);
+  height: var(--size-20);
+  transition: transform 0.25s ease;
+}
+
+.ds-diner-button:hover .ds-diner-button__icon {
+  transform: translateX(var(--space-2)) rotate(-6deg);
+}
+
+.ds-diner-button--mint {
+  --diner-button-bg: var(--palette-accent-400);
+  --diner-button-fg: var(--palette-secondary-900);
+  --diner-button-rim: var(--palette-secondary-950);
+}
+
+.ds-diner-button--chrome {
+  --diner-button-bg: linear-gradient(180deg, var(--palette-neutral-0), var(--palette-secondary-100));
+  --diner-button-fg: var(--palette-secondary-900);
+  background: linear-gradient(180deg, var(--palette-neutral-0) 0%, var(--palette-secondary-100) 55%, var(--palette-secondary-50) 100%);
+}
+
+.ds-diner-button--ghost {
+  --diner-button-bg: transparent;
+  --diner-button-fg: var(--palette-neutral-0);
+  --diner-button-rim: var(--palette-neutral-0);
+  box-shadow: none;
+}
+
+.ds-diner-button--ghost:hover {
+  background: color-mix(in srgb, var(--palette-neutral-0) 12%, transparent);
+  box-shadow: none;
+}
+
+.ds-diner-button--small {
+  min-height: var(--size-42);
+  padding: 0 var(--space-18);
+  font-size: var(--font-size-body);
+}
+
+.ds-diner-button[aria-busy="true"] {
+  cursor: progress;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-diner-button,
+  .ds-diner-button__icon {
+    transition: none;
+  }
+
+  .ds-diner-button:hover::after {
+    transition: none;
+  }
+}

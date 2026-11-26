@@ -1,0 +1,46 @@
+---
+// Booking (demo): book a table. Date from today on (required, calendar from the forms kit), time, guests, where to sit,
+// contact. Sending runs the check and a thank-you with the booking summary; nothing is sent (diner.js).
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import DinerButton from '../../atoms/diner-button/DinerButton.astro';
+import DinerArt from '../../molecules/diner-art/DinerArt.astro';
+import Field from '../../molecules/field/Field.astro';
+interface Props { id: string; eyebrow: string; title: string; lead: string; rules: string[]; phone: string; times: string[] }
+const { id, eyebrow, title, lead, rules, phone, times } = Astro.props;
+const guests = Array.from({ length: 10 }, (_, index) => index + 1).map((count) => ({
+  text: count === 1 ? '1 osoba' : count < 5 ? `${count} osoby` : `${count} osób`, value: String(count), selected: count === 2,
+}));
+---
+<section class="ds-section ds-booking" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container ds-booking__grid">
+    <div class="ds-booking__aside">
+      <div class="ds-section-head" data-reveal>
+        <Eyebrow text={eyebrow} />
+        <h2 class="ds-section-head__title" id={`${id}-title`} set:html={title} />
+        <p class="ds-section-head__lead">{lead}</p>
+      </div>
+      <ul class="ds-booking__rules" role="list" data-reveal>
+        {rules.map((rule) => <li>{rule}</li>)}
+      </ul>
+      <p class="ds-booking__phone" data-reveal>Wolisz zadzwonić? <a href={`tel:${phone.replace(/\s/g, '')}`}>{phone}</a></p>
+      <div class="ds-booking__art"><DinerArt name="jukebox" /></div>
+    </div>
+    <form class="ds-booking__card ds-form" data-booking-form data-reveal>
+      <p class="ds-booking__ticket" aria-hidden="true"><span>Rezerwacja stolika</span><span>Nr 0066</span></p>
+      <Field id="booking-date" name="date" label="Data" type="date" minToday required />
+      <Field id="booking-time" name="time" label="Godzina" type="select" options={times.map((time) => ({ text: time, selected: time === '18:00' }))} />
+      <Field id="booking-guests" name="guests" label="Liczba osób" type="select" options={guests} />
+      <Field id="booking-seat" name="seat" label="Gdzie usiąść" type="select" options={[{ text: 'Bez znaczenia' }, { text: 'Boks przy oknie' }, { text: 'Przy barze' }, { text: 'Sala przy scenie' }]} />
+      <Field id="booking-name" name="name" label="Imię i nazwisko" autocomplete="name" placeholder="np. Anna Kowalska" required />
+      <Field id="booking-phone" name="phone" label="Telefon" type="tel" autocomplete="tel" placeholder="np. 600 000 000" required />
+      <Field id="booking-email" name="email" label="E-mail" type="email" autocomplete="email" placeholder="anna@example.com" required wide />
+      <Field id="booking-notes" name="notes" label="Uwagi (okazja, krzesełko dla dziecka)" type="textarea" placeholder="np. urodziny, tort o 19:00" wide />
+      <label class="ds-form__consent"><input type="checkbox" name="consent" required /> Zgadzam się na kontakt w sprawie tej rezerwacji (SMS lub e-mail).</label>
+      <div class="ds-form__submit"><DinerButton text="Zarezerwuj stolik" type="submit" icon="calendar" /></div>
+      <p class="ds-form__thanks" role="status" hidden data-booking-thanks>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13c2 1.5 3.6 3.4 5 5.4C11.8 12.6 15.6 8 20.4 4.6" /></svg>
+        <span data-booking-summary>Dziękujemy! To przykładowa strona: rezerwacja nie została wysłana.</span>
+      </p>
+    </form>
+  </div>
+</section>

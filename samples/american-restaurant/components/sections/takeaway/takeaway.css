@@ -1,0 +1,202 @@
+/* Takeaway: the order as a green-ruled guest check with a torn zigzag foot, quantity buttons and the sum; the
+   pick-up form beside it. */
+.ds-takeaway__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-48);
+}
+
+.ds-takeaway__check {
+  position: relative;
+  display: grid;
+  gap: var(--space-16);
+  padding: var(--space-28) var(--space-28) var(--space-48);
+  background-color: var(--palette-neutral-0);
+  background-image: repeating-linear-gradient(180deg, transparent 0 var(--space-28), color-mix(in srgb, var(--palette-accent-500) 22%, transparent) var(--space-28) calc(var(--space-28) + var(--space-1)));
+  border: 2px solid var(--palette-secondary-900);
+  border-bottom: 0;
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+  /* Zigzag foot, like a check torn off the pad. */
+  mask:
+    linear-gradient(var(--palette-neutral-1000) 0 0) top / 100% calc(100% - var(--space-12)) no-repeat,
+    conic-gradient(from -45deg at bottom, transparent, var(--palette-neutral-1000) 1deg 89deg, transparent 90deg) bottom / var(--space-24) var(--space-12) repeat-x;
+}
+
+.ds-takeaway__check:focus {
+  outline: none;
+}
+
+.ds-takeaway__check-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  padding-bottom: var(--space-12);
+  border-bottom: 2px solid var(--palette-secondary-900);
+}
+
+.ds-takeaway__check-title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  line-height: var(--font-line-height-xl);
+}
+
+.ds-takeaway__demo {
+  margin: 0;
+  padding: var(--space-2) var(--space-12);
+  border: 2px solid var(--palette-primary-600);
+  border-radius: var(--radius-xs);
+  color: var(--palette-primary-600);
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-2);
+  text-transform: uppercase;
+  transform: rotate(-4deg);
+}
+
+.ds-takeaway__empty,
+.ds-takeaway__hint {
+  margin: 0;
+  color: var(--palette-neutral-600);
+}
+
+.ds-takeaway__empty a {
+  color: var(--palette-primary-600);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-takeaway__lines {
+  display: grid;
+  gap: var(--space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-takeaway__line {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--space-12);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-takeaway__line-name {
+  min-width: 0;
+  text-transform: uppercase;
+}
+
+.ds-takeaway__qty {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.ds-takeaway__qty-button {
+  display: inline-grid;
+  place-items: center;
+  width: var(--size-40);
+  height: var(--size-40);
+  padding: 0;
+  border: 2px solid var(--palette-secondary-900);
+  border-radius: var(--radius-full);
+  background: var(--palette-neutral-0);
+  color: var(--palette-secondary-900);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.ds-takeaway__qty-button:hover {
+  background: var(--palette-secondary-900);
+  color: var(--palette-neutral-0);
+}
+
+.ds-takeaway__qty-button svg {
+  width: var(--size-16);
+  height: var(--size-16);
+}
+
+.ds-takeaway__qty-value {
+  min-width: var(--size-24);
+  text-align: center;
+}
+
+.ds-takeaway__line-price {
+  min-width: calc(var(--size-40) * 1.6);
+  text-align: right;
+  color: var(--palette-primary-600);
+}
+
+.ds-takeaway__total {
+  display: flex;
+  justify-content: space-between;
+  padding-top: var(--space-12);
+  border-top: 2px dashed var(--palette-secondary-900);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+}
+
+.ds-takeaway__problem {
+  margin: 0;
+  padding: var(--space-10) var(--space-14);
+  border-radius: var(--radius-sm);
+  background: var(--palette-primary-50);
+  color: var(--palette-danger-700);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-takeaway__form {
+  padding: var(--space-28);
+  border: 2px solid var(--palette-secondary-900);
+  border-radius: var(--radius-2xl);
+  background: var(--palette-neutral-0);
+}
+
+@media (max-width: 899px) {
+  .ds-takeaway__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-40);
+  }
+}
+
+@media (max-width: 479px) {
+  .ds-takeaway__check,
+  .ds-takeaway__form {
+    padding-inline: var(--space-16);
+  }
+
+  .ds-takeaway__line {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .ds-takeaway__line-name {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-takeaway__qty-button {
+    transition: none;
+  }
+}
+
+/* The dot that flies from an "add" button to the bag in the header (order.js); fixed, so it never widens the page. */
+.ds-fly-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 40;
+  width: var(--size-18);
+  height: var(--size-18);
+  border: 2px solid var(--palette-neutral-0);
+  border-radius: var(--radius-full);
+  background: var(--palette-primary-600);
+  box-shadow: 0 0 var(--space-12) var(--palette-primary-400);
+  pointer-events: none;
+}

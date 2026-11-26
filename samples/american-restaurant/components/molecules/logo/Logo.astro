@@ -1,0 +1,16 @@
+---
+// Logo (placeholder): a cherry-red badge with a cream burger and a chrome rim, and the name in the retro script.
+// tone: ink (on cream) | light (on midnight). The same mark is in assets/logo.svg, logo-light.svg and favicon.svg.
+interface Props { name: string; tone?: 'ink' | 'light'; href?: string }
+const { name, tone = 'light', href = '#top' } = Astro.props;
+---
+<a class={`ds-logo ds-logo--${tone}`} href={href} aria-label={`${name}, na górę strony`}>
+  <svg class="ds-logo__mark" viewBox="0 0 40 40" aria-hidden="true">
+    <circle class="ds-logo__rim" cx="20" cy="20" r="20" />
+    <circle class="ds-logo__disc" cx="20" cy="20" r="17" />
+    <path class="ds-logo__bun" d="M10 19.5a10 8.5 0 0 1 20 0z" />
+    <rect class="ds-logo__patty" x="9" y="21.5" width="22" height="4" rx="2" />
+    <rect class="ds-logo__bun" x="10" y="27.5" width="20" height="4" rx="2" />
+  </svg>
+  <span class="ds-logo__name">{name}</span>
+</a>

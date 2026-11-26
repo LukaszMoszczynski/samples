@@ -1,0 +1,36 @@
+---
+// Reviews: three example opinions on diner guest checks, pinned slightly askew; they straighten and lift on hover.
+// Marked as examples on the page: the real site shows real guest reviews.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+interface Props {
+  id: string; eyebrow: string; title: string; note: string;
+  items: { quote: string; author: string; check: string; stars: number }[];
+}
+const { id, eyebrow, title, note, items } = Astro.props;
+const star = 'M12 2l2.6 6.9L22 9.3l-5.8 4.6 2.1 7.1L12 17l-6.3 4 2.1-7.1L2 9.3l7.4-.4z';
+---
+<section class="ds-section ds-section--paper ds-reviews" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-section-head ds-section-head--center" data-reveal>
+      <Eyebrow text={eyebrow} />
+      <h2 class="ds-section-head__title" id={`${id}-title`} set:html={title} />
+      <p class="ds-reviews__note">{note}</p>
+    </div>
+    <ul class="ds-reviews__list" role="list">
+      {items.map((item) => (
+        <li class="ds-reviews__item" data-reveal>
+          <figure class="ds-reviews__check">
+            <p class="ds-reviews__check-head"><span>{item.check}</span><span class="ds-reviews__badge">Przykład</span></p>
+            <p class="ds-reviews__stars" role="img" aria-label={`Ocena ${item.stars} na 5`}>
+              {Array.from({ length: 5 }, (_, index) => (
+                <svg class:list={['ds-reviews__star', { 'is-empty': index >= item.stars }]} viewBox="0 0 24 24" aria-hidden="true"><path d={star} /></svg>
+              ))}
+            </p>
+            <blockquote class="ds-reviews__quote"><p>{item.quote}</p></blockquote>
+            <figcaption class="ds-reviews__author">{item.author} · przykładowa opinia</figcaption>
+          </figure>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

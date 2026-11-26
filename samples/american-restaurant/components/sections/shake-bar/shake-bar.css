@@ -1,0 +1,246 @@
+/* Shake bar: a tall soda-fountain glass on a chrome counter, flavour chips with colour swatches. Each flavour sets
+   --shake, the liquid colour, on the glass and on its chip. */
+.ds-shake__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-64);
+}
+
+.ds-shake__stage {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  padding: var(--space-32) var(--space-24) 0;
+  border-radius: var(--radius-4xl) var(--radius-4xl) var(--radius-md) var(--radius-md);
+  background:
+    radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--palette-accent-400) 40%, transparent), transparent 60%),
+    var(--palette-secondary-50);
+}
+
+.ds-shake__counter {
+  position: absolute;
+  inset: auto 0 0;
+  height: var(--space-32);
+  border-radius: var(--radius-md);
+  background: linear-gradient(180deg, var(--palette-secondary-100), var(--palette-secondary-600));
+}
+
+.ds-shake__glass {
+  --shake: color-mix(in srgb, var(--palette-primary-400) 10%, var(--palette-neutral-100));
+  position: relative;
+  width: min(100%, calc(var(--size-160) * 1.9));
+  height: auto;
+  overflow: visible;
+}
+
+.ds-shake__glass[data-flavor="chocolate"],
+.ds-shake__chip--chocolate {
+  --shake: color-mix(in srgb, var(--palette-primary-800) 50%, var(--palette-secondary-800));
+}
+
+.ds-shake__glass[data-flavor="strawberry"],
+.ds-shake__chip--strawberry {
+  --shake: color-mix(in srgb, var(--palette-primary-400) 55%, var(--palette-neutral-0));
+}
+
+.ds-shake__glass[data-flavor="mint"],
+.ds-shake__chip--mint {
+  --shake: var(--palette-accent-400);
+}
+
+.ds-shake__chip--vanilla {
+  --shake: color-mix(in srgb, var(--palette-primary-400) 10%, var(--palette-neutral-100));
+}
+
+.ds-shake__liquid {
+  fill: var(--shake);
+  transition: fill 0.3s ease;
+}
+
+/* While motion is on the glass starts empty; the script fills it when it scrolls into view. */
+[data-motion] [data-shake-liquid],
+[data-motion] [data-shake-top],
+[data-motion] [data-shake-cherry] {
+  opacity: 0;
+}
+
+.ds-shake__bubbles {
+  stroke: color-mix(in srgb, var(--palette-neutral-0) 70%, transparent);
+  stroke-width: 8;
+  stroke-linecap: round;
+}
+
+.ds-shake__outline,
+.ds-shake__foot {
+  fill: none;
+  stroke: var(--palette-secondary-900);
+  stroke-width: 4;
+  stroke-linejoin: round;
+}
+
+.ds-shake__foot {
+  fill: var(--palette-secondary-100);
+}
+
+.ds-shake__shine {
+  fill: none;
+  stroke: color-mix(in srgb, var(--palette-neutral-0) 75%, transparent);
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+
+.ds-shake__straw {
+  fill: none;
+  stroke: var(--palette-primary-600);
+  stroke-width: 10;
+  stroke-linecap: round;
+}
+
+.ds-shake__cream {
+  fill: var(--palette-neutral-0);
+  stroke: var(--palette-secondary-900);
+  stroke-width: 4;
+  stroke-linejoin: round;
+}
+
+.ds-shake__cream-line,
+.ds-shake__stem {
+  fill: none;
+  stroke: var(--palette-secondary-900);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.ds-shake__cherry {
+  fill: var(--palette-primary-600);
+  stroke: var(--palette-secondary-900);
+  stroke-width: 3;
+}
+
+.ds-shake__cherry-shine {
+  fill: var(--palette-neutral-0);
+}
+
+.ds-shake__copy {
+  display: grid;
+  gap: var(--space-28);
+}
+
+.ds-shake__copy .ds-section-head {
+  margin-bottom: 0;
+}
+
+.ds-shake__flavours {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-12);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.ds-shake__legend {
+  margin-bottom: var(--space-12);
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-1);
+  text-transform: uppercase;
+}
+
+.ds-shake__option {
+  display: block;
+  cursor: pointer;
+}
+
+.ds-shake__chip {
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);
+  min-height: var(--size-52);
+  padding: var(--space-8) var(--space-16);
+  border: 2px solid var(--palette-secondary-900);
+  border-radius: var(--radius-full);
+  background: var(--palette-neutral-0);
+  font-weight: var(--font-weight-bold);
+  box-sizing: border-box;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.ds-shake__option:hover .ds-shake__chip {
+  transform: translateY(calc(var(--space-2) * -1));
+  box-shadow: 0 var(--space-4) 0 var(--palette-secondary-900);
+}
+
+input:checked + .ds-shake__chip {
+  background: var(--palette-secondary-900);
+  color: var(--palette-neutral-0);
+  box-shadow: 0 var(--space-4) 0 var(--palette-primary-600);
+}
+
+.ds-shake__swatch {
+  flex-shrink: 0;
+  width: var(--size-20);
+  height: var(--size-20);
+  border: 2px solid currentColor;
+  border-radius: var(--radius-full);
+  background: var(--shake);
+}
+
+.ds-shake__chip-price {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+.ds-shake__chosen {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-8);
+  padding: var(--space-20) var(--space-24);
+  border: 2px dashed color-mix(in srgb, var(--palette-secondary-900) 30%, transparent);
+  border-radius: var(--radius-xl);
+}
+
+.ds-shake__chosen-name {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  line-height: var(--font-line-height-xl);
+  color: var(--palette-primary-600);
+}
+
+.ds-shake__chosen-text {
+  margin: 0;
+  color: var(--palette-neutral-600);
+}
+
+.ds-shake__add {
+  margin-top: var(--space-8);
+}
+
+@media (max-width: 899px) {
+  .ds-shake__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-40);
+  }
+
+  .ds-shake__glass {
+    width: min(100%, calc(var(--size-160) * 1.3));
+  }
+}
+
+@media (max-width: 479px) {
+  .ds-shake__flavours {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-shake__chip,
+  .ds-shake__liquid {
+    transition: none;
+  }
+}

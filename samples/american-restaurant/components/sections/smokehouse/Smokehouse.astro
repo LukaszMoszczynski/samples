@@ -1,0 +1,63 @@
+---
+// Smokehouse: the BBQ story. The smoker draws itself and smoke keeps curling out of the chimney; the 12-hour dial fills
+// while its hand spins twelve turns and the hours count up; figures count up too (diner.js). Static without motion.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import DinerArt from '../../molecules/diner-art/DinerArt.astro';
+import DinerButton from '../../atoms/diner-button/DinerButton.astro';
+interface Props {
+  id: string; eyebrow: string; title: string; lead: string; hours: number;
+  steps: { title: string; text: string }[];
+  figures: { value: number; suffix: string; label: string }[];
+  cta: { text: string; href: string };
+}
+const { id, eyebrow, title, lead, hours, steps, figures, cta } = Astro.props;
+const ticks = Array.from({ length: 12 }, (_, index) => index * 30);
+---
+<section class="ds-section ds-section--night ds-smokehouse" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container ds-smokehouse__grid">
+    <div class="ds-smokehouse__visual">
+      <div class="ds-smokehouse__smoker" data-reveal>
+        <DinerArt name="smoker" tone="night" />
+      </div>
+      <div class="ds-smokehouse__dial" data-reveal>
+        <svg class="ds-smokehouse__dial-svg" viewBox="0 0 200 200" aria-hidden="true">
+          <circle class="ds-smokehouse__dial-face" cx="100" cy="100" r="92" />
+          {ticks.map((angle) => <line class="ds-smokehouse__tick" x1="100" y1="16" x2="100" y2="26" transform={`rotate(${angle} 100 100)`} />)}
+          <circle class="ds-smokehouse__dial-track" cx="100" cy="100" r="78" />
+          <circle class="ds-smokehouse__dial-ring" cx="100" cy="100" r="78" pathLength="1000" transform="rotate(-90 100 100)" data-timer-ring />
+          <line class="ds-smokehouse__hand" x1="100" y1="100" x2="100" y2="40" data-timer-hand />
+          <circle class="ds-smokehouse__pin" cx="100" cy="100" r="6" />
+        </svg>
+        <p class="ds-smokehouse__dial-value"><span data-timer-hours>{hours}</span><span class="ds-smokehouse__dial-unit"> h</span></p>
+        <p class="ds-smokehouse__dial-label">w wędzarni, każdego dnia</p>
+      </div>
+    </div>
+    <div class="ds-smokehouse__copy">
+      <div class="ds-section-head" data-reveal>
+        <Eyebrow text={eyebrow} tone="night" />
+        <h2 class="ds-section-head__title" id={`${id}-title`} set:html={title} />
+        <p class="ds-section-head__lead">{lead}</p>
+      </div>
+      <ol class="ds-smokehouse__steps" role="list">
+        {steps.map((step, index) => (
+          <li class="ds-smokehouse__step" data-reveal>
+            <span class="ds-smokehouse__step-number" aria-hidden="true">{index + 1}</span>
+            <div>
+              <h3 class="ds-smokehouse__step-title">{step.title}</h3>
+              <p class="ds-smokehouse__step-text">{step.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <ul class="ds-smokehouse__figures" role="list" data-reveal>
+        {figures.map((figure) => (
+          <li class="ds-smokehouse__figure">
+            <span class="ds-smokehouse__figure-value"><span data-count-to={figure.value}>{figure.value}</span>{figure.suffix}</span>
+            <span class="ds-smokehouse__figure-label">{figure.label}</span>
+          </li>
+        ))}
+      </ul>
+      <div data-reveal><DinerButton text={cta.text} href={cta.href} variant="mint" icon="arrow" /></div>
+    </div>
+  </div>
+</section>

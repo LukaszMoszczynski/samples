@@ -1,0 +1,47 @@
+---
+// Site header: midnight bar with a chrome edge, logo, menu, the takeaway bag with its item count, "book a table".
+// Below 1024 px a burger opens a full-screen drawer (diner.js). The drawer sits after the header, not inside it:
+// a blurred header would trap a fixed child.
+import Logo from '../../molecules/logo/Logo.astro';
+import DinerButton from '../../atoms/diner-button/DinerButton.astro';
+interface Link { text: string; href: string }
+interface Props { name: string; items: Link[]; cta: Link; order: Link; note: string }
+const { name, items, cta, order, note } = Astro.props;
+---
+<header class="ds-site-header" data-site-header>
+  <div class="ds-container ds-site-header__bar">
+    <Logo name={name} />
+    <nav class="ds-site-header__nav" aria-label="Menu główne">
+      <ul class="ds-site-header__menu" role="list">
+        {items.map((item) => <li><a class="ds-site-header__link" href={item.href}>{item.text}</a></li>)}
+      </ul>
+    </nav>
+    <div class="ds-site-header__actions">
+      <a class="ds-site-header__bag" href={order.href} data-cart-link>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></svg>
+        <span class="ds-site-header__bag-text">{order.text}</span>
+        <span class="ds-site-header__bag-count" data-cart-count hidden>0</span>
+      </a>
+      <DinerButton text={cta.text} href={cta.href} size="small" class="ds-site-header__cta" />
+      <button class="ds-site-header__burger" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="Menu" data-site-burger>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path class="ds-burger__line ds-burger__line--top" d="M4 7h16" /><path class="ds-burger__line ds-burger__line--middle" d="M4 12h16" /><path class="ds-burger__line ds-burger__line--bottom" d="M4 17h16" /></svg>
+      </button>
+    </div>
+  </div>
+  <div class="ds-site-header__chrome" aria-hidden="true"></div>
+</header>
+<div class="ds-site-header__drawer" id="site-drawer" hidden>
+  <div class="ds-container">
+    <ul class="ds-site-header__drawer-menu" role="list">
+      {items.map((item, index) => (
+        <li><a class="ds-site-header__drawer-link" href={item.href}><span class="ds-site-header__drawer-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>{item.text}</a></li>
+      ))}
+    </ul>
+    <div class="ds-site-header__drawer-foot">
+      <DinerButton text={cta.text} href={cta.href} icon="calendar" />
+      <DinerButton text={order.text} href={order.href} variant="mint" icon="bag" />
+      <p class="ds-site-header__drawer-note">{note}</p>
+    </div>
+  </div>
+  <div class="ds-checker ds-site-header__drawer-checker" aria-hidden="true"></div>
+</div>

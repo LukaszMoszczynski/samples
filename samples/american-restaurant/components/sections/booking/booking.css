@@ -1,0 +1,100 @@
+/* Booking: rules with star bullets and a jukebox on the left, the form as a reservation ticket with a cherry band. */
+.ds-booking__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-56);
+}
+
+.ds-booking__aside {
+  display: grid;
+  gap: var(--space-24);
+}
+
+.ds-booking__aside .ds-section-head {
+  margin-bottom: 0;
+}
+
+.ds-booking__rules {
+  display: grid;
+  gap: var(--space-12);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-booking__rules li {
+  position: relative;
+  padding-left: var(--space-32);
+}
+
+.ds-booking__rules li::before {
+  content: "★";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--palette-primary-600);
+  font-size: var(--font-size-lg);
+}
+
+.ds-booking__phone {
+  margin: 0;
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-booking__phone a {
+  color: var(--palette-primary-600);
+}
+
+.ds-booking__art {
+  width: calc(var(--size-160) * 1.1);
+}
+
+.ds-booking__card {
+  position: relative;
+  padding: calc(var(--space-64) + var(--space-16)) var(--space-32) var(--space-32);
+  border: var(--space-3) solid var(--palette-secondary-900);
+  border-radius: var(--radius-2xl);
+  background: var(--palette-neutral-0);
+  box-shadow: var(--space-8) var(--space-8) 0 var(--palette-secondary-900);
+}
+
+.ds-booking__ticket {
+  position: absolute;
+  inset: 0 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-12);
+  margin: 0;
+  padding: var(--space-16) var(--space-32);
+  border-bottom: var(--space-3) dashed var(--palette-neutral-0);
+  border-radius: calc(var(--radius-2xl) - var(--space-3)) calc(var(--radius-2xl) - var(--space-3)) 0 0;
+  background: var(--palette-primary-600);
+  color: var(--palette-neutral-0);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-2);
+  text-transform: uppercase;
+}
+
+@media (max-width: 1023px) {
+  .ds-booking__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-40);
+  }
+
+  .ds-booking__art {
+    display: none;
+  }
+}
+
+@media (max-width: 479px) {
+  .ds-booking__card {
+    padding-inline: var(--space-16);
+  }
+
+  .ds-booking__ticket {
+    padding-inline: var(--space-16);
+  }
+}
