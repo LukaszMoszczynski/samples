@@ -1,0 +1,66 @@
+---
+// Contact and hours: a slate card with address, phone and e-mail, an opening-hours list (today marked by physio.js),
+// and a drawn street map with a pin (an illustration, not a real map).
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import PillButton from '../../atoms/pill-button/PillButton.astro';
+interface Props {
+  id: string;
+  label: string;
+  title: string;
+  lead: string;
+  address: string[];
+  phone: string;
+  email: string;
+  hours: { days: string; time: string; weekdays: number[] }[];
+  extra: string;
+}
+const { id, label, title, lead, address, phone, email, hours, extra } = Astro.props;
+---
+<section class="ds-section ds-contact" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow text={label} />
+      <h2 class="ds-section-head__title" id={`${id}-title`}>{title}</h2>
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <div class="ds-contact__grid">
+      <div class="ds-contact__card" data-reveal>
+        <div class="ds-contact__block">
+          <p class="ds-contact__caption">Adres</p>
+          <address class="ds-contact__address">{address.map((line) => <span>{line}</span>)}</address>
+        </div>
+        <div class="ds-contact__block">
+          <p class="ds-contact__caption">Telefon i e-mail</p>
+          <a class="ds-contact__link" href={`tel:${phone.replaceAll(' ', '')}`}>{phone}</a>
+          <a class="ds-contact__link" href={`mailto:${email}`}>{email}</a>
+        </div>
+        <PillButton text="Umów wizytę" href="#rezerwacja" arrow />
+      </div>
+      <div class="ds-contact__hours" data-reveal>
+        <h3 class="ds-contact__hours-title">Godziny otwarcia</h3>
+        <ul class="ds-contact__hours-list" role="list">
+          {hours.map((row) => (
+            <li class="ds-contact__hours-row" data-weekdays={row.weekdays.join(',')}>
+              <span>{row.days}</span><span class="ds-contact__time">{row.time}</span>
+              <span class="ds-contact__today" hidden data-today-label>dziś</span>
+            </li>
+          ))}
+        </ul>
+        <p class="ds-contact__extra">{extra}</p>
+      </div>
+      <div class="ds-contact__map" data-reveal>
+        <svg viewBox="0 0 320 300" fill="none" role="img" aria-label="Rysunek okolicy gabinetu: przykład, nie prawdziwa mapa">
+          <rect class="ds-contact__park" x="196" y="28" width="96" height="84" rx="28" />
+          <path class="ds-contact__street ds-contact__street--main" d="M-10 196C80 180 160 210 330 168" />
+          <path class="ds-contact__street" d="M110 -10C120 90 100 200 124 310M232 -10c-10 90 8 200-6 320M-10 82c120 10 220-10 340 6" />
+          <path class="ds-contact__route" d="M40 260C70 220 96 214 124 196S150 150 168 138" pathLength="1000" data-draw data-map-route />
+          <g class="ds-contact__pin" data-map-pin>
+            <path d="M168 138c-16-18-24-30-24-42a24 24 0 0 1 48 0c0 12-8 24-24 42Z" />
+            <circle cx="168" cy="96" r="8" />
+          </g>
+        </svg>
+        <p class="ds-contact__map-note">Rysunek poglądowy. Parking przed budynkiem, wejście bez schodów.</p>
+      </div>
+    </div>
+  </div>
+</section>

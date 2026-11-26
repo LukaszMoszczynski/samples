@@ -1,0 +1,17 @@
+---
+// Therapist card: drawn portrait, first name, role, a sentence on how they work, focus areas, and a link that picks
+// them in the booking demo. The portrait tilts slightly on hover.
+import Portrait from '../portrait/Portrait.astro';
+interface Props { name: string; role: string; text: string; focus: string[]; hair: 'bun' | 'long' | 'short'; tint: 'sage' | 'coral' | 'slate' }
+const { name, role, text, focus, hair, tint } = Astro.props;
+---
+<article class="ds-therapist-card">
+  <div class="ds-therapist-card__portrait"><Portrait hair={hair} tint={tint} /></div>
+  <h3 class="ds-therapist-card__name">{name}</h3>
+  <p class="ds-therapist-card__role">{role}</p>
+  <p class="ds-therapist-card__text">{text}</p>
+  <ul class="ds-therapist-card__focus" role="list">
+    {focus.map((item) => <li>{item}</li>)}
+  </ul>
+  <a class="ds-therapist-card__link" href="#rezerwacja" data-book-therapist={name}>Umów wizytę<span class="ds-visually-hidden"> u: {name}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5" /></svg></a>
+</article>

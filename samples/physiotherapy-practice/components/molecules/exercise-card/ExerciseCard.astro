@@ -1,0 +1,26 @@
+---
+// Exercise card: a line figure (side or front view) in its start pose, the steps and the dose. physio.js moves the
+// figure gently between its two poses in a loop while the card is on screen (only without reduced motion).
+// A pose is a set of named points; the template is an SVG path with {point} placeholders.
+type Point = [number, number];
+interface Figure { template: string; head: string; from: Record<string, Point>; to: Record<string, Point> }
+interface Props { title: string; area: string; steps: string[]; dose: string; figure: Figure; label: string }
+const { title, area, steps, dose, figure, label } = Astro.props;
+const fill = (pose: Record<string, Point>) => figure.template.replace(/\{(\w+)\}/g, (_match, name) => pose[name].join(' '));
+const head = figure.from[figure.head];
+---
+<article class="ds-exercise-card">
+  <div class="ds-exercise-card__art">
+    <svg viewBox="0 0 240 150" fill="none" role="img" aria-label={label} data-exercise data-exercise-template={figure.template} data-exercise-head={figure.head} data-exercise-from={JSON.stringify(figure.from)} data-exercise-to={JSON.stringify(figure.to)}>
+      <path class="ds-exercise-card__floor" d="M16 136H224" />
+      <path class="ds-exercise-card__figure" d={fill(figure.from)} data-exercise-path />
+      <circle class="ds-exercise-card__head" cx={head[0]} cy={head[1]} r="11" data-exercise-head-circle />
+    </svg>
+  </div>
+  <p class="ds-exercise-card__area">{area}</p>
+  <h3 class="ds-exercise-card__title">{title}</h3>
+  <ol class="ds-exercise-card__steps">
+    {steps.map((step) => <li>{step}</li>)}
+  </ol>
+  <p class="ds-exercise-card__dose">{dose}</p>
+</article>

@@ -1,0 +1,17 @@
+{
+  "slug": "physiotherapy-practice",
+  "stack": "astro",
+  "lang": "pl",
+  "title": "Twoja Fizjoterapia – gabinet fizjoterapii (przykładowa strona)",
+  "pages": [
+    "index"
+  ],
+  "summary": "Gabinet fizjoterapii: interaktywna mapa „gdzie boli”, zabiegi z ceną i czasem, demo rezerwacji z wolnymi godzinami i ćwiczenia z ruchomymi rysunkami.",
+  "direction": "Calm movement",
+  "tags": [
+    "Astro",
+    "GSAP",
+    "Rezerwacja (demo)"
+  ],
+  "date": "2026-11-26"
+}

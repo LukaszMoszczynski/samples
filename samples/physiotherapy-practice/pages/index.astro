@@ -1,0 +1,280 @@
+---
+// Physiotherapy practice home page: components made for this brief (components/), on the design system's tokens.
+// Copy, prices, hours and reviews are example content written for the brief.
+import Sample from '../layouts/Sample.astro';
+import sample from '../sample.json';
+
+import '../components/base/page/page.css';
+import '../components/base/forms/forms.css';
+import '../components/atoms/pill-button/pill-button.css';
+import '../components/atoms/eyebrow/eyebrow.css';
+import '../components/atoms/brand-mark/brand-mark.css';
+import '../components/molecules/service-card/service-card.css';
+import '../components/molecules/portrait/portrait.css';
+import '../components/molecules/therapist-card/therapist-card.css';
+import '../components/molecules/exercise-card/exercise-card.css';
+import '../components/molecules/review-card/review-card.css';
+import '../components/organisms/site-header/site-header.css';
+import '../components/organisms/site-footer/site-footer.css';
+import '../components/sections/calm-hero/calm-hero.css';
+import '../components/sections/body-map/body-map.css';
+import '../components/sections/services/services.css';
+import '../components/sections/first-visit/first-visit.css';
+import '../components/sections/team/team.css';
+import '../components/sections/booking-demo/booking-demo.css';
+import '../components/sections/exercise-tips/exercise-tips.css';
+import '../components/sections/price-list/price-list.css';
+import '../components/sections/reviews/reviews.css';
+import '../components/sections/faq-list/faq-list.css';
+import '../components/sections/contact-hours/contact-hours.css';
+
+import SiteHeader from '../components/organisms/site-header/SiteHeader.astro';
+import CalmHero from '../components/sections/calm-hero/CalmHero.astro';
+import BodyMap from '../components/sections/body-map/BodyMap.astro';
+import Eyebrow from '../components/atoms/eyebrow/Eyebrow.astro';
+import ServiceCard from '../components/molecules/service-card/ServiceCard.astro';
+import FirstVisit from '../components/sections/first-visit/FirstVisit.astro';
+import TherapistCard from '../components/molecules/therapist-card/TherapistCard.astro';
+import BookingDemo from '../components/sections/booking-demo/BookingDemo.astro';
+import ExerciseTips from '../components/sections/exercise-tips/ExerciseTips.astro';
+import ExerciseCard from '../components/molecules/exercise-card/ExerciseCard.astro';
+import PriceList from '../components/sections/price-list/PriceList.astro';
+import ReviewCard from '../components/molecules/review-card/ReviewCard.astro';
+import FaqList from '../components/sections/faq-list/FaqList.astro';
+import ContactHours from '../components/sections/contact-hours/ContactHours.astro';
+import SiteFooter from '../components/organisms/site-footer/SiteFooter.astro';
+
+const practice = 'Twoja Fizjoterapia';
+const phone = '+48 600 000 000';
+const email = 'gabinet@example.com';
+const nav = [
+  { text: 'Gdzie boli?', href: '#gdzie-boli' },
+  { text: 'Zabiegi', href: '#zabiegi' },
+  { text: 'Pierwsza wizyta', href: '#pierwsza-wizyta' },
+  { text: 'Zespół', href: '#zespol' },
+  { text: 'Ćwiczenia', href: '#cwiczenia' },
+  { text: 'Cennik', href: '#cennik' },
+  { text: 'Kontakt', href: '#kontakt' },
+];
+
+const consultation = { anchor: 'zabieg-konsultacja', icon: 'consult', title: 'Konsultacja z badaniem', text: 'Pierwsza wizyta: rozmowa, badanie funkcjonalne, pierwsza terapia i plan dalszych kroków.', duration: '60 min', price: '220 zł' };
+const services = [
+  { anchor: 'zabieg-terapia-manualna', icon: 'hands', title: 'Terapia manualna', text: 'Praca dłońmi na stawach, mięśniach i powięzi, gdy ruch jest ograniczony albo boli.', duration: '50 min', price: '200 zł' },
+  { anchor: 'zabieg-rehabilitacja', icon: 'knee', title: 'Rehabilitacja po urazach i operacjach', text: 'Powrót do sprawności po złamaniach, skręceniach, rekonstrukcjach więzadeł i endoprotezach.', duration: '50 min', price: '190 zł' },
+  { anchor: 'zabieg-kregoslup', icon: 'spine', title: 'Leczenie bólu kręgosłupa', text: 'Ból krzyża, karku, rwa kulszowa, dyskopatia: terapia i ćwiczenia, które da się robić w domu.', duration: '50 min', price: '200 zł' },
+  { anchor: 'zabieg-sportowa', icon: 'run', title: 'Fizjoterapia sportowa', text: 'Przeciążenia, kontuzje i powrót do treningu: dla biegaczy, rowerzystów i osób trenujących.', duration: '50 min', price: '210 zł' },
+  { anchor: 'zabieg-uroginekologia', icon: 'bloom', title: 'Fizjoterapia uroginekologiczna', text: 'Dno miednicy w ciąży, po porodzie i w menopauzie. Spokojna, dyskretna wizyta w osobnym gabinecie.', duration: '60 min', price: '240 zł' },
+  { anchor: 'zabieg-masaz', icon: 'wave', title: 'Masaż leczniczy', text: 'Rozluźnienie napiętych mięśni i poprawa krążenia, jako osobny zabieg albo część terapii.', duration: '45 min', price: '160 zł' },
+  { anchor: 'zabieg-kinesiotaping', icon: 'tape', title: 'Kinesiotaping', text: 'Elastyczne plastry, które odciążają tkanki i wspierają ruch między wizytami.', duration: '20 min', price: '80 zł' },
+  { anchor: 'zabieg-wizyta-domowa', icon: 'home', title: 'Wizyta domowa', text: 'Fizjoterapeuta przyjeżdża do Ciebie, gdy wyjście z domu jest trudne, np. po operacji.', duration: '60 min', price: '290 zł' },
+];
+const allServices = [consultation, ...services];
+
+const areas = [
+  { id: 'kark', name: 'Kark i szyja', x: 100, y: 70, problems: ['sztywność po dniu przy komputerze', 'ból głowy z napięcia', 'mrowienie w rękach'], treatments: ['Terapia manualna', 'Masaż leczniczy', 'Kinesiotaping'] },
+  { id: 'bark', name: 'Bark', x: 134, y: 96, problems: ['ból przy unoszeniu ręki', 'bark po urazie lub operacji', 'ból w nocy przy leżeniu na boku'], treatments: ['Rehabilitacja po urazach i operacjach', 'Terapia manualna', 'Kinesiotaping'] },
+  { id: 'kregoslup', name: 'Kręgosłup (lędźwie)', x: 100, y: 160, problems: ['ból krzyża po schylaniu', 'ból promieniujący do nogi', 'sztywność rano'], treatments: ['Leczenie bólu kręgosłupa', 'Terapia manualna', 'Masaż leczniczy'] },
+  { id: 'lokiec', name: 'Łokieć i nadgarstek', x: 152, y: 190, problems: ['„łokieć tenisisty” lub „golfisty”', 'drętwienie palców', 'nadgarstek po złamaniu'], treatments: ['Fizjoterapia sportowa', 'Rehabilitacja po urazach i operacjach', 'Kinesiotaping'] },
+  { id: 'miednica', name: 'Dno miednicy', x: 100, y: 188, problems: ['ciąża i czas po porodzie', 'popuszczanie przy kaszlu lub biegu', 'rozejście mięśni brzucha'], treatments: ['Fizjoterapia uroginekologiczna'] },
+  { id: 'biodro', name: 'Biodro', x: 80, y: 206, problems: ['ból w pachwinie przy chodzeniu', 'biodro po endoprotezie', 'ból z boku uda'], treatments: ['Rehabilitacja po urazach i operacjach', 'Fizjoterapia sportowa', 'Wizyta domowa'] },
+  { id: 'kolano', name: 'Kolano', x: 115, y: 310, problems: ['ból przy schodach i kucaniu', 'kolano po rekonstrukcji więzadła', 'przeciążenie u biegaczy'], treatments: ['Rehabilitacja po urazach i operacjach', 'Fizjoterapia sportowa', 'Kinesiotaping'] },
+  { id: 'stopa', name: 'Stopa i kostka', x: 82, y: 392, problems: ['skręcona kostka', 'ból pięty rano', 'zmęczone, płaskie stopy'], treatments: ['Fizjoterapia sportowa', 'Terapia manualna', 'Kinesiotaping'] },
+];
+
+const exercises = [
+  {
+    title: 'Koci grzbiet',
+    area: 'Kręgosłup',
+    label: 'Rysunek: osoba w klęku podpartym wygina plecy w łuk i prostuje je',
+    steps: ['Klęk podparty: dłonie pod barkami, kolana pod biodrami.', 'Z wydechem zaokrąglij plecy, broda do mostka.', 'Z wdechem powoli wróć i lekko unieś głowę.'],
+    dose: '8–10 spokojnych powtórzeń',
+    figure: {
+      template: 'M{hand} L{shoulder} Q{back} {hip} L{knee} L{foot} M{shoulder} L{head}',
+      head: 'head',
+      from: { hand: [64, 134], shoulder: [68, 84], back: [118, 40], hip: [166, 84], knee: [166, 134], foot: [214, 134], head: [46, 102] },
+      to: { hand: [64, 134], shoulder: [68, 80], back: [118, 104], hip: [166, 80], knee: [166, 134], foot: [214, 134], head: [44, 64] },
+    },
+  },
+  {
+    title: 'Skłon boczny głowy',
+    area: 'Kark',
+    label: 'Rysunek: osoba siedząca łagodnie przechyla głowę w bok',
+    steps: ['Usiądź prosto, ramiona opuść w dół.', 'Powoli przechyl głowę, ucho w stronę barku.', 'Zostań na 3 spokojne oddechy, potem druga strona.'],
+    dose: '3 razy na każdą stronę',
+    figure: {
+      template: 'M{shoulderL} L{shoulderR} M{neck} L120 120 Q96 140 74 128 M120 120 Q144 140 166 128 M{shoulderL} L{handL} M{shoulderR} L{handR} M{neck} L{chin}',
+      head: 'head',
+      from: { shoulderL: [96, 84], shoulderR: [144, 84], neck: [120, 76], handL: [82, 124], handR: [158, 124], chin: [120, 62], head: [120, 46] },
+      to: { shoulderL: [96, 84], shoulderR: [144, 88], neck: [120, 76], handL: [82, 124], handR: [160, 128], chin: [111, 65], head: [103, 52] },
+    },
+  },
+  {
+    title: 'Mostek biodrowy',
+    area: 'Biodra i lędźwie',
+    label: 'Rysunek: osoba leżąca na plecach unosi i opuszcza biodra',
+    steps: ['Połóż się na plecach, stopy oparte, kolana zgięte.', 'Z wydechem unieś biodra, aż tułów i uda będą w linii.', 'Zatrzymaj na 2 sekundy i powoli opuść.'],
+    dose: '10 powtórzeń, 2 serie',
+    figure: {
+      template: 'M{shoulder} L{hip} L{knee} L{foot} M{shoulder} L{hand} M{shoulder} L{head}',
+      head: 'head',
+      from: { shoulder: [62, 130], hip: [128, 130], knee: [166, 92], foot: [190, 134], hand: [112, 134], head: [38, 124] },
+      to: { shoulder: [62, 128], hip: [126, 94], knee: [170, 86], foot: [190, 134], hand: [112, 134], head: [38, 124] },
+    },
+  },
+];
+---
+<Sample lang={sample.lang} title={sample.title} description="Przykładowa strona gabinetu fizjoterapii: mapa bólu, zabiegi z cenami, zespół, demo rezerwacji i proste ćwiczenia." fonts="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;700&family=Outfit:wght@400;500&display=swap">
+  <SiteHeader name={practice} items={nav} cta={{ text: 'Umów wizytę', href: '#rezerwacja' }} phone={phone} />
+  <main>
+    <CalmHero
+      label="Gabinet fizjoterapii"
+      title="Wracaj do ruchu spokojnie, krok po kroku"
+      accent="spokojnie"
+      lead="Szukamy przyczyny bólu, a nie tylko łagodzimy objawy. Na pierwszej wizycie rozmawiamy, badamy i układamy plan, który rozumiesz. Bez skierowania, także w Twoim domu."
+      primary={{ text: 'Umów wizytę', href: '#rezerwacja' }}
+      secondary={{ text: 'Gdzie boli?', href: '#gdzie-boli' }}
+      facts={['Wizyta jeden na jeden', 'Bez skierowania', 'Wizyty domowe']}
+      status="Wolne terminy jeszcze w tym tygodniu"
+    />
+    <BodyMap
+      id="gdzie-boli"
+      label="Gdzie boli?"
+      title="Pokaż, co dolega, a podpowiemy, od czego zacząć"
+      lead="Wybierz miejsce na rysunku albo z listy. Zobaczysz, z czym najczęściej przychodzą pacjenci i jakie zabiegi mogą pomóc."
+      note="To orientacyjne podpowiedzi. Co naprawdę pomoże, ustalimy po rozmowie i badaniu."
+      areas={areas}
+    />
+    <section class="ds-section" id="zabiegi" aria-labelledby="zabiegi-title">
+      <div class="ds-container">
+        <div class="ds-services__head" data-reveal>
+          <div class="ds-section-head">
+            <Eyebrow text="Zabiegi" />
+            <h2 class="ds-section-head__title" id="zabiegi-title">Zabiegi, czas i cena od razu na wierzchu</h2>
+            <p class="ds-section-head__lead">Każda wizyta to czas tylko dla Ciebie, w jednym gabinecie, bez przechodzenia między salami.</p>
+          </div>
+        </div>
+        <ul class="ds-services__list" role="list">
+          {services.map((service) => (
+            <li data-reveal><ServiceCard {...service} /></li>
+          ))}
+        </ul>
+      </div>
+    </section>
+    <FirstVisit
+      id="pierwsza-wizyta"
+      label="Pierwsza wizyta"
+      title="Pierwsza wizyta krok po kroku"
+      lead="Trwa około godziny. Nie musisz się przygotowywać: wystarczy wygodny strój i kilka słów o tym, co dolega."
+      steps={[
+        { title: 'Rozmowa', text: 'Opowiadasz, co boli, od kiedy i co już było robione. Pytamy też o pracę, sen i ruch na co dzień.', time: 'ok. 10 min' },
+        { title: 'Badanie', text: 'Sprawdzamy ruchomość, siłę i postawę. Szukamy źródła dolegliwości, nie tylko miejsca bólu.', time: 'ok. 15 min' },
+        { title: 'Pierwsza terapia', text: 'Już tego dnia zaczynamy: terapia manualna, ćwiczenia albo taping, zależnie od potrzeby.', time: 'ok. 25 min' },
+        { title: 'Plan i ćwiczenia', text: 'Wychodzisz z planem kolejnych wizyt i 2–3 ćwiczeniami do domu, rozpisanymi tak, żeby je zapamiętać.', time: 'ok. 10 min' },
+      ]}
+      bring={['wyniki badań (RTG, MRI, USG)', 'wypis ze szpitala po operacji', 'wygodny strój']}
+    />
+    <section class="ds-section ds-section--soft" id="zespol" aria-labelledby="zespol-title">
+      <div class="ds-container">
+        <div class="ds-section-head" data-reveal>
+          <Eyebrow text="Zespół" />
+          <h2 class="ds-section-head__title" id="zespol-title">Troje fizjoterapeutów, każdy z innym konikiem</h2>
+          <p class="ds-section-head__lead">Gdy sprawa wymaga innego spojrzenia, konsultujemy ją między sobą. Ty nie musisz szukać dalej.</p>
+        </div>
+        <ul class="ds-team__list" role="list">
+          <li data-reveal><TherapistCard name="Anna" role="Fizjoterapeutka, terapia manualna" text="Pracuje z bólem kręgosłupa i karku. Lubi tłumaczyć, skąd bierze się ból i co z nim zrobić na co dzień." focus={['Kręgosłup', 'Terapia manualna', 'Kinesiotaping']} hair="bun" tint="sage" /></li>
+          <li data-reveal><TherapistCard name="Marta" role="Fizjoterapeutka uroginekologiczna" text="Prowadzi kobiety w ciąży, po porodzie i w menopauzie. Spokojnie, bez pośpiechu i w osobnym gabinecie." focus={['Dno miednicy', 'Ciąża i połóg', 'Masaż leczniczy']} hair="long" tint="coral" /></li>
+          <li data-reveal><TherapistCard name="Tomasz" role="Fizjoterapeuta sportowy" text="Pomaga wrócić do biegania i treningu po kontuzjach, a po operacjach prowadzi rehabilitację krok po kroku." focus={['Sport', 'Po operacjach', 'Wizyty domowe']} hair="short" tint="slate" /></li>
+        </ul>
+      </div>
+    </section>
+    <BookingDemo
+      id="rezerwacja"
+      label="Rezerwacja"
+      title="Umów wizytę w minutę"
+      lead="Wybierz zabieg, osobę i dzień, a zobaczysz wolne godziny. W gotowej stronie terminy pochodzą z kalendarza gabinetu."
+      services={allServices}
+      therapists={['Anna', 'Marta', 'Tomasz']}
+      hours={['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00']}
+    />
+    <ExerciseTips
+      id="cwiczenia"
+      label="Ćwiczenia"
+      title="Trzy proste ćwiczenia na dobry początek"
+      lead="Łagodne ruchy, które zwykle polecamy osobom, które dużo siedzą. Rób je powoli, bez bólu."
+      disclaimer="Ćwiczenia są ogólnymi wskazówkami i nie zastępują konsultacji z fizjoterapeutą ani lekarzem. Jeśli ruch nasila ból albo pojawia się drętwienie, przerwij i skonsultuj się z nami."
+    >
+      {exercises.map((exercise) => (
+        <li data-reveal><ExerciseCard {...exercise} /></li>
+      ))}
+    </ExerciseTips>
+    <PriceList
+      id="cennik"
+      label="Cennik"
+      title="Cennik"
+      lead="Ceny za jedną wizytę. Płatność na miejscu kartą, BLIK-iem lub gotówką. Na życzenie wystawiamy fakturę."
+      nfz={{ title: 'Prywatnie czy na NFZ?', text: 'Przyjmujemy prywatnie, bez skierowania. [Do uzupełnienia przez gabinet: czy są wizyty w ramach NFZ, na jakich zasadach i jak się zapisać.]' }}
+      groups={[
+        { title: 'Wizyty w gabinecie', rows: allServices.filter((service) => service.icon !== 'home').map((service) => ({ name: service.title, duration: service.duration, price: service.price })) },
+        { title: 'Pakiety i wizyty domowe', rows: [
+          { name: 'Pakiet 5 wizyt', note: 'terapia manualna lub rehabilitacja, ważny 2 miesiące', duration: '5 × 50 min', price: '900 zł' },
+          { name: 'Wizyta domowa', note: 'w granicach miasta, dojazd w cenie', duration: '60 min', price: '290 zł' },
+          { name: 'Kinesiotaping przy wizycie', note: 'dodatkowo do innego zabiegu', duration: '10 min', price: '40 zł' },
+        ] },
+      ]}
+    />
+    <section class="ds-section ds-section--soft" id="opinie" aria-labelledby="opinie-title">
+      <div class="ds-container">
+        <div class="ds-section-head" data-reveal>
+          <Eyebrow text="Opinie" />
+          <h2 class="ds-section-head__title" id="opinie-title">Co mówią pacjenci</h2>
+          <p class="ds-section-head__lead">Poniżej są przykładowe opinie napisane na potrzeby tej strony. W gotowej stronie pojawią się prawdziwe opinie, np. z Google.</p>
+        </div>
+        <ul class="ds-reviews__list" role="list">
+          <li data-reveal><ReviewCard text="Po pierwszej wizycie wiedziałam, skąd ten ból karku i co robić między wizytami. Ćwiczenia zajmują mi pięć minut dziennie." who="Pacjentka" topic="praca przy komputerze, ból karku" /></li>
+          <li data-reveal><ReviewCard text="Wróciłem do biegania po skręceniu kostki. Plan był rozpisany na tygodnie, więc wiedziałem, kiedy mogę przyspieszyć." who="Pacjent" topic="biegacz amator, kostka" /></li>
+          <li data-reveal><ReviewCard text="Spokojna, rzeczowa wizyta po porodzie, w osobnym gabinecie. Dużo konkretnych wskazówek, zero pośpiechu." who="Pacjentka" topic="fizjoterapia uroginekologiczna" /></li>
+        </ul>
+      </div>
+    </section>
+    <FaqList
+      id="faq"
+      label="FAQ"
+      title="Najczęstsze pytania"
+      lead="Nie ma tu Twojego pytania? Zadzwoń, chętnie odpowiemy przed wizytą."
+      items={[
+        { question: 'Czy potrzebuję skierowania?', answer: 'Nie. Na wizytę prywatną możesz umówić się bez skierowania od lekarza.' },
+        { question: 'Co zabrać na pierwszą wizytę?', answer: 'Wygodny strój, w którym łatwo się ruszać, i wyniki badań, jeśli je masz (RTG, MRI, USG, wypis ze szpitala).' },
+        { question: 'Ile wizyt będę potrzebować?', answer: 'To zależy od przyczyny i od tego, jak długo trwa dolegliwość. Po pierwszej wizycie powiemy, jaki plan proponujemy i kiedy sprawdzimy postępy.' },
+        { question: 'Czy przyjmujecie na NFZ?', answer: '[Do uzupełnienia przez gabinet.] Obecnie przyjmujemy prywatnie, bez skierowania.' },
+        { question: 'Jak odwołać lub przełożyć wizytę?', answer: 'Telefonicznie albo SMS-em, najpóźniej 24 godziny przed terminem. Odwołanie jest bezpłatne.' },
+        { question: 'Czy przyjeżdżacie do domu?', answer: 'Tak, w granicach miasta, od poniedziałku do piątku. Najczęściej po operacjach i u osób, którym trudno wyjść z domu.' },
+      ]}
+    />
+    <ContactHours
+      id="kontakt"
+      label="Kontakt"
+      title="Kontakt i godziny otwarcia"
+      lead="Gabinet jest na parterze, z wejściem bez schodów i parkingiem przed budynkiem."
+      address={['ul. Przykładowa 8, lokal 2', '00-000 Miasto']}
+      phone={phone}
+      email={email}
+      hours={[
+        { days: 'Poniedziałek – piątek', time: '8:00–20:00', weekdays: [1, 2, 3, 4, 5] },
+        { days: 'Sobota', time: '9:00–14:00', weekdays: [6] },
+        { days: 'Niedziela', time: 'nieczynne', weekdays: [0] },
+      ]}
+      extra="Wizyty domowe: od poniedziałku do piątku, po wcześniejszym umówieniu telefonicznym."
+    />
+  </main>
+  <SiteFooter
+    name={practice}
+    about="Gabinet fizjoterapii: terapia manualna, rehabilitacja po urazach i operacjach, fizjoterapia sportowa i uroginekologiczna, wizyty domowe."
+    columns={[
+      { title: 'Zabiegi', links: services.slice(0, 5).map((service) => ({ text: service.title, href: `#${service.anchor}` })) },
+      { title: 'Gabinet', links: [{ text: 'Pierwsza wizyta', href: '#pierwsza-wizyta' }, { text: 'Zespół', href: '#zespol' }, { text: 'Cennik', href: '#cennik' }, { text: 'FAQ', href: '#faq' }, { text: 'Umów wizytę', href: '#rezerwacja' }] },
+    ]}
+    contact={[phone, email, 'ul. Przykładowa 8, 00-000 Miasto', 'Pon–pt 8:00–20:00, sob 9:00–14:00']}
+    notes={[`© 2026 ${practice}. Przykładowa strona: nazwa, ceny, godziny i opinie są przykładowe.`, 'Treści o zdrowiu na tej stronie mają charakter ogólny i nie zastępują konsultacji z fizjoterapeutą ani lekarzem.']}
+  />
+  <script src="../scripts/physio.js"></script>
+</Sample>

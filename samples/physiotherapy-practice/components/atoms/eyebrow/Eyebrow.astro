@@ -1,0 +1,9 @@
+---
+// Eyebrow: a small label over a heading, led by a short wave (the brand's flowing line).
+interface Props { text: string; tone?: 'sage' | 'coral' }
+const { text, tone = 'sage' } = Astro.props;
+---
+<p class={`ds-eyebrow ds-eyebrow--${tone}`}>
+  <svg class="ds-eyebrow__wave" viewBox="0 0 32 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M2 6c4-5 8-5 12 0s8 5 12 0 4-3 4-3" /></svg>
+  <span>{text}</span>
+</p>

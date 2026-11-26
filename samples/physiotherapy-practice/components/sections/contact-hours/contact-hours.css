@@ -1,0 +1,189 @@
+/* Contact and hours: three panels in a row (card, hours, drawn map); stacked on phones. */
+.ds-contact__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-20);
+}
+
+.ds-contact__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-28);
+  padding: var(--space-32);
+  border-radius: var(--radius-3xl);
+  background: var(--palette-secondary-800);
+  color: var(--palette-neutral-0);
+}
+
+.ds-contact__block {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.ds-contact__caption {
+  color: var(--palette-primary-400);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-1);
+  text-transform: uppercase;
+}
+
+.ds-contact__address {
+  display: grid;
+  font-size: var(--font-size-lg);
+  font-style: normal;
+  line-height: 1.5;
+}
+
+.ds-contact__link {
+  color: var(--palette-neutral-0);
+  font-size: var(--font-size-lg);
+  text-decoration-color: color-mix(in srgb, var(--palette-neutral-0) 40%, transparent);
+  text-underline-offset: var(--space-4);
+}
+
+.ds-contact__link:hover {
+  text-decoration-color: var(--palette-accent-400);
+}
+
+.ds-contact__link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--palette-accent-400);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-contact__card .ds-pill-button {
+  margin-top: auto;
+}
+
+.ds-contact__card .ds-pill-button:focus-visible {
+  outline-color: var(--palette-accent-400);
+}
+
+.ds-contact__hours {
+  display: grid;
+  align-content: start;
+  gap: var(--space-16);
+  padding: var(--space-32);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-3xl);
+  background: var(--color-surface-card);
+}
+
+.ds-contact__hours-title {
+  font-size: var(--font-size-xl);
+  line-height: var(--font-line-height-xl);
+}
+
+.ds-contact__hours-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-contact__hours-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-8);
+  padding-block: var(--space-12);
+  border-bottom: 1px dashed var(--color-border-strong);
+}
+
+.ds-contact__time {
+  margin-left: auto;
+  font-weight: var(--font-weight-bold);
+  font-variant-numeric: tabular-nums;
+}
+
+.ds-contact__today {
+  order: -1;
+  padding: var(--space-2) var(--space-10);
+  border-radius: var(--radius-full);
+  background: var(--palette-primary-800);
+  color: var(--palette-neutral-0);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+}
+
+.ds-contact__hours-row.is-today {
+  color: var(--palette-primary-800);
+}
+
+.ds-contact__extra {
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.ds-contact__map {
+  display: grid;
+  align-content: space-between;
+  gap: var(--space-12);
+  padding: var(--space-20);
+  border-radius: var(--radius-3xl);
+  background: var(--color-surface-soft);
+}
+
+.ds-contact__map svg {
+  width: 100%;
+  border-radius: var(--radius-2xl);
+  background: var(--color-surface-page);
+}
+
+.ds-contact__park {
+  fill: color-mix(in srgb, var(--palette-primary-400) 45%, transparent);
+}
+
+.ds-contact__street {
+  stroke: var(--palette-neutral-100);
+  stroke-width: 14;
+  stroke-linecap: round;
+}
+
+.ds-contact__street--main {
+  stroke: var(--palette-secondary-100);
+  stroke-width: 22;
+}
+
+.ds-contact__route {
+  stroke: var(--palette-accent-500);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 40 50;
+}
+
+.ds-contact__pin path {
+  fill: var(--palette-accent-500);
+}
+
+.ds-contact__pin circle {
+  fill: var(--palette-neutral-0);
+}
+
+.ds-contact__map-note {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-body);
+  line-height: 1.5;
+}
+
+@media (max-width: 1023px) {
+  .ds-contact__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ds-contact__map {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 699px) {
+  .ds-contact__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ds-contact__card,
+  .ds-contact__hours {
+    padding: var(--space-24);
+  }
+}

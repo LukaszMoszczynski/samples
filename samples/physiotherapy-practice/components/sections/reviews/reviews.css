@@ -1,0 +1,15 @@
+/* Reviews: three example review cards on the sage band. */
+.ds-reviews__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-20);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (max-width: 899px) {
+  .ds-reviews__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

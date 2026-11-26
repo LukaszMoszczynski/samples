@@ -1,0 +1,96 @@
+/* Exercise card: the figure on a sage panel, numbered steps, the dose in a pill. */
+.ds-exercise-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  height: 100%;
+  padding: var(--space-20) var(--space-20) var(--space-28);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-3xl);
+  background: var(--color-surface-card);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease;
+}
+
+.ds-exercise-card__art {
+  margin-bottom: var(--space-8);
+  padding: var(--space-12);
+  border-radius: var(--radius-2xl);
+  background: var(--palette-primary-50);
+}
+
+.ds-exercise-card__art svg {
+  width: 100%;
+}
+
+.ds-exercise-card__floor {
+  stroke: var(--palette-primary-400);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 2 8;
+}
+
+.ds-exercise-card__figure {
+  stroke: var(--palette-secondary-800);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ds-exercise-card__head {
+  fill: var(--palette-accent-400);
+  stroke: var(--palette-secondary-800);
+  stroke-width: 3;
+}
+
+.ds-exercise-card__area {
+  padding-inline: var(--space-8);
+  color: var(--palette-primary-800);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-1);
+  text-transform: uppercase;
+}
+
+.ds-exercise-card__title {
+  padding-inline: var(--space-8);
+  font-size: var(--font-size-tile-title);
+  line-height: var(--line-height-tile-title);
+}
+
+.ds-exercise-card__steps {
+  display: grid;
+  gap: var(--space-8);
+  margin: 0;
+  padding: 0 var(--space-8) 0 var(--space-28);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.ds-exercise-card__steps li::marker {
+  color: var(--palette-primary-600);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-exercise-card__dose {
+  align-self: flex-start;
+  margin: auto var(--space-8) 0;
+  padding: var(--space-6) var(--space-14);
+  border-radius: var(--radius-full);
+  background: var(--palette-secondary-800);
+  color: var(--palette-neutral-0);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-medium);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .ds-exercise-card:hover {
+    transform: translateY(calc(var(--space-6) * -1));
+    box-shadow: 0 var(--space-24) var(--space-48) calc(var(--space-20) * -1) color-mix(in srgb, var(--palette-secondary-800) 28%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-exercise-card {
+    transition: none;
+  }
+}

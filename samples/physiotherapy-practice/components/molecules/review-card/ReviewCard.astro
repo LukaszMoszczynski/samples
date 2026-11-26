@@ -1,0 +1,16 @@
+---
+// Review card: an example review (marked as an example), who it is from in general words, and the stars.
+interface Props { text: string; who: string; topic: string; stars?: number }
+const { text, who, topic, stars = 5 } = Astro.props;
+---
+<figure class="ds-review-card">
+  <p class="ds-review-card__badge">Przykładowa opinia</p>
+  <p class="ds-review-card__stars">
+    <span class="ds-visually-hidden">{`Ocena ${stars} na 5`}</span>
+    {Array.from({ length: 5 }, (_unused, index) => (
+      <svg class:list={['ds-review-card__star', { 'is-empty': index >= stars }]} viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6-4.5-4.2 6.1-.7z" /></svg>
+    ))}
+  </p>
+  <blockquote class="ds-review-card__quote"><p>{text}</p></blockquote>
+  <figcaption class="ds-review-card__who">{who}<span>{topic}</span></figcaption>
+</figure>

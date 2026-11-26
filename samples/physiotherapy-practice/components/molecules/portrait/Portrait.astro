@@ -1,0 +1,25 @@
+---
+// Drawn portrait: an abstract bust in soft lines (no real person), three hair styles and three background tints.
+// Stands in for a photo until the practice sends its own.
+interface Props { hair: 'bun' | 'long' | 'short'; tint: 'sage' | 'coral' | 'slate' }
+const { hair, tint } = Astro.props;
+const clipId = `portrait-clip-${hair}-${tint}`;
+const hairPaths = {
+  bun: 'M70 92c-2-26 14-42 30-42s32 16 30 42c-6-14-18-20-30-20s-24 6-30 20ZM100 50c-8 0-12-6-12-12s5-12 12-12 12 6 12 12-4 12-12 12Z',
+  long: 'M68 98c-4-30 12-48 32-48s36 18 32 48l4 46c-8 4-16 4-22 0l-2-40c-4-12-8-18-12-22-6 8-16 14-28 16l-2 46c-6 4-14 4-20 0Z',
+  short: 'M70 90c0-24 14-38 30-38 18 0 32 12 30 36-6-10-14-14-22-14-10 6-24 8-38 16Z',
+};
+---
+<svg class={`ds-portrait ds-portrait--${tint}`} viewBox="0 0 200 200" aria-hidden="true">
+  <defs><clipPath id={clipId}><circle cx="100" cy="100" r="100" /></clipPath></defs>
+  <circle class="ds-portrait__disc" cx="100" cy="100" r="100" />
+  <g clip-path={`url(#${clipId})`}>
+  <path class="ds-portrait__body" d="M38 200c4-38 28-58 62-58s58 20 62 58Z" />
+  <path class="ds-portrait__neck" d="M88 124v22c6 6 18 6 24 0v-22" />
+  <ellipse class="ds-portrait__head" cx="100" cy="98" rx="30" ry="36" />
+  <path class="ds-portrait__hair" d={hairPaths[hair]} />
+  <path class="ds-portrait__line" d="M86 100c3 3 7 3 10 0M104 100c3 3 7 3 10 0M94 116c4 3 8 3 12 0" />
+  {hair === 'short' && <path class="ds-portrait__line" d="M78 112c4 22 40 22 44 0" />}
+  <path class="ds-portrait__collar" d="M80 150c8 14 32 14 40 0" />
+  </g>
+</svg>

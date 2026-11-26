@@ -1,0 +1,98 @@
+/* FAQ: rows with a round plus that turns into a cross; the answer slides open (physio.js). */
+.ds-faq__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  align-items: start;
+  gap: var(--space-64);
+}
+
+.ds-faq__item {
+  border-bottom: 1px solid var(--color-border-strong);
+}
+
+.ds-faq__item:first-child {
+  border-top: 1px solid var(--color-border-strong);
+}
+
+.ds-faq__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-24);
+  padding-block: var(--space-24);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  list-style: none;
+  transition: color 0.25s ease;
+}
+
+.ds-faq__question:hover {
+  color: var(--palette-primary-800);
+}
+
+.ds-faq__question::-webkit-details-marker {
+  display: none;
+}
+
+.ds-faq__question:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-faq__plus {
+  position: relative;
+  flex-shrink: 0;
+  width: var(--size-40);
+  height: var(--size-40);
+  border-radius: var(--radius-full);
+  background: var(--palette-primary-50);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.25s ease;
+}
+
+.ds-faq__plus::before,
+.ds-faq__plus::after {
+  content: "";
+  position: absolute;
+  inset: calc(50% - 1px) 30% auto;
+  height: 2px;
+  border-radius: var(--radius-full);
+  background: var(--palette-primary-800);
+}
+
+.ds-faq__plus::after {
+  transform: rotate(90deg);
+}
+
+.ds-faq__item[open] .ds-faq__plus {
+  transform: rotate(45deg);
+  background: color-mix(in srgb, var(--palette-accent-400) 35%, var(--palette-neutral-0));
+}
+
+.ds-faq__answer {
+  max-width: calc(var(--layout-container) * 0.55);
+  margin: 0;
+  padding-bottom: var(--space-24);
+  line-height: 1.6;
+  color: var(--color-text-muted);
+}
+
+/* The answer wrapper is what GSAP animates (height and opacity); padding lives on the text inside. */
+.ds-faq__panel {
+  overflow: hidden;
+}
+
+@media (max-width: 899px) {
+  .ds-faq__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-faq__plus,
+  .ds-faq__question {
+    transition: none;
+  }
+}

@@ -1,0 +1,52 @@
+/* Drawn portrait: flat calm shapes with slate outlines. */
+.ds-portrait {
+  width: 100%;
+  height: auto;
+}
+
+.ds-portrait--sage .ds-portrait__disc {
+  fill: var(--palette-primary-50);
+}
+
+.ds-portrait--coral .ds-portrait__disc {
+  fill: color-mix(in srgb, var(--palette-accent-400) 30%, var(--palette-neutral-0));
+}
+
+.ds-portrait--slate .ds-portrait__disc {
+  fill: var(--palette-secondary-100);
+}
+
+.ds-portrait__body {
+  fill: var(--palette-primary-400);
+}
+
+.ds-portrait--coral .ds-portrait__body {
+  fill: var(--palette-primary-600);
+}
+
+.ds-portrait--slate .ds-portrait__body {
+  fill: var(--palette-secondary-600);
+}
+
+.ds-portrait__neck,
+.ds-portrait__head {
+  fill: var(--palette-neutral-50);
+  stroke: var(--palette-secondary-800);
+  stroke-width: 2.5;
+}
+
+.ds-portrait__hair {
+  fill: var(--palette-secondary-800);
+}
+
+.ds-portrait__line,
+.ds-portrait__collar {
+  fill: none;
+  stroke: var(--palette-secondary-800);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.ds-portrait__collar {
+  stroke: var(--palette-neutral-0);
+}

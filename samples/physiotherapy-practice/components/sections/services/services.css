@@ -1,0 +1,22 @@
+/* Services: a grid of service cards, four across on wide screens. */
+.ds-services__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(calc(var(--size-160) * 1.7), 1fr));
+  gap: var(--space-20);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-services__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-24);
+  margin-bottom: var(--space-48);
+}
+
+.ds-services__head .ds-section-head {
+  margin-bottom: 0;
+}

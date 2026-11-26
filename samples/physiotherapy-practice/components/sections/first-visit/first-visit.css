@@ -1,0 +1,151 @@
+/* First visit: four steps in a row on a wave; a vertical list on phones (the wave hides there). */
+.ds-first-visit__track {
+  position: relative;
+}
+
+.ds-first-visit__wave {
+  position: absolute;
+  top: calc(var(--size-52) / 2 - var(--space-40));
+  left: 0;
+  width: 100%;
+  height: calc(var(--space-40) * 2);
+  overflow: visible;
+}
+
+.ds-first-visit__wave path {
+  stroke: var(--palette-primary-400);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.ds-first-visit__steps {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-32);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-first-visit__step {
+  display: grid;
+  align-content: start;
+  gap: var(--space-10);
+}
+
+.ds-first-visit__number {
+  display: grid;
+  place-items: center;
+  width: var(--size-52);
+  height: var(--size-52);
+  margin-bottom: var(--space-12);
+  border: var(--space-3) solid var(--palette-primary-400);
+  border-radius: var(--radius-full);
+  background: var(--color-surface-page);
+  color: var(--palette-secondary-800);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-first-visit__step:last-child .ds-first-visit__number {
+  border-color: var(--palette-accent-500);
+  background: var(--palette-accent-500);
+  color: var(--palette-neutral-0);
+}
+
+.ds-first-visit__time {
+  color: var(--palette-primary-800);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--space-1);
+  text-transform: uppercase;
+}
+
+.ds-first-visit__title {
+  font-size: var(--font-size-tile-title);
+  line-height: var(--line-height-tile-title);
+}
+
+.ds-first-visit__text {
+  color: var(--color-text-muted);
+  line-height: 1.55;
+}
+
+.ds-first-visit__bring {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-12) var(--space-24);
+  margin-top: var(--space-56);
+  padding: var(--space-20) var(--space-28);
+  border-radius: var(--radius-full);
+  background: var(--color-surface-soft);
+}
+
+.ds-first-visit__bring-title {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-lg);
+}
+
+.ds-first-visit__bring-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8) var(--space-20);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-first-visit__bring-list li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.ds-first-visit__bring-list li::before {
+  content: "";
+  width: var(--space-8);
+  height: var(--space-8);
+  border-radius: var(--radius-full);
+  background: var(--palette-accent-500);
+}
+
+@media (max-width: 899px) {
+  .ds-first-visit__wave {
+    display: none;
+  }
+
+  .ds-first-visit__steps {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-28);
+    margin-left: var(--space-24);
+    padding-left: var(--space-20);
+    border-left: var(--space-3) solid var(--palette-primary-400);
+  }
+
+  .ds-first-visit__step {
+    padding-left: var(--space-24);
+  }
+
+  .ds-first-visit__step {
+    position: relative;
+  }
+
+  /* The number sits on the vertical line: half its width plus the list's padding and half the line to the left. */
+  .ds-first-visit__number {
+    position: absolute;
+    top: calc(var(--space-6) * -1);
+    left: calc(var(--size-44) / -2 - var(--space-20) - 1px);
+    width: var(--size-44);
+    height: var(--size-44);
+    margin: 0;
+    font-size: var(--font-size-lg);
+  }
+
+  .ds-first-visit__bring {
+    border-radius: var(--radius-2xl);
+  }
+}

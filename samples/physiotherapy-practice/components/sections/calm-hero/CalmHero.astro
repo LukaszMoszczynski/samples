@@ -1,0 +1,53 @@
+---
+// Calm hero: the promise, "Umów wizytę", three short facts, and a stretching figure drawn in one continuous line over a
+// slowly breathing sage disc (physio.js draws the line once, then the disc breathes).
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import PillButton from '../../atoms/pill-button/PillButton.astro';
+interface Props {
+  label: string;
+  title: string;
+  accent: string;
+  lead: string;
+  primary: { text: string; href: string };
+  secondary: { text: string; href: string };
+  facts: string[];
+  status: string;
+}
+const { label, title, accent, lead, primary, secondary, facts, status } = Astro.props;
+const [before, after] = title.split(accent);
+---
+<section class="ds-calm-hero" id="top" aria-labelledby="hero-title">
+  <div class="ds-container ds-calm-hero__grid">
+    <div class="ds-calm-hero__copy">
+      <div data-hero-item><Eyebrow text={label} /></div>
+      <h1 class="ds-calm-hero__title" id="hero-title" data-hero-item>{before}<span class="ds-calm-hero__accent">{accent}</span>{after}</h1>
+      <p class="ds-calm-hero__lead" data-hero-item>{lead}</p>
+      <div class="ds-calm-hero__actions" data-hero-item>
+        <PillButton text={primary.text} href={primary.href} arrow />
+        <PillButton text={secondary.text} href={secondary.href} variant="ghost" />
+      </div>
+      <ul class="ds-calm-hero__facts" role="list" data-hero-item>
+        {facts.map((fact) => (
+          <li class="ds-calm-hero__fact">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" /></svg>
+            {fact}
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="ds-calm-hero__art" data-hero-art>
+      <div class="ds-calm-hero__disc" data-hero-disc aria-hidden="true"></div>
+      <svg class="ds-calm-hero__figure" viewBox="0 0 420 460" fill="none" role="img" aria-label="Rysunek jedną linią: osoba w spokojnym skłonie bocznym">
+        <circle class="ds-calm-hero__sun" cx="380" cy="46" r="14" data-hero-sun />
+        <path
+          class="ds-calm-hero__line"
+          pathLength="1000"
+          data-draw
+          data-hero-line
+          d="M30 430 L128 430 C138 430 146 426 150 418 C160 370 176 310 194 262 C182 220 196 176 230 150 C226 138 224 120 234 106 C244 92 266 94 272 110 C278 126 264 140 248 140 C240 140 234 144 230 150 C222 158 212 160 206 154 C186 116 192 50 240 30 C284 14 332 44 348 94 C350 102 344 106 340 100 C324 64 290 44 258 50 C224 58 212 100 222 140 C228 156 238 160 246 166 C262 190 268 220 270 252 C271 260 266 264 262 258 C258 232 252 210 246 196 C238 226 226 248 214 264 C224 310 240 370 252 418 C256 428 266 430 278 430 L390 430"
+        />
+      </svg>
+      <p class="ds-calm-hero__status" data-hero-item><span class="ds-calm-hero__pulse" aria-hidden="true"></span>{status}</p>
+    </div>
+  </div>
+</section>

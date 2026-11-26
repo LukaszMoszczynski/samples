@@ -1,0 +1,12 @@
+---
+// Pill button: coral "solid" for the main action, "ghost" with a slate outline, "soft" sage for quiet actions.
+// A link when href is given, otherwise a button. A soft shine passes over it on hover.
+interface Props { text: string; href?: string; variant?: 'solid' | 'ghost' | 'soft'; type?: 'button' | 'submit'; arrow?: boolean; attributes?: Record<string, string> }
+const { text, href, variant = 'solid', type = 'button', arrow = false, attributes = {} } = Astro.props;
+const className = `ds-pill-button ds-pill-button--${variant}`;
+---
+{href ? (
+  <a class={className} href={href} {...attributes}><span class="ds-pill-button__text">{text}</span>{arrow && <svg class="ds-pill-button__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5" /></svg>}</a>
+) : (
+  <button class={className} type={type} {...attributes}><span class="ds-pill-button__text">{text}</span>{arrow && <svg class="ds-pill-button__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5" /></svg>}</button>
+)}
