@@ -1,0 +1,35 @@
+---
+// Site footer on charcoal: logo and a line about the shop, link columns, showroom contact, legal line.
+import Logo from '../../molecules/logo/Logo.astro';
+interface Link { text: string; href: string }
+interface Props { home: string; about: string; columns: { title: string; links: Link[] }[]; contact: { title: string; lines: string[] }; copyright: string; legal: Link[] }
+const { home, about, columns, contact, copyright, legal } = Astro.props;
+---
+<footer class="ds-site-footer">
+  <div class="ds-container">
+    <div class="ds-site-footer__grid">
+      <div class="ds-site-footer__brand">
+        <a class="ds-site-footer__logo" href={home} aria-label="Twoje Meble, strona główna"><Logo tone="light" /></a>
+        <p class="ds-site-footer__about">{about}</p>
+      </div>
+      {columns.map((column) => (
+        <nav aria-label={column.title}>
+          <h2 class="ds-site-footer__title">{column.title}</h2>
+          <ul class="ds-site-footer__links" role="list">
+            {column.links.map((link) => <li><a class="ds-site-footer__link" href={link.href}>{link.text}</a></li>)}
+          </ul>
+        </nav>
+      ))}
+      <div>
+        <h2 class="ds-site-footer__title">{contact.title}</h2>
+        <ul class="ds-site-footer__links" role="list">
+          {contact.lines.map((line) => <li>{line}</li>)}
+        </ul>
+      </div>
+    </div>
+    <div class="ds-site-footer__legal">
+      <span>{copyright}</span>
+      <span class="ds-site-footer__legal-links">{legal.map((link) => <a class="ds-site-footer__link" href={link.href}>{link.text}</a>)}</span>
+    </div>
+  </div>
+</footer>

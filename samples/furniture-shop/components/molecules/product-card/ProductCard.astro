@@ -1,0 +1,40 @@
+---
+// Product card: the piece drawn on a soft colour block, a quick-view button, name, colour and material, price,
+// delivery time and "Do koszyka" (demo cart, cart.js). Hover lifts the card and turns the drawing a little.
+import FurnitureArt from '../furniture-art/FurnitureArt.astro';
+import { colours, materials, money, type Product } from '../../../data/catalog';
+interface Props { product: Product; productHref: string; headingLevel?: 'h3' | 'h4' }
+const { product, productHref, headingLevel = 'h3' } = Astro.props;
+const Heading = headingLevel;
+const materialText = product.materials.map((material) => materials[material]).join(', ');
+---
+<article class:list={['ds-product-card', `ds-product-card--${product.block}`]} data-product-card={product.id}>
+  <div class="ds-product-card__media">
+    {product.badge && <p class="ds-product-card__badge">{product.badge}</p>}
+    <div class="ds-product-card__art" data-fly-source>
+      <FurnitureArt kind={product.art} fabric={product.fabric} wood={product.wood} />
+    </div>
+    <button class="ds-product-card__quick" type="button" data-quick-view={product.id} aria-label={`Szybki podgląd: ${product.name}`}>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z" /><circle cx="12" cy="12" r="3" /></svg>
+      <span>Szybki podgląd</span>
+    </button>
+  </div>
+  <div class="ds-product-card__body">
+    <p class="ds-product-card__type">{product.type}</p>
+    <Heading class="ds-product-card__name">
+      {product.page ? <a class="ds-product-card__link" href={productHref}>{product.name}</a> : product.name}
+    </Heading>
+    <p class="ds-product-card__meta">
+      <span class="ds-product-card__dot" style={`--dot: ${colours[product.colour].value}`} aria-hidden="true"></span>
+      {colours[product.colour].name} · {materialText}
+    </p>
+    <div class="ds-product-card__foot">
+      <p class="ds-product-card__price">{money(product.price)}</p>
+      <button class="ds-product-card__add" type="button" data-cart-add={product.id} aria-label={`Dodaj do koszyka: ${product.name}`}>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2L5 8z" /><path d="M9 8V6.5a3 3 0 0 1 6 0V8" /><path d="M12 11.5v5M9.5 14h5" /></svg>
+        <span>Do koszyka</span>
+      </button>
+    </div>
+    <p class="ds-product-card__delivery">Wysyłka: {product.delivery}</p>
+  </div>
+</article>

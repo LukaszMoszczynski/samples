@@ -1,0 +1,25 @@
+---
+// Quick view: a small dialog with the product drawn large, its price, delivery time and "Do koszyka" (demo cart).
+// cart.js fills it from the card that opened it.
+interface Props { productHref: string }
+const { productHref } = Astro.props;
+---
+<dialog class="ds-quick" aria-labelledby="quick-name" data-quick>
+  <div class="ds-quick__panel">
+    <button class="ds-quick__close" type="button" aria-label="Zamknij podgląd" data-quick-close>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" /></svg>
+    </button>
+    <div class="ds-quick__art" data-quick-art></div>
+    <div class="ds-quick__body">
+      <p class="ds-quick__type" data-quick-type></p>
+      <h2 class="ds-quick__name" id="quick-name" data-quick-name>Podgląd</h2>
+      <p class="ds-quick__price" data-quick-price></p>
+      <p class="ds-quick__text" data-quick-text></p>
+      <p class="ds-quick__delivery"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7" /><circle cx="7" cy="17.5" r="1.8" /><circle cx="17" cy="17.5" r="1.8" /></svg><span data-quick-delivery></span></p>
+      <div class="ds-quick__actions">
+        <button class="ds-quick__add" type="button" data-quick-add>Do koszyka</button>
+        <a class="ds-quick__more" href={productHref} data-quick-more hidden>Pełna karta produktu →</a>
+      </div>
+    </div>
+  </div>
+</dialog>

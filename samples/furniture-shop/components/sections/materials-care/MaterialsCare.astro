@@ -1,0 +1,52 @@
+---
+// Materials and care: a band of wood grain that draws itself as it enters, then cards for woods and fabrics with
+// what they are good at and how to look after them.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+interface Material { kind: 'wood' | 'fabric'; name: string; tone: string; traits: string; care: string }
+interface Props { id: string; label: string; title: string; accent: string; lead: string; items: Material[]; tips: string[] }
+const { id, label, title, accent, lead, items, tips } = Astro.props;
+const grain = [
+  'M0 60c120-30 220 26 360 4s240-40 380-6 260 20 460-10',
+  'M0 92c140-20 240 30 380 10s250-36 400-4 240 24 420-6',
+  'M0 124c100 10 220-30 360-10s260 40 420 8 230-26 420 0',
+  'M520 76c30-24 80-24 110 0s-30 40-60 30-60-6-50-30z',
+  'M0 154c160 14 260-20 400-6s240 22 400 0 220-14 400 4',
+];
+---
+<section class="ds-section ds-materials" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow text={label} />
+      <h2 class="ds-section-head__title" id={`${id}-title`}>{title} <em>{accent}</em></h2>
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+  </div>
+  <svg class="ds-materials__grain" viewBox="0 0 1200 200" preserveAspectRatio="xMidYMid slice" aria-hidden="true" data-grain>
+    {grain.map((path) => <path d={path} pathLength="1000" data-draw />)}
+  </svg>
+  <div class="ds-container">
+    <ul class="ds-materials__list" role="list">
+      {items.map((item) => (
+        <li class="ds-material-card" data-reveal>
+          <span class:list={['ds-material-card__sample', `ds-material-card__sample--${item.kind}`]} style={`--sample: ${item.tone}`} aria-hidden="true">
+            {item.kind === 'wood'
+              ? <svg viewBox="0 0 80 80"><path d="M-4 22c20-8 34 8 56 0s28-6 32-4M-4 42c16 6 36-8 52 0s24 6 36 2M-4 62c22-6 38 6 58 0s20-4 30-2M30 34c6-6 16-6 18 0s-12 8-18 0z" /></svg>
+              : <svg viewBox="0 0 80 80"><path d="M0 10h80M0 22h80M0 34h80M0 46h80M0 58h80M0 70h80M10 0v80M22 0v80M34 0v80M46 0v80M58 0v80M70 0v80" /></svg>}
+          </span>
+          <div class="ds-material-card__body">
+            <p class="ds-material-card__kind">{item.kind === 'wood' ? 'Drewno' : 'Tkanina'}</p>
+            <h3 class="ds-material-card__name">{item.name}</h3>
+            <p class="ds-material-card__traits">{item.traits}</p>
+            <p class="ds-material-card__care"><strong>Pielęgnacja:</strong> {item.care}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+    <div class="ds-materials__tips" data-reveal>
+      <h3 class="ds-materials__tips-title">Pięć zasad na długie lata</h3>
+      <ol class="ds-materials__tips-list">
+        {tips.map((tip) => <li>{tip}</li>)}
+      </ol>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,56 @@
+/* Logo: ochre disc with a line-drawn armchair, serif wordmark. */
+.ds-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-10);
+  color: var(--palette-secondary-800);
+}
+
+.ds-logo__mark {
+  width: var(--size-40);
+  height: var(--size-40);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ds-logo__disc {
+  fill: var(--palette-accent-400);
+}
+
+.ds-logo__chair {
+  fill: none;
+  stroke: var(--palette-secondary-900);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ds-logo__word {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.ds-logo__word em {
+  font-style: italic;
+  color: var(--palette-primary-600);
+}
+
+.ds-logo--light {
+  color: var(--palette-neutral-0);
+}
+
+.ds-logo--light .ds-logo__word em {
+  color: var(--palette-accent-400);
+}
+
+a:hover > .ds-logo .ds-logo__mark {
+  transform: rotate(-12deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-logo__mark {
+    transition: none;
+  }
+}

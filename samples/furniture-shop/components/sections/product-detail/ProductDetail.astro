@@ -1,0 +1,136 @@
+---
+// Product page: the sofa drawn large with a dimension line, variant pickers (fabric and wood swatches recolour the
+// drawing, size changes its width and the price), delivery time, quantity and "Do koszyka" (demo cart), then details
+// in folding panels. In the finished site: a WooCommerce variable product. furniture.js and cart.js run it.
+import ShopButton from '../../atoms/shop-button/ShopButton.astro';
+import FurnitureArt from '../../molecules/furniture-art/FurnitureArt.astro';
+import { money, type Product } from '../../../data/catalog';
+interface Option { id: string; name: string; value: string; delivery?: string }
+interface Size { id: string; name: string; width: number; price: number; scale: number }
+interface Props {
+  product: Product;
+  home: string;
+  fabrics: Option[];
+  woods: Option[];
+  sizes: Size[];
+  perks: string[];
+  details: { title: string; body: string }[];
+}
+const { product, home, fabrics, woods, sizes, perks, details } = Astro.props;
+const start = { fabric: fabrics[0], wood: woods[0], size: sizes[1] };
+---
+<section class="ds-section ds-detail" aria-labelledby="product-title">
+  <div class="ds-container">
+    <nav class="ds-detail__crumbs" aria-label="Ścieżka" data-hero-item>
+      <ol role="list">
+        <li><a href={home}>Strona główna</a></li>
+        <li><a href={`${home}#kolekcja`}>Sofy i fotele</a></li>
+        <li aria-current="page">{product.type} {product.name}</li>
+      </ol>
+    </nav>
+    <div class="ds-detail__grid">
+      <div class="ds-detail__gallery" data-hero-item>
+        <div class="ds-detail__stage">
+          <p class="ds-detail__badge">{product.badge}</p>
+          <div class="ds-detail__art" data-fly-source>
+            <FurnitureArt
+              kind={product.art}
+              fabric={start.fabric.value}
+              wood={start.wood.value}
+              label={`Rysunek: ${product.type.toLowerCase()} ${product.name}`}
+              attrs={{ 'data-detail-art': '', style: `--art-fabric: ${start.fabric.value}; --art-wood: ${start.wood.value}; --art-scale: ${start.size.scale}` }}
+            />
+          </div>
+          <p class="ds-detail__dimension" aria-hidden="true"><span class="ds-detail__dimension-line"></span><span data-detail-width>{start.size.width} cm</span><span class="ds-detail__dimension-line"></span></p>
+        </div>
+        <ul class="ds-detail__closeups" role="list" aria-label="Zbliżenia">
+          <li class="ds-detail__closeup">
+            <svg viewBox="0 0 80 60" aria-hidden="true" class="ds-detail__weave" data-detail-weave style={`--weave: ${start.fabric.value}`}><rect width="80" height="60" /><path d="M0 8h80M0 18h80M0 28h80M0 38h80M0 48h80M8 0v60M18 0v60M28 0v60M38 0v60M48 0v60M58 0v60M68 0v60" /></svg>
+            <span>Tkanina z bliska</span>
+          </li>
+          <li class="ds-detail__closeup">
+            <svg viewBox="0 0 80 60" aria-hidden="true" class="ds-detail__leg" data-detail-leg style={`--leg: ${start.wood.value}`}><rect width="80" height="60" class="ds-detail__leg-bg" /><path class="ds-detail__leg-shape" d="M30 0h20l-5 60H35z" /><path class="ds-detail__leg-grain" d="M38 6c4 10-2 18 2 28s-2 16 0 22" /></svg>
+            <span>Noga z litego drewna</span>
+          </li>
+          <li class="ds-detail__closeup">
+            <svg viewBox="0 0 80 60" aria-hidden="true" class="ds-detail__sketch"><rect width="80" height="60" class="ds-detail__sketch-bg" /><path d="M12 40h56v-14a6 6 0 0 0-6-6H18a6 6 0 0 0-6 6zM12 46h56M12 43v6M68 43v6M74 20v20M72 20h4M72 40h4" /></svg>
+            <span>Głębokość 98 cm, siedzisko 46 cm</span>
+          </li>
+        </ul>
+      </div>
+      <form class="ds-detail__buy" data-detail-form data-product-id={product.id} data-hero-item>
+        <p class="ds-detail__type">{product.type}</p>
+        <h1 class="ds-detail__name" id="product-title">{product.name}</h1>
+        <p class="ds-detail__rating"><span class="ds-detail__stars" role="img" aria-label="Ocena 4,8 na 5">★★★★★</span> 4,8 · 3 przykładowe opinie</p>
+        <p class="ds-detail__price"><span data-detail-price>{money(start.size.price)}</span> <small>z VAT, cena przykładowa</small></p>
+        <p class="ds-detail__text">{product.text}</p>
+
+        <fieldset class="ds-detail__group">
+          <legend class="ds-detail__legend">Tkanina: <strong data-detail-fabric-name>{start.fabric.name}</strong></legend>
+          <div class="ds-detail__options">
+            {fabrics.map((fabric) => (
+              <label class="ds-swatch">
+                <input class="ds-swatch__input" type="radio" name="fabric" value={fabric.id} checked={fabric.id === start.fabric.id} data-fabric={fabric.value} data-name={fabric.name} data-delivery={fabric.delivery ?? product.delivery} />
+                <span class="ds-swatch__dot" style={`--dot: ${fabric.value}`} aria-hidden="true"></span>
+                <span class="ds-swatch__name">{fabric.name}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <fieldset class="ds-detail__group">
+          <legend class="ds-detail__legend">Nogi: <strong data-detail-wood-name>{start.wood.name}</strong></legend>
+          <div class="ds-detail__options">
+            {woods.map((wood) => (
+              <label class="ds-swatch">
+                <input class="ds-swatch__input" type="radio" name="wood" value={wood.id} checked={wood.id === start.wood.id} data-wood={wood.value} data-name={wood.name} />
+                <span class="ds-swatch__dot" style={`--dot: ${wood.value}`} aria-hidden="true"></span>
+                <span class="ds-swatch__name">{wood.name}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <fieldset class="ds-detail__group">
+          <legend class="ds-detail__legend">Rozmiar</legend>
+          <div class="ds-detail__sizes">
+            {sizes.map((size) => (
+              <label class="ds-size">
+                <input class="ds-size__input" type="radio" name="size" value={size.id} checked={size.id === start.size.id} data-price={String(size.price)} data-width={String(size.width)} data-scale={String(size.scale)} data-name={size.name} />
+                <span class="ds-size__box"><strong>{size.name}</strong><small>{size.width} cm · {money(size.price)}</small></span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        <p class="ds-detail__delivery">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7" /><circle cx="7" cy="17.5" r="1.8" /><circle cx="17" cy="17.5" r="1.8" /></svg>
+          <span>Szyjemy na zamówienie: wysyłka za <strong data-detail-delivery>{start.fabric.delivery ?? product.delivery}</strong><span data-detail-eta></span></span>
+        </p>
+
+        <div class="ds-detail__cart">
+          <div class="ds-qty ds-detail__qty">
+            <button class="ds-qty__button" type="button" aria-label="Mniej sztuk" data-detail-minus>−</button>
+            <label class="ds-visually-hidden" for="detail-qty">Liczba sztuk</label>
+            <input class="ds-qty__value ds-detail__qty-input" id="detail-qty" name="quantity" type="number" min="1" max="9" value="1" inputmode="numeric" data-detail-qty />
+            <button class="ds-qty__button" type="button" aria-label="Więcej sztuk" data-detail-plus>+</button>
+          </div>
+          <ShopButton text="Do koszyka" type="submit" icon="bag" class="ds-detail__add" />
+        </div>
+        <p class="ds-demo-note">Demo sklepu: koszyk działa, nic nie jest pobierane ani wysyłane.</p>
+        <ul class="ds-detail__perks" role="list">
+          {perks.map((perk) => <li>{perk}</li>)}
+        </ul>
+      </form>
+    </div>
+
+    <div class="ds-detail__more" data-reveal>
+      {details.map((detail, index) => (
+        <details class="ds-detail__panel" open={index === 0}>
+          <summary class="ds-detail__summary">{detail.title}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg></summary>
+          <div class="ds-detail__panel-body"><Fragment set:html={detail.body} /></div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

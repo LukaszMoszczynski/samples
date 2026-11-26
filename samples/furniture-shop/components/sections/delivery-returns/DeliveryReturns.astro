@@ -1,0 +1,55 @@
+---
+// Delivery and assembly as four steps joined by a line that draws as the section enters; next to it, returns and
+// guarantee in plain words.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+interface Props {
+  id: string;
+  label: string;
+  title: string;
+  accent: string;
+  lead: string;
+  steps: { title: string; text: string; time: string }[];
+  returns: { title: string; points: { title: string; text: string }[] };
+}
+const { id, label, title, accent, lead, steps, returns } = Astro.props;
+const icons = [
+  '<path d="M6 4h12v16H6z"/><path d="M9 9h6M9 13h6M9 17h3"/>',
+  '<path d="M4 18h16M6 18V9l6-4 6 4v9"/><path d="M10 18v-5h4v5"/>',
+  '<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/>',
+  '<path d="m14 7 3-3 3 3-3 3zM15.5 8.5 6 18l-2 2"/><path d="M4 14l6 6"/>',
+];
+---
+<section class="ds-section ds-section--inverse ds-delivery" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow text={label} tone="light" />
+      <h2 class="ds-section-head__title" id={`${id}-title`}>{title} <em>{accent}</em></h2>
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <div class="ds-delivery__grid">
+      <div class="ds-delivery__track" data-delivery-track>
+        <svg class="ds-delivery__line" viewBox="0 0 20 1000" preserveAspectRatio="none" aria-hidden="true"><path d="M10 0v1000" pathLength="1000" data-draw /></svg>
+        <ol class="ds-delivery__steps" role="list">
+          {steps.map((step, index) => (
+            <li class="ds-delivery__step" data-reveal>
+              <span class="ds-delivery__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><Fragment set:html={icons[index % icons.length]} /></svg></span>
+              <div>
+                <p class="ds-delivery__time">{step.time}</p>
+                <h3 class="ds-delivery__title">{index + 1}. {step.title}</h3>
+                <p class="ds-delivery__text">{step.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <div class="ds-delivery__returns" id="zwroty" data-reveal>
+        <h3 class="ds-delivery__returns-title">{returns.title}</h3>
+        <ul class="ds-delivery__points" role="list">
+          {returns.points.map((point) => (
+            <li><strong>{point.title}</strong><span>{point.text}</span></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

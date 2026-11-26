@@ -1,0 +1,21 @@
+---
+// Related pieces under a product: three product cards (quick view and the demo cart work here too).
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import ProductCard from '../../molecules/product-card/ProductCard.astro';
+import type { Product } from '../../../data/catalog';
+interface Props { title: string; accent: string; products: Product[]; productHref: string }
+const { title, accent, products, productHref } = Astro.props;
+---
+<section class="ds-section ds-section--oak ds-related" aria-labelledby="related-title">
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow text="Do kompletu" />
+      <h2 class="ds-section-head__title" id="related-title">{title} <em>{accent}</em></h2>
+    </div>
+    <ul class="ds-related__list" role="list">
+      {products.map((product) => (
+        <li data-reveal><ProductCard product={product} productHref={productHref} /></li>
+      ))}
+    </ul>
+  </div>
+</section>

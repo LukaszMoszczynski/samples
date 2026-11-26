@@ -1,0 +1,36 @@
+---
+// Site header: logo, menu, the demo cart button with a count, and a phone menu (an overlay drawer below 1024 px,
+// opened by the burger; furniture.js runs it). Sticky; a soft line and blur once the page scrolls.
+import ShopButton from '../../atoms/shop-button/ShopButton.astro';
+import Logo from '../../molecules/logo/Logo.astro';
+interface Props { home: string; items: { text: string; href: string }[]; cta: { text: string; href: string } }
+const { home, items, cta } = Astro.props;
+---
+<header class="ds-site-header" data-site-header>
+  <div class="ds-container ds-site-header__bar">
+    <a class="ds-site-header__logo" href={home} aria-label="Twoje Meble, strona główna"><Logo /></a>
+    <nav class="ds-site-header__nav" aria-label="Menu główne">
+      <ul class="ds-site-header__menu" role="list">
+        {items.map((item) => <li><a class="ds-site-header__link" href={item.href}>{item.text}</a></li>)}
+      </ul>
+    </nav>
+    <div class="ds-site-header__actions">
+      <ShopButton text={cta.text} href={cta.href} variant="ghost" size="sm" icon="none" class="ds-site-header__cta" />
+      <button class="ds-site-header__cart" type="button" aria-label="Koszyk, produktów: 0" aria-haspopup="dialog" data-cart-open>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-cart-icon><path d="M5 8h14l-1.2 12H6.2L5 8z" /><path d="M9 8V6.5a3 3 0 0 1 6 0V8" /></svg>
+        <span class="ds-site-header__count" data-cart-count hidden>0</span>
+      </button>
+      <button class="ds-site-header__burger" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="Menu" data-site-burger>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path class="ds-burger__line ds-burger__line--top" d="M4 8h16" /><path class="ds-burger__line ds-burger__line--middle" d="M4 12h16" /><path class="ds-burger__line ds-burger__line--bottom" d="M4 16h16" /></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="ds-site-header__drawer" id="site-drawer" hidden>
+  <div class="ds-container">
+    <ul class="ds-site-header__drawer-menu" role="list">
+      {items.map((item) => <li><a class="ds-site-header__drawer-link" href={item.href}>{item.text}</a></li>)}
+    </ul>
+    <div class="ds-site-header__drawer-cta"><ShopButton text={cta.text} href={cta.href} variant="accent" /></div>
+  </div>
+</div>

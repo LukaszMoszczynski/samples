@@ -1,0 +1,31 @@
+---
+// Shop button: a link or a button. Variants: solid (charcoal), accent (ochre), ghost (outline), light (on dark).
+// Hover: the fill slides up from below and the arrow nudges right.
+interface Props {
+  text: string;
+  href?: string;
+  type?: 'button' | 'submit';
+  variant?: 'solid' | 'accent' | 'ghost' | 'light';
+  icon?: 'arrow' | 'bag' | 'none';
+  size?: 'md' | 'sm';
+  class?: string;
+  attrs?: Record<string, string>;
+}
+const { text, href, type = 'button', variant = 'solid', icon = 'arrow', size = 'md', class: extra = '', attrs = {} } = Astro.props;
+const classes = ['ds-shop-button', `ds-shop-button--${variant}`, `ds-shop-button--${size}`, extra];
+const icons = {
+  arrow: '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  bag: '<path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>',
+};
+---
+{href ? (
+  <a class:list={classes} href={href} {...attrs}>
+    <span class="ds-shop-button__text">{text}</span>
+    {icon !== 'none' && <svg class="ds-shop-button__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><Fragment set:html={icons[icon]} /></svg>}
+  </a>
+) : (
+  <button class:list={classes} type={type} {...attrs}>
+    <span class="ds-shop-button__text">{text}</span>
+    {icon !== 'none' && <svg class="ds-shop-button__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><Fragment set:html={icons[icon]} /></svg>}
+  </button>
+)}

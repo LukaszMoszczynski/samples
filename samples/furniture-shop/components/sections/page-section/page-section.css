@@ -1,0 +1,9 @@
+/* Page section: the container an organism needs when it is not inside a DS section (Call to action, for one). It gives
+   the side gutter the organism's phone layout reaches into, and the page's content width. New in the samples. */
+.ds-page-section {
+  box-sizing: border-box;
+  max-width: calc(var(--layout-container) + var(--space-gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
+  padding-block: var(--space-64);
+}

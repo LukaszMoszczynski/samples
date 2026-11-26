@@ -1,0 +1,104 @@
+---
+// Collection with filters: category, material, colour and a price cap, plus sorting. Filtering fades the grid out and
+// lets the matching cards rise back in place (furniture.js); nothing moves outside the grid. Without JS every product
+// shows. In the finished site this is the WooCommerce product archive with attribute filters.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import ProductCard from '../../molecules/product-card/ProductCard.astro';
+import { categories, colours, materials, money, priceCap, products } from '../../../data/catalog';
+interface Props { id: string; label: string; title: string; accent: string; lead: string; productHref: string }
+const { id, label, title, accent, lead, productHref } = Astro.props;
+---
+<section class="ds-section ds-listing" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow text={label} />
+      <h2 class="ds-section-head__title" id={`${id}-title`}>{title} <em>{accent}</em></h2>
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <div class="ds-listing__layout">
+      <form class="ds-filters" aria-label="Filtry kolekcji" data-filters data-reveal>
+        <details class="ds-filters__panel" open data-filters-panel>
+          <summary class="ds-filters__summary">
+            <span>Filtry</span>
+            <span class="ds-filters__active" data-filters-active hidden></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+          </summary>
+          <div class="ds-filters__body">
+            <fieldset class="ds-filters__group">
+              <legend class="ds-filters__legend">Kategoria</legend>
+              <div class="ds-filters__chips">
+                <label class="ds-chip"><input class="ds-chip__input" type="radio" name="category" value="all" checked /><span class="ds-chip__label">Wszystkie</span></label>
+                {categories.map((category) => (
+                  <label class="ds-chip"><input class="ds-chip__input" type="radio" name="category" value={category.id} /><span class="ds-chip__label">{category.name}</span></label>
+                ))}
+              </div>
+            </fieldset>
+            <fieldset class="ds-filters__group">
+              <legend class="ds-filters__legend">Materiał</legend>
+              <div class="ds-filters__chips">
+                {Object.entries(materials).map(([value, name]) => (
+                  <label class="ds-chip"><input class="ds-chip__input" type="checkbox" name="material" value={value} /><span class="ds-chip__label">{name}</span></label>
+                ))}
+              </div>
+            </fieldset>
+            <fieldset class="ds-filters__group">
+              <legend class="ds-filters__legend">Kolor</legend>
+              <div class="ds-filters__swatches">
+                {Object.entries(colours).map(([value, colour]) => (
+                  <label class="ds-swatch-check" title={colour.name}>
+                    <input class="ds-swatch-check__input" type="checkbox" name="colour" value={value} />
+                    <span class="ds-swatch-check__dot" style={`--dot: ${colour.value}`} aria-hidden="true"></span>
+                    <span class="ds-swatch-check__name">{colour.name}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+            <fieldset class="ds-filters__group">
+              <legend class="ds-filters__legend">Cena</legend>
+              <label class="ds-filters__range-label" for="price-max">Maksymalna cena: <output for="price-max" data-price-output>{money(priceCap)}</output></label>
+              <input class="ds-filters__range" id="price-max" name="price" type="range" min="500" max={priceCap} step="100" value={priceCap} />
+              <p class="ds-filters__range-ends" aria-hidden="true"><span>500 zł</span><span>{money(priceCap)}</span></p>
+            </fieldset>
+            <button class="ds-filters__reset" type="reset" data-filters-reset>Wyczyść filtry</button>
+          </div>
+        </details>
+      </form>
+      <div class="ds-listing__results">
+        <div class="ds-listing__toolbar" data-reveal>
+          <p class="ds-listing__count" role="status" data-result-count>{products.length} produktów</p>
+          <div class="ds-listing__sort">
+            <label class="ds-listing__sort-label" for="sort">Sortuj</label>
+            <select class="ds-listing__sort-select" id="sort" name="sort" data-sort>
+              <option value="featured">Polecane</option>
+              <option value="price-asc">Cena: od najniższej</option>
+              <option value="price-desc">Cena: od najwyższej</option>
+              <option value="name">Nazwa: A–Z</option>
+            </select>
+          </div>
+        </div>
+        <ul class="ds-listing__grid" role="list" data-product-grid>
+          {products.map((product, index) => (
+            <li
+              class="ds-listing__item"
+              data-reveal
+              data-product={product.id}
+              data-category={product.category}
+              data-materials={product.materials.join(' ')}
+              data-colour={product.colour}
+              data-price={String(product.price)}
+              data-name={product.name}
+              data-order={String(index)}
+            >
+              <ProductCard product={product} productHref={productHref} />
+            </li>
+          ))}
+        </ul>
+        <div class="ds-listing__empty" data-listing-empty hidden>
+          <p>Żaden mebel z przykładu nie pasuje do tych filtrów.</p>
+          <button class="ds-filters__reset" type="button" data-filters-clear>Wyczyść filtry</button>
+        </div>
+        <p class="ds-demo-note ds-listing__note">Ceny i terminy przykładowe. Koszyk to demo: nic nie jest pobierane ani wysyłane.</p>
+      </div>
+    </div>
+  </div>
+</section>

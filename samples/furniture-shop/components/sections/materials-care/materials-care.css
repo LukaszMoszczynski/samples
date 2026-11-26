@@ -1,0 +1,154 @@
+/* Materials and care: a full-width grain band, three-column material cards, a numbered list of care rules. */
+.ds-materials {
+  overflow-x: clip;
+}
+
+.ds-materials__grain {
+  display: block;
+  width: 100%;
+  height: calc(var(--size-160) * 0.9);
+  margin: calc(var(--space-24) * -1) 0 var(--space-40);
+  fill: none;
+  stroke: var(--palette-primary-400);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.ds-materials__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-24);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-material-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-18);
+  align-items: start;
+  padding: var(--space-24);
+  border-radius: var(--radius-2xl);
+  background: var(--palette-neutral-0);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--palette-secondary-800) 8%, transparent);
+}
+
+.ds-material-card__sample {
+  display: block;
+  width: calc(var(--size-40) * 1.6);
+  height: calc(var(--size-40) * 1.6);
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  background: var(--sample);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--palette-secondary-800) 25%, transparent);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ds-material-card:hover .ds-material-card__sample {
+  transform: rotate(-6deg) scale(1.06);
+}
+
+.ds-material-card__sample svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: color-mix(in srgb, var(--sample) 70%, var(--palette-secondary-900));
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.ds-material-card__sample--fabric svg {
+  stroke: color-mix(in srgb, var(--sample) 82%, var(--palette-secondary-900));
+  stroke-width: 1.5;
+}
+
+.ds-material-card__body {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.ds-material-card__kind {
+  color: var(--palette-primary-600);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: calc(var(--font-size-small) * 0.08);
+  text-transform: uppercase;
+}
+
+.ds-material-card__name {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  line-height: var(--font-line-height-xl);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-material-card__traits {
+  color: var(--color-text-muted);
+}
+
+.ds-material-card__care {
+  margin-top: var(--space-4);
+  padding-top: var(--space-10);
+  border-top: 1px solid color-mix(in srgb, var(--palette-secondary-800) 10%, transparent);
+  font-size: var(--font-size-small);
+  line-height: 1.5;
+}
+
+.ds-materials__tips {
+  display: grid;
+  grid-template-columns: minmax(0, 0.4fr) minmax(0, 1fr);
+  gap: var(--space-32);
+  margin-top: var(--space-48);
+  padding: var(--space-32);
+  border-radius: var(--radius-3xl);
+  background: var(--palette-secondary-50);
+}
+
+.ds-materials__tips-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  line-height: var(--font-line-height-2xl);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-materials__tips-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-12) var(--space-32);
+  margin: 0;
+  padding-left: var(--space-20);
+}
+
+.ds-materials__tips-list li::marker {
+  color: var(--palette-primary-600);
+  font-weight: var(--font-weight-bold);
+}
+
+@media (max-width: 1023px) {
+  .ds-materials__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ds-materials__tips {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 679px) {
+  .ds-materials__list,
+  .ds-materials__tips-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ds-materials__tips {
+    padding: var(--space-20);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-material-card__sample {
+    transition: none;
+  }
+}

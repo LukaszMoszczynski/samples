@@ -1,0 +1,32 @@
+---
+// Example reviews, marked as examples on the page: stars, a quote, the reviewer's first name and the piece they bought.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+interface Review { name: string; city: string; product: string; text: string; stars: number }
+interface Props { id: string; label: string; title: string; accent: string; note: string; score: string; items: Review[] }
+const { id, label, title, accent, note, score, items } = Astro.props;
+---
+<section class="ds-section ds-section--linen ds-reviews" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-reviews__head" data-reveal>
+      <div class="ds-section-head">
+        <Eyebrow text={label} />
+        <h2 class="ds-section-head__title" id={`${id}-title`}>{title} <em>{accent}</em></h2>
+        <p class="ds-demo-note">{note}</p>
+      </div>
+      <p class="ds-reviews__score"><strong>{score}</strong><span>średnia z przykładowych opinii</span></p>
+    </div>
+    <ul class="ds-reviews__list" role="list">
+      {items.map((review) => (
+        <li class="ds-review" data-reveal>
+          <p class="ds-review__stars" role="img" aria-label={`Ocena ${review.stars} na 5`}>
+            {Array.from({ length: 5 }, (star, index) => (
+              <svg class:list={['ds-review__star', { 'is-empty': index >= review.stars }]} viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8z" /></svg>
+            ))}
+          </p>
+          <blockquote class="ds-review__text"><p>„{review.text}”</p></blockquote>
+          <p class="ds-review__who"><span class="ds-review__initial" aria-hidden="true">{review.name.charAt(0)}</span><span><strong>{review.name}</strong>, {review.city}<br /><small>Kupił(a): {review.product}</small></span></p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
