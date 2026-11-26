@@ -1,0 +1,17 @@
+---
+// Brand mark (placeholder logo): a green square with a cut-paper stage arch and a blue spotlight printed over it,
+// next to the name and the "miejski ośrodek kultury" line.
+interface Props { name: string; href: string; tone?: 'ink' | 'light' }
+const { name, href, tone = 'ink' } = Astro.props;
+---
+<a class:list={['ds-brand-mark', `ds-brand-mark--${tone}`]} href={href}>
+  <svg class="ds-brand-mark__icon" viewBox="0 0 40 40" aria-hidden="true" focusable="false" data-brand-icon>
+    <rect class="ds-brand-mark__tile" width="40" height="40" rx="9" />
+    <path class="ds-brand-mark__arch" d="M10 33V19a10 10 0 0 1 20 0v14Z" />
+    <circle class="ds-brand-mark__spot" cx="26" cy="13" r="7" />
+  </svg>
+  <span class="ds-brand-mark__text">
+    <span class="ds-brand-mark__name">{name}</span>
+    <span class="ds-brand-mark__line">miejski ośrodek kultury</span>
+  </span>
+</a>

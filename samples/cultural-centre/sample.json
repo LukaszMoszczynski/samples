@@ -1,0 +1,22 @@
+{
+  "slug": "cultural-centre",
+  "stack": "astro",
+  "lang": "pl",
+  "title": "Twój Dom Kultury – miejski ośrodek kultury (przykładowa strona)",
+  "pages": [
+    "index",
+    "wydarzenia",
+    "zajecia",
+    "wynajem",
+    "dostepnosc"
+  ],
+  "summary": "Dom kultury: program z filtrami, zajęcia dla każdego wieku z zapisami, wynajem sal, panel redakcji (demo), większy tekst i wysoki kontrast.",
+  "direction": "Riso poster wall",
+  "tags": [
+    "Payload + Astro",
+    "GSAP",
+    "Panel redakcji (demo)",
+    "WCAG 2.2 AA"
+  ],
+  "date": "2026-11-26"
+}

@@ -1,0 +1,46 @@
+---
+// Programme page: every event from November to January, with filters by kind, month and free entry, then how tickets
+// work (box office, online ticketing as a link-out, discounts). Example content written for the brief.
+import CentrePage from '../layouts/CentrePage.astro';
+import '../components/molecules/event-card/event-card.css';
+import '../components/sections/page-hero/page-hero.css';
+import '../components/sections/programme/programme.css';
+
+import PageHero from '../components/sections/page-hero/PageHero.astro';
+import Programme from '../components/sections/programme/Programme.astro';
+import Eyebrow from '../components/atoms/eyebrow/Eyebrow.astro';
+import InkButton from '../components/atoms/ink-button/InkButton.astro';
+import { centre, events } from '../data/content.js';
+
+const base = `${import.meta.env.BASE_URL}cultural-centre/`;
+---
+<CentrePage current="wydarzenia" title="Program" description="Program domu kultury: koncerty, kino, wystawy, teatr, wydarzenia dla dzieci i warsztaty, z filtrami po rodzaju i miesiącu.">
+  <PageHero
+    home={base}
+    current="Program"
+    label="Program wydarzeń"
+    title="Co, gdzie i kiedy"
+    lead="Koncerty, klub filmowy, wystawy, teatr i warsztaty od listopada do stycznia. Wybierz rodzaj albo miesiąc. Przy każdym wydarzeniu widać cenę i udogodnienia, np. pętlę indukcyjną czy napisy."
+    links={[{ text: 'Program', href: '#program' }, { text: 'Bilety i zniżki', href: '#bilety' }]}
+    shapes={[{ shape: 'circle', ink: 'blue' }, { shape: 'frame', ink: 'green' }, { shape: 'half', ink: 'blue' }]}
+  />
+  <Programme id="program" events={events} ticketHref="#bilety" />
+  <section class="ds-section ds-section--night" id="bilety" aria-labelledby="tickets-title">
+    <div class="ds-container ds-split">
+      <div class="ds-section-head" data-reveal>
+        <Eyebrow text="Bilety" />
+        <h2 class="ds-section-head__title" id="tickets-title">Bilety w kasie i online</h2>
+        <p class="ds-section-head__lead">Bilety kupisz w kasie na parterze albo online w serwisie biletowym. Na wydarzenia z wolnym wstępem nie trzeba biletu, a na koncerty z wejściówkami odbierz je w kasie.</p>
+        <div>
+          <InkButton text="Kup bilet online" href="#bilety" variant="light" arrow data-ticket="Program domu kultury" />
+        </div>
+      </div>
+      <ul class="ds-stack" role="list">
+        <li class="ds-ticket-fact" data-reveal><strong>Kasa:</strong> wtorek – piątek 12:00–19:00, w weekend godzinę przed wydarzeniem. Telefon: <a href={`tel:${centre.tickets.replaceAll(' ', '')}`}>{centre.tickets}</a>.</li>
+        <li class="ds-ticket-fact" data-reveal><strong>Zniżki 50%:</strong> seniorzy 60+, uczniowie i studenci, Karta Dużej Rodziny, osoby z niepełnosprawnościami i ich opiekunowie.</li>
+        <li class="ds-ticket-fact" data-reveal><strong>Zwroty:</strong> do 3 dni przed wydarzeniem, w kasie albo w serwisie, w którym kupiono bilet.</li>
+        <li class="ds-ticket-fact" data-reveal><strong>Miejsca dla wózków:</strong> 4 w sali widowiskowej. Zarezerwuj je telefonicznie, opiekun wchodzi bezpłatnie.</li>
+      </ul>
+    </div>
+  </section>
+</CentrePage>

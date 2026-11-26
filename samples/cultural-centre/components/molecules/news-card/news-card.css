@@ -1,0 +1,73 @@
+/* News card: a notice pinned with tape; alternate cards lean the other way. Straightens up on hover. */
+.ds-news-card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: var(--space-12);
+  height: 100%;
+  padding: var(--space-32) var(--space-24) var(--space-24);
+  border: 2px solid var(--ds-ink);
+  border-radius: var(--radius-sm);
+  background: var(--ds-card);
+  transform: rotate(-0.8deg);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+li:nth-child(even) > .ds-news-card {
+  transform: rotate(0.8deg);
+}
+
+li > .ds-news-card:hover {
+  transform: rotate(0deg) translateY(calc(var(--space-4) * -1));
+}
+
+.ds-news-card__tape {
+  position: absolute;
+  top: calc(var(--space-12) * -1);
+  left: 50%;
+  width: calc(var(--size-160) * 0.5);
+  height: var(--size-24);
+  background: color-mix(in srgb, var(--ds-riso-blue) 70%, transparent);
+  transform: translateX(-50%) rotate(-3deg);
+}
+
+li:nth-child(even) .ds-news-card__tape {
+  background: color-mix(in srgb, var(--ds-riso-green) 70%, transparent);
+  transform: translateX(-50%) rotate(2deg);
+}
+
+.ds-news-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-8) var(--space-12);
+  margin: 0;
+  color: var(--ds-ink-soft);
+  font-size: var(--font-size-small);
+}
+
+.ds-news-card__tag {
+  padding: 0 var(--space-8);
+  border: 1px solid var(--ds-line-strong);
+  border-radius: var(--radius-full);
+  color: var(--ds-ink);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-news-card__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  line-height: 1.2;
+}
+
+.ds-news-card__text {
+  margin: 0;
+  line-height: 1.55;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-news-card {
+    transition: none;
+  }
+}

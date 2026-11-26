@@ -1,0 +1,56 @@
+---
+// Site footer: a garland of paper flags on top, the centre's address and hours, the programme links, and the links a
+// public institution must show (BIP, accessibility statement, easy-to-read text, sign language), plus the sample note.
+import BrandMark from '../../atoms/brand-mark/BrandMark.astro';
+interface Props {
+  name: string;
+  home: string;
+  about: string;
+  columns: { title: string; links: { text: string; href: string; external?: boolean }[] }[];
+  contact: string[];
+  notes: string[];
+}
+const { name, home, about, columns, contact, notes } = Astro.props;
+const flags = Array.from({ length: 18 }, (_, index) => index);
+---
+<footer class="ds-site-footer">
+  <svg class="ds-site-footer__garland" viewBox="0 0 1200 70" preserveAspectRatio="none" aria-hidden="true" focusable="false" data-garland>
+    <path class="ds-site-footer__string" d="M0 8 Q300 46 600 18 T1200 14" pathLength="1000" data-draw />
+    {flags.map((index) => {
+      const x = 20 + index * 66;
+      // The flag hangs from the string: the y of the quadratic curve at the flag's centre.
+      const centre = x + 17;
+      const [start, control, end, t] = centre <= 600 ? [8, 46, 18, centre / 600] : [18, -10, 14, (centre - 600) / 600];
+      const y = (1 - t) ** 2 * start + 2 * (1 - t) * t * control + t ** 2 * end - 1;
+      return <path class:list={['ds-site-footer__flag', index % 2 ? 'ds-site-footer__flag--blue' : 'ds-site-footer__flag--green']} d={`M${x} ${y.toFixed(1)} h34 l-17 ${index % 3 ? 34 : 30} Z`} data-flag />;
+    })}
+  </svg>
+  <div class="ds-container ds-site-footer__grid">
+    <div class="ds-site-footer__about">
+      <BrandMark name={name} href={home} tone="light" />
+      <p>{about}</p>
+      <ul class="ds-site-footer__contact" role="list">
+        {contact.map((line) => <li>{line}</li>)}
+      </ul>
+    </div>
+    {columns.map((column) => (
+      <nav class="ds-site-footer__column" aria-label={column.title}>
+        <p class="ds-site-footer__title">{column.title}</p>
+        <ul role="list">
+          {column.links.map((link) => (
+            <li>
+              <a href={link.href} target={link.external ? '_blank' : undefined} rel={link.external ? 'noopener' : undefined}>
+                {link.text}{link.external && <span class="ds-visually-hidden"> (otwiera się w nowej karcie)</span>}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    ))}
+  </div>
+  <div class="ds-container">
+    <div class="ds-site-footer__notes">
+      {notes.map((note) => <p>{note}</p>)}
+    </div>
+  </div>
+</footer>

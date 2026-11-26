@@ -1,0 +1,22 @@
+---
+// Numbers: the centre's year in four figures that count up once on enter (the final figure is in the HTML).
+import CutShape from '../../atoms/cut-shape/CutShape.astro';
+type Shape = 'circle' | 'half' | 'arch' | 'star' | 'zigzag' | 'frame';
+interface Props { id: string; title: string; note: string; items: { value: number; suffix?: string; label: string; shape: Shape; ink: 'green' | 'blue' }[] }
+const { id, title, note, items } = Astro.props;
+---
+<section class="ds-section ds-section--night ds-numbers" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <h2 class="ds-numbers__title" id={`${id}-title`} data-reveal>{title}</h2>
+    <ul class="ds-numbers__list" role="list">
+      {items.map((item) => (
+        <li class="ds-numbers__item" data-reveal>
+          <CutShape shape={item.shape} ink={item.ink} class="ds-numbers__shape" />
+          <p class="ds-numbers__value"><span data-count={item.value}>{item.value.toLocaleString('pl-PL')}</span>{item.suffix}</p>
+          <p class="ds-numbers__label">{item.label}</p>
+        </li>
+      ))}
+    </ul>
+    <p class="ds-numbers__note" data-reveal>{note}</p>
+  </div>
+</section>

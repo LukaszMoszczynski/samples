@@ -1,0 +1,263 @@
+/* Stage hero: copy on the left, the drawn stage on the right (below on phones). */
+.ds-stage-hero {
+  position: relative;
+  padding-block: var(--space-56) var(--space-section-y);
+  overflow-x: clip;
+}
+
+.ds-stage-hero__grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  align-items: center;
+  gap: var(--space-48);
+}
+
+.ds-stage-hero__copy {
+  display: grid;
+  gap: var(--space-24);
+}
+
+.ds-stage-hero__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: calc(var(--font-size-4xl) * 1.3);
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.ds-stage-hero__accent {
+  position: relative;
+  display: inline-block;
+  color: var(--ds-green);
+}
+
+.ds-stage-hero__scribble {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--space-10) * -1);
+  width: 100%;
+  height: var(--space-16);
+  overflow: visible;
+}
+
+.ds-stage-hero__scribble path {
+  fill: none;
+  stroke: var(--ds-riso-blue);
+  stroke-width: 7;
+  stroke-linecap: round;
+}
+
+.ds-stage-hero__lead {
+  margin: 0;
+  max-width: calc(var(--size-160) * 3.6);
+  font-size: var(--font-size-lg);
+  line-height: 1.55;
+  color: var(--ds-ink-soft);
+}
+
+.ds-stage-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-16) var(--space-20);
+}
+
+.ds-stage-hero__next {
+  display: grid;
+  gap: var(--space-4);
+  max-width: calc(var(--size-160) * 3.4);
+  padding: var(--space-16) var(--space-20);
+  border: 2px dashed var(--ds-line-strong);
+  border-radius: var(--radius-md);
+  background: var(--ds-card);
+}
+
+.ds-stage-hero__next p {
+  margin: 0;
+}
+
+.ds-stage-hero__next-label {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  color: var(--ds-ink-soft);
+}
+
+.ds-stage-hero__next-text {
+  line-height: 1.4;
+}
+
+.ds-stage-hero__next-when {
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-stage-hero__next a {
+  color: var(--ds-blue);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-stage-hero__hours {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  font-size: var(--font-size-small);
+  color: var(--ds-ink-soft);
+}
+
+.ds-stage-hero__open-dot {
+  width: var(--size-12);
+  height: var(--size-12);
+  border-radius: var(--radius-full);
+  background: var(--ds-riso-green);
+  box-shadow: 0 0 0 2px var(--ds-green-deep);
+}
+
+/* The stage drawing and the cut shapes drifting around it. */
+.ds-stage-hero__art {
+  position: relative;
+  max-width: calc(var(--size-160) * 3.6);
+  justify-self: center;
+  width: 100%;
+}
+
+.ds-stage-hero__stage {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.ds-stage-hero__back {
+  fill: var(--palette-secondary-800);
+}
+
+.ds-stage-hero__beam {
+  fill: var(--palette-accent-400);
+  opacity: 0.55;
+}
+
+.ds-stage-hero__pool {
+  fill: var(--palette-accent-400);
+  opacity: 0.7;
+}
+
+.ds-stage-hero__floor {
+  stroke: var(--palette-secondary-600);
+  stroke-width: 2;
+}
+
+.ds-stage-hero__poster-sheet {
+  fill: var(--palette-neutral-50);
+  stroke: var(--palette-secondary-800);
+  stroke-width: 2;
+}
+
+.ds-stage-hero__ink--green {
+  fill: var(--palette-primary-400);
+  mix-blend-mode: multiply;
+}
+
+.ds-stage-hero__ink--blue {
+  fill: var(--palette-accent-400);
+  mix-blend-mode: multiply;
+}
+
+.ds-stage-hero__poster-word {
+  fill: var(--palette-secondary-800);
+  font-family: var(--font-heading);
+  font-size: var(--size-20);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-stage-hero__poster-line {
+  stroke: var(--palette-secondary-800);
+  stroke-width: 3;
+}
+
+.ds-stage-hero__drape {
+  fill: var(--palette-primary-600);
+  visibility: hidden;
+}
+
+/* The closed curtain exists only while the opening plays (motion on). */
+[data-motion] .ds-stage-hero__drape {
+  visibility: visible;
+}
+
+.ds-stage-hero__gather {
+  fill: var(--palette-primary-600);
+}
+
+.ds-stage-hero__fold {
+  fill: none;
+  stroke: var(--palette-primary-800);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.ds-stage-hero__valance {
+  fill: var(--palette-accent-500);
+}
+
+.ds-stage-hero__arch {
+  fill: none;
+  stroke: var(--palette-secondary-800);
+  stroke-width: 6;
+  stroke-linecap: round;
+}
+
+:root[data-contrast="high"] .ds-stage-hero__arch {
+  stroke: var(--palette-neutral-0);
+}
+
+.ds-stage-hero__float {
+  position: absolute;
+  width: calc(var(--size-160) * 0.42);
+  height: calc(var(--size-160) * 0.42);
+}
+
+.ds-stage-hero__float--star {
+  top: calc(var(--space-24) * -1);
+  left: calc(var(--space-32) * -1);
+}
+
+.ds-stage-hero__float--circle {
+  top: calc(var(--space-12) * -1);
+  right: calc(var(--space-24) * -1);
+  width: calc(var(--size-160) * 0.34);
+  height: calc(var(--size-160) * 0.34);
+}
+
+.ds-stage-hero__float--zigzag {
+  bottom: calc(var(--space-12) * -1);
+  left: calc(var(--space-40) * -1);
+}
+
+.ds-stage-hero__float--arch {
+  bottom: var(--space-32);
+  right: calc(var(--space-40) * -1);
+  width: calc(var(--size-160) * 0.36);
+  height: calc(var(--size-160) * 0.36);
+}
+
+@media (max-width: 959px) {
+  .ds-stage-hero {
+    padding-top: var(--space-40);
+  }
+
+  .ds-stage-hero__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ds-stage-hero__art {
+    max-width: calc(var(--size-160) * 2.6);
+  }
+
+  .ds-stage-hero__float--star,
+  .ds-stage-hero__float--zigzag {
+    left: calc(var(--space-12) * -1);
+  }
+
+  .ds-stage-hero__float--circle,
+  .ds-stage-hero__float--arch {
+    right: calc(var(--space-12) * -1);
+  }
+}

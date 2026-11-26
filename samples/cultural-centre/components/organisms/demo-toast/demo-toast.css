@@ -1,0 +1,54 @@
+/* Demo toast: a printed slip that slides up in the bottom-right corner (away from the floating samples button). */
+.ds-demo-toast {
+  position: fixed;
+  right: var(--space-20);
+  bottom: var(--space-20);
+  z-index: 46;
+  width: min(calc(100% - var(--space-40)), calc(var(--size-160) * 2.6));
+}
+
+.ds-demo-toast__card {
+  display: grid;
+  gap: var(--space-8);
+  padding: var(--space-20);
+  border: 2px solid var(--ds-ink);
+  border-radius: var(--radius-lg);
+  background: var(--ds-card);
+  color: var(--ds-ink);
+  box-shadow: var(--space-6) var(--space-6) 0 var(--ds-riso-blue);
+}
+
+.ds-demo-toast__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.25;
+}
+
+.ds-demo-toast__text {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.ds-demo-toast__close {
+  justify-self: start;
+  min-height: var(--size-40);
+  padding: var(--space-6) var(--space-14);
+  border: 2px solid var(--ds-ink);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--ds-ink);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+}
+
+.ds-demo-toast__close:hover {
+  background: var(--ds-ink);
+  color: var(--ds-paper);
+}
+
+.ds-demo-toast__close:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}

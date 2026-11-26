@@ -1,0 +1,132 @@
+/* Access bar: a dark strip above the header with the accessibility links and the text-size and contrast switches. */
+.ds-access-bar {
+  background: var(--ds-night);
+  color: var(--ds-on-night);
+  font-size: var(--font-size-small);
+  border-bottom: 2px solid var(--ds-night-accent);
+}
+
+.ds-access-bar__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8) var(--space-24);
+  padding-block: var(--space-6);
+}
+
+.ds-access-bar__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4) var(--space-20);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-access-bar__links a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: var(--size-24);
+  color: var(--ds-on-night);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--ds-on-night) 40%, transparent);
+  text-underline-offset: var(--space-4);
+}
+
+.ds-access-bar__links a:hover {
+  text-decoration-color: var(--ds-night-accent);
+  text-decoration-thickness: 2px;
+}
+
+.ds-access-bar__links svg {
+  width: var(--size-16);
+  height: var(--size-16);
+}
+
+.ds-access-bar__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-8) var(--space-16);
+}
+
+.ds-access-bar__group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.ds-access-bar__label {
+  margin-right: var(--space-4);
+  color: var(--ds-on-night-soft);
+}
+
+.ds-access-bar__size,
+.ds-access-bar__contrast {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-6);
+  min-width: var(--size-40);
+  min-height: var(--size-40);
+  padding: var(--space-4) var(--space-10);
+  border: 1px solid color-mix(in srgb, var(--ds-on-night) 45%, transparent);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--ds-on-night);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.ds-access-bar__size--1 {
+  font-size: var(--size-18);
+}
+
+.ds-access-bar__size--2 {
+  font-size: var(--size-20);
+}
+
+.ds-access-bar__size:hover,
+.ds-access-bar__contrast:hover {
+  border-color: var(--ds-night-accent);
+}
+
+.ds-access-bar__size[aria-pressed="true"],
+.ds-access-bar__contrast[aria-pressed="true"] {
+  border-color: var(--ds-night-accent);
+  background: var(--ds-night-accent);
+  color: var(--palette-secondary-800);
+}
+
+.ds-access-bar__contrast svg {
+  width: var(--size-18);
+  height: var(--size-18);
+}
+
+.ds-access-bar a:focus-visible,
+.ds-access-bar button:focus-visible {
+  outline: var(--focus-ring-width) solid var(--ds-night-accent);
+  outline-offset: var(--focus-ring-offset);
+}
+
+@media (max-width: 719px) {
+  .ds-access-bar__links {
+    gap: var(--space-4) var(--space-16);
+  }
+
+  .ds-access-bar__label {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-access-bar__size,
+  .ds-access-bar__contrast {
+    transition: none;
+  }
+}

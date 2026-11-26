@@ -1,0 +1,410 @@
+/* Forms kit: the custom dropdown (button + listbox over a hidden native select) and validation messages. Colours come
+   from semantic tokens, so each sample's look carries over; the dropdown button keeps the field's own class. */
+.ds-select {
+  position: relative;
+}
+
+.ds-select__native {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ds-select__button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ds-select__value {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ds-select__chevron {
+  flex-shrink: 0;
+  width: var(--size-18);
+  height: var(--size-18);
+  transition: transform 0.3s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.ds-select.is-open .ds-select__chevron {
+  transform: rotate(180deg);
+}
+
+.ds-select__list {
+  position: absolute;
+  top: calc(100% + var(--space-6));
+  left: 0;
+  right: 0;
+  z-index: 30;
+  max-height: calc(var(--size-160) * 1.6);
+  margin: 0;
+  padding: var(--space-6);
+  overflow-y: auto;
+  list-style: none;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-card);
+  color: var(--color-text-default);
+  box-shadow: var(--shadow-lift);
+}
+
+.ds-select__list:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-select__option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  padding: var(--space-10) var(--space-12);
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.ds-select__option.is-active {
+  background: var(--color-surface-soft);
+}
+
+.ds-select__option[aria-selected="true"] {
+  color: var(--color-brand-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-select__tick {
+  width: var(--size-16);
+  height: var(--size-16);
+  opacity: 0;
+}
+
+.ds-select__option[aria-selected="true"] .ds-select__tick {
+  opacity: 1;
+}
+
+[aria-invalid="true"] {
+  border-color: var(--color-state-error);
+  box-shadow: 0 0 0 1px var(--color-state-error);
+}
+
+/* With the validation demo on (forms.js sets novalidate at load, never when an error shows), rows get room for a
+   message under each field. */
+form[novalidate] {
+  row-gap: var(--space-40);
+}
+
+/* The message hangs in the gap under its field (the box gets position: relative from forms.js), so it never pushes the
+   layout. */
+.ds-field-error {
+  position: absolute;
+  top: calc(100% + var(--space-6));
+  left: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  margin: 0;
+  line-height: 1.25;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-state-error);
+}
+
+.ds-field-error::before {
+  content: "!";
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: var(--size-16);
+  height: var(--size-16);
+  border-radius: var(--radius-full);
+  background: var(--color-state-error);
+  color: var(--palette-neutral-0);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+[aria-busy="true"] {
+  cursor: progress;
+  opacity: 0.85;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-select__chevron,
+  .ds-select__option {
+    transition: none;
+  }
+}
+
+/* Date picker: the field shows the chosen date (or a dd.mm.rrrr hint) with a calendar icon; the popup has the month
+   in the heading font between round arrows, Mon–Sun weekdays, the chosen day in the brand colour, today ringed,
+   days outside the month and past days muted, and Clear / Today underneath. */
+.ds-date {
+  position: relative;
+}
+
+.ds-date__native {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ds-date__button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ds-date__button.is-empty .ds-date__value {
+  color: var(--color-text-muted);
+}
+
+.ds-date__icon {
+  flex-shrink: 0;
+  width: var(--size-20);
+  height: var(--size-20);
+  transition: transform 0.3s ease;
+}
+
+.ds-date__button:hover .ds-date__icon,
+.ds-date.is-open .ds-date__icon {
+  transform: scale(1.12);
+  color: var(--color-brand-primary);
+}
+
+.ds-date__popup {
+  position: absolute;
+  top: calc(100% + var(--space-6));
+  left: 0;
+  z-index: 30;
+  width: min(100%, calc(var(--size-160) * 2));
+  min-width: calc(var(--size-160) * 1.75);
+  padding: var(--space-16);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-card);
+  color: var(--color-text-default);
+  box-shadow: var(--shadow-lift);
+}
+
+.ds-date__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+  margin-bottom: var(--space-12);
+}
+
+.ds-date__popup:focus {
+  outline: none;
+}
+
+/* The month heading is a button: it opens the month-and-year view. */
+.ds-date__month {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  margin: 0;
+  padding: var(--space-6) var(--space-10);
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: inherit;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.ds-date__month:hover {
+  background: var(--color-surface-soft);
+}
+
+.ds-date__month svg {
+  width: var(--size-16);
+  height: var(--size-16);
+  transition: transform 0.3s ease;
+}
+
+.ds-date__month[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+.ds-date__months {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-8);
+}
+
+.ds-date__month-option {
+  min-height: var(--size-44);
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-transform: capitalize;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.ds-date__month-option:hover:not(:disabled) {
+  border-color: var(--color-brand-primary);
+  background: var(--color-surface-soft);
+  transform: scale(1.04);
+}
+
+.ds-date__month-option[aria-current="true"] {
+  border-color: var(--color-brand-primary);
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-date__month-option:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.ds-date__nav {
+  display: inline-grid;
+  place-items: center;
+  width: var(--size-40);
+  height: var(--size-40);
+  padding: 0;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.ds-date__nav:hover {
+  border-color: var(--color-brand-primary);
+  background: var(--color-surface-soft);
+}
+
+.ds-date__nav:active {
+  transform: scale(0.92);
+}
+
+.ds-date__nav svg {
+  width: var(--size-18);
+  height: var(--size-18);
+}
+
+.ds-date__grid {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.ds-date__weekday {
+  padding-bottom: var(--space-6);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--space-1);
+  color: var(--color-text-muted);
+}
+
+.ds-date__grid td {
+  padding: var(--space-2);
+  text-align: center;
+}
+
+.ds-date__day {
+  display: inline-grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: var(--size-44);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.ds-date__day:hover:not(:disabled) {
+  background: var(--color-surface-soft);
+  transform: scale(1.08);
+}
+
+.ds-date__day.is-outside {
+  color: var(--color-text-muted);
+}
+
+.ds-date__day[aria-current="date"] {
+  box-shadow: inset 0 0 0 1px var(--color-brand-accent);
+  font-weight: var(--font-weight-bold);
+}
+
+[aria-selected="true"] > .ds-date__day {
+  background: var(--color-brand-primary);
+  color: var(--color-text-on-brand);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-date__day:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.ds-date__foot {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--space-12);
+  padding-top: var(--space-12);
+  border-top: 1px solid var(--color-border-default);
+}
+
+.ds-date__action {
+  padding: var(--space-6) var(--space-8);
+  border: 0;
+  border-radius: var(--radius-xs);
+  background: transparent;
+  color: var(--color-brand-primary);
+  font: inherit;
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+}
+
+.ds-date__action:hover:not(:disabled) {
+  background: var(--color-surface-soft);
+}
+
+.ds-date__action:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-date__icon,
+  .ds-date__nav,
+  .ds-date__day {
+    transition: none;
+  }
+}

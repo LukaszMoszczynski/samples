@@ -1,0 +1,164 @@
+---
+// Cultural centre home page: what is on this week, classes grouped by audience (each with its own clear link), the
+// centre in numbers, news, rooms for hire, how the team edits the programme (demo), newsletter, contact and access.
+// All copy, dates, prices and figures are example content written for the brief.
+import CentrePage from '../layouts/CentrePage.astro';
+import '../components/molecules/event-card/event-card.css';
+import '../components/molecules/audience-tile/audience-tile.css';
+import '../components/molecules/news-card/news-card.css';
+import '../components/molecules/room-card/room-card.css';
+import '../components/sections/stage-hero/stage-hero.css';
+import '../components/sections/numbers/numbers.css';
+import '../components/sections/editor-demo/editor-demo.css';
+import '../components/sections/newsletter/newsletter.css';
+import '../components/sections/visit-info/visit-info.css';
+
+import StageHero from '../components/sections/stage-hero/StageHero.astro';
+import Eyebrow from '../components/atoms/eyebrow/Eyebrow.astro';
+import InkButton from '../components/atoms/ink-button/InkButton.astro';
+import EventCard from '../components/molecules/event-card/EventCard.astro';
+import AudienceTile from '../components/molecules/audience-tile/AudienceTile.astro';
+import NewsCard from '../components/molecules/news-card/NewsCard.astro';
+import RoomCard from '../components/molecules/room-card/RoomCard.astro';
+import Numbers from '../components/sections/numbers/Numbers.astro';
+import EditorDemo from '../components/sections/editor-demo/EditorDemo.astro';
+import Newsletter from '../components/sections/newsletter/Newsletter.astro';
+import VisitInfo from '../components/sections/visit-info/VisitInfo.astro';
+import { centre, events, audiences, classes, news, rooms } from '../data/content.js';
+
+const base = `${import.meta.env.BASE_URL}cultural-centre/`;
+const week = events.slice(0, 4);
+const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>';
+---
+<CentrePage current="index" description="Przykładowa strona miejskiego domu kultury: program wydarzeń z filtrami, zajęcia dla dzieci, młodzieży, dorosłych i seniorów z zapisami, wynajem sal i ułatwienia dostępu.">
+  <StageHero
+    label="Miejski ośrodek kultury"
+    title="Kultura tuż za rogiem"
+    accent="za rogiem"
+    lead="Koncerty, kino, wystawy i teatr w każdym tygodniu. Zajęcia dla dzieci, młodzieży, dorosłych i seniorów. Wiele wydarzeń za darmo albo za kilkanaście złotych."
+    primary={{ text: 'Zobacz program', href: `${base}wydarzenia/` }}
+    secondary={{ text: 'Zajęcia dla Ciebie', href: `${base}zajecia/` }}
+    next={{ when: 'Piątek, 27 listopada, 19:00:', title: 'Wieczór jazzowy w foyer', href: `${base}wydarzenia/#jazz-foyer` }}
+    hours="Budynek otwarty pon.–pt. 8:00–21:00, sob. 9:00–20:00, niedz. 15:00–20:00"
+  />
+
+  <section class="ds-section ds-section--tint" id="w-tym-tygodniu" aria-labelledby="week-title">
+    <div class="ds-container">
+      <div class="ds-section-row" data-reveal>
+        <div class="ds-section-head">
+          <Eyebrow text="27–29 listopada" tone="blue" />
+          <h2 class="ds-section-head__title" id="week-title">W tym tygodniu</h2>
+          <p class="ds-section-head__lead">Cztery wieczory i jedno sobotnie przedpołudnie dla najmłodszych. Bilety kupisz w kasie albo online.</p>
+        </div>
+        <a class="ds-arrow-link" href={`${base}wydarzenia/`}>Cały program<Fragment set:html={arrow} /></a>
+      </div>
+      <ul class="ds-card-grid ds-card-grid--4" role="list">
+        {week.map((event) => (
+          <li data-reveal><EventCard event={event} ticketHref={`${base}wydarzenia/#bilety`} detailHref={`${base}wydarzenia/#${event.id}`} /></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="ds-section" id="zajecia" aria-labelledby="classes-title">
+    <div class="ds-container">
+      <div class="ds-section-row" data-reveal>
+        <div class="ds-section-head">
+          <Eyebrow text="Zajęcia stałe" />
+          <h2 class="ds-section-head__title" id="classes-title">Zajęcia dla każdego wieku</h2>
+          <p class="ds-section-head__lead">Od rytmiki dla przedszkolaków po komputer dla seniorów. Wybierz swoją grupę i zobacz dni, godziny i wolne miejsca.</p>
+        </div>
+        <a class="ds-arrow-link" href={`${base}zajecia/#zapisy`}>Jak się zapisać<Fragment set:html={arrow} /></a>
+      </div>
+      <ul class="ds-card-grid ds-card-grid--4" role="list">
+        {audiences.map((audience) => {
+          const own = classes.filter((item) => item.audience === audience.id);
+          return <li data-reveal><AudienceTile audience={audience} examples={own.slice(0, 3).map((item) => item.name)} count={own.length} href={`${base}zajecia/#${audience.id}`} /></li>;
+        })}
+      </ul>
+    </div>
+  </section>
+
+  <Numbers
+    id="w-liczbach"
+    title="Dom kultury w liczbach"
+    note="Liczby przykładowe, za ostatni sezon. W gotowej stronie zespół wpisuje je w panelu."
+    items={[
+      { value: 38, label: 'grup zajęć co tydzień', shape: 'star', ink: 'green' },
+      { value: 1200, label: 'uczestników zajęć', shape: 'circle', ink: 'blue' },
+      { value: 160, label: 'wydarzeń w roku', shape: 'half', ink: 'green' },
+      { value: 60, suffix: '%', label: 'wydarzeń z wolnym wstępem', shape: 'zigzag', ink: 'blue' },
+    ]}
+  />
+
+  <section class="ds-section" id="aktualnosci" aria-labelledby="news-title">
+    <div class="ds-container">
+      <div class="ds-section-head" data-reveal>
+        <Eyebrow text="Aktualności" tone="blue" />
+        <h2 class="ds-section-head__title" id="news-title">Co nowego w domu kultury</h2>
+      </div>
+      <ul class="ds-card-grid" role="list">
+        {news.map((item) => <li data-reveal><NewsCard item={item} /></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="ds-section ds-section--tint" id="wynajem" aria-labelledby="rooms-title">
+    <div class="ds-container ds-split">
+      <div data-reveal>
+        <div class="ds-section-head">
+          <Eyebrow text="Wynajem sal" />
+          <h2 class="ds-section-head__title" id="rooms-title">Sala na koncert, szkolenie albo urodziny</h2>
+          <p class="ds-section-head__lead">Pięć sal, od pracowni na 16 osób po scenę z widownią na 220 miejsc. Szkoły i organizacje z naszego miasta płacą połowę.</p>
+        </div>
+        <InkButton text="Sale i zapytanie o termin" href={`${base}wynajem/`} arrow />
+      </div>
+      <ul class="ds-stack" role="list">
+        {rooms.slice(0, 3).map((room) => <li data-reveal><RoomCard room={room} compact /></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <EditorDemo
+    id="redakcja"
+    title="Program dodajecie sami, w kilka minut"
+    lead="Tak wygląda panel, w którym zespół domu kultury dodaje wydarzenia. Wpisz tytuł, wybierz kategorię i dzień: plakat obok zmienia się na bieżąco, a „Opublikuj” dopisuje wydarzenie do programu."
+    places={['Sala widowiskowa', 'Sala kameralna', 'Foyer', 'Galeria', 'Pracownia plastyczna']}
+    upcoming={events.slice(4, 6)}
+  />
+
+  <Newsletter
+    id="newsletter"
+    title="Program co tydzień w skrzynce"
+    lead="W czwartek rano wysyłamy krótki list: co w weekend, co w przyszłym tygodniu i kiedy ruszają zapisy. Bez reklam."
+    topics={['Koncerty', 'Kino', 'Teatr', 'Wystawy', 'Dla dzieci', 'Dla seniorów']}
+  />
+
+  <VisitInfo
+    id="kontakt"
+    title="Jak do nas trafić"
+    address={centre.address}
+    phone={centre.phone}
+    tickets={centre.tickets}
+    email={centre.email}
+    hours={[
+      { place: 'Budynek i sekretariat', rows: [
+        { days: 'Poniedziałek – piątek', time: '8:00–21:00', weekdays: [1, 2, 3, 4, 5] },
+        { days: 'Sobota', time: '9:00–20:00', weekdays: [6] },
+        { days: 'Niedziela', time: '15:00–20:00', weekdays: [0] },
+      ] },
+      { place: 'Kasa biletowa', rows: [
+        { days: 'Wtorek – piątek', time: '12:00–19:00', weekdays: [2, 3, 4, 5] },
+        { days: 'Sobota i niedziela', time: 'godzinę przed wydarzeniem', weekdays: [6, 0] },
+      ] },
+    ]}
+    access={[
+      'Wejście od placu bez schodów, drzwi otwierane automatycznie',
+      'Winda na wszystkie piętra',
+      'Pętla indukcyjna w sali widowiskowej',
+      'Toaleta dla osób z niepełnosprawnościami na parterze',
+      'Tłumacz PJM po wcześniejszym umówieniu',
+    ]}
+    accessHref={`${base}dostepnosc/#architektura`}
+  />
+</CentrePage>

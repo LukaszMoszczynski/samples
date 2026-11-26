@@ -1,0 +1,6 @@
+---
+// Eyebrow: a short label above a heading, on a strip of printed tape.
+interface Props { text: string; tone?: 'green' | 'blue' }
+const { text, tone = 'green' } = Astro.props;
+---
+<p class:list={['ds-eyebrow', `ds-eyebrow--${tone}`]}>{text}</p>

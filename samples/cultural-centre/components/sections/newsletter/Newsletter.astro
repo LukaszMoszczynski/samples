@@ -1,0 +1,43 @@
+---
+// Newsletter: one e-mail field, a choice of topics and the consent, on a riso poster band. The thank-you is local:
+// a demo, nothing is sent (in production: double opt-in from the mailing tool).
+import InkButton from '../../atoms/ink-button/InkButton.astro';
+import CutShape from '../../atoms/cut-shape/CutShape.astro';
+interface Props { id: string; title: string; lead: string; topics: string[] }
+const { id, title, lead, topics } = Astro.props;
+---
+<section class="ds-section ds-newsletter" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-newsletter__band" data-reveal>
+      <CutShape shape="circle" ink="blue" class="ds-newsletter__shape ds-newsletter__shape--one" />
+      <CutShape shape="zigzag" ink="green" class="ds-newsletter__shape ds-newsletter__shape--two" />
+      <div class="ds-newsletter__copy">
+        <h2 class="ds-newsletter__title" id={`${id}-title`}>{title}</h2>
+        <p class="ds-newsletter__lead">{lead}</p>
+      </div>
+      <form class="ds-newsletter__form" data-newsletter-form>
+        <div class="ds-newsletter__field">
+          <label class="ds-newsletter__label" for="newsletter-email">Twój e-mail</label>
+          <input class="ds-newsletter__input" id="newsletter-email" name="email" type="email" autocomplete="email" placeholder="imie@example.com" required />
+        </div>
+        <fieldset class="ds-newsletter__topics">
+          <legend class="ds-newsletter__label">Co Cię interesuje? (opcjonalnie)</legend>
+          {topics.map((topic) => (
+            <label class="ds-newsletter__topic"><input type="checkbox" name="topics" value={topic} /><span>{topic}</span></label>
+          ))}
+        </fieldset>
+        <label class="ds-newsletter__consent">
+          <input type="checkbox" name="consent" required />
+          <span>Chcę dostawać newsletter. Wypisać się można jednym kliknięciem w każdym e-mailu.</span>
+        </label>
+        <div class="ds-newsletter__submit">
+          <InkButton text="Zapisz mnie" type="submit" variant="blue" />
+        </div>
+        <div class="ds-newsletter__thanks" role="status" hidden data-newsletter-thanks>
+          <p class="ds-newsletter__thanks-title">Dziękujemy!</p>
+          <p data-newsletter-thanks-text>To przykładowa strona: nic nie zostało wysłane.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

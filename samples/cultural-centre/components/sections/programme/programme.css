@@ -1,0 +1,178 @@
+/* Programme: the filter board, then a month heading and a grid of posters per month. */
+.ds-programme__filters {
+  display: grid;
+  gap: var(--space-16);
+  margin-bottom: var(--space-48);
+  padding: var(--space-24);
+  border: 2px solid var(--ds-ink);
+  border-radius: var(--radius-lg);
+  background: var(--ds-card);
+  box-shadow: var(--space-6) var(--space-6) 0 var(--ds-riso-blue);
+}
+
+.ds-programme__filter-row {
+  display: grid;
+  grid-template-columns: calc(var(--size-160) * 0.6) 1fr;
+  align-items: start;
+  gap: var(--space-12);
+}
+
+.ds-programme__filter-label {
+  margin: 0;
+  padding-top: var(--space-10);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-programme__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+}
+
+.ds-programme__chip {
+  min-height: var(--size-44);
+  padding: var(--space-6) var(--space-16);
+  border: 2px solid var(--ds-line-strong);
+  border-radius: var(--radius-full);
+  background: var(--ds-card);
+  color: var(--ds-ink);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.ds-programme__chip:hover {
+  border-color: var(--ds-ink);
+}
+
+.ds-programme__chip[aria-pressed="true"] {
+  border-color: var(--ds-ink);
+  background: var(--ds-ink);
+  color: var(--ds-paper);
+}
+
+.ds-programme__chip:focus-visible,
+.ds-programme__free:has(input:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-programme__filter-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12) var(--space-24);
+  padding-top: var(--space-16);
+  border-top: 2px dashed var(--ds-line);
+}
+
+.ds-programme__free {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-10);
+  min-height: var(--size-44);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+}
+
+.ds-programme__free input {
+  width: var(--size-24);
+  height: var(--size-24);
+  margin: 0;
+  accent-color: var(--ds-green);
+}
+
+.ds-programme__count {
+  margin: 0;
+  color: var(--ds-ink-soft);
+}
+
+.ds-programme__month + .ds-programme__month {
+  margin-top: var(--space-56);
+}
+
+.ds-programme__month-title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-12);
+  margin: 0 0 var(--space-24);
+  padding-bottom: var(--space-12);
+  border-bottom: var(--space-4) solid var(--ds-ink);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  line-height: 1.1;
+}
+
+.ds-programme__month-title span {
+  color: var(--ds-ink-soft);
+  font-size: var(--font-size-lg);
+}
+
+.ds-programme__list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-28);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-programme__empty {
+  margin: 0;
+  padding: var(--space-32);
+  border: 2px dashed var(--ds-line-strong);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  font-size: var(--font-size-lg);
+}
+
+/* Ticket facts on the dark band below the programme. */
+.ds-ticket-fact {
+  padding: var(--space-16) var(--space-20);
+  border: 2px solid color-mix(in srgb, var(--ds-on-night) 35%, transparent);
+  border-radius: var(--radius-md);
+  line-height: 1.5;
+}
+
+.ds-ticket-fact a {
+  color: var(--ds-night-accent);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-ticket-fact a:focus-visible {
+  outline: var(--focus-ring-width) solid var(--ds-night-accent);
+  outline-offset: var(--focus-ring-offset);
+}
+
+@media (max-width: 1023px) {
+  .ds-programme__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 679px) {
+  .ds-programme__list {
+    grid-template-columns: 1fr;
+  }
+
+  .ds-programme__filter-row {
+    grid-template-columns: 1fr;
+  }
+
+  .ds-programme__filter-label {
+    padding-top: 0;
+  }
+
+  .ds-programme__filters {
+    padding: var(--space-16);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-programme__chip {
+    transition: none;
+  }
+}

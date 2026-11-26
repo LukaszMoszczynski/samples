@@ -1,0 +1,234 @@
+/* Event card: poster on top, facts below. Hover: the card lifts and tips a little, the second ink slips off register. */
+.ds-event-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border: 2px solid var(--ds-ink);
+  border-radius: var(--radius-lg);
+  background: var(--ds-card);
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ds-event-card:hover,
+.ds-event-card:focus-within {
+  transform: translateY(calc(var(--space-6) * -1)) rotate(-0.6deg);
+  box-shadow: var(--space-6) var(--space-8) 0 var(--ds-riso-green);
+}
+
+.ds-event-card:hover .ds-cut-shape__ink--offset {
+  transform: translate(calc(var(--space-6) * -1), var(--space-4));
+}
+
+.ds-event-card__poster {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-height: calc(var(--size-160) * 0.95);
+  padding: var(--space-16);
+  border-bottom: 2px solid var(--ds-ink);
+  background: var(--ds-green-tint);
+}
+
+.ds-event-card__poster--blue {
+  background: var(--ds-blue-tint);
+}
+
+.ds-event-card__shape {
+  position: absolute;
+  right: var(--space-16);
+  bottom: calc(var(--space-12) * -1);
+  width: calc(var(--size-160) * 0.72);
+  height: calc(var(--size-160) * 0.72);
+}
+
+.ds-event-card__stamp {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  justify-items: center;
+  min-width: calc(var(--size-52) + var(--space-8));
+  margin: 0;
+  padding: var(--space-6) var(--space-8);
+  border: 2px solid var(--ds-ink);
+  border-radius: var(--radius-md);
+  background: var(--ds-card);
+  color: var(--ds-ink);
+  line-height: 1;
+}
+
+.ds-event-card__day {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-event-card__month {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-event-card__category {
+  position: absolute;
+  left: var(--space-16);
+  bottom: var(--space-12);
+  z-index: 1;
+  margin: 0;
+  padding: var(--space-2) var(--space-10);
+  border-radius: var(--radius-full);
+  background: var(--ds-ink);
+  color: var(--ds-paper);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-event-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+  flex: 1;
+  padding: var(--space-20);
+}
+
+.ds-event-card__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  line-height: 1.2;
+}
+
+.ds-event-card__link {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* The whole card is the link's target area. */
+.ds-event-card__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.ds-event-card__link:hover,
+.ds-event-card__link:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+}
+
+.ds-event-card__link:focus-visible {
+  outline: none;
+}
+
+.ds-event-card:has(.ds-event-card__link:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-event-card__when {
+  margin: 0;
+  font-weight: var(--font-weight-bold);
+  line-height: 1.4;
+}
+
+.ds-event-card__place {
+  font-weight: var(--font-weight-regular);
+}
+
+.ds-event-card__text {
+  margin: 0;
+  color: var(--ds-ink-soft);
+  line-height: 1.5;
+}
+
+.ds-event-card__access {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-event-card__access li {
+  padding: var(--space-2) var(--space-10);
+  border: 1px solid var(--ds-line-strong);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-small);
+}
+
+.ds-event-card__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  margin-top: auto;
+  padding-top: var(--space-12);
+  border-top: 2px dashed var(--ds-line);
+}
+
+.ds-event-card__price {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+/* Sits above the card-wide link. */
+.ds-event-card__ticket {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  min-height: var(--size-44);
+  padding: var(--space-8) var(--space-16);
+  border-radius: var(--radius-md);
+  background: var(--ds-blue);
+  color: var(--ds-on-fill);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.ds-event-card__ticket svg {
+  width: var(--size-18);
+  height: var(--size-18);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ds-event-card__ticket:hover {
+  background: var(--ds-ink);
+}
+
+.ds-event-card__ticket:hover svg {
+  transform: translate(var(--space-2), calc(var(--space-2) * -1));
+}
+
+.ds-event-card__ticket:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-event-card__no-ticket {
+  color: var(--ds-ink-soft);
+  font-size: var(--font-size-small);
+}
+
+:root[data-contrast="high"] .ds-event-card__ticket:hover {
+  background: var(--palette-neutral-0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-event-card,
+  .ds-event-card__ticket svg {
+    transition: none;
+  }
+
+  .ds-event-card:hover,
+  .ds-event-card:focus-within {
+    transform: none;
+  }
+}

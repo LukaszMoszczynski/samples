@@ -1,0 +1,51 @@
+---
+// Programme: every event, by month. Filters (category, month, free entry) appear with JS; matching posters fade and
+// rise in place, months with nothing left fold away, the count is read out. Without JS all events show.
+import EventCard from '../../molecules/event-card/EventCard.astro';
+import { categories, months } from '../../../data/content.js';
+interface Props {
+  id: string;
+  events: { id: string; date: string; time: string; category: string; title: string; place: string; price: string; ticket: boolean; text: string; access: string[] }[];
+  ticketHref: string;
+}
+const { id, events, ticketHref } = Astro.props;
+const groups = months.map((month) => ({ ...month, items: events.filter((event) => event.date.startsWith(month.id)) })).filter((group) => group.items.length);
+---
+<section class="ds-section ds-programme" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <h2 class="ds-visually-hidden" id={`${id}-title`}>Program wydarzeń</h2>
+    <div class="ds-programme__filters" hidden data-programme-filters>
+      <div class="ds-programme__filter-row" role="group" aria-labelledby="filter-category-label">
+        <p class="ds-programme__filter-label" id="filter-category-label">Rodzaj</p>
+        <div class="ds-programme__chips">
+          <button class="ds-programme__chip" type="button" aria-pressed="true" data-filter-category="all">Wszystko</button>
+          {categories.map((category) => <button class="ds-programme__chip" type="button" aria-pressed="false" data-filter-category={category.id}>{category.label}</button>)}
+        </div>
+      </div>
+      <div class="ds-programme__filter-row" role="group" aria-labelledby="filter-month-label">
+        <p class="ds-programme__filter-label" id="filter-month-label">Miesiąc</p>
+        <div class="ds-programme__chips">
+          <button class="ds-programme__chip" type="button" aria-pressed="true" data-filter-month="all">Wszystkie</button>
+          {months.map((month) => <button class="ds-programme__chip" type="button" aria-pressed="false" data-filter-month={month.id}>{month.label}</button>)}
+        </div>
+      </div>
+      <div class="ds-programme__filter-foot">
+        <label class="ds-programme__free"><input type="checkbox" data-filter-free /><span>Tylko z wolnym wstępem</span></label>
+        <p class="ds-programme__count" role="status" data-programme-count>Pokazujemy wszystkie wydarzenia: {events.length}.</p>
+      </div>
+    </div>
+    {groups.map((group) => (
+      <div class="ds-programme__month" data-programme-month={group.id}>
+        <h3 class="ds-programme__month-title">{group.label} <span>{group.id.slice(0, 4)}</span></h3>
+        <ul class="ds-programme__list" role="list">
+          {group.items.map((event) => (
+            <li class="ds-programme__item" data-programme-item data-category={event.category} data-free={String(event.price === 'Wstęp wolny')} data-reveal>
+              <EventCard event={event} ticketHref={ticketHref} headingLevel="h4" />
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+    <p class="ds-programme__empty" hidden data-programme-empty>Nic nie pasuje do wybranych filtrów. Zmień rodzaj albo miesiąc.</p>
+  </div>
+</section>

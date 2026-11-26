@@ -1,0 +1,86 @@
+---
+// Stage hero: the headline with a hand-drawn underline, two clear actions and the next event, beside a drawn stage.
+// With motion the curtain opens, the spotlight swings in, three posters slide up and stack, and cut-paper shapes drift
+// slowly. Without motion (or JS) the stage is simply open and everything is in place.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import InkButton from '../../atoms/ink-button/InkButton.astro';
+import CutShape from '../../atoms/cut-shape/CutShape.astro';
+interface Props {
+  label: string;
+  title: string;
+  accent: string;
+  lead: string;
+  primary: { text: string; href: string };
+  secondary: { text: string; href: string };
+  next: { when: string; title: string; href: string };
+  hours: string;
+}
+const { label, title, accent, lead, primary, secondary, next, hours } = Astro.props;
+const [before, after] = title.split(accent);
+const posters = [
+  { word: 'KONCERT', shape: 'circle', ink: 'blue', rotate: -9, x: 150, y: 200 },
+  { word: 'KINO', shape: 'frame', ink: 'green', rotate: 7, x: 286, y: 186 },
+  { word: 'TEATR', shape: 'half', ink: 'blue', rotate: -2, x: 214, y: 236 },
+] as const;
+---
+<section class="ds-stage-hero" aria-labelledby="hero-title">
+  <div class="ds-container ds-stage-hero__grid">
+    <div class="ds-stage-hero__copy">
+      <div data-hero-item><Eyebrow text={label} /></div>
+      <h1 class="ds-stage-hero__title" id="hero-title" data-hero-item>
+        {before}<span class="ds-stage-hero__accent">{accent}<svg class="ds-stage-hero__scribble" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true" focusable="false"><path d="M4 16 C60 6 120 20 180 10 S270 8 296 14" pathLength="1000" data-draw data-hero-scribble /></svg></span>{after}
+      </h1>
+      <p class="ds-stage-hero__lead" data-hero-item>{lead}</p>
+      <div class="ds-stage-hero__actions" data-hero-item>
+        <InkButton text={primary.text} href={primary.href} arrow />
+        <InkButton text={secondary.text} href={secondary.href} variant="ghost" />
+      </div>
+      <div class="ds-stage-hero__next" data-hero-item>
+        <p class="ds-stage-hero__next-label">Najbliżej</p>
+        <p class="ds-stage-hero__next-text"><span class="ds-stage-hero__next-when">{next.when}</span> <a href={next.href}>{next.title}</a></p>
+        <p class="ds-stage-hero__hours"><span class="ds-stage-hero__open-dot" aria-hidden="true"></span>{hours}</p>
+      </div>
+    </div>
+    <div class="ds-stage-hero__art" data-hero-art data-stage>
+      <svg class="ds-stage-hero__stage" viewBox="0 0 560 520" aria-hidden="true" focusable="false">
+        <defs>
+          <clipPath id="stage-opening"><path d="M46 500V140q0-74 74-74h320q74 0 74 74v360Z" /></clipPath>
+        </defs>
+        <rect class="ds-stage-hero__back" x="46" y="66" width="468" height="434" clip-path="url(#stage-opening)" />
+        <g clip-path="url(#stage-opening)">
+          <path class="ds-stage-hero__beam" d="M262 66h36l140 434H122Z" data-beam />
+          <ellipse class="ds-stage-hero__pool" cx="280" cy="478" rx="150" ry="24" data-pool />
+          <path class="ds-stage-hero__floor" d="M46 456h468" />
+          {posters.map((poster) => (
+            <g class="ds-stage-hero__poster" transform={`translate(${poster.x} ${poster.y}) rotate(${poster.rotate} 60 85)`} data-poster>
+              <g data-poster-inner>
+                <rect class="ds-stage-hero__poster-sheet" width="120" height="170" rx="3" />
+                <g transform="translate(16 18) scale(0.88)">
+                  {poster.shape === 'circle' && <><circle class={`ds-stage-hero__ink--${poster.ink}`} cx="50" cy="50" r="40" /><circle class="ds-stage-hero__ink--green" cx="64" cy="54" r="22" /></>}
+                  {poster.shape === 'frame' && <><rect class={`ds-stage-hero__ink--${poster.ink}`} x="10" y="18" width="80" height="62" /><rect class="ds-stage-hero__ink--blue" x="30" y="32" width="40" height="34" /></>}
+                  {poster.shape === 'half' && <><path class={`ds-stage-hero__ink--${poster.ink}`} d="M8 76a42 42 0 0 1 84 0Z" /><path class="ds-stage-hero__ink--green" d="M30 30h40v46H30Z" /></>}
+                </g>
+                <text class="ds-stage-hero__poster-word" x="60" y="140" text-anchor="middle">{poster.word}</text>
+                <path class="ds-stage-hero__poster-line" d="M24 152h72" />
+              </g>
+            </g>
+          ))}
+          <g class="ds-stage-hero__drapes" data-drapes>
+            <path class="ds-stage-hero__drape" d="M46 66h236v434c-20-8-40 6-59-2s-40 4-59-2-39 6-59-2-40 6-59 2Z" data-drape="left" />
+            <path class="ds-stage-hero__drape" d="M278 66h236v434c-20 4-40-6-59 2s-39-6-59 2-40-4-59 2-39-6-59 2Z" data-drape="right" />
+          </g>
+        </g>
+        <path class="ds-stage-hero__gather" d="M46 66h70c-20 90 10 170-12 250s30 120 8 184H46Z" />
+        <path class="ds-stage-hero__gather" d="M514 66h-70c20 90-10 170 12 250s-30 120-8 184h58Z" />
+        <path class="ds-stage-hero__fold" d="M70 80c-6 90 12 180-4 280M92 80c-10 100 8 200-6 300M490 80c6 90-12 180 4 280M468 80c10 100-8 200 6 300" />
+        <path class="ds-stage-hero__valance" d="M40 60h480v34c-30 18-50-8-80 6s-50-10-80 4-50-10-80 4-50-10-80 4-50-10-80 4-50-12-80-6Z" />
+        <path class="ds-stage-hero__arch" d="M46 500V140q0-74 74-74h320q74 0 74 74v360" pathLength="1000" data-draw data-arch />
+        <path class="ds-stage-hero__arch" d="M24 500h512" pathLength="1000" data-draw data-arch />
+      </svg>
+      <CutShape shape="star" ink="blue" class="ds-stage-hero__float ds-stage-hero__float--star" />
+      <CutShape shape="circle" ink="green" class="ds-stage-hero__float ds-stage-hero__float--circle" />
+      <CutShape shape="zigzag" ink="green" class="ds-stage-hero__float ds-stage-hero__float--zigzag" />
+      <CutShape shape="arch" ink="blue" class="ds-stage-hero__float ds-stage-hero__float--arch" />
+    </div>
+  </div>
+</section>

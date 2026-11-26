@@ -1,0 +1,41 @@
+---
+// Event card: a small riso poster (category ink, cut-paper shape, date stamp) over the facts: day and time, place,
+// price, access notes and a ticket link. The ticket link goes to the external ticketing service (demo: a note).
+import CutShape from '../../atoms/cut-shape/CutShape.astro';
+import { categoryOf, weekday, dayMonth, dayNumber, monthShort } from '../../../data/content.js';
+interface Props {
+  event: { id: string; date: string; time: string; category: string; title: string; place: string; price: string; ticket: boolean; text: string; access: string[] };
+  ticketHref: string;
+  detailHref?: string;
+  headingLevel?: 'h2' | 'h3' | 'h4';
+}
+const { event, ticketHref, detailHref, headingLevel = 'h3' } = Astro.props;
+const category = categoryOf(event.category);
+const Heading = headingLevel;
+const free = event.price === 'Wstęp wolny';
+---
+<article class="ds-event-card" id={detailHref ? undefined : event.id} data-event-card data-category={event.category} data-month={event.date.slice(0, 7)} data-free={String(free)}>
+  <div class:list={['ds-event-card__poster', `ds-event-card__poster--${category.ink}`]}>
+    <p class="ds-event-card__stamp"><span class="ds-event-card__day">{dayNumber(event.date)}</span><span class="ds-event-card__month">{monthShort(event.date)}</span></p>
+    <CutShape shape={category.shape} ink={category.ink} class="ds-event-card__shape" />
+    <p class="ds-event-card__category">{category.single}</p>
+  </div>
+  <div class="ds-event-card__body">
+    <Heading class="ds-event-card__title">
+      {detailHref ? <a class="ds-event-card__link" href={detailHref}>{event.title}</a> : event.title}
+    </Heading>
+    <p class="ds-event-card__when"><time datetime={`${event.date}T${event.time}`}>{weekday(event.date)}, {dayMonth(event.date)}, godz. {event.time}</time><span aria-hidden="true"> · </span><span class="ds-event-card__place">{event.place}</span></p>
+    <p class="ds-event-card__text">{event.text}</p>
+    {event.access.length > 0 && (
+      <ul class="ds-event-card__access" role="list" aria-label="Udogodnienia">
+        {event.access.map((item) => <li>{item}</li>)}
+      </ul>
+    )}
+    <div class="ds-event-card__foot">
+      <p class="ds-event-card__price">{event.price}</p>
+      {event.ticket
+        ? <a class="ds-event-card__ticket" href={ticketHref} data-ticket={event.title}>Kup bilet<span class="ds-visually-hidden">: {event.title}</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" /></svg></a>
+        : <span class="ds-event-card__no-ticket">{free ? 'bez biletów' : 'zapisy w sekretariacie'}</span>}
+    </div>
+  </div>
+</article>

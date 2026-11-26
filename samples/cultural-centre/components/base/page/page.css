@@ -1,0 +1,347 @@
+/* Page base for the cultural centre: the sample's colour roles (so high contrast can swap them in one place), the two
+   larger text sizes, smooth anchor scrolling, room for the sticky header, the container, the section rhythm, the shared
+   section heading and the start state of every entrance animation. */
+:root {
+  /* Colour roles: components use these, never the palette straight away. */
+  --ds-paper: var(--palette-neutral-50);
+  --ds-card: var(--palette-neutral-0);
+  --ds-ink: var(--palette-secondary-800);
+  --ds-ink-soft: var(--palette-neutral-600);
+  --ds-line: var(--palette-neutral-100);
+  --ds-line-strong: var(--palette-neutral-400);
+  --ds-green: var(--palette-primary-600);
+  --ds-green-deep: var(--palette-primary-800);
+  --ds-green-tint: var(--palette-primary-50);
+  --ds-blue: var(--palette-accent-500);
+  --ds-blue-tint: var(--palette-secondary-100);
+  --ds-on-fill: var(--palette-neutral-0);
+  --ds-night: var(--palette-secondary-800);
+  --ds-on-night: var(--palette-neutral-0);
+  --ds-on-night-soft: var(--palette-secondary-100);
+  --ds-night-accent: var(--palette-accent-400);
+  /* Riso inks for drawings and cut-paper shapes (decoration only, never under text). */
+  --ds-riso-green: var(--palette-primary-400);
+  --ds-riso-blue: var(--palette-accent-400);
+  --ds-riso-cream: var(--palette-neutral-100);
+  /* Readable by default: body text one step up from the design system's 16. */
+  --font-size-body: var(--size-18);
+  --font-size-small: var(--size-16);
+  --ds-text-line: 1.6;
+}
+
+/* Text size control (A+ / A++), set on <html> by the access bar. */
+:root[data-text-size="1"] {
+  --font-size-small: var(--size-18);
+  --font-size-body: var(--size-20);
+  --font-size-lg: var(--size-24);
+  --font-size-button: var(--size-20);
+}
+
+:root[data-text-size="2"] {
+  --font-size-small: var(--size-20);
+  --font-size-body: var(--size-24);
+  --font-size-lg: var(--font-size-2xl);
+  --font-size-button: var(--size-24);
+  --font-size-xl: var(--font-size-2xl);
+}
+
+/* High contrast: white on black, light-blue links, every line white. Decoration keeps its inks. */
+:root[data-contrast="high"] {
+  --ds-paper: var(--palette-neutral-1000);
+  --ds-card: var(--palette-neutral-1000);
+  --ds-ink: var(--palette-neutral-0);
+  --ds-ink-soft: var(--palette-neutral-0);
+  --ds-line: var(--palette-neutral-0);
+  --ds-line-strong: var(--palette-neutral-0);
+  --ds-green: var(--palette-neutral-0);
+  --ds-green-deep: var(--palette-neutral-0);
+  --ds-green-tint: var(--palette-neutral-1000);
+  --ds-blue: var(--palette-accent-400);
+  --ds-blue-tint: var(--palette-neutral-1000);
+  --ds-on-fill: var(--palette-neutral-1000);
+  --ds-night: var(--palette-neutral-1000);
+  --ds-on-night: var(--palette-neutral-0);
+  --ds-on-night-soft: var(--palette-neutral-0);
+  --ds-night-accent: var(--palette-accent-400);
+  --color-text-default: var(--palette-neutral-0);
+  --color-text-muted: var(--palette-neutral-0);
+  --color-surface-page: var(--palette-neutral-1000);
+  --color-surface-card: var(--palette-neutral-1000);
+  --color-surface-soft: var(--palette-secondary-700);
+  --color-surface-control: var(--palette-neutral-1000);
+  --color-border-default: var(--palette-neutral-0);
+  --color-border-strong: var(--palette-neutral-0);
+  --color-brand-primary: var(--palette-accent-400);
+  --color-focus-ring: var(--palette-accent-400);
+  --color-state-error: var(--palette-danger-400);
+  color-scheme: dark;
+}
+
+:root[data-contrast="high"] a {
+  text-decoration-line: underline;
+}
+
+html {
+  scroll-padding-top: calc(var(--size-header-height) + var(--space-16));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background: var(--ds-paper);
+  color: var(--ds-ink);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: var(--ds-text-line);
+}
+
+h1,
+h2,
+h3 {
+  font-weight: var(--font-weight-bold);
+}
+
+a {
+  color: var(--ds-blue);
+  text-underline-offset: var(--space-4);
+}
+
+.ds-container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: calc(var(--layout-container) + var(--space-gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
+}
+
+.ds-section {
+  padding-block: var(--space-section-y);
+}
+
+/* A green-tinted band and a dark "night" band that alternate with the paper. */
+.ds-section--tint {
+  background: var(--ds-green-tint);
+}
+
+.ds-section--night {
+  background: var(--ds-night);
+  color: var(--ds-on-night);
+}
+
+.ds-section-head {
+  display: grid;
+  gap: var(--space-16);
+  max-width: calc(var(--layout-container) * 0.6);
+  margin-bottom: var(--space-48);
+}
+
+.ds-section-head__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+.ds-section-head__lead {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  line-height: 1.55;
+  color: var(--ds-ink-soft);
+}
+
+.ds-section--night .ds-section-head__lead {
+  color: var(--ds-on-night-soft);
+}
+
+/* A heading row with a "see all" link on the right. */
+.ds-section-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-24);
+  margin-bottom: var(--space-48);
+}
+
+.ds-section-row .ds-section-head {
+  margin-bottom: 0;
+}
+
+/* A dashed note: placeholders and demo remarks. */
+.ds-note {
+  display: flex;
+  gap: var(--space-12);
+  align-items: flex-start;
+  margin: var(--space-32) 0 0;
+  padding: var(--space-16) var(--space-20);
+  border: 2px dashed var(--ds-line-strong);
+  border-radius: var(--radius-md);
+  background: var(--ds-card);
+  color: var(--ds-ink-soft);
+  font-size: var(--font-size-small);
+  line-height: 1.5;
+}
+
+.ds-note svg {
+  flex-shrink: 0;
+  width: var(--size-20);
+  height: var(--size-20);
+  margin-top: var(--space-2);
+  color: var(--ds-blue);
+}
+
+.ds-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Skip link: the first stop for keyboard users. */
+.ds-skip-link {
+  position: absolute;
+  top: var(--space-8);
+  left: var(--space-8);
+  z-index: 60;
+  padding: var(--space-12) var(--space-20);
+  border-radius: var(--radius-md);
+  background: var(--ds-ink);
+  color: var(--ds-paper);
+  font-weight: var(--font-weight-bold);
+  transform: translateY(-200%);
+}
+
+.ds-skip-link:focus {
+  transform: none;
+}
+
+/* Entrance targets start hidden from the first paint while the script is coming (html[data-motion], set in the head
+   only without a reduced-motion preference); the script animates them in. */
+[data-motion] [data-reveal],
+[data-motion] [data-hero-item],
+[data-motion] [data-hero-art] {
+  opacity: 0;
+}
+
+/* Lines that draw themselves start undrawn (pathLength="1000" on each). */
+[data-motion] [data-draw] {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+/* Anything marked hidden stays hidden, whatever display a component sets. */
+[hidden] {
+  display: none !important;
+}
+
+/* Card grids used by several sections: four, three or two across, fewer on smaller screens. */
+.ds-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-28);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-card-grid--4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.ds-card-grid--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 1179px) {
+  .ds-card-grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 899px) {
+  .ds-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 639px) {
+  .ds-card-grid,
+  .ds-card-grid--4,
+  .ds-card-grid--2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* A text link with an arrow ("see all"). */
+.ds-arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: var(--size-44);
+  color: var(--ds-ink);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  text-decoration: underline;
+  text-decoration-color: var(--ds-riso-green);
+  text-decoration-thickness: var(--space-4);
+  text-underline-offset: var(--space-6);
+}
+
+.ds-arrow-link svg {
+  width: var(--size-20);
+  height: var(--size-20);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ds-arrow-link:hover svg {
+  transform: translateX(var(--space-4));
+}
+
+.ds-arrow-link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* A two-column split: text beside cards (rooms teaser, audience sections). */
+.ds-split {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: var(--space-48);
+  align-items: start;
+}
+
+.ds-split .ds-section-head {
+  margin-bottom: var(--space-24);
+}
+
+.ds-stack {
+  display: grid;
+  gap: var(--space-16);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (max-width: 959px) {
+  .ds-split {
+    grid-template-columns: 1fr;
+  }
+}
+
+main:focus {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-arrow-link svg {
+    transition: none;
+  }
+}

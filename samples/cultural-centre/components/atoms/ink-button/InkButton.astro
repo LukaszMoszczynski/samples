@@ -1,0 +1,13 @@
+---
+// Ink button: a printed block with a hard offset shadow in the second ink. On hover it presses into its shadow and a
+// shine passes over it. A link when it has href, otherwise a button. Extra attributes (data-*, aria-*) pass through.
+interface Props { text: string; href?: string; type?: 'button' | 'submit'; variant?: 'solid' | 'blue' | 'ghost' | 'light'; arrow?: boolean; external?: boolean; [key: string]: unknown }
+const { text, href, type = 'button', variant = 'solid', arrow = false, external = false, ...rest } = Astro.props;
+const Tag = href ? 'a' : 'button';
+const tagProps = href ? { href, ...(external ? { target: '_blank', rel: 'noopener' } : {}) } : { type };
+---
+<Tag class:list={['ds-ink-button', `ds-ink-button--${variant}`]} {...tagProps} {...rest}>
+  <span class="ds-ink-button__text">{text}</span>
+  {arrow && <svg class="ds-ink-button__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>}
+  {external && <span class="ds-visually-hidden"> (otwiera się w nowej karcie)</span>}
+</Tag>

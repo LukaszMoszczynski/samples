@@ -1,0 +1,44 @@
+---
+// Page hero for the inner pages: breadcrumbs, label, title, lead, optional quick links (jump links, never a switch
+// that hides content) and a small pile of cut-paper shapes that slide in like posters being pinned up.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import CutShape from '../../atoms/cut-shape/CutShape.astro';
+type Shape = 'circle' | 'half' | 'arch' | 'star' | 'zigzag' | 'frame';
+interface Props {
+  home: string;
+  current: string;
+  label: string;
+  title: string;
+  lead: string;
+  links?: { text: string; href: string }[];
+  shapes?: { shape: Shape; ink: 'green' | 'blue' }[];
+}
+const { home, current, label, title, lead, links = [], shapes = [{ shape: 'circle', ink: 'blue' }, { shape: 'star', ink: 'green' }, { shape: 'half', ink: 'blue' }] } = Astro.props;
+---
+<section class="ds-page-hero" aria-labelledby="page-title">
+  <div class="ds-container ds-page-hero__grid">
+    <div class="ds-page-hero__copy">
+      <nav class="ds-page-hero__crumbs" aria-label="Okruszki" data-hero-item>
+        <ol role="list">
+          <li><a href={home}>Strona główna</a></li>
+          <li aria-current="page">{current}</li>
+        </ol>
+      </nav>
+      <div data-hero-item><Eyebrow text={label} tone="blue" /></div>
+      <h1 class="ds-page-hero__title" id="page-title" data-hero-item>{title}</h1>
+      <p class="ds-page-hero__lead" data-hero-item>{lead}</p>
+      {links.length > 0 && (
+        <ul class="ds-page-hero__links" role="list" data-hero-item>
+          {links.map((link) => <li><a href={link.href}>{link.text}</a></li>)}
+        </ul>
+      )}
+    </div>
+    <div class="ds-page-hero__pile" aria-hidden="true">
+      {shapes.map((item, index) => (
+        <div class:list={['ds-page-hero__sheet', `ds-page-hero__sheet--${index + 1}`]} data-hero-art data-pile-sheet>
+          <CutShape shape={item.shape} ink={item.ink} class="ds-page-hero__shape" />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,124 @@
+/* Site footer: dark ink band under a garland of paper flags (they swing in on enter), four columns, notes. */
+.ds-site-footer {
+  position: relative;
+  padding-block: var(--space-64) var(--space-40);
+  background: var(--ds-night);
+  color: var(--ds-on-night);
+}
+
+.ds-site-footer__garland {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--space-56);
+}
+
+.ds-site-footer__string {
+  fill: none;
+  stroke: var(--ds-on-night-soft);
+  stroke-width: 2;
+}
+
+.ds-site-footer__flag {
+  transform-box: fill-box;
+  transform-origin: top center;
+}
+
+.ds-site-footer__flag--green {
+  fill: var(--ds-riso-green);
+}
+
+.ds-site-footer__flag--blue {
+  fill: var(--ds-riso-blue);
+}
+
+.ds-site-footer__grid {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(3, 1fr);
+  gap: var(--space-40);
+  padding-top: var(--space-40);
+}
+
+.ds-site-footer__about {
+  display: grid;
+  align-content: start;
+  gap: var(--space-16);
+}
+
+.ds-site-footer__about p {
+  margin: 0;
+  color: var(--ds-on-night-soft);
+  line-height: 1.55;
+}
+
+.ds-site-footer__contact {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-site-footer__title {
+  margin: 0 0 var(--space-12);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-site-footer__column ul {
+  display: grid;
+  gap: var(--space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-site-footer__column a {
+  color: var(--ds-on-night);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--ds-on-night) 35%, transparent);
+  text-underline-offset: var(--space-4);
+  transition: text-decoration-color 0.2s ease;
+}
+
+.ds-site-footer__column a:hover {
+  text-decoration-color: var(--ds-night-accent);
+  text-decoration-thickness: 2px;
+}
+
+.ds-site-footer a:focus-visible {
+  outline: var(--focus-ring-width) solid var(--ds-night-accent);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-site-footer__notes {
+  display: grid;
+  gap: var(--space-6);
+  margin-top: var(--space-48);
+  padding-top: var(--space-24);
+  border-top: 1px solid color-mix(in srgb, var(--ds-on-night) 25%, transparent);
+  color: var(--ds-on-night-soft);
+  font-size: var(--font-size-small);
+}
+
+.ds-site-footer__notes p {
+  margin: 0;
+}
+
+@media (max-width: 1023px) {
+  .ds-site-footer__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ds-site-footer__about {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 559px) {
+  .ds-site-footer__grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,49 @@
+---
+// Rooms for hire: five rooms with size, capacity, equipment, what each suits and the price from, then the inquiry
+// form (the room preselected from the card, date required, future days only). Example content written for the brief.
+import CentrePage from '../layouts/CentrePage.astro';
+import '../components/molecules/room-card/room-card.css';
+import '../components/sections/page-hero/page-hero.css';
+import '../components/sections/enrol-form/enrol-form.css';
+import '../components/sections/hire-form/hire-form.css';
+
+import PageHero from '../components/sections/page-hero/PageHero.astro';
+import RoomCard from '../components/molecules/room-card/RoomCard.astro';
+import HireForm from '../components/sections/hire-form/HireForm.astro';
+import { centre, rooms } from '../data/content.js';
+
+const base = `${import.meta.env.BASE_URL}cultural-centre/`;
+---
+<CentrePage current="wynajem" title="Wynajem sal" description="Wynajem sal w domu kultury: sala widowiskowa, kameralna, taneczna, pracownia plastyczna i foyer, z ceną od godziny i zapytaniem o termin.">
+  <PageHero
+    home={base}
+    current="Wynajem sal"
+    label="Wynajem sal"
+    title="Sale na koncert, szkolenie, próbę albo urodziny"
+    lead="Pięć sal w jednym budynku, z obsługą techniczną i szatnią. Wybierz salę i wyślij zapytanie: w dwa dni robocze odpiszemy z wolnymi terminami i wyceną."
+    links={[{ text: 'Sale', href: '#sale' }, { text: 'Zapytanie o termin', href: '#zapytanie' }]}
+    shapes={[{ shape: 'half', ink: 'green' }, { shape: 'circle', ink: 'blue' }, { shape: 'arch', ink: 'green' }]}
+  />
+  <section class="ds-section" id="sale" aria-labelledby="rooms-title">
+    <div class="ds-container">
+      <h2 class="ds-visually-hidden" id="rooms-title">Sale do wynajęcia</h2>
+      <ul class="ds-card-grid ds-card-grid--2" role="list">
+        {rooms.map((room) => <li data-reveal><RoomCard room={room} askHref="#zapytanie" /></li>)}
+      </ul>
+    </div>
+  </section>
+  <HireForm
+    id="zapytanie"
+    title="Zapytaj o wolny termin"
+    lead="Podaj salę, dzień i godziny. To jeszcze nie rezerwacja: termin potwierdzamy mailem, razem z wyceną i umową."
+    rooms={rooms.map((room) => ({ id: room.id, name: `${room.name} (${room.capacity})` }))}
+    included={[
+      'sprzątanie przed i po wydarzeniu',
+      'szatnia i toalety, także dla osób z niepełnosprawnościami',
+      'podstawowe nagłośnienie i rzutnik',
+      'technik na scenie w sali widowiskowej',
+      'krzesła i stoły w wybranym układzie',
+    ]}
+    email={centre.email}
+  />
+</CentrePage>
