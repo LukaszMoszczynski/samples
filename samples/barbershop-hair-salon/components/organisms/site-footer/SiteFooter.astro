@@ -1,0 +1,37 @@
+---
+// Site footer: brand line, quick links, contact, a demo note.
+import PoleStripe from '../../atoms/pole-stripe/PoleStripe.astro';
+interface Props {
+  brand: string;
+  about: string;
+  links: { text: string; href: string }[];
+  contact: string[];
+  note: string;
+}
+const { brand, about, links, contact, note } = Astro.props;
+---
+<footer class="ds-site-footer">
+  <PoleStripe />
+  <div class="ds-container ds-site-footer__grid">
+    <div class="ds-site-footer__brand">
+      <p class="ds-site-footer__name">{brand}</p>
+      <p class="ds-site-footer__about">{about}</p>
+    </div>
+    <nav class="ds-site-footer__nav" aria-label="Na skróty">
+      <h2 class="ds-site-footer__title">Na skróty</h2>
+      <ul role="list">
+        {links.map((link) => <li><a href={link.href}>{link.text}</a></li>)}
+      </ul>
+    </nav>
+    <div>
+      <h2 class="ds-site-footer__title">Kontakt</h2>
+      <ul role="list">
+        {contact.map((line) => <li>{line}</li>)}
+      </ul>
+    </div>
+  </div>
+  <div class="ds-container ds-site-footer__bottom">
+    <p>© 2026 {brand}</p>
+    <p>{note}</p>
+  </div>
+</footer>

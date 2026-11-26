@@ -1,0 +1,40 @@
+---
+// Site header: the pole mark and wordmark, menu, booking button; below 1024 px a burger opens a full-screen overlay
+// (barber.js). The overlay sits after the header, because a blurred header would trap a fixed child.
+import BarberButton from '../../atoms/barber-button/BarberButton.astro';
+interface Props { brand: string; items: { text: string; href: string }[]; cta: { text: string; href: string } }
+const { brand, items, cta } = Astro.props;
+const [firstWord, ...rest] = brand.split(' ');
+---
+<header class="ds-site-header" data-site-header>
+  <div class="ds-container ds-site-header__bar">
+    <a class="ds-site-header__logo" href="#top" aria-label={`${brand}, na górę strony`}>
+      <svg class="ds-site-header__mark" viewBox="0 0 24 40" aria-hidden="true">
+        <rect class="ds-site-header__mark-cap" x="4" y="0" width="16" height="5" rx="2" />
+        <rect class="ds-site-header__mark-glass" x="6" y="6" width="12" height="28" rx="2" />
+        <path class="ds-site-header__mark-stripe" d="M6 14l12-6v5L6 19zM6 24l12-6v5L6 29z" />
+        <rect class="ds-site-header__mark-cap" x="4" y="35" width="16" height="5" rx="2" />
+      </svg>
+      <span class="ds-site-header__wordmark">{firstWord} <strong>{rest.join(' ')}</strong></span>
+    </a>
+    <nav class="ds-site-header__nav" aria-label="Menu główne">
+      <ul class="ds-site-header__menu" role="list">
+        {items.map((item) => <li><a class="ds-site-header__link" href={item.href}>{item.text}</a></li>)}
+      </ul>
+    </nav>
+    <BarberButton text={cta.text} href={cta.href} />
+    <button class="ds-site-header__burger" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="Menu" data-site-burger>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path class="ds-burger__line ds-burger__line--top" d="M4 8h16"/><path class="ds-burger__line ds-burger__line--middle" d="M4 12h16"/><path class="ds-burger__line ds-burger__line--bottom" d="M4 16h16"/></svg>
+    </button>
+  </div>
+</header>
+<div class="ds-site-header__drawer" id="site-drawer" hidden>
+  <div class="ds-container">
+    <ul class="ds-site-header__drawer-menu" role="list">
+      {items.map((item, index) => (
+        <li><a class="ds-site-header__drawer-link" href={item.href}><span class="ds-site-header__drawer-index">{String(index + 1).padStart(2, '0')}</span>{item.text}</a></li>
+      ))}
+    </ul>
+    <div class="ds-site-header__drawer-cta"><BarberButton text={cta.text} href={cta.href} /></div>
+  </div>
+</div>

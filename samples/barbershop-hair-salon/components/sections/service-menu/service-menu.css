@@ -1,0 +1,144 @@
+/* Price board on bone: four groups in two columns, rows with a dotted leader feel, a copper rule under each row. */
+.ds-service-menu__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-24);
+  margin-bottom: var(--space-48);
+}
+
+.ds-service-menu__head .ds-section-head {
+  margin-bottom: 0;
+}
+
+.ds-service-menu__groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-56) var(--space-64);
+}
+
+.ds-service-menu__group-head {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: var(--space-4) var(--space-16);
+  padding-bottom: var(--space-16);
+  border-bottom: var(--space-3) solid var(--palette-secondary-900);
+}
+
+.ds-service-menu__group-index {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  color: var(--palette-primary-600);
+}
+
+.ds-service-menu__group-title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.ds-service-menu__group-note {
+  grid-column: 2;
+  margin: 0;
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+}
+
+.ds-service-menu__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-service-menu__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: var(--space-24);
+  padding-block: var(--space-20);
+  border-bottom: 1px solid var(--palette-neutral-100);
+}
+
+.ds-service-menu__name {
+  margin: 0 0 var(--space-4);
+  font-size: var(--font-size-lg);
+  line-height: 1.3;
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-service-menu__text {
+  margin: 0;
+  font-size: var(--font-size-body);
+  line-height: 1.5;
+  color: var(--color-text-muted);
+}
+
+.ds-service-menu__meta {
+  display: grid;
+  justify-items: end;
+  gap: var(--space-4);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.ds-service-menu__time {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+}
+
+.ds-service-menu__price {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: 800;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--palette-primary-600);
+}
+
+.ds-service-menu__price small {
+  font-family: var(--font-body);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+}
+
+/* The copper rule that draws under a row: on enter (script) and again on hover. */
+.ds-service-menu__rule {
+  position: absolute;
+  inset: auto 0 -1px;
+  height: 2px;
+  background: var(--palette-primary-600);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.ds-service-menu__row:hover .ds-service-menu__rule {
+  transform: scaleX(1);
+}
+
+.ds-service-menu__note {
+  margin: var(--space-40) 0 0;
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+}
+
+@media (max-width: 899px) {
+  .ds-service-menu__groups {
+    grid-template-columns: 1fr;
+    gap: var(--space-48);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-service-menu__rule {
+    transition: none;
+  }
+}

@@ -1,0 +1,173 @@
+/* Hero: near-black with a faint warm glow, huge condensed headline, the mirror and pole on the right. */
+.ds-hero {
+  position: relative;
+  overflow-x: clip;
+  padding-block: var(--space-64) calc(var(--space-64) * 1.5);
+  background:
+    radial-gradient(circle at 78% 30%, color-mix(in srgb, var(--palette-primary-600) 30%, transparent), transparent 46%),
+    var(--palette-secondary-900);
+  color: var(--palette-neutral-50);
+}
+
+.ds-hero__grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  align-items: center;
+  gap: var(--space-48);
+}
+
+.ds-hero__copy {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-24);
+}
+
+.ds-hero .ds-eyebrow {
+  color: var(--palette-accent-400);
+}
+
+.ds-hero__title {
+  display: grid;
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: calc(var(--font-size-4xl) * 1.75);
+  line-height: 0.9;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.ds-hero__line {
+  display: block;
+}
+
+.ds-hero__line--accent {
+  color: var(--palette-accent-400);
+}
+
+.ds-hero__lead {
+  max-width: calc(var(--layout-container) * 0.42);
+  margin: 0;
+  font-size: var(--font-size-lg);
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--palette-neutral-50) 82%, transparent);
+}
+
+.ds-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-12);
+}
+
+.ds-hero__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-12) var(--space-32);
+  margin: var(--space-8) 0 0;
+  padding-top: var(--space-20);
+  border-top: 1px solid color-mix(in srgb, var(--palette-neutral-50) 18%, transparent);
+}
+
+.ds-hero__fact {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.ds-hero__fact dt {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  letter-spacing: calc(var(--font-size-small) * 0.12);
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--palette-neutral-50) 72%, transparent);
+}
+
+.ds-hero__fact dd {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.ds-hero__art {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-24);
+}
+
+.ds-hero__mirror {
+  width: 78%;
+  height: auto;
+  overflow: visible;
+}
+
+.ds-hero__mirror-glass {
+  fill: color-mix(in srgb, var(--palette-neutral-50) 5%, transparent);
+}
+
+.ds-hero__mirror-frame {
+  fill: none;
+  stroke: var(--palette-accent-400);
+  stroke-width: 3;
+}
+
+.ds-hero__mirror-frame--inner {
+  stroke: color-mix(in srgb, var(--palette-accent-400) 45%, transparent);
+  stroke-width: 1.5;
+}
+
+.ds-hero__tools path {
+  fill: none;
+  stroke: var(--palette-neutral-50);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ds-hero__tools .ds-hero__razor {
+  stroke: var(--palette-primary-400);
+}
+
+.ds-hero__tools .ds-hero__razor--edge {
+  stroke: var(--palette-accent-400);
+  stroke-width: 2;
+}
+
+.ds-hero__pole {
+  flex-shrink: 0;
+  width: 14%;
+  height: auto;
+}
+
+.ds-hero__pole-cap {
+  fill: var(--palette-accent-400);
+}
+
+.ds-hero__pole-glass {
+  fill: var(--palette-neutral-50);
+}
+
+.ds-hero__pole-band {
+  fill: var(--palette-primary-600);
+}
+
+.ds-hero__pole-band--dark {
+  fill: var(--palette-secondary-900);
+}
+
+.ds-hero__pole-shine {
+  fill: color-mix(in srgb, var(--palette-neutral-0) 55%, transparent);
+}
+
+@media (max-width: 899px) {
+  .ds-hero__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ds-hero__art {
+    width: 100%;
+    max-width: calc(var(--size-160) * 2.4);
+    margin-inline: auto;
+  }
+}

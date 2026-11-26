@@ -1,0 +1,142 @@
+/* Voucher teaser on bone: copy on the left, a near-black voucher card with a pole-stripe edge on the right. */
+.ds-voucher {
+  overflow-x: clip;
+}
+
+.ds-voucher__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: var(--space-64);
+}
+
+.ds-voucher__copy {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-20);
+}
+
+.ds-voucher__lead {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  line-height: 1.55;
+  color: var(--color-text-muted);
+}
+
+.ds-voucher__points {
+  display: grid;
+  gap: var(--space-8);
+  margin: 0 0 var(--space-8);
+  padding: 0;
+  list-style: none;
+}
+
+.ds-voucher__points li {
+  position: relative;
+  padding-left: var(--space-28);
+}
+
+.ds-voucher__points li::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--line-height-body) / 2 - var(--space-4));
+  left: 0;
+  width: var(--space-16);
+  height: var(--space-8);
+  border-radius: var(--radius-xs);
+  background: repeating-linear-gradient(-45deg, var(--palette-primary-600) 0 var(--space-3), var(--palette-neutral-50) var(--space-3) var(--space-6));
+}
+
+.ds-voucher__stage {
+  display: grid;
+  place-items: center;
+  perspective: calc(var(--size-160) * 6);
+}
+
+.ds-voucher__card {
+  position: relative;
+  display: grid;
+  align-content: space-between;
+  gap: var(--space-12);
+  box-sizing: border-box;
+  width: 92%;
+  max-width: calc(var(--size-160) * 3);
+  aspect-ratio: 1.6;
+  padding: var(--space-28) var(--space-32) var(--space-28) var(--space-48);
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  background:
+    radial-gradient(circle at 85% 10%, color-mix(in srgb, var(--palette-primary-600) 45%, transparent), transparent 50%),
+    var(--palette-secondary-900);
+  color: var(--palette-neutral-50);
+  box-shadow: 0 var(--space-32) var(--space-64) color-mix(in srgb, var(--palette-secondary-900) 30%, transparent);
+  transform: rotate(-3deg);
+  transition: transform 0.5s ease;
+}
+
+.ds-voucher__stage:hover .ds-voucher__card {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.ds-voucher__edge {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--space-20);
+  background: repeating-linear-gradient(-45deg, var(--palette-primary-600) 0 var(--space-8), var(--palette-neutral-50) var(--space-8) var(--space-16), var(--palette-secondary-900) var(--space-16) var(--space-24));
+}
+
+.ds-voucher__kind {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  letter-spacing: calc(var(--font-size-small) * 0.16);
+  text-transform: uppercase;
+  color: var(--palette-accent-400);
+}
+
+.ds-voucher__brand {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.ds-voucher__amount {
+  font-family: var(--font-heading);
+  font-size: calc(var(--font-size-4xl) * 1.4);
+  font-weight: 900;
+  line-height: 0.9;
+  color: var(--palette-accent-400);
+}
+
+.ds-voucher__code {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  color: color-mix(in srgb, var(--palette-neutral-50) 72%, transparent);
+}
+
+.ds-voucher__shine {
+  position: absolute;
+  inset: -50% auto -50% -40%;
+  width: 30%;
+  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--palette-neutral-0) 18%, transparent), transparent);
+  transform: rotate(20deg);
+  transition: left 0.9s ease;
+}
+
+.ds-voucher__stage:hover .ds-voucher__shine {
+  left: 130%;
+}
+
+@media (max-width: 899px) {
+  .ds-voucher__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-48);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-voucher__card,
+  .ds-voucher__shine {
+    transition: none;
+  }
+}

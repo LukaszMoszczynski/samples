@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="236" height="44" viewBox="0 0 236 44" role="img" aria-label="Twój Barber">
+  <rect x="2" y="2" width="20" height="6" rx="2" fill="#80561c"/>
+  <rect x="5" y="9" width="14" height="26" rx="2" fill="#e5ded2"/>
+  <path d="M5 17l14-7v6L5 23zM5 28l14-7v6L5 34z" fill="#8c4524"/>
+  <rect x="2" y="36" width="20" height="6" rx="2" fill="#80561c"/>
+  <text x="34" y="33" font-family="'Big Shoulders Display', Impact, 'Arial Narrow', sans-serif" font-size="30" font-weight="800" letter-spacing="1" fill="#191714">TWÓJ <tspan fill="#8c4524" font-weight="900">BARBER</tspan></text>
+</svg>

@@ -1,0 +1,53 @@
+/* Drawn portrait: a disc in the person's tone, near-black hair and shoulders, a bone head, brass outline. */
+.ds-portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.ds-portrait__disc {
+  fill: var(--palette-primary-600);
+}
+
+.ds-portrait--brass .ds-portrait__disc {
+  fill: var(--palette-accent-500);
+}
+
+.ds-portrait--clay .ds-portrait__disc {
+  fill: var(--palette-primary-400);
+}
+
+.ds-portrait--smoke .ds-portrait__disc {
+  fill: var(--palette-secondary-600);
+}
+
+.ds-portrait__shoulders,
+.ds-portrait__hair {
+  fill: var(--palette-secondary-900);
+}
+
+.ds-portrait__head {
+  fill: var(--palette-neutral-50);
+}
+
+.ds-portrait__neck {
+  fill: var(--palette-neutral-100);
+}
+
+.ds-portrait__line {
+  fill: none;
+  stroke: var(--palette-accent-400);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ds-portrait__line--thin {
+  stroke: var(--palette-primary-600);
+  stroke-width: 2.5;
+}
+
+.ds-portrait--copper .ds-portrait__line--thin {
+  stroke: var(--palette-accent-500);
+}

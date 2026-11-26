@@ -1,0 +1,139 @@
+---
+// Online booking demo in five steps: service → stylist → day (forms kit calendar, future days only) → hour → contact,
+// then a thank-you. Sends nothing. Without JS it is one long form with every step open; barber.js turns it into steps
+// that slide and fade in place, fills the hour slots for the chosen day and keeps the summary up to date.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import BarberButton from '../../atoms/barber-button/BarberButton.astro';
+import Portrait from '../../molecules/portrait/Portrait.astro';
+type Service = { name: string; minutes: number; price: number; from?: boolean };
+type Stylist = { name: string; role: string; variant: 'fade' | 'bob' | 'beard' | 'bun'; tone: 'copper' | 'brass' | 'clay' | 'smoke' };
+interface Props { id: string; label: string; title: string; lead: string; services: Service[]; stylists: Stylist[]; hours: string[] }
+const { id, label, title, lead, services, stylists, hours } = Astro.props;
+const steps = ['Usługa', 'Fryzjer', 'Dzień', 'Godzina', 'Kontakt'];
+const duration = (minutes: number) => (minutes >= 60 ? `${Math.floor(minutes / 60)} h${minutes % 60 ? ` ${minutes % 60} min` : ''}` : `${minutes} min`);
+---
+<section class="ds-section ds-booking" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow text={label} />
+      <h2 class="ds-section-head__title" id={`${id}-title`}>{title}</h2>
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <div class="ds-booking__grid" data-reveal>
+      <form class="ds-booking__card" action={`#${id}`} data-booking-form>
+        <p class="ds-booking__demo"><span>Demo</span> Ten formularz niczego nie wysyła.</p>
+        <ol class="ds-booking__progress" role="list" data-booking-progress hidden>
+          {steps.map((step, index) => (
+            <li class="ds-booking__progress-step" data-progress-step={index + 1}><span class="ds-booking__progress-number">{index + 1}</span><span class="ds-booking__progress-label">{step}</span></li>
+          ))}
+        </ol>
+        <div class="ds-booking__stage" data-booking-stage>
+          <fieldset class="ds-booking__step" data-booking-step="1" tabindex="-1">
+            <legend class="ds-booking__legend"><span>Krok 1 z 5</span>Wybierz usługę</legend>
+            <div class="ds-booking__options">
+              {services.map((service, index) => (
+                <label class="ds-booking__option">
+                  <input type="radio" name="service" value={service.name} data-minutes={service.minutes} data-price={`${service.from ? 'od ' : ''}${service.price} zł`} checked={false} />
+                  <span class="ds-booking__option-body">
+                    <span class="ds-booking__option-title">{service.name}</span>
+                    <span class="ds-booking__option-meta">{duration(service.minutes)} · {service.from ? 'od ' : ''}{service.price} zł</span>
+                  </span>
+                  <span class="ds-booking__option-check" aria-hidden="true"></span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+          <fieldset class="ds-booking__step" data-booking-step="2" tabindex="-1">
+            <legend class="ds-booking__legend"><span>Krok 2 z 5</span>Wybierz fryzjera</legend>
+            <div class="ds-booking__options ds-booking__options--people">
+              {stylists.map((stylist) => (
+                <label class="ds-booking__option ds-booking__option--person">
+                  <input type="radio" name="stylist" value={stylist.name} />
+                  <span class="ds-booking__option-art"><Portrait variant={stylist.variant} tone={stylist.tone} small /></span>
+                  <span class="ds-booking__option-body">
+                    <span class="ds-booking__option-title">{stylist.name}</span>
+                    <span class="ds-booking__option-meta">{stylist.role}</span>
+                  </span>
+                  <span class="ds-booking__option-check" aria-hidden="true"></span>
+                </label>
+              ))}
+              <label class="ds-booking__option ds-booking__option--person">
+                <input type="radio" name="stylist" value="Pierwszy wolny" />
+                <span class="ds-booking__option-art ds-booking__option-art--any" aria-hidden="true">?</span>
+                <span class="ds-booking__option-body">
+                  <span class="ds-booking__option-title">Bez znaczenia</span>
+                  <span class="ds-booking__option-meta">pierwszy wolny termin</span>
+                </span>
+                <span class="ds-booking__option-check" aria-hidden="true"></span>
+              </label>
+            </div>
+          </fieldset>
+          <fieldset class="ds-booking__step" data-booking-step="3" tabindex="-1">
+            <legend class="ds-booking__legend"><span>Krok 3 z 5</span>Wybierz dzień</legend>
+            <div class="ds-booking__field ds-booking__field--day">
+              <label class="ds-booking__label" for="booking-day">Dzień wizyty</label>
+              <input class="ds-booking__input" id="booking-day" name="day" type="date" data-min="today" />
+              <p class="ds-booking__hint">Pn–pt 9:00–20:00, sobota 9:00–16:00, w niedzielę zamknięte.</p>
+            </div>
+          </fieldset>
+          <fieldset class="ds-booking__step" data-booking-step="4" tabindex="-1">
+            <legend class="ds-booking__legend"><span>Krok 4 z 5</span>Wybierz godzinę</legend>
+            <p class="ds-booking__hint" data-booking-slots-note>Wolne godziny dla wybranego dnia. Przekreślone są już zajęte.</p>
+            <div class="ds-booking__slots" data-booking-slots>
+              {hours.map((hour) => (
+                <label class="ds-booking__slot"><input type="radio" name="time" value={hour} /><span>{hour}</span></label>
+              ))}
+            </div>
+          </fieldset>
+          <fieldset class="ds-booking__step" data-booking-step="5" tabindex="-1">
+            <legend class="ds-booking__legend"><span>Krok 5 z 5</span>Twoje dane</legend>
+            <div class="ds-booking__fields">
+              <div class="ds-booking__field">
+                <label class="ds-booking__label" for="booking-name">Imię</label>
+                <input class="ds-booking__input" id="booking-name" name="name" autocomplete="given-name" required />
+              </div>
+              <div class="ds-booking__field">
+                <label class="ds-booking__label" for="booking-phone">Telefon</label>
+                <input class="ds-booking__input" id="booking-phone" name="phone" type="tel" autocomplete="tel" placeholder="np. 600 000 000" required />
+              </div>
+              <div class="ds-booking__field ds-booking__field--wide">
+                <label class="ds-booking__label" for="booking-email">E-mail (opcjonalnie, na potwierdzenie)</label>
+                <input class="ds-booking__input" id="booking-email" name="email" type="email" autocomplete="email" placeholder="imie@example.com" />
+              </div>
+              <label class="ds-booking__consent ds-booking__field--wide">
+                <input type="checkbox" name="consent" id="booking-consent" required />
+                <span>Zgadzam się na kontakt w sprawie tej wizyty (SMS lub telefon).</span>
+              </label>
+            </div>
+          </fieldset>
+        </div>
+        <p class="ds-booking__error" role="status" data-booking-error></p>
+        <div class="ds-booking__nav">
+          <button class="ds-booking__back" type="button" data-booking-back hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 12H5m6-6-6 6 6 6"/></svg>Wstecz
+          </button>
+          <BarberButton text="Dalej" attrs={{ 'data-booking-next': '', hidden: '' }} />
+          <BarberButton text="Zarezerwuj termin" type="submit" attrs={{ 'data-booking-submit': '' }} />
+        </div>
+        <div class="ds-booking__thanks" data-booking-thanks hidden tabindex="-1">
+          <svg class="ds-booking__thanks-icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="28" pathLength="1000" data-thanks-draw /><path d="M20 33l8 8 16-18" pathLength="1000" data-thanks-draw /></svg>
+          <h3 class="ds-booking__thanks-title" data-booking-thanks-title>Gotowe!</h3>
+          <p data-booking-thanks-text>Wizyta zarezerwowana.</p>
+          <p class="ds-booking__thanks-demo">To demo: nic nie zostało wysłane. W gotowej stronie potwierdzenie przyjdzie SMS-em i e-mailem, a termin trafi do kalendarza salonu.</p>
+          <button class="ds-booking__back" type="button" data-booking-again>Umów kolejną wizytę</button>
+        </div>
+      </form>
+      <aside class="ds-booking__summary" aria-label="Podsumowanie wizyty">
+        <p class="ds-booking__summary-title">Twoja wizyta</p>
+        <dl class="ds-booking__summary-list">
+          <div><dt>Usługa</dt><dd class="ds-booking__summary-value" data-summary="service">nie wybrano</dd></div>
+          <div><dt>Fryzjer</dt><dd class="ds-booking__summary-value" data-summary="stylist">nie wybrano</dd></div>
+          <div><dt>Dzień</dt><dd class="ds-booking__summary-value" data-summary="day">nie wybrano</dd></div>
+          <div><dt>Godzina</dt><dd class="ds-booking__summary-value" data-summary="time">nie wybrano</dd></div>
+          <div><dt>Czas i cena</dt><dd class="ds-booking__summary-value" data-summary="price">nie wybrano</dd></div>
+        </dl>
+        <p class="ds-booking__summary-note">Płatność na miejscu, kartą lub gotówką. Odwołanie bez kosztów do 12 godzin przed wizytą.</p>
+      </aside>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,41 @@
+---
+// Style art: a drawn side profile with one haircut, for the style gallery. Line art in brass that draws itself on enter
+// (pathLength 1000), the hair mass fades in after. No photos.
+interface Props { variant: 'skin-fade' | 'pompadour' | 'full-beard' | 'bob' | 'balayage' | 'crop' }
+const { variant } = Astro.props;
+const profile = 'M92 214c-2-16-6-28-14-34-20-10-28-32-28-58 0-44 30-70 70-70 34 0 56 20 62 50 2 10 8 18 14 26 4 6 2 10-4 10h-4c4 6 2 10-2 12 4 4 2 10-4 12 2 12-6 18-20 18h-12c-2 10 0 22 4 34';
+const ear = 'M100 118c-8-6-16 2-12 12 2 6 8 8 12 6';
+const art = {
+  'skin-fade': {
+    mass: 'M54 112c-4-38 24-62 66-62 34 0 54 18 60 44-16-10-40-14-64-10-26 4-46 14-62 28z',
+    lines: 'M56 122h14M57 130h12M59 138h10M62 146h8M66 154h6',
+  },
+  pompadour: {
+    mass: 'M54 110c-8-44 18-74 70-76 40-2 64 18 66 48-8-8-22-10-34-4-26-6-58 6-80 24-8 2-16 6-22 8z',
+    lines: 'M84 52c22-10 50-12 76-2M96 64c18-6 38-6 56 0',
+  },
+  'full-beard': {
+    mass: 'M56 104c-2-34 22-56 62-56 32 0 52 16 58 38-28-8-64-6-96 10-8 2-16 6-24 8zM104 140c4 30 16 48 40 52 22 2 36-8 40-22-12 4-24 2-34-6-10 2-20-2-26-10-6-6-14-12-20-14z',
+    lines: 'M112 160c8 8 18 12 30 12M124 178c10 4 22 4 32 0',
+  },
+  bob: {
+    mass: 'M48 164c-14-74 10-118 70-118 40 0 60 22 64 54-14-10-36-14-58-10-14 20-20 44-18 74-20 2-40 2-58 0z',
+    lines: 'M70 80c10 30 10 60 6 84M90 70c6 30 6 62 2 94',
+  },
+  balayage: {
+    mass: 'M46 196c-22-92 2-150 72-150 42 0 62 24 64 56-16-12-38-14-58-8-12 28-14 64-6 102z',
+    lines: 'M62 90c-6 40-4 72 4 104M78 72c-4 44 0 84 8 122M98 62c-8 30-8 60-4 86',
+  },
+  crop: {
+    mass: 'M52 114c-6-40 22-66 66-66 32 0 54 16 60 42l-10 2 4 10-12-2 2 10-12-4v10l-12-6-2 10-10-8-6 8-8-8-8 6-4-8z',
+    lines: 'M60 96l12-4M64 84l14-2',
+  },
+}[variant];
+---
+<svg class="ds-style-art" viewBox="0 0 240 240" aria-hidden="true" focusable="false">
+  <path class="ds-style-art__mass" d={art.mass} data-art-mass />
+  <path class="ds-style-art__line" d={profile} pathLength="1000" data-draw />
+  <path class="ds-style-art__line" d={ear} pathLength="1000" data-draw />
+  <path class="ds-style-art__line ds-style-art__line--hair" d={art.mass} pathLength="1000" data-draw />
+  <path class="ds-style-art__line ds-style-art__line--detail" d={art.lines} pathLength="1000" data-draw />
+</svg>

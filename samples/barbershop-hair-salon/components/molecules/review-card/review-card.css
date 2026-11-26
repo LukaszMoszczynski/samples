@@ -1,0 +1,88 @@
+/* Review card on bone: white card, a copper rule on top, brass stars, a small "example" badge. */
+.ds-review-card {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: var(--space-20);
+  height: 100%;
+  margin: 0;
+  padding: var(--space-28);
+  box-sizing: border-box;
+  border-top: var(--space-4) solid var(--palette-primary-600);
+  border-radius: var(--radius-md);
+  background: var(--palette-neutral-0);
+  box-shadow: 0 var(--space-12) var(--space-32) color-mix(in srgb, var(--palette-secondary-900) 8%, transparent);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ds-review-card:hover {
+  transform: translateY(calc(var(--space-6) * -1));
+  box-shadow: 0 var(--space-20) var(--space-48) color-mix(in srgb, var(--palette-secondary-900) 14%, transparent);
+}
+
+.ds-review-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+}
+
+.ds-review-card__stars {
+  display: flex;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.ds-review-card__star {
+  width: var(--size-20);
+  height: var(--size-20);
+  fill: var(--palette-neutral-100);
+}
+
+.ds-review-card__star.is-on {
+  fill: var(--palette-accent-500);
+}
+
+.ds-review-card__badge {
+  padding: var(--space-2) var(--space-10);
+  border: 1px solid var(--palette-neutral-400);
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  letter-spacing: calc(var(--font-size-small) * 0.1);
+  text-transform: uppercase;
+  color: var(--palette-neutral-600);
+}
+
+.ds-review-card__quote {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  line-height: 1.55;
+}
+
+.ds-review-card__quote p {
+  margin: 0;
+}
+
+.ds-review-card__author {
+  display: grid;
+  gap: var(--space-2);
+  font-size: var(--font-size-body);
+}
+
+.ds-review-card__author strong {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.ds-review-card__author span {
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-review-card {
+    transition: none;
+  }
+}

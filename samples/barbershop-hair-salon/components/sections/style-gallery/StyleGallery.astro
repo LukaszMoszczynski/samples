@@ -1,0 +1,34 @@
+---
+// Style gallery: drawn haircuts (no photos). Each line drawing draws itself on enter; cards lift on hover.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import StyleArt from '../../molecules/style-art/StyleArt.astro';
+type Variant = 'skin-fade' | 'pompadour' | 'full-beard' | 'bob' | 'balayage' | 'crop';
+interface Props { id: string; label: string; title: string; lead: string; styles: { variant: Variant; name: string; text: string; who: string }[] }
+const { id, label, title, lead, styles } = Astro.props;
+---
+<section class="ds-section ds-section--dark ds-style-gallery" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow text={label} />
+      <h2 class="ds-section-head__title" id={`${id}-title`}>{title}</h2>
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <ul class="ds-style-gallery__list" role="list">
+      {styles.map((style, index) => (
+        <li class="ds-style-gallery__item" data-reveal data-gallery-item>
+          <figure class="ds-style-gallery__card">
+            <div class="ds-style-gallery__art">
+              <span class="ds-style-gallery__number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              <StyleArt variant={style.variant} />
+            </div>
+            <figcaption class="ds-style-gallery__caption">
+              <span class="ds-style-gallery__who">{style.who}</span>
+              <strong class="ds-style-gallery__name">{style.name}</strong>
+              <span class="ds-style-gallery__text">{style.text}</span>
+            </figcaption>
+          </figure>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

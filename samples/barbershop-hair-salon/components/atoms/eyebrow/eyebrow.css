@@ -1,0 +1,27 @@
+/* Eyebrow: mono label with a short diagonal stripe in copper and bone. */
+.ds-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-12);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: calc(var(--font-size-small) * 0.16);
+  text-transform: uppercase;
+  color: var(--palette-primary-600);
+}
+
+.ds-section--dark .ds-eyebrow {
+  color: var(--palette-accent-400);
+}
+
+.ds-eyebrow__stripe {
+  flex-shrink: 0;
+  width: var(--space-40);
+  height: var(--space-8);
+  border-radius: var(--radius-xs);
+  background: repeating-linear-gradient(-45deg, var(--palette-primary-600) 0 var(--space-4), var(--palette-neutral-50) var(--space-4) var(--space-8), var(--palette-secondary-800) var(--space-8) var(--space-12));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--palette-secondary-800) 30%, transparent);
+}

@@ -1,0 +1,21 @@
+---
+// Team card: drawn portrait, name, role, what they do best, years at the chair. The card tilts toward the pointer; the
+// script reads the pointer on the steady list item (data-tilt-host), never on the tilting card itself.
+import Portrait from '../portrait/Portrait.astro';
+interface Props { name: string; role: string; skills: string[]; years: string; variant: 'fade' | 'bob' | 'beard' | 'bun'; tone: 'copper' | 'brass' | 'clay' | 'smoke' }
+const { name, role, skills, years, variant, tone } = Astro.props;
+---
+<div class="ds-team-card__host" data-tilt-host data-team-card>
+  <article class="ds-team-card" data-tilt>
+    <div class="ds-team-card__art"><Portrait variant={variant} tone={tone} /></div>
+    <div class="ds-team-card__body">
+      <p class="ds-team-card__role">{role}</p>
+      <h3 class="ds-team-card__name">{name}</h3>
+      <ul class="ds-team-card__skills" role="list">
+        {skills.map((skill) => <li>{skill}</li>)}
+      </ul>
+      <p class="ds-team-card__years">{years}</p>
+    </div>
+    <span class="ds-team-card__glare" aria-hidden="true" data-tilt-glare></span>
+  </article>
+</div>

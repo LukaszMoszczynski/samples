@@ -1,0 +1,10 @@
+/* Pole stripe: a seamless square tile of diagonal copper, bone and near-black bands; sliding it by one tile loops. */
+.ds-pole-stripe {
+  height: var(--space-12);
+  background-color: var(--palette-secondary-900);
+  background-image: linear-gradient(45deg,
+    var(--palette-primary-600) 0 16.66%, var(--palette-neutral-50) 16.66% 33.33%, var(--palette-secondary-900) 33.33% 50%,
+    var(--palette-primary-600) 50% 66.66%, var(--palette-neutral-50) 66.66% 83.33%, var(--palette-secondary-900) 83.33% 100%);
+  background-size: var(--space-48) var(--space-48);
+  background-position: 0 0;
+}

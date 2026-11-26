@@ -1,0 +1,6 @@
+---
+// Eyebrow: a short barber-pole stripe and a small uppercase label above a heading.
+interface Props { text: string }
+const { text } = Astro.props;
+---
+<p class="ds-eyebrow"><span class="ds-eyebrow__stripe" aria-hidden="true"></span>{text}</p>

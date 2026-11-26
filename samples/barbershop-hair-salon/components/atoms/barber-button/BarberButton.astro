@@ -1,0 +1,11 @@
+---
+// Barber button. href → <a>, otherwise <button>. variant: solid (copper) | outline (takes the text colour around it).
+// A light sweep crosses it on hover (CSS), the arrow nudges forward.
+interface Props { text: string; href?: string; variant?: 'solid' | 'outline'; type?: 'button' | 'submit'; attrs?: Record<string, string> }
+const { text, href, variant = 'solid', type = 'button', attrs = {} } = Astro.props;
+const className = `ds-barber-button ds-barber-button--${variant}`;
+const arrow = '<svg class="ds-barber-button__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>';
+---
+{href
+  ? <a class={className} href={href} {...attrs}><span>{text}</span><Fragment set:html={arrow} /></a>
+  : <button class={className} type={type} {...attrs}><span>{text}</span><Fragment set:html={arrow} /></button>}

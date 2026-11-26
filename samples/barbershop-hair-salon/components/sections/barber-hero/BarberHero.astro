@@ -1,0 +1,75 @@
+---
+// Hero: headline, lead, two actions and quick facts on the left; on the right a mirror with scissors and a straight
+// razor that draw themselves, next to a barber pole whose stripes turn (barber.js; still for reduced motion).
+import BarberButton from '../../atoms/barber-button/BarberButton.astro';
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+interface Props {
+  label: string;
+  title: string[];
+  lead: string;
+  primary: { text: string; href: string };
+  secondary: { text: string; href: string };
+  facts: { value: string; label: string }[];
+}
+const { label, title, lead, primary, secondary, facts } = Astro.props;
+// Pole stripes: one copper band and one thin near-black band every 60 units, slanted; the group slides one period.
+const stripes = Array.from({ length: 11 }, (_value, index) => 20 + (index - 2) * 60);
+---
+<section class="ds-hero" id="top" aria-labelledby="hero-title">
+  <div class="ds-container ds-hero__grid">
+    <div class="ds-hero__copy">
+      <div data-hero-item><Eyebrow text={label} /></div>
+      <h1 class="ds-hero__title" id="hero-title">
+        {title.map((line, index) => <span class={`ds-hero__line${index === title.length - 1 ? ' ds-hero__line--accent' : ''}`} data-hero-item>{line}</span>)}
+      </h1>
+      <p class="ds-hero__lead" data-hero-item>{lead}</p>
+      <div class="ds-hero__actions" data-hero-item>
+        <BarberButton text={primary.text} href={primary.href} />
+        <BarberButton text={secondary.text} href={secondary.href} variant="outline" />
+      </div>
+      <dl class="ds-hero__facts" data-hero-item>
+        {facts.map((fact) => (
+          <div class="ds-hero__fact"><dt>{fact.label}</dt><dd>{fact.value}</dd></div>
+        ))}
+      </dl>
+    </div>
+    <div class="ds-hero__art" aria-hidden="true">
+      <svg class="ds-hero__mirror" viewBox="0 0 400 400" focusable="false">
+        <circle class="ds-hero__mirror-glass" cx="200" cy="200" r="176" />
+        <circle class="ds-hero__mirror-frame" cx="200" cy="200" r="184" pathLength="1000" data-draw />
+        <circle class="ds-hero__mirror-frame ds-hero__mirror-frame--inner" cx="200" cy="200" r="170" pathLength="1000" data-draw />
+        <g class="ds-hero__tools">
+          <path d="M126 262a30 30 0 1 1-60 0 30 30 0 1 1 60 0z" pathLength="1000" data-draw />
+          <path d="M168 304a30 30 0 1 1-60 0 30 30 0 1 1 60 0z" pathLength="1000" data-draw />
+          <path d="M120 244l70-48 116-132-108 146z" pathLength="1000" data-draw />
+          <path d="M156 280l48-70 130-116-140 106z" pathLength="1000" data-draw />
+          <path d="M202 202a6 6 0 1 1-12 0 6 6 0 1 1 12 0z" pathLength="1000" data-draw />
+          <path class="ds-hero__razor" d="M214 330c-7-5-6-13 2-19l96-70c8-6 16-5 20 1s2 13-6 19l-96 70c-6 5-12 4-16-1z" pathLength="1000" data-draw />
+          <path class="ds-hero__razor" d="M330 244c-6-26-24-48-52-58-10-4-14 6-6 10 22 12 34 30 40 54" pathLength="1000" data-draw />
+          <path class="ds-hero__razor ds-hero__razor--edge" d="M290 192c18 10 30 26 36 46" pathLength="1000" data-draw />
+        </g>
+      </svg>
+      <svg class="ds-hero__pole" viewBox="0 0 80 440" focusable="false">
+        <defs>
+          <clipPath id="hero-pole-glass"><rect x="16" y="58" width="48" height="324" rx="6" /></clipPath>
+        </defs>
+        <circle class="ds-hero__pole-cap" cx="40" cy="18" r="14" />
+        <rect class="ds-hero__pole-cap" x="8" y="34" width="64" height="20" rx="4" />
+        <rect class="ds-hero__pole-glass" x="16" y="58" width="48" height="324" rx="6" />
+        <g clip-path="url(#hero-pole-glass)">
+          <g data-pole-stripes>
+            {stripes.map((top) => (
+              <>
+                <path class="ds-hero__pole-band" d={`M16 ${top + 40}L64 ${top}v22L16 ${top + 62}z`} />
+                <path class="ds-hero__pole-band ds-hero__pole-band--dark" d={`M16 ${top + 70}L64 ${top + 30}v8L16 ${top + 78}z`} />
+              </>
+            ))}
+          </g>
+        </g>
+        <rect class="ds-hero__pole-shine" x="24" y="62" width="6" height="316" rx="3" />
+        <rect class="ds-hero__pole-cap" x="8" y="386" width="64" height="20" rx="4" />
+        <rect class="ds-hero__pole-cap" x="26" y="406" width="28" height="30" rx="4" />
+      </svg>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,117 @@
+/* Team card on a dark section: portrait on top, a thin brass frame, a glare that follows the tilt. */
+.ds-team-card__host {
+  height: 100%;
+  perspective: calc(var(--size-160) * 6);
+}
+
+.ds-team-card {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--palette-accent-400) 40%, transparent);
+  border-radius: var(--radius-lg);
+  background: var(--palette-secondary-800);
+  transform-style: preserve-3d;
+  transition: border-color 0.3s ease;
+}
+
+.ds-team-card__host:hover .ds-team-card {
+  border-color: var(--palette-accent-400);
+}
+
+.ds-team-card__art {
+  padding: var(--space-24) var(--space-24) 0;
+  background: linear-gradient(180deg, var(--palette-secondary-700), var(--palette-secondary-800));
+}
+
+.ds-team-card__body {
+  display: grid;
+  align-content: start;
+  gap: var(--space-8);
+  padding: var(--space-24);
+}
+
+.ds-team-card__role {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  letter-spacing: calc(var(--font-size-small) * 0.14);
+  text-transform: uppercase;
+  color: var(--palette-accent-400);
+}
+
+.ds-team-card__name {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  line-height: 1;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--palette-neutral-50);
+}
+
+.ds-team-card__skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6);
+  margin: var(--space-8) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-team-card__skills li {
+  padding: var(--space-2) var(--space-10);
+  border: 1px solid color-mix(in srgb, var(--palette-neutral-50) 30%, transparent);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+  color: var(--palette-neutral-50);
+}
+
+.ds-team-card__years {
+  margin: var(--space-8) 0 0;
+  font-size: var(--font-size-small);
+  color: color-mix(in srgb, var(--palette-neutral-50) 74%, transparent);
+}
+
+.ds-team-card__glare {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 30%), color-mix(in srgb, var(--palette-accent-400) 22%, transparent), transparent 55%);
+  transition: opacity 0.3s ease;
+}
+
+.ds-team-card__host:hover .ds-team-card__glare {
+  opacity: 1;
+}
+
+/* Phones (one card per row): portrait on the left, text on the right, so a card is not a full screen tall. */
+@media (max-width: 559px) {
+  .ds-team-card {
+    grid-template-rows: none;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    align-items: center;
+  }
+
+  .ds-team-card__art {
+    display: grid;
+    align-self: stretch;
+    align-items: end;
+    padding: var(--space-16) var(--space-8) 0;
+  }
+
+  .ds-team-card__body {
+    padding: var(--space-20) var(--space-16);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-team-card,
+  .ds-team-card__glare {
+    transition: none;
+  }
+}

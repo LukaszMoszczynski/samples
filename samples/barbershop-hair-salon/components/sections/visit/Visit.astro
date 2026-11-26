@@ -1,0 +1,69 @@
+---
+// Visit: opening hours (today marked, an open-now status from barber.js), address and contact, and a drawn street map
+// whose streets draw themselves on enter, with a pin that drops in.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import BarberButton from '../../atoms/barber-button/BarberButton.astro';
+interface Props {
+  id: string;
+  label: string;
+  title: string;
+  hours: { day: string; weekday: number; open?: string; close?: string }[];
+  address: string[];
+  contact: { label: string; value: string; href: string }[];
+  directions: string;
+  cta: { text: string; href: string };
+}
+const { id, label, title, hours, address, contact, directions, cta } = Astro.props;
+---
+<section class="ds-section ds-section--dark ds-visit" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container ds-visit__grid">
+    <div class="ds-visit__info" data-reveal>
+      <div class="ds-section-head">
+        <Eyebrow text={label} />
+        <h2 class="ds-section-head__title" id={`${id}-title`}>{title}</h2>
+      </div>
+      <p class="ds-visit__status" data-open-status hidden><span class="ds-visit__status-dot" aria-hidden="true"></span><span data-open-status-text></span></p>
+      <table class="ds-visit__hours">
+        <caption class="ds-visually-hidden">Godziny otwarcia</caption>
+        <tbody>
+          {hours.map((row) => (
+            <tr class="ds-visit__row" data-weekday={row.weekday} data-open={row.open ?? ''} data-close={row.close ?? ''}>
+              <th scope="row">{row.day}</th>
+              <td>{row.open ? `${row.open}–${row.close}` : 'zamknięte'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div class="ds-visit__contact">
+        <address class="ds-visit__address">{address.map((line) => <span>{line}</span>)}</address>
+        <ul class="ds-visit__lines" role="list">
+          {contact.map((line) => <li><span>{line.label}</span><a href={line.href}>{line.value}</a></li>)}
+        </ul>
+      </div>
+      <BarberButton text={cta.text} href={cta.href} />
+    </div>
+    <figure class="ds-visit__map" data-reveal data-visit-map>
+      <svg viewBox="0 0 480 420" aria-hidden="true" focusable="false">
+        <path class="ds-visit__river" d="M-10 330c80-30 120 10 200-10s110-80 190-70 90 30 110 20" pathLength="1000" data-draw />
+        <g class="ds-visit__streets">
+          <path d="M40 40l400 60" pathLength="1000" data-draw />
+          <path d="M20 150l450 40" pathLength="1000" data-draw />
+          <path d="M30 250l420-20" pathLength="1000" data-draw />
+          <path d="M120 10l-30 380" pathLength="1000" data-draw />
+          <path d="M260 20l10 380" pathLength="1000" data-draw />
+          <path d="M380 30l40 290" pathLength="1000" data-draw />
+        </g>
+        <path class="ds-visit__main" d="M20 150l450 40" pathLength="1000" data-draw />
+        <rect class="ds-visit__block" x="150" y="60" width="80" height="60" rx="4" />
+        <rect class="ds-visit__block" x="300" y="200" width="60" height="30" rx="4" />
+        <rect class="ds-visit__park" x="290" y="64" width="70" height="80" rx="30" />
+        <g class="ds-visit__pin" data-visit-pin>
+          <path d="M265 172s-34-38-34-66a34 34 0 1 1 68 0c0 28-34 66-34 66z" />
+          <rect class="ds-visit__pin-glass" x="257" y="88" width="16" height="34" rx="3" />
+          <path class="ds-visit__pin-stripe" d="M257 98l16-6v6l-16 6zM257 112l16-6v6l-16 6z" />
+        </g>
+      </svg>
+      <figcaption class="ds-visit__map-caption">{directions}</figcaption>
+    </figure>
+  </div>
+</section>

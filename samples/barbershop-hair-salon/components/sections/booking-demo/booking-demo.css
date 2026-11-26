@@ -1,0 +1,550 @@
+/* Booking demo: a white card with the steps, a dark summary ticket beside it. Steps slide and fade inside the stage,
+   which clips sideways only (overflow-x: clip), so the calendar popup can still hang below. */
+.ds-booking {
+  background: var(--palette-secondary-50);
+}
+
+.ds-booking__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, calc(var(--size-160) * 2.2));
+  align-items: start;
+  gap: var(--space-32);
+}
+
+.ds-booking__card {
+  display: grid;
+  gap: var(--space-24);
+  padding: var(--space-32);
+  border-radius: var(--radius-lg);
+  background: var(--palette-neutral-0);
+  box-shadow: 0 var(--space-20) var(--space-48) color-mix(in srgb, var(--palette-secondary-900) 10%, transparent);
+}
+
+.ds-booking__card[novalidate] {
+  row-gap: var(--space-24);
+}
+
+.ds-booking__demo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);
+  margin: 0;
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+}
+
+.ds-booking__demo span {
+  padding: var(--space-2) var(--space-8);
+  border-radius: var(--radius-xs);
+  background: var(--palette-secondary-900);
+  color: var(--palette-accent-400);
+  font-family: var(--font-mono);
+  letter-spacing: calc(var(--font-size-small) * 0.12);
+  text-transform: uppercase;
+}
+
+/* Progress: five numbered steps on a line; done steps in copper, the current one ringed. */
+.ds-booking__progress {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-booking__progress::before {
+  content: "";
+  position: absolute;
+  top: calc(var(--size-40) / 2);
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: var(--palette-neutral-100);
+}
+
+.ds-booking__progress-step {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: var(--space-6);
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+}
+
+.ds-booking__progress-number {
+  display: grid;
+  place-items: center;
+  width: var(--size-40);
+  height: var(--size-40);
+  border: 2px solid var(--palette-neutral-100);
+  border-radius: var(--radius-full);
+  background: var(--palette-neutral-0);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.ds-booking__progress-step.is-done {
+  color: var(--color-text-default);
+}
+
+.ds-booking__progress-step.is-done .ds-booking__progress-number {
+  border-color: var(--palette-primary-600);
+  background: var(--palette-primary-600);
+  color: var(--palette-neutral-0);
+}
+
+.ds-booking__progress-step[aria-current="step"] {
+  color: var(--color-text-default);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-booking__progress-step[aria-current="step"] .ds-booking__progress-number {
+  border-color: var(--palette-secondary-900);
+  background: var(--palette-secondary-900);
+  color: var(--palette-accent-400);
+}
+
+.ds-booking__stage {
+  display: grid;
+  gap: var(--space-32);
+  overflow-x: clip;
+}
+
+.ds-booking__step {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.ds-booking__step:focus {
+  outline: none;
+}
+
+.ds-booking__legend {
+  display: grid;
+  gap: var(--space-4);
+  margin-bottom: var(--space-20);
+  padding: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.ds-booking__legend span {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: calc(var(--font-size-small) * 0.14);
+  color: var(--palette-primary-600);
+}
+
+/* Option cards: the radio is visually hidden, the whole card is the target, a copper tick when chosen. */
+.ds-booking__options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-12);
+}
+
+.ds-booking__options--people {
+  grid-template-columns: repeat(auto-fill, minmax(calc(var(--size-160) * 1.1), 1fr));
+}
+
+.ds-booking__option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-16) var(--space-48) var(--space-16) var(--space-16);
+  border: 1px solid var(--palette-neutral-100);
+  border-radius: var(--radius-md);
+  background: var(--palette-neutral-0);
+  cursor: pointer;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.ds-booking__option:hover {
+  border-color: var(--palette-neutral-400);
+  transform: translateY(calc(var(--space-2) * -1));
+}
+
+.ds-booking__option input,
+.ds-booking__slot input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ds-booking__option:has(input:checked) {
+  border-color: var(--palette-primary-600);
+  box-shadow: 0 0 0 1px var(--palette-primary-600);
+  background: var(--palette-primary-50);
+}
+
+.ds-booking__option:has(input:focus-visible),
+.ds-booking__slot:has(input:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--palette-primary-600);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-booking__option--person {
+  flex-direction: column;
+  align-items: flex-start;
+  padding: var(--space-16);
+}
+
+.ds-booking__option-art {
+  display: grid;
+  place-items: center;
+  width: var(--size-52);
+  height: var(--size-52);
+}
+
+.ds-booking__option-art--any {
+  border: 2px dashed var(--palette-neutral-400);
+  border-radius: var(--radius-full);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: 900;
+  color: var(--palette-neutral-600);
+}
+
+.ds-booking__option-body {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.ds-booking__option-title {
+  font-weight: var(--font-weight-bold);
+  line-height: 1.3;
+}
+
+.ds-booking__option-meta {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+  color: var(--color-text-muted);
+}
+
+.ds-booking__option-check {
+  position: absolute;
+  top: 50%;
+  right: var(--space-16);
+  width: var(--size-20);
+  height: var(--size-20);
+  margin-top: calc(var(--size-20) / -2);
+  border: 2px solid var(--palette-neutral-400);
+  border-radius: var(--radius-full);
+  transition: border-color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.ds-booking__option--person .ds-booking__option-check {
+  top: var(--space-16);
+  margin-top: 0;
+}
+
+.ds-booking__option:has(input:checked) .ds-booking__option-check {
+  border-color: var(--palette-primary-600);
+  background: var(--palette-primary-600);
+  box-shadow: inset 0 0 0 var(--space-3) var(--palette-neutral-0);
+}
+
+/* Fields. */
+.ds-booking__fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-40) var(--space-20);
+}
+
+.ds-booking__field {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.ds-booking__field--wide {
+  grid-column: 1 / -1;
+}
+
+.ds-booking__field--day {
+  max-width: calc(var(--size-160) * 2.2);
+}
+
+.ds-booking__label {
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-booking__input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--size-52);
+  padding: 0 var(--space-14);
+  border: 1px solid var(--palette-neutral-400);
+  border-radius: var(--radius-sm);
+  background: var(--palette-neutral-0);
+  color: inherit;
+  font: inherit;
+}
+
+.ds-booking__input:focus-visible {
+  outline: var(--focus-ring-width) solid var(--palette-primary-600);
+  outline-offset: 0;
+  border-color: var(--palette-primary-600);
+}
+
+.ds-booking__hint {
+  margin: 0 0 var(--space-16);
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+}
+
+.ds-booking__field .ds-booking__hint {
+  margin: 0;
+}
+
+.ds-booking__consent {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-10);
+  font-size: var(--font-size-small);
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.ds-booking__consent input {
+  flex-shrink: 0;
+  width: var(--size-20);
+  height: var(--size-20);
+  margin: 0;
+  accent-color: var(--palette-primary-600);
+}
+
+/* Hour slots: chips; taken ones are struck through and cannot be chosen. */
+.ds-booking__slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(calc(var(--size-44) * 1.8), 1fr));
+  gap: var(--space-8);
+}
+
+.ds-booking__slot {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: var(--size-44);
+  border: 1px solid var(--palette-neutral-100);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-body);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.ds-booking__slot:hover {
+  border-color: var(--palette-primary-600);
+}
+
+.ds-booking__slot:has(input:checked) {
+  border-color: var(--palette-secondary-900);
+  background: var(--palette-secondary-900);
+  color: var(--palette-accent-400);
+}
+
+.ds-booking__slot:has(input:disabled) {
+  border-style: dashed;
+  color: var(--palette-neutral-600);
+  text-decoration: line-through;
+  cursor: not-allowed;
+}
+
+/* The step's message (nothing chosen yet) sits in reserved space, so showing it moves nothing. */
+.ds-booking__error {
+  min-height: var(--line-height-body);
+  margin: 0;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-state-error);
+}
+
+.ds-booking__nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-12);
+}
+
+.ds-booking__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: var(--size-44);
+  margin-right: auto;
+  padding: 0 var(--space-12);
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-weight: var(--font-weight-bold);
+  text-decoration: underline;
+  text-underline-offset: var(--space-4);
+  cursor: pointer;
+}
+
+.ds-booking__back svg {
+  width: var(--size-20);
+  height: var(--size-20);
+}
+
+.ds-booking__back:focus-visible {
+  outline: var(--focus-ring-width) solid var(--palette-primary-600);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Thank-you. */
+.ds-booking__thanks {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-12);
+  padding-block: var(--space-16);
+}
+
+.ds-booking__thanks:focus {
+  outline: none;
+}
+
+.ds-booking__thanks p {
+  margin: 0;
+  max-width: calc(var(--layout-container) * 0.45);
+}
+
+.ds-booking__thanks-icon {
+  width: var(--size-52);
+  height: var(--size-52);
+  fill: none;
+  stroke: var(--palette-primary-600);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ds-booking__thanks-title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.ds-booking__thanks-demo {
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+}
+
+.ds-booking__thanks .ds-booking__back {
+  margin-right: 0;
+  padding-inline: 0;
+}
+
+/* Summary ticket: near-black with a pole stripe edge. */
+.ds-booking__summary {
+  position: sticky;
+  top: calc(var(--size-header-height) + var(--space-24));
+  padding: var(--space-28);
+  border-radius: var(--radius-lg);
+  background: var(--palette-secondary-900);
+  color: var(--palette-neutral-50);
+  border-top: var(--space-8) solid var(--palette-primary-600);
+}
+
+.ds-booking__summary-title {
+  margin: 0 0 var(--space-16);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.ds-booking__summary-list {
+  display: grid;
+  gap: var(--space-12);
+  margin: 0 0 var(--space-20);
+}
+
+.ds-booking__summary-list div {
+  display: grid;
+  gap: var(--space-2);
+  padding-bottom: var(--space-12);
+  border-bottom: 1px dashed color-mix(in srgb, var(--palette-neutral-50) 24%, transparent);
+}
+
+.ds-booking__summary-list dt {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  letter-spacing: calc(var(--font-size-small) * 0.12);
+  text-transform: uppercase;
+  color: var(--palette-accent-400);
+}
+
+.ds-booking__summary-list dd {
+  margin: 0;
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-booking__summary-value.is-empty {
+  font-weight: var(--font-weight-regular);
+  color: color-mix(in srgb, var(--palette-neutral-50) 72%, transparent);
+}
+
+.ds-booking__summary-note {
+  margin: 0;
+  font-size: var(--font-size-small);
+  color: color-mix(in srgb, var(--palette-neutral-50) 76%, transparent);
+}
+
+@media (max-width: 1023px) {
+  .ds-booking__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ds-booking__summary {
+    position: static;
+  }
+}
+
+@media (max-width: 599px) {
+  .ds-booking__card {
+    padding: var(--space-20);
+  }
+
+  .ds-booking__options,
+  .ds-booking__fields {
+    grid-template-columns: 1fr;
+  }
+
+  .ds-booking__options--people {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ds-booking__progress-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-booking__option,
+  .ds-booking__option-check,
+  .ds-booking__slot,
+  .ds-booking__progress-number {
+    transition: none;
+  }
+}
