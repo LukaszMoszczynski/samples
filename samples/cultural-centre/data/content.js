@@ -20,29 +20,29 @@ export const categories = [
 
 export const categoryOf = (id) => categories.find((category) => category.id === id);
 
-// Dates are fixed for the sample (the week after 26 November 2026).
+// Dates are fixed for the sample (a year ahead: the week after 25 November 2027).
 export const events = [
-  { id: 'jazz-foyer', date: '2026-11-27', time: '19:00', category: 'koncert', title: 'Wieczór jazzowy w foyer', place: 'Foyer', price: '30 zł', ticket: true, text: 'Trio fortepianowe gra standardy przy stolikach. Kawa i herbata z kawiarni na parterze.', access: ['Pętla indukcyjna'] },
-  { id: 'teatrzyk-kot', date: '2026-11-28', time: '11:00', category: 'dzieci', title: 'Teatrzyk na dywanie: O kocie, który zgubił buty', place: 'Sala kameralna', price: '15 zł', ticket: true, text: 'Spektakl lalkowy dla dzieci od 3 lat. Siedzimy na poduchach, a po spektaklu można poznać lalki.', access: ['Dla dzieci od 3 lat'] },
-  { id: 'klub-filmowy-polnoc', date: '2026-11-28', time: '18:00', category: 'kino', title: 'Klub filmowy: kino z Północy', place: 'Sala widowiskowa', price: '12 zł', ticket: true, text: 'Film z napisami, a po seansie krótka rozmowa z prowadzącą klub. Herbata w przerwie.', access: ['Napisy', 'Pętla indukcyjna'] },
-  { id: 'wernisaz-linoryt', date: '2026-11-29', time: '16:00', category: 'wystawa', title: 'Wernisaż: Miasto w linorycie', place: 'Galeria', price: 'Wstęp wolny', ticket: false, text: 'Odbitki uczestników pracowni grafiki: ulice, podwórka i dachy naszego miasta.', access: ['Bez schodów'] },
-  { id: 'kartki-linoryt', date: '2026-12-01', time: '17:30', category: 'warsztaty', title: 'Kartki świąteczne techniką linorytu', place: 'Pracownia plastyczna', price: '20 zł', ticket: false, text: 'Dwie godziny, materiały na miejscu, każdy wychodzi z pięcioma kartkami. Zapisy w sekretariacie.', access: ['Od 12 lat'] },
-  { id: 'wesele-pokolenia', date: '2026-12-04', time: '19:00', category: 'teatr', title: 'Premiera: Wesele na cztery pokolenia', place: 'Sala widowiskowa', price: '25 zł', ticket: true, text: 'Komedia w wykonaniu naszego teatru amatorskiego: na scenie grają razem nastolatki i seniorzy.', access: ['Pętla indukcyjna', 'Miejsca dla wózków'] },
-  { id: 'mikolajki', date: '2026-12-06', time: '12:00', category: 'dzieci', title: 'Mikołajki w domu kultury', place: 'Cały budynek', price: 'Wstęp wolny', ticket: false, text: 'Warsztaty pierniczkowe, zabawy taneczne i spotkanie z Mikołajem. Bez zapisów.', access: ['Bez schodów'] },
-  { id: 'kino-seniora', date: '2026-12-10', time: '13:00', category: 'kino', title: 'Kino seniora: komedia z lat 60.', place: 'Sala widowiskowa', price: '8 zł', ticket: true, text: 'Seans w południe, przy jaśniejszym świetle na widowni. Po filmie kawa i rozmowa.', access: ['Napisy', 'Pętla indukcyjna'] },
-  { id: 'koledy', date: '2026-12-12', time: '18:00', category: 'koncert', title: 'Kolędy: chór i orkiestra dęta', place: 'Sala widowiskowa', price: 'Wejściówki', ticket: true, text: 'Koncert zespołów domu kultury. Bezpłatne wejściówki do odbioru w kasie od 1 grudnia.', access: ['Pętla indukcyjna', 'Miejsca dla wózków'] },
-  { id: 'jarmark', date: '2026-12-13', time: '10:00', category: 'warsztaty', title: 'Jarmark świąteczny i warsztaty rodzinne', place: 'Foyer i pracownie', price: 'Wstęp wolny', ticket: false, text: 'Rękodzieło lokalnych twórców, ozdoby choinkowe do zrobienia na miejscu i ciepła zupa.', access: ['Bez schodów'] },
-  { id: 'piosenki-filmowe', date: '2026-12-19', time: '19:00', category: 'koncert', title: 'Koncert świąteczny: piosenki z filmów', place: 'Sala widowiskowa', price: '35 zł', ticket: true, text: 'Studio wokalne i zespół instrumentalny w znanych melodiach z kina familijnego.', access: ['Pętla indukcyjna', 'Miejsca dla wózków'] },
-  { id: 'wystawa-zima', date: '2027-01-09', time: '17:00', category: 'wystawa', title: 'Wystawa pracowni plastycznej: Zima', place: 'Galeria', price: 'Wstęp wolny', ticket: false, text: 'Prace dzieci i dorosłych z pracowni plastycznej i ceramiki. Wystawa do 6 lutego.', access: ['Bez schodów'] },
-  { id: 'monodram', date: '2027-01-15', time: '19:00', category: 'teatr', title: 'Monodram: Listy z podróży', place: 'Sala kameralna', price: '30 zł', ticket: true, text: 'Jedna aktorka, walizka i listy pisane przez sto lat. Spektakl dla dorosłych, 70 minut.', access: ['Pętla indukcyjna'] },
-  { id: 'krotkie-metraze', date: '2027-01-23', time: '18:00', category: 'kino', title: 'Klub filmowy: wieczór krótkich metraży', place: 'Sala kameralna', price: '10 zł', ticket: true, text: 'Sześć krótkich filmów młodych twórców, a potem głosowanie publiczności.', access: ['Napisy'] },
-  { id: 'dzien-babci', date: '2027-01-24', time: '16:00', category: 'koncert', title: 'Dla Babci i Dziadka: koncert ogniska muzycznego', place: 'Sala widowiskowa', price: 'Wstęp wolny', ticket: false, text: 'Dzieci z ogniska muzycznego grają i śpiewają dla dziadków. Po koncercie tort.', access: ['Pętla indukcyjna', 'Miejsca dla wózków'] },
+  { id: 'jazz-foyer', date: '2027-11-26', time: '19:00', category: 'koncert', title: 'Wieczór jazzowy w foyer', place: 'Foyer', price: '30 zł', ticket: true, text: 'Trio fortepianowe gra standardy przy stolikach. Kawa i herbata z kawiarni na parterze.', access: ['Pętla indukcyjna'] },
+  { id: 'teatrzyk-kot', date: '2027-11-27', time: '11:00', category: 'dzieci', title: 'Teatrzyk na dywanie: O kocie, który zgubił buty', place: 'Sala kameralna', price: '15 zł', ticket: true, text: 'Spektakl lalkowy dla dzieci od 3 lat. Siedzimy na poduchach, a po spektaklu można poznać lalki.', access: ['Dla dzieci od 3 lat'] },
+  { id: 'klub-filmowy-polnoc', date: '2027-11-27', time: '18:00', category: 'kino', title: 'Klub filmowy: kino z Północy', place: 'Sala widowiskowa', price: '12 zł', ticket: true, text: 'Film z napisami, a po seansie krótka rozmowa z prowadzącą klub. Herbata w przerwie.', access: ['Napisy', 'Pętla indukcyjna'] },
+  { id: 'wernisaz-linoryt', date: '2027-11-28', time: '16:00', category: 'wystawa', title: 'Wernisaż: Miasto w linorycie', place: 'Galeria', price: 'Wstęp wolny', ticket: false, text: 'Odbitki uczestników pracowni grafiki: ulice, podwórka i dachy naszego miasta.', access: ['Bez schodów'] },
+  { id: 'kartki-linoryt', date: '2027-11-30', time: '17:30', category: 'warsztaty', title: 'Kartki świąteczne techniką linorytu', place: 'Pracownia plastyczna', price: '20 zł', ticket: false, text: 'Dwie godziny, materiały na miejscu, każdy wychodzi z pięcioma kartkami. Zapisy w sekretariacie.', access: ['Od 12 lat'] },
+  { id: 'wesele-pokolenia', date: '2027-12-03', time: '19:00', category: 'teatr', title: 'Premiera: Wesele na cztery pokolenia', place: 'Sala widowiskowa', price: '25 zł', ticket: true, text: 'Komedia w wykonaniu naszego teatru amatorskiego: na scenie grają razem nastolatki i seniorzy.', access: ['Pętla indukcyjna', 'Miejsca dla wózków'] },
+  { id: 'mikolajki', date: '2027-12-05', time: '12:00', category: 'dzieci', title: 'Mikołajki w domu kultury', place: 'Cały budynek', price: 'Wstęp wolny', ticket: false, text: 'Warsztaty pierniczkowe, zabawy taneczne i spotkanie z Mikołajem. Bez zapisów.', access: ['Bez schodów'] },
+  { id: 'kino-seniora', date: '2027-12-09', time: '13:00', category: 'kino', title: 'Kino seniora: komedia z lat 60.', place: 'Sala widowiskowa', price: '8 zł', ticket: true, text: 'Seans w południe, przy jaśniejszym świetle na widowni. Po filmie kawa i rozmowa.', access: ['Napisy', 'Pętla indukcyjna'] },
+  { id: 'koledy', date: '2027-12-11', time: '18:00', category: 'koncert', title: 'Kolędy: chór i orkiestra dęta', place: 'Sala widowiskowa', price: 'Wejściówki', ticket: true, text: 'Koncert zespołów domu kultury. Bezpłatne wejściówki do odbioru w kasie od 1 grudnia.', access: ['Pętla indukcyjna', 'Miejsca dla wózków'] },
+  { id: 'jarmark', date: '2027-12-12', time: '10:00', category: 'warsztaty', title: 'Jarmark świąteczny i warsztaty rodzinne', place: 'Foyer i pracownie', price: 'Wstęp wolny', ticket: false, text: 'Rękodzieło lokalnych twórców, ozdoby choinkowe do zrobienia na miejscu i ciepła zupa.', access: ['Bez schodów'] },
+  { id: 'piosenki-filmowe', date: '2027-12-18', time: '19:00', category: 'koncert', title: 'Koncert świąteczny: piosenki z filmów', place: 'Sala widowiskowa', price: '35 zł', ticket: true, text: 'Studio wokalne i zespół instrumentalny w znanych melodiach z kina familijnego.', access: ['Pętla indukcyjna', 'Miejsca dla wózków'] },
+  { id: 'wystawa-zima', date: '2028-01-08', time: '17:00', category: 'wystawa', title: 'Wystawa pracowni plastycznej: Zima', place: 'Galeria', price: 'Wstęp wolny', ticket: false, text: 'Prace dzieci i dorosłych z pracowni plastycznej i ceramiki. Wystawa do 6 lutego.', access: ['Bez schodów'] },
+  { id: 'monodram', date: '2028-01-14', time: '19:00', category: 'teatr', title: 'Monodram: Listy z podróży', place: 'Sala kameralna', price: '30 zł', ticket: true, text: 'Jedna aktorka, walizka i listy pisane przez sto lat. Spektakl dla dorosłych, 70 minut.', access: ['Pętla indukcyjna'] },
+  { id: 'krotkie-metraze', date: '2028-01-22', time: '18:00', category: 'kino', title: 'Klub filmowy: wieczór krótkich metraży', place: 'Sala kameralna', price: '10 zł', ticket: true, text: 'Sześć krótkich filmów młodych twórców, a potem głosowanie publiczności.', access: ['Napisy'] },
+  { id: 'dzien-babci', date: '2028-01-23', time: '16:00', category: 'koncert', title: 'Dla Babci i Dziadka: koncert ogniska muzycznego', place: 'Sala widowiskowa', price: 'Wstęp wolny', ticket: false, text: 'Dzieci z ogniska muzycznego grają i śpiewają dla dziadków. Po koncercie tort.', access: ['Pętla indukcyjna', 'Miejsca dla wózków'] },
 ];
 
 export const months = [
-  { id: '2026-11', label: 'Listopad' },
-  { id: '2026-12', label: 'Grudzień' },
-  { id: '2027-01', label: 'Styczeń' },
+  { id: '2027-11', label: 'Listopad' },
+  { id: '2027-12', label: 'Grudzień' },
+  { id: '2028-01', label: 'Styczeń' },
 ];
 
 export const audiences = [
@@ -84,9 +84,9 @@ export const rooms = [
 ];
 
 export const news = [
-  { id: 'zapisy-luty', date: '2026-11-24', title: 'Zapisy na zajęcia od lutego ruszają 12 stycznia', text: 'Formularz online będzie otwarty od 8:00. Seniorzy mogą też zapisać się osobiście w sekretariacie, bez kolejki.', tag: 'Zajęcia' },
-  { id: 'winda', date: '2026-11-18', title: 'Nowa winda i pętla indukcyjna w sali widowiskowej', text: 'Na wszystkie piętra dojedziesz już windą, a osoby z aparatami słuchowymi usłyszą scenę bez szumów.', tag: 'Dostępność' },
-  { id: 'konkurs-plakat', date: '2026-11-10', title: 'Konkurs na plakat „Mój dom kultury”', text: 'Czekamy na prace w trzech grupach wiekowych do 15 grudnia. Zwycięskie plakaty zawisną w foyer.', tag: 'Konkurs' },
+  { id: 'zapisy-luty', date: '2027-11-23', title: 'Zapisy na zajęcia od lutego ruszają 12 stycznia', text: 'Formularz online będzie otwarty od 8:00. Seniorzy mogą też zapisać się osobiście w sekretariacie, bez kolejki.', tag: 'Zajęcia' },
+  { id: 'winda', date: '2027-11-17', title: 'Nowa winda i pętla indukcyjna w sali widowiskowej', text: 'Na wszystkie piętra dojedziesz już windą, a osoby z aparatami słuchowymi usłyszą scenę bez szumów.', tag: 'Dostępność' },
+  { id: 'konkurs-plakat', date: '2027-11-09', title: 'Konkurs na plakat „Mój dom kultury”', text: 'Czekamy na prace w trzech grupach wiekowych do 15 grudnia. Zwycięskie plakaty zawisną w foyer.', tag: 'Konkurs' },
 ];
 
 // Polish dates shown on the page, from ISO dates (no time zone shifts: built from the parts).
