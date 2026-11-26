@@ -1,0 +1,214 @@
+/* Product card: soft colour block with the drawing, a quick-view pill that rises in on hover (always there on touch
+   and keyboard focus), body with price and an add-to-cart button. Hover: the card lifts, the drawing scales. */
+.ds-product-card {
+  --card-block: var(--palette-primary-50);
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+  border-radius: var(--radius-3xl);
+  background: var(--palette-neutral-0);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--palette-secondary-800) 8%, transparent);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.45s ease;
+}
+
+.ds-product-card--linen { --card-block: var(--palette-secondary-50); }
+.ds-product-card--ochre { --card-block: color-mix(in srgb, var(--palette-accent-400) 22%, var(--palette-neutral-50)); }
+.ds-product-card--stone { --card-block: color-mix(in srgb, var(--palette-secondary-600) 12%, var(--palette-neutral-50)); }
+
+.ds-product-card:hover,
+.ds-product-card:focus-within {
+  transform: translateY(calc(var(--space-6) * -1));
+  box-shadow: 0 var(--space-20) var(--space-40) color-mix(in srgb, var(--palette-secondary-800) 14%, transparent);
+}
+
+.ds-product-card__media {
+  position: relative;
+  padding: var(--space-28) var(--space-20) var(--space-12);
+  border-radius: var(--radius-3xl) var(--radius-3xl) var(--radius-lg) var(--radius-lg);
+  background: var(--card-block);
+  overflow: clip;
+}
+
+.ds-product-card__art {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ds-product-card:hover .ds-product-card__art {
+  transform: scale(1.06) translateY(calc(var(--space-4) * -1));
+}
+
+.ds-product-card__badge {
+  position: absolute;
+  top: var(--space-14);
+  left: var(--space-14);
+  z-index: 1;
+  padding: var(--space-4) var(--space-10);
+  border-radius: var(--radius-full);
+  background: var(--palette-secondary-800);
+  color: var(--palette-neutral-0);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-product-card__quick {
+  position: absolute;
+  right: var(--space-12);
+  bottom: var(--space-12);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  min-height: var(--size-40);
+  padding: var(--space-6) var(--space-14);
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--palette-neutral-0);
+  color: var(--palette-secondary-800);
+  box-shadow: var(--shadow-lift);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s ease;
+}
+
+.ds-product-card__quick svg {
+  width: var(--size-18);
+  height: var(--size-18);
+}
+
+.ds-product-card__quick:hover {
+  background: var(--palette-accent-400);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ds-product-card__quick {
+    opacity: 0;
+    transform: translateY(var(--space-12));
+  }
+
+  .ds-product-card:hover .ds-product-card__quick,
+  .ds-product-card__quick:focus-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ds-product-card__body {
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+  padding: var(--space-18) var(--space-20) var(--space-20);
+}
+
+.ds-product-card__type {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.ds-product-card__name {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  line-height: var(--font-line-height-xl);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-product-card__link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--palette-accent-400);
+  text-decoration-thickness: 2px;
+  text-underline-offset: var(--space-4);
+}
+
+.ds-product-card__link:hover {
+  color: var(--palette-primary-600);
+}
+
+.ds-product-card__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.ds-product-card__dot {
+  flex-shrink: 0;
+  width: var(--size-12);
+  height: var(--size-12);
+  border-radius: var(--radius-full);
+  background: var(--dot);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--palette-secondary-800) 35%, transparent);
+}
+
+.ds-product-card__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  margin-top: var(--space-12);
+}
+
+.ds-product-card__price {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  line-height: 1;
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+.ds-product-card__add {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  min-height: var(--size-44);
+  padding: var(--space-6) var(--space-16);
+  border: 0;
+  border-radius: var(--radius-full);
+  background: var(--palette-secondary-800);
+  color: var(--palette-neutral-0);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+.ds-product-card__add svg {
+  width: var(--size-20);
+  height: var(--size-20);
+}
+
+.ds-product-card__add:hover {
+  background: var(--palette-accent-400);
+  color: var(--palette-secondary-900);
+}
+
+.ds-product-card__add:active {
+  transform: scale(0.96);
+}
+
+.ds-product-card__delivery {
+  margin-top: var(--space-6);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.ds-product-card__quick:focus-visible,
+.ds-product-card__add:focus-visible,
+.ds-product-card__link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-product-card,
+  .ds-product-card__art,
+  .ds-product-card__quick,
+  .ds-product-card__add {
+    transition: none;
+  }
+}

@@ -1,0 +1,154 @@
+---
+// Furniture shop home page: components made for this brief (components/), on the design system's tokens. The shop
+// parts (filters, cart, checkout step, quick view) are working demos; nothing is charged or sent. Copy, prices and
+// reviews are example content written for the brief. In the finished site: WordPress + WooCommerce.
+import Sample from '../layouts/Sample.astro';
+import sample from '../sample.json';
+
+import '../components/base/page/page.css';
+import '../components/base/forms/forms.css';
+import '../components/atoms/shop-button/shop-button.css';
+import '../components/atoms/eyebrow/eyebrow.css';
+import '../components/atoms/swatch/swatch.css';
+import '../components/molecules/logo/logo.css';
+import '../components/molecules/furniture-art/furniture-art.css';
+import '../components/molecules/product-card/product-card.css';
+import '../components/organisms/site-header/site-header.css';
+import '../components/organisms/site-footer/site-footer.css';
+import '../components/organisms/cart-drawer/cart-drawer.css';
+import '../components/organisms/quick-view/quick-view.css';
+import '../components/sections/room-hero/room-hero.css';
+import '../components/sections/category-grid/category-grid.css';
+import '../components/sections/product-listing/product-listing.css';
+import '../components/sections/custom-order/custom-order.css';
+import '../components/sections/materials-care/materials-care.css';
+import '../components/sections/delivery-returns/delivery-returns.css';
+import '../components/sections/showroom-booking/showroom-booking.css';
+import '../components/sections/reviews/reviews.css';
+import '../components/sections/newsletter/newsletter.css';
+
+import SiteHeader from '../components/organisms/site-header/SiteHeader.astro';
+import SiteFooter from '../components/organisms/site-footer/SiteFooter.astro';
+import CartDrawer from '../components/organisms/cart-drawer/CartDrawer.astro';
+import QuickView from '../components/organisms/quick-view/QuickView.astro';
+import RoomHero from '../components/sections/room-hero/RoomHero.astro';
+import CategoryGrid from '../components/sections/category-grid/CategoryGrid.astro';
+import ProductListing from '../components/sections/product-listing/ProductListing.astro';
+import CustomOrder from '../components/sections/custom-order/CustomOrder.astro';
+import MaterialsCare from '../components/sections/materials-care/MaterialsCare.astro';
+import DeliveryReturns from '../components/sections/delivery-returns/DeliveryReturns.astro';
+import ShowroomBooking from '../components/sections/showroom-booking/ShowroomBooking.astro';
+import Reviews from '../components/sections/reviews/Reviews.astro';
+import Newsletter from '../components/sections/newsletter/Newsletter.astro';
+import { categories } from '../data/catalog';
+import { cta, fonts, footer, freeDeliveryFrom, home, nav, productHref } from '../data/site';
+---
+<Sample lang={sample.lang} title={sample.title} description={sample.summary} fonts={fonts}>
+  <SiteHeader home={home} items={nav} cta={cta} />
+  <main>
+    <RoomHero
+      label="Sklep online i salon meblowy"
+      title="Meble, przy których"
+      accent="zostaje się dłużej"
+      lead="Sofy, stoły, krzesła, regały i łóżka z litego drewna i naturalnych tkanin. Kupisz je tutaj albo przyjdziesz usiąść na każdej sofie w naszym salonie."
+      primary={{ text: 'Zobacz kolekcję', href: '#kolekcja' }}
+      secondary={{ text: 'Umów wizytę w salonie', href: '#salon' }}
+      perks={['Dostawa z wniesieniem i montażem', '30 dni na zwrot', '10 lat gwarancji na stelaże']}
+      tag={{ name: 'Sofa Fala, len i dąb', price: 'od 2990 zł', href: productHref }}
+    />
+    <CategoryGrid
+      id="kategorie"
+      label="Kategorie"
+      title="Do salonu, jadalni"
+      accent="i sypialni"
+      items={categories}
+      custom={{ title: 'Meble na wymiar', text: 'Regał we wnękę, stół pod jadalnię, szafa pod skos.', href: '#na-wymiar' }}
+    />
+    <ProductListing
+      id="kolekcja"
+      label="Kolekcja"
+      title="Wybierz po swojemu:"
+      accent="kategoria, materiał, kolor"
+      lead="Filtry działają na żywo. W gotowym sklepie to te same atrybuty, które ustawiasz przy produkcie w WooCommerce."
+      productHref={productHref}
+    />
+    <CustomOrder
+      id="na-wymiar"
+      label="Meble na wymiar"
+      title="Nie pasuje gotowy?"
+      accent="Zrobimy na wymiar."
+      lead="Ustaw szerokość, wysokość i drewno, a zobaczysz regał i orientacyjną cenę. Resztę dopracuje z Tobą projektant."
+      steps={['Opisujesz pomysł i wymiary', 'Projektant przysyła rysunek i wycenę', 'Akceptujesz, a pracownia zaczyna produkcję']}
+    />
+    <MaterialsCare
+      id="materialy"
+      label="Materiały i pielęgnacja"
+      title="Drewno i tkaniny,"
+      accent="które dobrze się starzeją"
+      lead="Pracujemy na litym drewnie i tkaninach z certyfikatami. Każdy materiał ma swój charakter i krótką instrukcję obsługi."
+      items={[
+        { kind: 'wood', name: 'Dąb', tone: 'var(--palette-primary-400)', traits: 'Twardy, jasny, z wyraźnym rysunkiem słojów. Z wiekiem ciepło ciemnieje.', care: 'raz w roku olej do drewna, plamy przecieraj wilgotną ściereczką.' },
+        { kind: 'wood', name: 'Orzech', tone: 'var(--palette-primary-600)', traits: 'Ciemny, czekoladowy, gładki w dotyku. Na stoły i łóżka.', care: 'unikaj pełnego słońca przez cały dzień, wosk co 2 lata.' },
+        { kind: 'wood', name: 'Dąb barwiony', tone: 'var(--palette-secondary-600)', traits: 'Dąb w kolorze grafitu: słoje zostają widoczne pod barwnikiem.', care: 'jak dąb naturalny, rysy zaprawisz woskiem w kolorze.' },
+        { kind: 'fabric', name: 'Len naturalny', tone: 'var(--palette-secondary-100)', traits: 'Oddychający, chłodny latem. Lekko się gniecie i to część uroku.', care: 'pokrowce pierz w 30°C, susz na płasko.' },
+        { kind: 'fabric', name: 'Bouclé', tone: 'color-mix(in srgb, var(--palette-neutral-0) 70%, var(--palette-secondary-100))', traits: 'Puszysta pętelka, ciepła w dotyku, odporna na ścieranie.', care: 'odkurzaj miękką szczotką, plamy zbieraj od razu.' },
+        { kind: 'fabric', name: 'Welur z recyklingu', tone: 'var(--palette-accent-400)', traits: 'Miękki połysk, głęboki kolor, przędza z butelek PET.', care: 'czesz po włosie, czyść na sucho lub pianką.' },
+      ]}
+      tips={['Stawiaj meble co najmniej 50 cm od kaloryfera.', 'Trzymaj wilgotność w domu na poziomie 40–60%.', 'Pod nogi krzeseł przyklej filcowe podkładki.', 'Przewracaj poduchy sofy raz w tygodniu.', 'Plamy zbieraj od razu, bez pocierania.']}
+    />
+    <DeliveryReturns
+      id="dostawa"
+      label="Dostawa i montaż"
+      title="Wnosimy, skręcamy,"
+      accent="zabieramy kartony"
+      lead="Własne ekipy w największych miastach, kurier meblowy w całej Polsce. O godzinie dostawy decydujesz Ty."
+      steps={[
+        { title: 'Zamówienie', text: 'W ciągu 24 godzin potwierdzamy zamówienie i termin produkcji.', time: 'Dzień 1' },
+        { title: 'Produkcja', text: 'Meble z magazynu wysyłamy od razu, szyte na zamówienie po 2–6 tygodniach.', time: '0–6 tygodni' },
+        { title: 'Dostawa z wniesieniem', text: 'Umawiamy 2-godzinne okno, wnosimy na każde piętro, także bez windy.', time: 'Ustalony dzień' },
+        { title: 'Montaż', text: 'Skręcamy, poziomujemy i zabieramy opakowania do recyklingu.', time: 'Ok. 30 minut' },
+      ]}
+      returns={{
+        title: 'Zwroty i gwarancja',
+        points: [
+          { title: '30 dni na zwrot', text: 'Meble z magazynu oddasz bez podawania przyczyny. Odbierzemy je od Ciebie.' },
+          { title: 'Na wymiar: akceptujesz projekt', text: 'Meble robione pod wymiar nie podlegają zwrotowi, dlatego przed produkcją dostajesz rysunek do akceptacji.' },
+          { title: '10 lat gwarancji na stelaże', text: 'I 2 lata na tkaniny oraz mechanizmy. Zgłoszenie przez formularz, bez paragonu w szufladzie.' },
+        ],
+      }}
+    />
+    <ShowroomBooking
+      id="salon"
+      label="Salon"
+      title="Usiądź, zanim"
+      accent="kupisz"
+      lead="W salonie stoi 40 sof i foteli do przetestowania i próbnik 120 tkanin. Zarezerwuj godzinę z doradcą, a przygotujemy wybrane modele."
+      facts={[
+        { label: 'Adres', value: 'ul. Przykładowa 8, Warszawa' },
+        { label: 'Godziny', value: 'pon.–pt. 10–19, sob. 10–16' },
+        { label: 'Parking', value: 'Bezpłatny, przed wejściem' },
+        { label: 'Telefon', value: '+48 600 000 000' },
+      ]}
+      times={['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00']}
+      topics={['Sofy i fotele', 'Stoły i krzesła', 'Sypialnia', 'Meble na wymiar', 'Jeszcze nie wiem, chcę się rozejrzeć']}
+    />
+    <Reviews
+      id="opinie"
+      label="Opinie"
+      title="Co mówią"
+      accent="po dostawie"
+      note="Opinie przykładowe, napisane do tej makiety"
+      score="4,8"
+      items={[
+        { name: 'Marta', city: 'Kraków', product: 'sofa Fala, len', stars: 5, text: 'Siedziałam na niej w salonie trzy razy, zanim zamówiłam. Ekipa wniosła ją na czwarte piętro bez windy i jeszcze zabrała stare kartony.' },
+        { name: 'Tomasz', city: 'Gdańsk', product: 'stół Biesiada', stars: 5, text: 'Stół rozkładany do 260 cm, a złożony mieści się w małej jadalni. Orzech wygląda lepiej niż na zdjęciach.' },
+        { name: 'Ola', city: 'Poznań', product: 'regał na wymiar', stars: 4, text: 'Regał we wnękę zrobiony co do centymetra. Czekałam pięć tygodni, ale projektant cały czas był w kontakcie.' },
+      ]}
+    />
+    <Newsletter title="Nowe kolekcje i wyprzedaże ekspozycji" text="Raz w miesiącu, bez spamu. Na start −10% na pierwsze zamówienie." />
+  </main>
+  <SiteFooter home={home} {...footer} />
+  <CartDrawer freeFrom={freeDeliveryFrom} />
+  <QuickView productHref={productHref} />
+  <script src="../scripts/furniture.js"></script>
+</Sample>

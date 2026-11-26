@@ -1,0 +1,85 @@
+---
+// Editorial hero: headline and calls to action next to a drawn room. The room's pieces (window, shelf, lamp, rug,
+// sofa, armchair, coffee table) slide into place and the floorboards' grain draws itself (furniture.js).
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import ShopButton from '../../atoms/shop-button/ShopButton.astro';
+import FurnitureArt from '../../molecules/furniture-art/FurnitureArt.astro';
+interface Props {
+  label: string;
+  title: string;
+  accent: string;
+  lead: string;
+  primary: { text: string; href: string };
+  secondary: { text: string; href: string };
+  perks: string[];
+  tag: { name: string; price: string; href: string };
+}
+const { label, title, accent, lead, primary, secondary, perks, tag } = Astro.props;
+const grain = [
+  'M0 430c80-6 160 4 250 0s200-8 350-2',
+  'M0 456c120 6 210-6 320-2s170 8 280 2',
+  'M0 486c90-4 190 6 300 0s200-6 300-1',
+  'M40 508c100 3 220-5 330-1s150 4 230 1',
+];
+---
+<section class="ds-room-hero" id="top" aria-labelledby="hero-title">
+  <div class="ds-container ds-room-hero__grid">
+    <div class="ds-room-hero__copy">
+      <div data-hero-item><Eyebrow text={label} /></div>
+      <h1 class="ds-room-hero__title" id="hero-title" data-hero-item>{title} <em>{accent}</em></h1>
+      <p class="ds-room-hero__lead" data-hero-item>{lead}</p>
+      <div class="ds-room-hero__actions" data-hero-item>
+        <ShopButton text={primary.text} href={primary.href} />
+        <ShopButton text={secondary.text} href={secondary.href} variant="ghost" icon="none" />
+      </div>
+      <ul class="ds-room-hero__perks" role="list" data-hero-item>
+        {perks.map((perk) => (
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4 10-10" /></svg>{perk}</li>
+        ))}
+      </ul>
+    </div>
+    <div class="ds-room-hero__scene">
+      <svg class="ds-room-hero__room" viewBox="0 0 600 520" role="img" aria-label="Rysunek salonu: sofa, fotel, stolik kawowy, lampa i regał na ścianie">
+        <rect class="ds-room-hero__wall" width="600" height="520" />
+        <g data-room-piece data-from="top">
+          <path class="ds-room-hero__window" d="M340 300V140a90 90 0 0 1 180 0v160z" />
+          <path class="ds-room-hero__frame-line" d="M430 50v250M340 190h180" />
+        </g>
+        <g data-room-piece data-from="top">
+          <rect class="ds-room-hero__picture" x="176" y="66" width="112" height="84" rx="4" />
+          <path class="ds-room-hero__hill" d="M184 142c20-26 34-36 52-20 14-16 30-16 44 0v0H184z" />
+          <circle class="ds-room-hero__sun" cx="260" cy="94" r="10" />
+        </g>
+        <g data-room-piece data-from="left">
+          <rect class="ds-room-hero__plank" x="150" y="206" width="170" height="10" rx="3" />
+          <rect class="ds-room-hero__book" x="166" y="170" width="12" height="36" rx="2" />
+          <rect class="ds-room-hero__book ds-room-hero__book--ochre" x="180" y="176" width="10" height="30" rx="2" />
+          <rect class="ds-room-hero__book ds-room-hero__book--dark" x="192" y="182" width="14" height="24" rx="2" transform="rotate(12 199 206)" />
+          <path class="ds-room-hero__vase" d="M290 206c-10 0-12-14-6-22l2-8h10l2 8c6 8 4 22-8 22z" />
+        </g>
+        <rect class="ds-room-hero__floor" y="400" width="600" height="120" />
+        {grain.map((path) => <path class="ds-room-hero__grain" d={path} pathLength="1000" data-draw />)}
+        <ellipse class="ds-room-hero__rug" cx="300" cy="462" rx="250" ry="34" data-room-piece data-from="bottom" />
+        <g data-room-piece data-from="left">
+          <path class="ds-room-hero__lamp-stem" d="M64 470V170l26-20" />
+          <ellipse class="ds-room-hero__shadow" cx="64" cy="472" rx="28" ry="5" />
+          <path class="ds-room-hero__glow" d="M72 152l-30 120h100l-30-120z" />
+          <path class="ds-room-hero__lamp-shade" d="M70 150h44l-8-40H78z" />
+        </g>
+        <g data-room-piece data-from="right">
+          <FurnitureArt kind="armchair" fabric="var(--palette-accent-400)" wood="var(--palette-primary-600)" x={406} y={300} width={190} />
+        </g>
+        <g data-room-piece data-from="left" data-room-hero>
+          <FurnitureArt kind="sofa" fabric="var(--palette-secondary-100)" wood="var(--palette-primary-400)" x={92} y={246} width={330} />
+        </g>
+        <g data-room-piece data-from="bottom">
+          <FurnitureArt kind="coffee-table" fabric="var(--palette-secondary-600)" wood="var(--palette-primary-600)" x={226} y={390} width={160} />
+        </g>
+      </svg>
+      <a class="ds-room-hero__tag" href={tag.href} data-hero-item>
+        <span class="ds-room-hero__tag-name">{tag.name}</span>
+        <span class="ds-room-hero__tag-price">{tag.price}</span>
+      </a>
+    </div>
+  </div>
+</section>

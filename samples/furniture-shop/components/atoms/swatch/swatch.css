@@ -1,0 +1,59 @@
+/* Swatch: a radio button shown as a colour dot with its name; the checked dot gets a charcoal ring that grows in.
+   Used for fabrics and woods. */
+.ds-swatch {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: var(--size-44);
+  padding: var(--space-4) var(--space-12) var(--space-4) var(--space-4);
+  border: 1px solid color-mix(in srgb, var(--palette-secondary-800) 18%, transparent);
+  border-radius: var(--radius-full);
+  background: var(--palette-neutral-0);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: border-color 0.25s ease;
+}
+
+.ds-swatch:hover {
+  border-color: var(--palette-secondary-800);
+}
+
+.ds-swatch__input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.ds-swatch__dot {
+  width: calc(var(--size-16) * 2);
+  height: calc(var(--size-16) * 2);
+  border-radius: var(--radius-full);
+  background: var(--dot);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--palette-secondary-800) 30%, transparent);
+  transition: box-shadow 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ds-swatch:has(.ds-swatch__input:checked) {
+  border-color: var(--palette-secondary-800);
+  box-shadow: inset 0 0 0 1px var(--palette-secondary-800);
+}
+
+.ds-swatch__input:checked ~ .ds-swatch__dot {
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--palette-secondary-800) 30%, transparent), 0 0 0 2px var(--palette-neutral-0), 0 0 0 var(--space-4) var(--palette-secondary-800);
+}
+
+.ds-swatch__input:focus-visible ~ .ds-swatch__dot {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--space-6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-swatch,
+  .ds-swatch__dot {
+    transition: none;
+  }
+}

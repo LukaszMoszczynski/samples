@@ -1,0 +1,70 @@
+/* Furniture drawings: flat shapes with a thin charcoal outline. Fabric and wood come from --art-fabric / --art-wood
+   (set per product, changed by the swatches); shades and highlights are mixed from them, so one value recolours the
+   whole piece. The fill transition makes the swatch change smooth. */
+.ds-art {
+  --art-ink: var(--palette-secondary-800);
+  --art-fabric-shade: color-mix(in srgb, var(--art-fabric) 80%, var(--palette-secondary-900));
+  --art-fabric-light: color-mix(in srgb, var(--art-fabric) 82%, var(--palette-neutral-0));
+  --art-wood-shade: color-mix(in srgb, var(--art-wood) 76%, var(--palette-secondary-900));
+  overflow: visible;
+}
+
+.ds-art--block {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ds-art :is(rect, path, ellipse) {
+  stroke: var(--art-ink);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  transition: fill 0.6s ease;
+}
+
+.ds-art__body {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+}
+
+.ds-art .ds-art__shadow {
+  fill: color-mix(in srgb, var(--palette-secondary-800) 14%, transparent);
+  stroke: none;
+}
+
+.ds-art .ds-art__fabric { fill: var(--art-fabric); }
+.ds-art .ds-art__fabric-shade { fill: var(--art-fabric-shade); }
+.ds-art .ds-art__fabric-light { fill: var(--art-fabric-light); }
+.ds-art .ds-art__pillow { fill: color-mix(in srgb, var(--art-fabric) 40%, var(--palette-neutral-0)); }
+.ds-art .ds-art__soft { fill: var(--palette-neutral-0); }
+.ds-art .ds-art__back { fill: color-mix(in srgb, var(--art-wood) 30%, var(--palette-neutral-0)); }
+.ds-art .ds-art__wood { fill: var(--art-wood); }
+.ds-art .ds-art__wood-shade { fill: var(--art-wood-shade); }
+.ds-art .ds-art__plant { fill: color-mix(in srgb, var(--palette-secondary-600) 55%, var(--palette-primary-400)); }
+
+.ds-art .ds-art__seam,
+.ds-art .ds-art__grain,
+.ds-art .ds-art__weave,
+.ds-art .ds-art__handle {
+  fill: none;
+  stroke-width: 1.5;
+}
+
+.ds-art .ds-art__grain {
+  stroke: color-mix(in srgb, var(--art-wood-shade) 70%, transparent);
+}
+
+.ds-art .ds-art__weave {
+  stroke: color-mix(in srgb, var(--palette-secondary-800) 40%, transparent);
+}
+
+.ds-art .ds-art__handle {
+  stroke-width: 3;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-art :is(rect, path, ellipse) {
+    transition: none;
+  }
+}

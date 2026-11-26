@@ -1,0 +1,110 @@
+/* Newsletter: an ochre card, a line-drawn pendant lamp with a soft light cone, the form on the right. */
+.ds-newsletter__card {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-32);
+  align-items: center;
+  padding: var(--space-40) var(--space-48);
+  overflow: clip;
+  border-radius: var(--radius-4xl);
+  background: color-mix(in srgb, var(--palette-accent-400) 55%, var(--palette-neutral-50));
+}
+
+.ds-newsletter__lamp {
+  width: calc(var(--size-40) * 2.4);
+  stroke: var(--palette-secondary-800);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ds-newsletter__light {
+  fill: color-mix(in srgb, var(--palette-neutral-0) 45%, transparent);
+  stroke: none;
+}
+
+.ds-newsletter__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  line-height: var(--font-line-height-2xl);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-newsletter__text {
+  margin-top: var(--space-8);
+  color: var(--palette-secondary-800);
+}
+
+.ds-newsletter__form {
+  display: grid;
+  gap: var(--space-28);
+}
+
+.ds-newsletter__row {
+  position: relative;
+  display: flex;
+  gap: var(--space-8);
+}
+
+.ds-newsletter__input {
+  flex: 1;
+  min-width: 0;
+  min-height: var(--size-52);
+  padding: var(--space-10) var(--space-20);
+  border: 1px solid color-mix(in srgb, var(--palette-secondary-800) 30%, transparent);
+  border-radius: var(--radius-full);
+  background: var(--palette-neutral-0);
+  color: var(--palette-secondary-800);
+}
+
+.ds-newsletter__input:focus-visible {
+  outline: var(--focus-ring-width) solid var(--palette-secondary-800);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-newsletter__input[aria-invalid="true"] {
+  border-color: var(--color-state-error);
+}
+
+.ds-newsletter__consent {
+  display: flex;
+  gap: var(--space-10);
+  align-items: flex-start;
+  font-size: var(--font-size-small);
+  cursor: pointer;
+}
+
+.ds-newsletter__consent input {
+  margin-top: var(--space-3);
+  accent-color: var(--palette-secondary-800);
+}
+
+.ds-newsletter__thanks {
+  font-weight: var(--font-weight-bold);
+}
+
+@media (max-width: 1023px) {
+  .ds-newsletter__card {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .ds-newsletter__form {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 599px) {
+  .ds-newsletter__card {
+    grid-template-columns: minmax(0, 1fr);
+    padding: var(--space-28) var(--space-20);
+  }
+
+  .ds-newsletter__lamp {
+    width: var(--size-52);
+  }
+
+  .ds-newsletter__row {
+    flex-direction: column;
+  }
+}

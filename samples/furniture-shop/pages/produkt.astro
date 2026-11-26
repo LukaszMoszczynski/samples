@@ -1,0 +1,89 @@
+---
+// Product page (sofa Fala): variant pickers that recolour and resize the drawing, delivery time, quantity and the demo
+// cart; details, related pieces and example reviews below. In the finished site: a WooCommerce variable product.
+import Sample from '../layouts/Sample.astro';
+import sample from '../sample.json';
+
+import '../components/base/page/page.css';
+import '../components/base/forms/forms.css';
+import '../components/atoms/shop-button/shop-button.css';
+import '../components/atoms/eyebrow/eyebrow.css';
+import '../components/atoms/swatch/swatch.css';
+import '../components/molecules/logo/logo.css';
+import '../components/molecules/furniture-art/furniture-art.css';
+import '../components/molecules/product-card/product-card.css';
+import '../components/organisms/site-header/site-header.css';
+import '../components/organisms/site-footer/site-footer.css';
+import '../components/organisms/cart-drawer/cart-drawer.css';
+import '../components/organisms/quick-view/quick-view.css';
+import '../components/sections/product-detail/product-detail.css';
+import '../components/sections/related/related.css';
+import '../components/sections/reviews/reviews.css';
+import '../components/sections/newsletter/newsletter.css';
+
+import SiteHeader from '../components/organisms/site-header/SiteHeader.astro';
+import SiteFooter from '../components/organisms/site-footer/SiteFooter.astro';
+import CartDrawer from '../components/organisms/cart-drawer/CartDrawer.astro';
+import QuickView from '../components/organisms/quick-view/QuickView.astro';
+import ProductDetail from '../components/sections/product-detail/ProductDetail.astro';
+import Related from '../components/sections/related/Related.astro';
+import Reviews from '../components/sections/reviews/Reviews.astro';
+import Newsletter from '../components/sections/newsletter/Newsletter.astro';
+import { products } from '../data/catalog';
+import { cta, fonts, footer, freeDeliveryFrom, home, nav, productHref } from '../data/site';
+
+const product = products.find((item) => item.id === 'sofa-fala')!;
+const related = ['fotel-kokon', 'stolik-okrag', 'regal-polka'].map((id) => products.find((item) => item.id === id)!);
+---
+<Sample lang={sample.lang} title={`Sofa ${product.name} – ${sample.title}`} description="Przykładowa karta produktu: sofa z wyborem tkaniny, drewna i rozmiaru, terminem dostawy i koszykiem demo." fonts={fonts}>
+  <SiteHeader home={home} items={nav} cta={cta} />
+  <main id="top">
+    <ProductDetail
+      product={product}
+      home={home}
+      fabrics={[
+        { id: 'len', name: 'Len naturalny', value: 'var(--palette-secondary-100)' },
+        { id: 'grafit', name: 'Grafit', value: 'var(--palette-secondary-600)' },
+        { id: 'musztarda', name: 'Musztarda', value: 'var(--palette-accent-400)', delivery: '5–6 tygodni' },
+        { id: 'karmel', name: 'Karmel', value: 'color-mix(in srgb, var(--palette-primary-400) 70%, var(--palette-accent-400))', delivery: '5–6 tygodni' },
+      ]}
+      woods={[
+        { id: 'dab', name: 'Dąb naturalny', value: 'var(--palette-primary-400)' },
+        { id: 'orzech', name: 'Orzech', value: 'var(--palette-primary-600)' },
+        { id: 'czarny', name: 'Dąb czarny', value: 'var(--palette-secondary-900)' },
+      ]}
+      sizes={[
+        { id: '2', name: '2-osobowa', width: 180, price: 2990, scale: 0.84 },
+        { id: '3', name: '3-osobowa', width: 220, price: 3490, scale: 1 },
+        { id: '4', name: '4-osobowa', width: 260, price: 3990, scale: 1.14 },
+      ]}
+      perks={['Dostawa z wniesieniem i montażem, gratis od 3000 zł', '30 dni na zwrot (wersje z magazynu)', '10 lat gwarancji na stelaż z drewna bukowego', 'Pokrowce zdejmowane, do prania w 30°C']}
+      details={[
+        { title: 'Wymiary', body: '<table><tbody><tr><th scope="row">Szerokość</th><td>180 / 220 / 260 cm</td></tr><tr><th scope="row">Głębokość</th><td>98 cm</td></tr><tr><th scope="row">Wysokość</th><td>82 cm, siedzisko 46 cm</td></tr><tr><th scope="row">Głębokość siedziska</th><td>62 cm</td></tr></tbody></table>' },
+        { title: 'Materiały', body: '<p>Stelaż z litego drewna bukowego, sprężyny faliste, siedzisko z pianki HR i pierza w osobnych komorach. Nogi z litego dębu lub orzecha, olejowane.</p>' },
+        { title: 'Pielęgnacja', body: '<p>Pokrowce zdejmiesz i wypierzesz w 30°C. Poduchy przewracaj raz w tygodniu, wtedy siedzisko układa się równo. Nogi olej raz w roku.</p>' },
+        { title: 'Dostawa i montaż', body: '<p>Wnosimy na każde piętro, przykręcamy nogi i zabieramy opakowania. Termin dostawy umawiamy telefonicznie, z 2-godzinnym oknem.</p>' },
+        { title: 'Zwroty', body: '<p>Wersje z magazynu możesz zwrócić w ciągu 30 dni. Sofy szyte w wybranej tkaninie na zamówienie są wykonywane specjalnie dla Ciebie, dlatego przed produkcją potwierdzamy wybór próbką.</p>' },
+      ]}
+    />
+    <Related title="Pasuje do sofy" accent="Fala" products={related} productHref={productHref} />
+    <Reviews
+      id="opinie"
+      label="Opinie o sofie"
+      title="Jak siedzi się"
+      accent="na Fali"
+      note="Opinie przykładowe, napisane do tej makiety"
+      score="4,8"
+      items={[
+        { name: 'Marta', city: 'Kraków', product: 'Fala 3-osobowa, len', stars: 5, text: 'Głęboka, ale nie zapadasz się w niej. Lniany pokrowiec wyprałam już dwa razy i wygląda jak nowy.' },
+        { name: 'Paweł', city: 'Wrocław', product: 'Fala 4-osobowa, grafit', stars: 5, text: 'Cała rodzina mieści się na seansie. Montaż nóg zajął ekipie pięć minut.' },
+        { name: 'Ewa', city: 'Lublin', product: 'Fala 2-osobowa, musztarda', stars: 4, text: 'Kolor dokładnie jak z próbnika. Na tkaninę na zamówienie czekałam pięć tygodni, tak jak obiecano.' },
+      ]}
+    />
+    <Newsletter title="Nowe kolekcje i wyprzedaże ekspozycji" text="Raz w miesiącu, bez spamu. Na start −10% na pierwsze zamówienie." />
+  </main>
+  <SiteFooter home={home} {...footer} />
+  <CartDrawer freeFrom={freeDeliveryFrom} />
+  <QuickView productHref={productHref} />
+  <script src="../scripts/furniture.js"></script>
+</Sample>

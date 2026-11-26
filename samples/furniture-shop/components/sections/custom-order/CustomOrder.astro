@@ -1,0 +1,92 @@
+---
+// Made to measure: a small configurator teaser (width, height, wood → the bookcase redraws, a demo estimate) next to
+// an enquiry form (forms kit). The configurator fills the form's "dimensions" field. Nothing is sent (furniture.js).
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import ShopButton from '../../atoms/shop-button/ShopButton.astro';
+import { bookcaseSvg, estimate, woods } from '../../../scripts/bookcase.js';
+import { money } from '../../../data/catalog';
+interface Props { id: string; label: string; title: string; accent: string; lead: string; steps: string[] }
+const { id, label, title, accent, lead, steps } = Astro.props;
+const start = { width: 180, height: 200, wood: 'dab' };
+const drawing = bookcaseSvg(start.width, start.height);
+const woodTones: Record<string, string> = { dab: 'var(--palette-primary-400)', orzech: 'var(--palette-primary-600)', grafit: 'var(--palette-secondary-600)' };
+---
+<section class="ds-section ds-section--oak ds-custom" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow text={label} />
+      <h2 class="ds-section-head__title" id={`${id}-title`}>{title} <em>{accent}</em></h2>
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <div class="ds-custom__grid">
+      <div class="ds-custom__configurator" data-configurator data-reveal style={`--custom-wood: ${woodTones[start.wood]}`}>
+        <p class="ds-demo-note">Konfigurator (demo): wymiary i drewno, wycena orientacyjna</p>
+        <svg class="ds-custom__drawing" viewBox="0 0 400 340" role="img" aria-label={`Rysunek regału ${start.width} na ${start.height} cm`} data-config-drawing>
+          <path class="ds-custom__floor" d="M10 296h380" />
+          <g data-config-shape set:html={drawing.svg} />
+          <text class="ds-custom__dim-label" x={drawing.labelX} y={drawing.labelY} text-anchor="middle" data-config-width-label>{start.width} cm</text>
+          <text class="ds-custom__dim-label" x={drawing.sideX} y={drawing.sideY} text-anchor="middle" transform={`rotate(-90 ${drawing.sideX} ${drawing.sideY})`} data-config-height-label>{start.height} cm</text>
+        </svg>
+        <div class="ds-custom__controls">
+          <div class="ds-custom__control">
+            <label class="ds-custom__control-label" for="config-width">Szerokość <output data-config-width-out>{start.width} cm</output></label>
+            <input class="ds-custom__range" id="config-width" type="range" min="80" max="320" step="10" value={start.width} data-config-width />
+          </div>
+          <div class="ds-custom__control">
+            <label class="ds-custom__control-label" for="config-height">Wysokość <output data-config-height-out>{start.height} cm</output></label>
+            <input class="ds-custom__range" id="config-height" type="range" min="60" max="260" step="10" value={start.height} data-config-height />
+          </div>
+          <fieldset class="ds-custom__woods">
+            <legend class="ds-custom__control-label">Drewno</legend>
+            <div class="ds-custom__wood-list">
+              {Object.entries(woods).map(([value, wood]) => (
+                <label class="ds-swatch">
+                  <input class="ds-swatch__input" type="radio" name="config-wood" value={value} checked={value === start.wood} data-config-wood data-tone={woodTones[value]} />
+                  <span class="ds-swatch__dot" style={`--dot: ${woodTones[value]}`} aria-hidden="true"></span>
+                  <span class="ds-swatch__name">{wood.name}</span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+        </div>
+        <p class="ds-custom__estimate">Szacunkowo <strong data-config-estimate>{money(estimate(start.width, start.height, start.wood))}</strong> <span>z montażem, cena przykładowa</span></p>
+      </div>
+      <form class="ds-custom__form" data-custom-form data-reveal>
+        <ol class="ds-custom__steps" role="list">
+          {steps.map((step, index) => <li><span class="ds-custom__step-number">{index + 1}</span>{step}</li>)}
+        </ol>
+        <div class="ds-custom__fields">
+          <div class="ds-custom__field">
+            <label class="ds-custom__label" for="custom-type">Co projektujemy?</label>
+            <select class="ds-custom__input" id="custom-type" name="type">
+              <option>Regał lub biblioteczka</option>
+              <option>Szafa wnękowa</option>
+              <option>Stół</option>
+              <option>Komoda lub szafka RTV</option>
+              <option>Inny mebel</option>
+            </select>
+          </div>
+          <div class="ds-custom__field">
+            <label class="ds-custom__label" for="custom-size">Wymiary i drewno</label>
+            <input class="ds-custom__input" id="custom-size" name="size" value={`${start.width} × ${start.height} cm, ${woods[start.wood as keyof typeof woods].name}`} data-config-target />
+          </div>
+          <div class="ds-custom__field ds-custom__field--wide">
+            <label class="ds-custom__label" for="custom-message">Opisz pomysł</label>
+            <textarea class="ds-custom__input" id="custom-message" name="message" rows="3" placeholder="np. wnęka przy oknie, półki na płyty, drzwiczki na dole"></textarea>
+          </div>
+          <div class="ds-custom__field">
+            <label class="ds-custom__label" for="custom-name">Imię</label>
+            <input class="ds-custom__input" id="custom-name" name="name" autocomplete="given-name" required />
+          </div>
+          <div class="ds-custom__field">
+            <label class="ds-custom__label" for="custom-email">E-mail</label>
+            <input class="ds-custom__input" id="custom-email" name="email" type="email" autocomplete="email" placeholder="imie@example.com" required />
+          </div>
+        </div>
+        <label class="ds-custom__consent"><input type="checkbox" name="consent" required /><span>Zgadzam się na kontakt w sprawie wyceny (demo).</span></label>
+        <ShopButton text="Wyślij zapytanie" type="submit" />
+        <p class="ds-custom__thanks" role="status" hidden data-custom-thanks>Dziękujemy! To przykładowy formularz: w gotowej stronie zapytanie trafi do pracowni, a projektant odezwie się w 2 dni robocze.</p>
+      </form>
+    </div>
+  </div>
+</section>

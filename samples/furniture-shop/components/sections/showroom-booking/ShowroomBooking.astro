@@ -1,0 +1,65 @@
+---
+// Showroom visit booking: facts about the showroom next to a booking form (forms kit: animated dropdowns, a calendar
+// for future dates only, the validation demo). Nothing is sent (furniture.js shows the thank-you).
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import ShopButton from '../../atoms/shop-button/ShopButton.astro';
+import FurnitureArt from '../../molecules/furniture-art/FurnitureArt.astro';
+interface Props { id: string; label: string; title: string; accent: string; lead: string; facts: { label: string; value: string }[]; times: string[]; topics: string[] }
+const { id, label, title, accent, lead, facts, times, topics } = Astro.props;
+---
+<section class="ds-section ds-showroom" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container ds-showroom__grid">
+    <div class="ds-showroom__info" data-reveal>
+      <div class="ds-section-head">
+        <Eyebrow text={label} />
+        <h2 class="ds-section-head__title" id={`${id}-title`}>{title} <em>{accent}</em></h2>
+        <p class="ds-section-head__lead">{lead}</p>
+      </div>
+      <dl class="ds-showroom__facts">
+        {facts.map((fact) => <div class="ds-showroom__fact"><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}
+      </dl>
+      <div class="ds-showroom__art" aria-hidden="true">
+        <FurnitureArt kind="chair-soft" fabric="var(--palette-accent-400)" wood="var(--palette-primary-600)" />
+        <FurnitureArt kind="table-round" wood="var(--palette-primary-400)" />
+        <FurnitureArt kind="chair" fabric="var(--palette-secondary-100)" wood="var(--palette-primary-400)" />
+      </div>
+    </div>
+    <form class="ds-showroom__form" data-booking-form data-reveal>
+      <h3 class="ds-showroom__form-title">Zarezerwuj wizytę</h3>
+      <p class="ds-showroom__form-lead">45 minut z doradcą, kawa i próbnik tkanin. Bezpłatnie.</p>
+      <div class="ds-showroom__fields">
+        <div class="ds-showroom__field">
+          <label class="ds-showroom__label" for="visit-date">Dzień</label>
+          <input class="ds-showroom__input" id="visit-date" name="date" type="date" data-min="today" required />
+        </div>
+        <div class="ds-showroom__field">
+          <label class="ds-showroom__label" for="visit-time">Godzina</label>
+          <select class="ds-showroom__input" id="visit-time" name="time">
+            {times.map((time) => <option>{time}</option>)}
+          </select>
+        </div>
+        <div class="ds-showroom__field ds-showroom__field--wide">
+          <label class="ds-showroom__label" for="visit-topic">Czego szukasz?</label>
+          <select class="ds-showroom__input" id="visit-topic" name="topic">
+            {topics.map((topic) => <option>{topic}</option>)}
+          </select>
+        </div>
+        <div class="ds-showroom__field">
+          <label class="ds-showroom__label" for="visit-name">Imię</label>
+          <input class="ds-showroom__input" id="visit-name" name="name" autocomplete="given-name" required />
+        </div>
+        <div class="ds-showroom__field">
+          <label class="ds-showroom__label" for="visit-email">E-mail</label>
+          <input class="ds-showroom__input" id="visit-email" name="email" type="email" autocomplete="email" placeholder="imie@example.com" required />
+        </div>
+        <div class="ds-showroom__field ds-showroom__field--wide">
+          <label class="ds-showroom__label" for="visit-phone">Telefon (opcjonalnie)</label>
+          <input class="ds-showroom__input" id="visit-phone" name="phone" type="tel" autocomplete="tel" placeholder="+48 600 000 000" />
+        </div>
+      </div>
+      <label class="ds-showroom__consent"><input type="checkbox" name="consent" required /><span>Zgadzam się na kontakt w sprawie wizyty (demo).</span></label>
+      <ShopButton text="Rezerwuję wizytę" type="submit" variant="accent" />
+      <p class="ds-showroom__thanks" role="status" hidden data-booking-thanks>Dziękujemy! To przykładowy formularz: w gotowej stronie przyjdzie potwierdzenie wizyty i przypomnienie dzień wcześniej.</p>
+    </form>
+  </div>
+</section>

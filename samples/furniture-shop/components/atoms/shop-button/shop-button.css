@@ -1,0 +1,102 @@
+/* Shop button: pill, a fill that slides up on hover, an arrow that nudges right. */
+.ds-shop-button {
+  --button-fill: var(--palette-secondary-800);
+  --button-ink: var(--palette-neutral-0);
+  --button-hover: var(--palette-primary-600);
+  --button-hover-ink: var(--palette-neutral-0);
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-10);
+  min-height: var(--size-52);
+  padding: var(--space-12) var(--space-24);
+  overflow: hidden;
+  border: 1px solid var(--button-fill);
+  border-radius: var(--radius-full);
+  background: var(--button-fill);
+  color: var(--button-ink);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.35s ease, border-color 0.35s ease;
+}
+
+.ds-shop-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--button-hover);
+  transform: translateY(101%);
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.ds-shop-button:hover,
+.ds-shop-button:focus-visible {
+  border-color: var(--button-hover);
+  color: var(--button-hover-ink);
+}
+
+.ds-shop-button:hover::before,
+.ds-shop-button:focus-visible::before {
+  transform: translateY(0);
+}
+
+.ds-shop-button:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-shop-button__icon {
+  flex-shrink: 0;
+  width: var(--size-20);
+  height: var(--size-20);
+  transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.ds-shop-button:hover .ds-shop-button__icon {
+  transform: translateX(var(--space-4));
+}
+
+.ds-shop-button--accent {
+  --button-fill: var(--palette-accent-400);
+  --button-ink: var(--palette-secondary-900);
+  --button-hover: var(--palette-secondary-800);
+}
+
+.ds-shop-button--ghost {
+  --button-fill: transparent;
+  --button-ink: var(--palette-secondary-800);
+  --button-hover: var(--palette-secondary-800);
+  border-color: color-mix(in srgb, var(--palette-secondary-800) 45%, transparent);
+}
+
+.ds-shop-button--light {
+  --button-fill: var(--palette-neutral-0);
+  --button-ink: var(--palette-secondary-900);
+  --button-hover: var(--palette-accent-400);
+  --button-hover-ink: var(--palette-secondary-900);
+}
+
+.ds-shop-button--sm {
+  min-height: var(--size-44);
+  padding: var(--space-8) var(--space-18);
+  font-size: var(--font-size-small);
+}
+
+.ds-shop-button[aria-busy="true"] {
+  cursor: progress;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-shop-button,
+  .ds-shop-button::before,
+  .ds-shop-button__icon {
+    transition: none;
+  }
+}

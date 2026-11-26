@@ -1,0 +1,18 @@
+{
+  "slug": "furniture-shop",
+  "stack": "astro",
+  "lang": "pl",
+  "title": "Twoje Meble – sklep meblowy (przykładowa strona)",
+  "pages": [
+    "index",
+    "produkt"
+  ],
+  "summary": "Sklep meblowy online i salon: rysowany salon w hero, kolekcja z filtrami, karta produktu z wyborem tkaniny i drewna, koszyk demo i konfigurator mebli na wymiar.",
+  "direction": "Scandinavian warmth",
+  "tags": [
+    "Astro",
+    "GSAP",
+    "Sklep: WooCommerce (demo)"
+  ],
+  "date": "2026-11-26"
+}

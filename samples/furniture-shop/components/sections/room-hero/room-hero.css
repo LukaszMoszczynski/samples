@@ -1,0 +1,229 @@
+/* Room hero: copy on the left, a drawn room on an oak block on the right. The scene clips its own pieces, so the
+   slide-in never reaches past the card. */
+.ds-room-hero {
+  padding-block: var(--space-40) var(--space-section-y);
+  overflow-x: clip;
+}
+
+.ds-room-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  gap: var(--space-56);
+  align-items: center;
+}
+
+.ds-room-hero__copy {
+  display: grid;
+  gap: var(--space-24);
+  justify-items: start;
+}
+
+.ds-room-hero__title {
+  font-family: var(--font-heading);
+  font-size: calc(var(--font-size-4xl) * 1.18);
+  line-height: 1.04;
+  font-weight: var(--font-weight-medium);
+  text-wrap: balance;
+}
+
+.ds-room-hero__title em {
+  display: inline;
+  font-style: italic;
+  color: var(--palette-primary-600);
+}
+
+.ds-room-hero__lead {
+  max-width: calc(var(--layout-container) * 0.4);
+  font-size: var(--font-size-lg);
+  line-height: 1.55;
+  color: var(--color-text-muted);
+}
+
+.ds-room-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-12);
+}
+
+.ds-room-hero__perks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8) var(--space-24);
+  margin: var(--space-8) 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--palette-secondary-800);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-room-hero__perks li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.ds-room-hero__perks svg {
+  width: var(--size-18);
+  height: var(--size-18);
+  padding: var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--palette-accent-400);
+  color: var(--palette-secondary-900);
+}
+
+.ds-room-hero__scene {
+  position: relative;
+  border-radius: var(--radius-4xl);
+  overflow: clip;
+  background: var(--palette-primary-50);
+}
+
+.ds-room-hero__room {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ds-room-hero__room :is(rect, path, ellipse, circle) {
+  stroke: var(--palette-secondary-800);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.ds-room-hero__room .ds-room-hero__wall {
+  fill: var(--palette-primary-50);
+  stroke: none;
+}
+
+.ds-room-hero__room .ds-room-hero__window {
+  fill: color-mix(in srgb, var(--palette-accent-400) 32%, var(--palette-neutral-0));
+}
+
+.ds-room-hero__room .ds-room-hero__frame-line {
+  fill: none;
+  stroke-width: 1.5;
+}
+
+.ds-room-hero__room .ds-room-hero__picture {
+  fill: var(--palette-neutral-0);
+}
+
+.ds-room-hero__room .ds-room-hero__hill {
+  fill: color-mix(in srgb, var(--palette-secondary-600) 55%, var(--palette-primary-400));
+}
+
+.ds-room-hero__room .ds-room-hero__sun {
+  fill: var(--palette-accent-400);
+}
+
+.ds-room-hero__room .ds-room-hero__plank {
+  fill: var(--palette-primary-400);
+}
+
+.ds-room-hero__room .ds-room-hero__book {
+  fill: var(--palette-secondary-100);
+}
+
+.ds-room-hero__room .ds-room-hero__book--ochre {
+  fill: var(--palette-accent-400);
+}
+
+.ds-room-hero__room .ds-room-hero__book--dark {
+  fill: var(--palette-secondary-600);
+}
+
+.ds-room-hero__room .ds-room-hero__vase {
+  fill: var(--palette-primary-600);
+}
+
+.ds-room-hero__room .ds-room-hero__floor {
+  fill: color-mix(in srgb, var(--palette-primary-400) 55%, var(--palette-primary-50));
+  stroke: none;
+}
+
+.ds-room-hero__room .ds-room-hero__grain {
+  fill: none;
+  stroke: color-mix(in srgb, var(--palette-primary-600) 55%, transparent);
+  stroke-width: 1.5;
+}
+
+.ds-room-hero__room .ds-room-hero__rug {
+  fill: var(--palette-neutral-50);
+}
+
+.ds-room-hero__room .ds-room-hero__lamp-stem {
+  fill: none;
+  stroke-width: 3;
+}
+
+.ds-room-hero__room .ds-room-hero__lamp-shade {
+  fill: var(--palette-secondary-800);
+}
+
+.ds-room-hero__room .ds-room-hero__glow {
+  fill: color-mix(in srgb, var(--palette-accent-400) 26%, transparent);
+  stroke: none;
+}
+
+.ds-room-hero__room .ds-room-hero__shadow {
+  fill: color-mix(in srgb, var(--palette-secondary-800) 14%, transparent);
+  stroke: none;
+}
+
+.ds-room-hero__tag {
+  position: absolute;
+  left: var(--space-24);
+  bottom: var(--space-24);
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-12) var(--space-18);
+  border-radius: var(--radius-xl);
+  background: var(--palette-neutral-0);
+  color: var(--palette-secondary-800);
+  box-shadow: var(--shadow-lift);
+  text-decoration: none;
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ds-room-hero__tag:hover {
+  transform: translateY(calc(var(--space-4) * -1));
+}
+
+.ds-room-hero__tag:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-room-hero__tag-name {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+  color: var(--color-text-muted);
+}
+
+.ds-room-hero__tag-price {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+}
+
+@media (max-width: 1023px) {
+  .ds-room-hero__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 599px) {
+  .ds-room-hero__tag {
+    left: var(--space-12);
+    bottom: var(--space-12);
+    padding: var(--space-8) var(--space-12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-room-hero__tag {
+    transition: none;
+  }
+}

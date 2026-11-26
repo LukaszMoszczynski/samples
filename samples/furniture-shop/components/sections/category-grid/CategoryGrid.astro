@@ -1,0 +1,55 @@
+---
+// Categories: a tile per category (drawing on a soft block, name, count). A click jumps to the collection with that
+// category already filtered (furniture.js); without JS it is a plain anchor link. The last tile leads to made-to-measure.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import FurnitureArt from '../../molecules/furniture-art/FurnitureArt.astro';
+import type { ArtKind } from '../../../data/catalog';
+interface Props {
+  id: string;
+  label: string;
+  title: string;
+  accent: string;
+  items: readonly { id: string; name: string; art: string; count: number; text: string }[];
+  custom: { title: string; text: string; href: string };
+}
+const { id, label, title, accent, items, custom } = Astro.props;
+const blocks = ['oak', 'linen', 'ochre', 'stone', 'oak'];
+const tones = [
+  { fabric: 'var(--palette-secondary-100)', wood: 'var(--palette-primary-400)' },
+  { fabric: 'var(--palette-secondary-100)', wood: 'var(--palette-primary-600)' },
+  { fabric: 'var(--palette-accent-400)', wood: 'var(--palette-primary-400)' },
+  { fabric: 'var(--palette-accent-400)', wood: 'var(--palette-primary-400)' },
+  { fabric: 'var(--palette-secondary-600)', wood: 'var(--palette-primary-600)' },
+];
+const plural = (count: number) => (count === 1 ? 'model' : count < 5 ? 'modele' : 'modeli');
+---
+<section class="ds-section ds-categories" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow text={label} />
+      <h2 class="ds-section-head__title" id={`${id}-title`}>{title} <em>{accent}</em></h2>
+    </div>
+    <ul class="ds-categories__list" role="list">
+      {items.map((item, index) => (
+        <li data-reveal>
+          <a class:list={['ds-category-tile', `ds-category-tile--${blocks[index]}`]} href="#kolekcja" data-category-link={item.id}>
+            <span class="ds-category-tile__art"><FurnitureArt kind={item.art as ArtKind} fabric={tones[index].fabric} wood={tones[index].wood} /></span>
+            <span class="ds-category-tile__name">{item.name}</span>
+            <span class="ds-category-tile__text">{item.text}</span>
+            <span class="ds-category-tile__count">{item.count} {plural(item.count)} w przykładzie</span>
+          </a>
+        </li>
+      ))}
+      <li data-reveal>
+        <a class="ds-category-tile ds-category-tile--custom" href={custom.href}>
+          <span class="ds-category-tile__ruler" aria-hidden="true">
+            <svg viewBox="0 0 240 120" fill="none"><path d="M20 90h200M20 80v20M220 80v20M60 86v8M100 86v8M140 86v8M180 86v8" /><path d="M40 60h160M40 60l10-8M40 60l10 8M200 60l-10-8M200 60l-10 8" /><text x="120" y="44" text-anchor="middle">np. 247 cm</text></svg>
+          </span>
+          <span class="ds-category-tile__name">{custom.title}</span>
+          <span class="ds-category-tile__text">{custom.text}</span>
+          <span class="ds-category-tile__count">Zapytaj o wycenę →</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>

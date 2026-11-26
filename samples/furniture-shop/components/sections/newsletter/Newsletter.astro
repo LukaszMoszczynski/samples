@@ -1,0 +1,31 @@
+---
+// Newsletter sign-up in an ochre card with a drawn lamp. Sample only: the thank-you shows and nothing is sent.
+import ShopButton from '../../atoms/shop-button/ShopButton.astro';
+interface Props { title: string; text: string }
+const { title, text } = Astro.props;
+---
+<section class="ds-section ds-newsletter" aria-labelledby="newsletter-title">
+  <div class="ds-container">
+    <div class="ds-newsletter__card" data-reveal>
+      <svg class="ds-newsletter__lamp" viewBox="0 0 120 160" fill="none" aria-hidden="true">
+        <path d="M60 0v40" pathLength="1000" data-draw />
+        <path d="M30 70c0-18 13-30 30-30s30 12 30 30z" pathLength="1000" data-draw />
+        <path d="M48 70a12 12 0 0 0 24 0" pathLength="1000" data-draw />
+        <path class="ds-newsletter__light" d="M30 74 4 160h112L90 74z" />
+      </svg>
+      <div class="ds-newsletter__copy">
+        <h2 class="ds-newsletter__title" id="newsletter-title">{title}</h2>
+        <p class="ds-newsletter__text">{text}</p>
+      </div>
+      <form class="ds-newsletter__form" data-newsletter-form>
+        <div class="ds-newsletter__row">
+          <label class="ds-visually-hidden" for="newsletter-email">Adres e-mail</label>
+          <input class="ds-newsletter__input" id="newsletter-email" name="email" type="email" autocomplete="email" placeholder="Twój e-mail" required />
+          <ShopButton text="Zapisuję się" type="submit" />
+        </div>
+        <label class="ds-newsletter__consent"><input type="checkbox" name="consent" required /><span>Chcę dostawać newsletter (demo, możesz wypisać się w każdej chwili).</span></label>
+        <p class="ds-newsletter__thanks" role="status" hidden data-newsletter-thanks>Dziękujemy! W prawdziwym sklepie przyjdzie e-mail z potwierdzeniem i kodem −10%. To demo: nic nie zostało wysłane.</p>
+      </form>
+    </div>
+  </div>
+</section>

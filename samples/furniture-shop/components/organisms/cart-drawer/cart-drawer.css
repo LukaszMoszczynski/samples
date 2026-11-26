@@ -1,0 +1,447 @@
+/* Cart drawer: a modal dialog pinned to the right edge, full height; the panel scrolls on its own. cart.js slides
+   it in and out; without motion it simply appears. */
+.ds-cart {
+  position: fixed;
+  inset: 0 0 0 auto;
+  width: min(calc(var(--size-160) * 2.9), 100%);
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: var(--palette-neutral-50);
+  color: var(--palette-secondary-800);
+  box-shadow: 0 0 var(--space-64) color-mix(in srgb, var(--palette-secondary-900) 30%, transparent);
+}
+
+.ds-cart::backdrop {
+  background: color-mix(in srgb, var(--palette-secondary-900) 45%, transparent);
+}
+
+.ds-cart__panel {
+  display: grid;
+  align-content: start;
+  gap: var(--space-20);
+  height: 100%;
+  overflow-y: auto;
+  padding: var(--space-24);
+}
+
+.ds-cart__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+}
+
+.ds-cart__title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  line-height: var(--font-line-height-2xl);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-cart__close {
+  display: inline-grid;
+  place-items: center;
+  width: var(--size-44);
+  height: var(--size-44);
+  margin-left: auto;
+  padding: 0;
+  border: 1px solid color-mix(in srgb, var(--palette-secondary-800) 25%, transparent);
+  border-radius: var(--radius-full);
+  background: var(--palette-neutral-0);
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.35s ease;
+}
+
+.ds-cart__close:hover {
+  transform: rotate(90deg);
+}
+
+.ds-cart__close svg {
+  width: var(--size-20);
+  height: var(--size-20);
+}
+
+.ds-cart__steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: cart-step;
+}
+
+.ds-cart__step-mark {
+  counter-increment: cart-step;
+  padding-top: var(--space-8);
+  border-top: 2px solid color-mix(in srgb, var(--palette-secondary-800) 18%, transparent);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+  font-weight: var(--font-weight-medium);
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.ds-cart__step-mark::before {
+  content: counter(cart-step) ". ";
+}
+
+.ds-cart__step-mark[aria-current="step"],
+.ds-cart__step-mark.is-done {
+  border-color: var(--palette-accent-500);
+  color: var(--palette-secondary-800);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-cart__step {
+  display: grid;
+  gap: var(--space-20);
+}
+
+.ds-cart__empty {
+  padding: var(--space-24);
+  border: 1px dashed color-mix(in srgb, var(--palette-secondary-800) 30%, transparent);
+  border-radius: var(--radius-xl);
+  color: var(--color-text-muted);
+}
+
+.ds-cart__items {
+  display: grid;
+  gap: var(--space-12);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-cart-item {
+  display: grid;
+  grid-template-columns: calc(var(--size-44) * 2) minmax(0, 1fr) auto;
+  gap: var(--space-8) var(--space-14);
+  align-items: center;
+  padding: var(--space-12);
+  border-radius: var(--radius-xl);
+  background: var(--palette-neutral-0);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--palette-secondary-800) 8%, transparent);
+}
+
+.ds-cart-item__art {
+  grid-row: span 2;
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  background: var(--palette-primary-50);
+}
+
+.ds-cart-item__art svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ds-cart-item__name {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.2;
+}
+
+.ds-cart-item__variant {
+  display: block;
+  margin-top: var(--space-2);
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.ds-cart-item__line {
+  font-weight: var(--font-weight-bold);
+  white-space: nowrap;
+}
+
+.ds-cart-item__controls {
+  grid-column: 2 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+}
+
+.ds-qty {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid color-mix(in srgb, var(--palette-secondary-800) 25%, transparent);
+  border-radius: var(--radius-full);
+}
+
+.ds-qty__button {
+  display: inline-grid;
+  place-items: center;
+  width: var(--size-40);
+  height: var(--size-40);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-full);
+  background: none;
+  color: inherit;
+  font-size: var(--font-size-lg);
+  cursor: pointer;
+}
+
+.ds-qty__button:hover {
+  background: var(--palette-primary-50);
+}
+
+.ds-qty__button:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+.ds-qty__value {
+  min-width: var(--size-24);
+  font-weight: var(--font-weight-bold);
+  text-align: center;
+}
+
+.ds-cart-item__remove,
+.ds-cart__link {
+  min-height: var(--size-40);
+  padding: var(--space-4) 0;
+  border: 0;
+  background: none;
+  color: var(--palette-primary-600);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  text-decoration: underline;
+  text-underline-offset: var(--space-4);
+  cursor: pointer;
+}
+
+.ds-cart__free {
+  display: grid;
+  gap: var(--space-8);
+  padding: var(--space-14) var(--space-16);
+  border-radius: var(--radius-xl);
+  background: color-mix(in srgb, var(--palette-accent-400) 18%, var(--palette-neutral-0));
+}
+
+.ds-cart__free-text {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-cart__free-track {
+  height: var(--space-6);
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--palette-secondary-800) 12%, transparent);
+  overflow: hidden;
+}
+
+.ds-cart__free-bar {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--palette-accent-500);
+  transform-origin: left;
+  transform: scaleX(var(--progress, 0));
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ds-cart__summary {
+  display: grid;
+  gap: var(--space-6);
+  margin: 0;
+}
+
+.ds-cart__summary div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-16);
+}
+
+.ds-cart__summary dt {
+  color: var(--color-text-muted);
+}
+
+.ds-cart__summary dd {
+  margin: 0;
+  font-weight: var(--font-weight-bold);
+  text-align: right;
+}
+
+.ds-cart__summary .ds-cart__total {
+  margin-top: var(--space-6);
+  padding-top: var(--space-12);
+  border-top: 1px solid color-mix(in srgb, var(--palette-secondary-800) 15%, transparent);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+}
+
+.ds-cart__total dt {
+  color: var(--palette-secondary-800);
+}
+
+.ds-cart__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-12) var(--space-20);
+}
+
+.ds-cart__group {
+  display: grid;
+  gap: var(--space-8);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.ds-cart__legend {
+  margin-bottom: var(--space-8);
+  padding: 0;
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-cart__option {
+  display: flex;
+  gap: var(--space-12);
+  align-items: flex-start;
+  padding: var(--space-12) var(--space-14);
+  border: 1px solid color-mix(in srgb, var(--palette-secondary-800) 18%, transparent);
+  border-radius: var(--radius-lg);
+  background: var(--palette-neutral-0);
+  cursor: pointer;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.ds-cart__option:has(input:checked) {
+  border-color: var(--palette-secondary-800);
+  box-shadow: inset 0 0 0 1px var(--palette-secondary-800);
+}
+
+.ds-cart__option input {
+  margin-top: var(--space-4);
+  accent-color: var(--palette-secondary-800);
+}
+
+.ds-cart__option span {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.ds-cart__option small {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.ds-cart__fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-24) var(--space-12);
+}
+
+.ds-cart__field--wide {
+  grid-column: 1 / -1;
+}
+
+.ds-cart__field {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.ds-cart__label {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-cart__input {
+  min-height: var(--size-44);
+  width: 100%;
+  padding: var(--space-8) var(--space-14);
+  border: 1px solid color-mix(in srgb, var(--palette-secondary-800) 30%, transparent);
+  border-radius: var(--radius-md);
+  background: var(--palette-neutral-0);
+  color: var(--palette-secondary-800);
+}
+
+.ds-cart__input[aria-invalid="true"] {
+  border-color: var(--color-state-error);
+}
+
+.ds-cart__consent {
+  display: flex;
+  gap: var(--space-10);
+  align-items: flex-start;
+  margin-bottom: var(--space-12);
+  font-size: var(--font-size-small);
+  cursor: pointer;
+}
+
+.ds-cart__consent input {
+  margin-top: var(--space-3);
+  accent-color: var(--palette-secondary-800);
+}
+
+.ds-cart__thanks {
+  justify-items: start;
+  padding-top: var(--space-16);
+}
+
+.ds-cart__thanks-mark {
+  width: var(--size-160);
+  max-width: 40%;
+  stroke: var(--palette-accent-500);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ds-cart__thanks-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  line-height: var(--font-line-height-2xl);
+}
+
+.ds-cart__close:focus-visible,
+.ds-qty__button:focus-visible,
+.ds-cart-item__remove:focus-visible,
+.ds-cart__link:focus-visible,
+.ds-cart__input:focus-visible,
+.ds-cart__option:has(input:focus-visible),
+.ds-cart__consent input:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* The drawing that flies from a product into the cart icon (cart.js places it; fixed, so it never widens the page). */
+.ds-fly {
+  position: fixed;
+  z-index: 60;
+  margin: 0;
+  pointer-events: none;
+  transform-origin: 50% 50%;
+}
+
+@media (max-width: 479px) {
+  .ds-cart__panel {
+    padding: var(--space-16);
+  }
+
+  .ds-cart__fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-cart__close,
+  .ds-cart__step-mark,
+  .ds-cart__free-bar,
+  .ds-cart__option {
+    transition: none;
+  }
+}

@@ -1,0 +1,119 @@
+/* Example reviews: three cards, stars in ochre, a big score on the right of the heading. */
+.ds-reviews__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-24);
+  margin-bottom: var(--space-48);
+}
+
+.ds-reviews__head .ds-section-head {
+  margin-bottom: 0;
+  justify-items: start;
+}
+
+.ds-reviews__score {
+  display: grid;
+  justify-items: end;
+  gap: var(--space-4);
+  text-align: right;
+}
+
+.ds-reviews__score strong {
+  font-family: var(--font-heading);
+  font-size: calc(var(--font-size-4xl) * 1.2);
+  line-height: 1;
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-reviews__score span {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+}
+
+.ds-reviews__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-24);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-review {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: var(--space-16);
+  padding: var(--space-28);
+  border-radius: var(--radius-2xl);
+  background: var(--palette-neutral-0);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--palette-secondary-800) 8%, transparent);
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ds-review:hover {
+  transform: translateY(calc(var(--space-4) * -1)) rotate(-0.6deg);
+}
+
+.ds-review__stars {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.ds-review__star {
+  width: var(--size-20);
+  height: var(--size-20);
+  fill: var(--palette-accent-400);
+  stroke: var(--palette-accent-500);
+  stroke-width: 1;
+}
+
+.ds-review__star.is-empty {
+  fill: none;
+}
+
+.ds-review__text {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  line-height: 1.5;
+}
+
+.ds-review__who {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+}
+
+.ds-review__who small {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+}
+
+.ds-review__initial {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: var(--size-44);
+  height: var(--size-44);
+  border-radius: var(--radius-full);
+  background: var(--palette-primary-50);
+  color: var(--palette-primary-600);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+}
+
+@media (max-width: 1023px) {
+  .ds-reviews__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-review {
+    transition: none;
+  }
+}

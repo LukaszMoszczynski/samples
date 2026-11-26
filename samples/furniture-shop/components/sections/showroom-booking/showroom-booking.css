@@ -1,0 +1,143 @@
+/* Showroom booking: info with a small drawn dining set, the form in a white card. */
+.ds-showroom__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--space-48);
+  align-items: start;
+}
+
+.ds-showroom__facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-20) var(--space-24);
+  margin: 0;
+}
+
+.ds-showroom__fact {
+  display: grid;
+  gap: var(--space-4);
+  padding-top: var(--space-12);
+  border-top: 1px solid color-mix(in srgb, var(--palette-secondary-800) 15%, transparent);
+}
+
+.ds-showroom__fact dt {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-small);
+}
+
+.ds-showroom__fact dd {
+  margin: 0;
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-showroom__art {
+  display: grid;
+  grid-template-columns: 0.8fr 1.3fr 0.8fr;
+  align-items: end;
+  margin-top: var(--space-40);
+  padding: var(--space-24) var(--space-24) var(--space-8);
+  border-radius: var(--radius-3xl);
+  background: var(--palette-primary-50);
+}
+
+.ds-showroom__form {
+  display: grid;
+  gap: var(--space-16);
+  padding: var(--space-32);
+  border-radius: var(--radius-3xl);
+  background: var(--palette-neutral-0);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--palette-secondary-800) 8%, transparent), var(--shadow-lift);
+}
+
+.ds-showroom__form-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  line-height: var(--font-line-height-2xl);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-showroom__form-lead {
+  color: var(--color-text-muted);
+}
+
+.ds-showroom__fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-28) var(--space-16);
+  margin-top: var(--space-8);
+}
+
+.ds-showroom__field {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.ds-showroom__field--wide {
+  grid-column: 1 / -1;
+}
+
+.ds-showroom__label {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-showroom__input {
+  width: 100%;
+  min-height: var(--size-44);
+  padding: var(--space-10) var(--space-14);
+  border: 1px solid color-mix(in srgb, var(--palette-secondary-800) 30%, transparent);
+  border-radius: var(--radius-md);
+  background: var(--palette-neutral-0);
+  color: var(--palette-secondary-800);
+}
+
+.ds-showroom__input:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-showroom__input[aria-invalid="true"] {
+  border-color: var(--color-state-error);
+}
+
+.ds-showroom__consent {
+  display: flex;
+  gap: var(--space-10);
+  align-items: flex-start;
+  margin: var(--space-8) 0 var(--space-12);
+  font-size: var(--font-size-small);
+  cursor: pointer;
+}
+
+.ds-showroom__consent input {
+  margin-top: var(--space-3);
+  accent-color: var(--palette-secondary-800);
+}
+
+.ds-showroom__form .ds-shop-button {
+  justify-self: start;
+}
+
+.ds-showroom__thanks {
+  padding: var(--space-14) var(--space-16);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--palette-accent-400) 18%, var(--palette-neutral-0));
+  font-weight: var(--font-weight-medium);
+}
+
+@media (max-width: 1023px) {
+  .ds-showroom__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 599px) {
+  .ds-showroom__form {
+    padding: var(--space-20);
+  }
+
+  .ds-showroom__fields,
+  .ds-showroom__facts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
