@@ -1,0 +1,217 @@
+/* Visit info: three columns (contact and hours, accessibility, drawn map); one column on phones. */
+.ds-visit-info__grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr 1.1fr;
+  gap: var(--space-24);
+  align-items: start;
+}
+
+.ds-visit-info__card {
+  display: grid;
+  gap: var(--space-16);
+  padding: var(--space-24);
+  border: 2px solid var(--ds-ink);
+  border-radius: var(--radius-lg);
+  background: var(--ds-card);
+}
+
+.ds-visit-info__heading {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  line-height: 1.25;
+}
+
+.ds-visit-info__address {
+  display: grid;
+  font-style: normal;
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-visit-info__contact,
+.ds-visit-info__hours dl {
+  display: grid;
+  gap: var(--space-6);
+  margin: 0;
+}
+
+.ds-visit-info__contact div,
+.ds-visit-info__row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-4) var(--space-12);
+  padding-block: var(--space-4);
+  border-bottom: 1px dashed var(--ds-line-strong);
+}
+
+.ds-visit-info__contact dt,
+.ds-visit-info__row dt {
+  color: var(--ds-ink-soft);
+}
+
+.ds-visit-info__contact dd,
+.ds-visit-info__row dd {
+  margin: 0;
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-visit-info__contact a {
+  color: var(--ds-blue);
+  overflow-wrap: anywhere;
+}
+
+.ds-visit-info__hours {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.ds-visit-info__row.is-today {
+  margin-inline: calc(var(--space-8) * -1);
+  padding-inline: var(--space-8);
+  border-radius: var(--radius-sm);
+  background: var(--ds-green-tint);
+}
+
+.ds-visit-info__row.is-today dt {
+  color: var(--ds-ink);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-visit-info__today {
+  margin-left: var(--space-4);
+  padding: 0 var(--space-8);
+  border-radius: var(--radius-full);
+  background: var(--ds-green);
+  color: var(--ds-on-fill);
+  font-size: var(--font-size-small);
+}
+
+.ds-visit-info__access {
+  display: grid;
+  gap: var(--space-10);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-visit-info__access li {
+  display: flex;
+  gap: var(--space-10);
+  line-height: 1.45;
+}
+
+.ds-visit-info__access svg {
+  flex-shrink: 0;
+  width: var(--size-20);
+  height: var(--size-20);
+  margin-top: var(--space-2);
+  color: var(--ds-green);
+}
+
+.ds-visit-info__more {
+  color: var(--ds-blue);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-visit-info a:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-visit-info__map {
+  display: grid;
+  gap: var(--space-12);
+  margin: 0;
+}
+
+.ds-visit-info__map svg {
+  width: 100%;
+  height: auto;
+  border: 2px solid var(--ds-ink);
+  border-radius: var(--radius-lg);
+}
+
+.ds-visit-info__map-paper {
+  fill: var(--palette-neutral-50);
+}
+
+.ds-visit-info__map-park {
+  fill: var(--palette-primary-400);
+  opacity: 0.55;
+}
+
+.ds-visit-info__map-street {
+  fill: none;
+  stroke: var(--palette-neutral-100);
+  stroke-width: 26;
+}
+
+.ds-visit-info__map-building {
+  fill: var(--palette-accent-400);
+}
+
+.ds-visit-info__map-building-ink {
+  fill: var(--palette-primary-400);
+  mix-blend-mode: multiply;
+}
+
+.ds-visit-info__map-stop {
+  fill: var(--palette-secondary-800);
+}
+
+.ds-visit-info__map-text {
+  fill: var(--palette-neutral-0);
+  font-family: var(--font-heading);
+  font-size: var(--size-16);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-visit-info__map-route {
+  fill: none;
+  stroke: var(--palette-primary-800);
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ds-visit-info__map-door {
+  fill: var(--palette-primary-800);
+  stroke: var(--palette-neutral-0);
+  stroke-width: 3;
+}
+
+.ds-visit-info__map-label,
+.ds-visit-info__map-small {
+  fill: var(--palette-secondary-800);
+  font-family: var(--font-heading);
+  font-size: var(--size-16);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-visit-info__map-small {
+  font-size: var(--size-12);
+}
+
+.ds-visit-info__caption {
+  color: var(--ds-ink-soft);
+  font-size: var(--font-size-small);
+  line-height: 1.5;
+}
+
+@media (max-width: 1023px) {
+  .ds-visit-info__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ds-visit-info__map {
+    grid-column: 1 / -1;
+    max-width: calc(var(--size-160) * 3.2);
+  }
+}
+
+@media (max-width: 679px) {
+  .ds-visit-info__grid {
+    grid-template-columns: 1fr;
+  }
+}

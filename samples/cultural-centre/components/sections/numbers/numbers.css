@@ -1,0 +1,74 @@
+/* Numbers: four big figures on the dark band, each with a small cut shape behind its corner. */
+.ds-numbers__title {
+  margin: 0 0 var(--space-40);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  line-height: 1.1;
+}
+
+.ds-numbers__list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-24);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-numbers__item {
+  position: relative;
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-24) var(--space-20) var(--space-20);
+  border: 2px solid color-mix(in srgb, var(--ds-on-night) 35%, transparent);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.ds-numbers__shape {
+  position: absolute;
+  top: calc(var(--space-16) * -1);
+  right: calc(var(--space-16) * -1);
+  width: var(--size-160);
+  height: var(--size-160);
+  opacity: 0.35;
+}
+
+.ds-numbers__shape .ds-cut-shape__ink {
+  mix-blend-mode: normal;
+}
+
+.ds-numbers__value {
+  position: relative;
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: calc(var(--font-size-4xl) * 1.15);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.ds-numbers__label {
+  position: relative;
+  margin: 0;
+  color: var(--ds-on-night-soft);
+  line-height: 1.4;
+}
+
+.ds-numbers__note {
+  margin: var(--space-24) 0 0;
+  color: var(--ds-on-night-soft);
+  font-size: var(--font-size-small);
+}
+
+@media (max-width: 959px) {
+  .ds-numbers__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 479px) {
+  .ds-numbers__list {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,302 @@
+/* Editor demo: a CMS window on the left, the live poster and the programme list on the right. */
+.ds-editor-demo__grid {
+  display: grid;
+  grid-template-columns: 1.35fr 1fr;
+  gap: var(--space-40);
+  align-items: start;
+}
+
+.ds-editor-demo__panel {
+  border: 2px solid var(--ds-ink);
+  border-radius: var(--radius-lg);
+  background: var(--ds-card);
+  box-shadow: var(--space-8) var(--space-8) 0 var(--ds-riso-blue);
+  overflow: hidden;
+}
+
+.ds-editor-demo__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-16);
+  padding: var(--space-10) var(--space-16);
+  border-bottom: 2px solid var(--ds-ink);
+  background: var(--ds-night);
+  color: var(--ds-on-night);
+}
+
+.ds-editor-demo__dots {
+  display: flex;
+  gap: var(--space-6);
+}
+
+.ds-editor-demo__dots i {
+  width: var(--size-12);
+  height: var(--size-12);
+  border-radius: var(--radius-full);
+  background: color-mix(in srgb, var(--ds-on-night) 40%, transparent);
+}
+
+.ds-editor-demo__bar-title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-editor-demo__badge {
+  margin-left: var(--space-6);
+  padding: 0 var(--space-8);
+  border-radius: var(--radius-full);
+  background: var(--ds-night-accent);
+  color: var(--palette-secondary-800);
+  font-size: var(--font-size-small);
+}
+
+.ds-editor-demo__body {
+  display: grid;
+  grid-template-columns: calc(var(--size-160) * 0.85) 1fr;
+}
+
+.ds-editor-demo__side {
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+  margin: 0;
+  padding: var(--space-16) var(--space-10);
+  border-right: 2px solid var(--ds-line);
+  background: var(--ds-paper);
+  list-style: none;
+  font-size: var(--font-size-small);
+}
+
+.ds-editor-demo__side li {
+  padding: var(--space-6) var(--space-10);
+  border-radius: var(--radius-sm);
+  color: var(--ds-ink-soft);
+}
+
+.ds-editor-demo__side .ds-editor-demo__side-current {
+  background: var(--ds-green-tint);
+  color: var(--ds-green-deep);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-editor-demo__form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-16) var(--space-16);
+  padding: var(--space-20);
+}
+
+.ds-editor-demo__form-title {
+  grid-column: 1 / -1;
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-editor-demo__field {
+  display: grid;
+  gap: var(--space-6);
+  min-width: 0;
+}
+
+.ds-editor-demo__field--wide {
+  grid-column: 1 / -1;
+}
+
+.ds-editor-demo__label {
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-small);
+}
+
+.ds-editor-demo__input {
+  width: 100%;
+  min-height: calc(var(--size-44) + var(--space-4));
+  padding: var(--space-10) var(--space-12);
+  border: 2px solid var(--ds-line-strong);
+  border-radius: var(--radius-md);
+  background: var(--ds-card);
+  color: var(--ds-ink);
+  font-size: var(--font-size-body);
+}
+
+.ds-editor-demo__input:hover {
+  border-color: var(--ds-ink);
+}
+
+.ds-editor-demo__input:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--space-1);
+  border-color: var(--ds-ink);
+}
+
+.ds-editor-demo__input::placeholder {
+  color: var(--ds-ink-soft);
+}
+
+.ds-editor-demo__submit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-12) var(--space-20);
+}
+
+.ds-editor-demo__hint {
+  margin: 0;
+  color: var(--ds-ink-soft);
+  font-size: var(--font-size-small);
+}
+
+/* Preview side. */
+.ds-editor-demo__preview {
+  display: grid;
+  gap: var(--space-12);
+}
+
+.ds-editor-demo__preview-label {
+  margin: 0;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  color: var(--ds-ink-soft);
+}
+
+.ds-editor-demo__poster {
+  display: grid;
+  grid-template-columns: calc(var(--size-160) * 0.85) 1fr;
+  margin-bottom: var(--space-16);
+  border: 2px solid var(--ds-ink);
+  border-radius: var(--radius-lg);
+  background: var(--ds-card);
+  overflow: hidden;
+}
+
+.ds-editor-demo__poster-art {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: var(--size-160);
+  padding: var(--space-12);
+  border-right: 2px solid var(--ds-ink);
+  background: var(--ds-green-tint);
+  transition: background-color 0.3s ease;
+}
+
+.ds-editor-demo__poster[data-ink="blue"] .ds-editor-demo__poster-art {
+  background: var(--ds-blue-tint);
+}
+
+.ds-editor-demo__poster-shape {
+  width: 80%;
+}
+
+.ds-editor-demo__poster-category {
+  position: absolute;
+  left: var(--space-8);
+  bottom: var(--space-8);
+  margin: 0;
+  padding: 0 var(--space-8);
+  border-radius: var(--radius-full);
+  background: var(--ds-ink);
+  color: var(--ds-paper);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-editor-demo__poster-body {
+  display: grid;
+  align-content: center;
+  gap: var(--space-6);
+  padding: var(--space-16);
+  min-width: 0;
+}
+
+.ds-editor-demo__poster-title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.ds-editor-demo__poster-meta,
+.ds-editor-demo__poster-price {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.ds-editor-demo__poster-price {
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-editor-demo__list {
+  display: grid;
+  gap: var(--space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-editor-demo__row {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-10) var(--space-14);
+  border: 2px solid var(--ds-line);
+  border-radius: var(--radius-md);
+  background: var(--ds-card);
+}
+
+.ds-editor-demo__row.is-new {
+  border-color: var(--ds-green);
+  background: var(--ds-green-tint);
+}
+
+.ds-editor-demo__row-date {
+  font-size: var(--font-size-small);
+  color: var(--ds-ink-soft);
+}
+
+.ds-editor-demo__row-title {
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-editor-demo__status {
+  margin: 0;
+  min-height: var(--size-24);
+  color: var(--ds-green-deep);
+  font-weight: var(--font-weight-bold);
+}
+
+@media (max-width: 1023px) {
+  .ds-editor-demo__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 639px) {
+  .ds-editor-demo__body {
+    grid-template-columns: 1fr;
+  }
+
+  .ds-editor-demo__side {
+    display: flex;
+    flex-wrap: wrap;
+    border-right: 0;
+    border-bottom: 2px solid var(--ds-line);
+  }
+
+  .ds-editor-demo__form {
+    grid-template-columns: 1fr;
+  }
+
+  .ds-editor-demo__poster {
+    grid-template-columns: calc(var(--size-160) * 0.6) 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-editor-demo__poster-art {
+    transition: none;
+  }
+}

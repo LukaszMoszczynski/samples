@@ -1,0 +1,95 @@
+---
+// Access statement: the accessibility statement a public institution publishes (the parts the law lists), the
+// easy-to-read text with simple pictograms, and the sign-language information. A side table of contents follows the
+// reader (sticky on wide screens). Example text for the sample: the centre fills in its own dates and names.
+interface Props {
+  name: string;
+  phone: string;
+  email: string;
+  sections: { id: string; title: string }[];
+}
+const { name, phone, email, sections } = Astro.props;
+const easy = [
+  { icon: 'house', text: `${name} to miejsce dla wszystkich mieszkańców.` },
+  { icon: 'music', text: 'Tu są koncerty, filmy, wystawy i teatr.' },
+  { icon: 'people', text: 'Tu są też zajęcia. Dla dzieci, młodzieży, dorosłych i seniorów.' },
+  { icon: 'door', text: 'Do budynku wejdziesz bez schodów. W środku jest winda.' },
+  { icon: 'phone', text: `Masz pytanie? Zadzwoń: ${phone}.` },
+] as const;
+---
+<section class="ds-section ds-access-statement" aria-label="Treść strony">
+  <div class="ds-container ds-access-statement__grid">
+    <nav class="ds-access-statement__toc" aria-labelledby="toc-title" data-reveal>
+      <p class="ds-access-statement__toc-title" id="toc-title">Na tej stronie</p>
+      <ol role="list">
+        {sections.map((section) => <li><a href={`#${section.id}`}>{section.title}</a></li>)}
+      </ol>
+    </nav>
+    <div class="ds-access-statement__body">
+      <article class="ds-access-statement__part" id="deklaracja" aria-labelledby="deklaracja-title" data-reveal>
+        <h2 id="deklaracja-title">Deklaracja dostępności</h2>
+        <p>{name} zobowiązuje się zapewnić dostępność swojej strony internetowej zgodnie z ustawą z dnia 4 kwietnia 2019 r. o dostępności cyfrowej stron internetowych i aplikacji mobilnych podmiotów publicznych. Deklaracja dotyczy tej strony.</p>
+        <dl class="ds-access-statement__facts">
+          <div><dt>Data publikacji strony</dt><dd>[do uzupełnienia]</dd></div>
+          <div><dt>Data ostatniej dużej aktualizacji</dt><dd>[do uzupełnienia]</dd></div>
+          <div><dt>Status pod względem zgodności</dt><dd>Strona jest zgodna z WCAG 2.2 na poziomie AA (wynik testu automatycznego i ręcznego przy budowie przykładu).</dd></div>
+          <div><dt>Data sporządzenia deklaracji</dt><dd>[do uzupełnienia]; deklarację sporządzono na podstawie samooceny.</dd></div>
+        </dl>
+        <h3>Ułatwienia na stronie</h3>
+        <ul>
+          <li>przełącznik wielkości tekstu (A, A+, A++) i wysokiego kontrastu na górze każdej strony,</li>
+          <li>link „Przejdź do treści” jako pierwszy element strony,</li>
+          <li>obsługa całej strony z klawiatury, z widocznym obramowaniem aktywnego elementu,</li>
+          <li>animacje wyłączają się, gdy w systemie włączysz ograniczenie ruchu,</li>
+          <li>filmy z napisami, a wydarzenia z pętlą indukcyjną i napisami są oznaczone w programie.</li>
+        </ul>
+        <h3>Informacje zwrotne i kontakt</h3>
+        <p>Jeśli coś na stronie jest dla Ciebie niedostępne, napisz do nas: <a href={`mailto:${email}`}>{email}</a> albo zadzwoń: <a href={`tel:${phone.replaceAll(' ', '')}`}>{phone}</a>. Osobą odpowiedzialną za dostępność jest koordynator do spraw dostępności [imię i nazwisko do uzupełnienia]. Tą samą drogą możesz złożyć wniosek o udostępnienie informacji w innej formie lub zgłosić brak dostępności.</p>
+        <h3>Procedura wnioskowo-skargowa</h3>
+        <p>Odpowiemy na żądanie najpóźniej w ciągu 7 dni. Jeśli nie da się tego zrobić w tym czasie, powiemy, kiedy to nastąpi (nie później niż w 2 miesiące). Jeśli odmówimy, możesz złożyć skargę na zapewnienie dostępności, a po wyczerpaniu tej procedury także wniosek do Rzecznika Praw Obywatelskich.</p>
+      </article>
+      <article class="ds-access-statement__part" id="architektura" aria-labelledby="architektura-title" data-reveal>
+        <h2 id="architektura-title">Dostępność budynku</h2>
+        <ul>
+          <li>Wejście główne od placu jest na poziomie chodnika, drzwi otwierają się automatycznie.</li>
+          <li>Winda obsługuje wszystkie piętra; przyciski mają oznaczenia w alfabecie Braille’a.</li>
+          <li>W sali widowiskowej działa pętla indukcyjna, są też 4 miejsca dla osób na wózkach.</li>
+          <li>Toaleta dla osób z niepełnosprawnościami jest na parterze, obok szatni.</li>
+          <li>Przed budynkiem są 2 miejsca parkingowe dla osób z niepełnosprawnościami.</li>
+          <li>Do budynku można wejść z psem asystującym i psem przewodnikiem.</li>
+        </ul>
+      </article>
+      <article class="ds-access-statement__part" id="tekst-latwy" aria-labelledby="tekst-latwy-title" data-reveal>
+        <h2 id="tekst-latwy-title">Tekst łatwy do czytania</h2>
+        <ul class="ds-access-statement__easy" role="list">
+          {easy.map((item) => (
+            <li>
+              <svg viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+                <rect class="ds-access-statement__easy-tile" width="48" height="48" rx="10" />
+                {item.icon === 'house' && <path class="ds-access-statement__easy-ink" d="M10 24 24 12l14 12v14H10Z M20 38V28h8v10" />}
+                {item.icon === 'music' && <path class="ds-access-statement__easy-ink" d="M18 34V14l16-4v20 M18 34a4 4 0 1 1-8 0a4 4 0 0 1 8 0Z M34 30a4 4 0 1 1-8 0a4 4 0 0 1 8 0Z" />}
+                {item.icon === 'people' && <path class="ds-access-statement__easy-ink" d="M17 20a4 4 0 1 0 0-8a4 4 0 0 0 0 8Z M31 20a4 4 0 1 0 0-8a4 4 0 0 0 0 8Z M9 36c0-7 4-11 8-11s8 4 8 11 M23 36c0-7 4-11 8-11s8 4 8 11" />}
+                {item.icon === 'door' && <path class="ds-access-statement__easy-ink" d="M14 38V10h20v28 M10 38h28 M29 25v.5" />}
+                {item.icon === 'phone' && <path class="ds-access-statement__easy-ink" d="M17 10h14v28H17Z M22 33h4" />}
+              </svg>
+              <p>{item.text}</p>
+            </li>
+          ))}
+        </ul>
+      </article>
+      <article class="ds-access-statement__part" id="jezyk-migowy" aria-labelledby="jezyk-migowy-title" data-reveal>
+        <h2 id="jezyk-migowy-title">Polski język migowy</h2>
+        <div class="ds-access-statement__video" role="img" aria-label="Miejsce na film z informacją w polskim języku migowym">
+          <svg viewBox="0 0 160 90" aria-hidden="true" focusable="false">
+            <rect class="ds-access-statement__video-back" width="160" height="90" rx="6" />
+            <circle class="ds-access-statement__video-head" cx="80" cy="34" r="12" />
+            <path class="ds-access-statement__video-body" d="M56 90c0-20 10-34 24-34s24 14 24 34Z" />
+            <path class="ds-access-statement__video-hand" d="M52 58c6-6 12-4 14 2M108 58c-6-6-12-4-14 2" />
+          </svg>
+          <p class="ds-access-statement__video-label">Tu będzie film w PJM (do nagrania przez dom kultury)</p>
+        </div>
+        <p>Na spotkanie z tłumaczem polskiego języka migowego (PJM) umów się co najmniej 3 dni robocze wcześniej: e-mailem, SMS-em na numer sekretariatu albo przez formularz na stronie. Tłumacz jest bezpłatny.</p>
+      </article>
+    </div>
+  </div>
+</section>

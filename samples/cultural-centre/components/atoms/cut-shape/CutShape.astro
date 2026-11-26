@@ -1,0 +1,25 @@
+---
+// Cut shape: a flat paper shape printed in two riso inks that overprint (multiply). The second ink sits a little off
+// register, the way a riso print does; cards nudge it on hover. Decoration only (aria-hidden).
+interface Props { shape: 'circle' | 'half' | 'arch' | 'star' | 'zigzag' | 'frame'; ink?: 'green' | 'blue'; class?: string }
+const { shape, ink = 'green', class: extra = '' } = Astro.props;
+const other = ink === 'green' ? 'blue' : 'green';
+const star = Array.from({ length: 16 }, (_, index) => {
+  const radius = index % 2 ? 22 : 42;
+  const angle = (Math.PI / 8) * index - Math.PI / 2;
+  return `${(50 + radius * Math.cos(angle)).toFixed(1)},${(50 + radius * Math.sin(angle)).toFixed(1)}`;
+}).join(' ');
+const paths = {
+  circle: { main: 'M50 10a40 40 0 1 1 0 80a40 40 0 1 1 0-80Z', second: 'M62 30a22 22 0 1 1 0 44a22 22 0 1 1 0-44Z' },
+  half: { main: 'M8 66a42 42 0 0 1 84 0Z', second: 'M30 84h40v8H30Z' },
+  arch: { main: 'M22 92V48a28 28 0 0 1 56 0v44Z', second: 'M40 92V62a10 10 0 0 1 20 0v30Z' },
+  star: { main: `M${star}Z`, second: 'M50 34a16 16 0 1 1 0 32a16 16 0 1 1 0-32Z' },
+  zigzag: { main: 'M6 74 22 30l16 44 16-44 16 44 16-44 8 22v18l-8-22-16 44-16-44-16 44-16-44-16 44Z', second: 'M14 18h72v8H14Z' },
+  frame: { main: 'M12 22h76v56H12Z', second: 'M18 28h8v6h-8Zm0 38h8v6h-8Zm56-38h8v6h-8Zm0 38h8v6h-8ZM34 36h32v28H34Z' },
+};
+const { main, second } = paths[shape];
+---
+<svg class:list={['ds-cut-shape', extra]} viewBox="0 0 100 100" aria-hidden="true" focusable="false" data-cut-shape>
+  <path class={`ds-cut-shape__ink ds-cut-shape__ink--${ink}`} d={main} />
+  <path class={`ds-cut-shape__ink ds-cut-shape__ink--${other} ds-cut-shape__ink--offset`} d={second} data-cut-offset />
+</svg>

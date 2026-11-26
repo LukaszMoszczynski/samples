@@ -1,0 +1,36 @@
+---
+// Site header: brand, menu (the current page marked), "Zapisz się na zajęcia". Below 1024 px a burger opens a
+// full-screen drawer (centre.js), which sits after the header in the page: a blurred header would trap a fixed child.
+import BrandMark from '../../atoms/brand-mark/BrandMark.astro';
+import InkButton from '../../atoms/ink-button/InkButton.astro';
+interface Props { name: string; home: string; items: { text: string; href: string; current?: boolean }[]; cta: { text: string; href: string }; phone: string }
+const { name, home, items, cta, phone } = Astro.props;
+---
+<header class="ds-site-header" data-site-header>
+  <div class="ds-container ds-site-header__bar">
+    <BrandMark name={name} href={home} />
+    <nav class="ds-site-header__nav" aria-label="Menu główne">
+      <ul class="ds-site-header__menu" role="list">
+        {items.map((item) => <li><a class="ds-site-header__link" href={item.href} aria-current={item.current ? 'page' : undefined}>{item.text}</a></li>)}
+      </ul>
+    </nav>
+    <div class="ds-site-header__cta"><InkButton text={cta.text} href={cta.href} /></div>
+    <button class="ds-site-header__burger" type="button" aria-expanded="false" aria-controls="site-drawer" data-site-burger>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path class="ds-burger__line ds-burger__line--top" d="M4 7h16" /><path class="ds-burger__line ds-burger__line--middle" d="M4 12h16" /><path class="ds-burger__line ds-burger__line--bottom" d="M4 17h16" /></svg>
+      <span>Menu</span>
+    </button>
+  </div>
+</header>
+<div class="ds-site-header__drawer" id="site-drawer" hidden>
+  <div class="ds-container">
+    <nav aria-label="Menu na telefonie">
+      <ul class="ds-site-header__drawer-menu" role="list">
+        {items.map((item) => <li><a class="ds-site-header__drawer-link" href={item.href} aria-current={item.current ? 'page' : undefined}>{item.text}</a></li>)}
+      </ul>
+    </nav>
+    <div class="ds-site-header__drawer-foot">
+      <InkButton text={cta.text} href={cta.href} />
+      <a class="ds-site-header__phone" href={`tel:${phone.replaceAll(' ', '')}`}>{phone}</a>
+    </div>
+  </div>
+</div>

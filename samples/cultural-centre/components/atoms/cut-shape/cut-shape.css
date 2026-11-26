@@ -1,0 +1,40 @@
+/* Cut shape: two riso inks overprinting. The offset ink moves a little when its card is hovered (misregistration). */
+.ds-cut-shape {
+  display: block;
+  overflow: visible;
+}
+
+.ds-cut-shape__ink {
+  mix-blend-mode: multiply;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ds-cut-shape__ink--green {
+  fill: var(--ds-riso-green);
+}
+
+.ds-cut-shape__ink--blue {
+  fill: var(--ds-riso-blue);
+}
+
+.ds-cut-shape__ink--offset {
+  transform: translate(var(--space-3), var(--space-2));
+}
+
+/* A badge-sized shape beside a section heading. */
+.ds-cut-shape--badge {
+  flex-shrink: 0;
+  width: calc(var(--size-160) * 0.6);
+  height: calc(var(--size-160) * 0.6);
+}
+
+/* On black, multiply would print nothing: the inks sit side by side instead. */
+:root[data-contrast="high"] .ds-cut-shape__ink {
+  mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-cut-shape__ink {
+    transition: none;
+  }
+}

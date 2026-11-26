@@ -1,0 +1,29 @@
+---
+// Room card: a room for hire with a cut-paper sign, size, capacity, equipment, what it suits and the price from.
+import CutShape from '../../atoms/cut-shape/CutShape.astro';
+interface Props {
+  room: { id: string; name: string; capacity: string; area: string; price: string; shape: 'circle' | 'half' | 'arch' | 'star' | 'zigzag' | 'frame'; ink: 'green' | 'blue'; features: string[]; good: string };
+  askHref?: string;
+  compact?: boolean;
+}
+const { room, askHref, compact = false } = Astro.props;
+---
+<article class:list={['ds-room-card', { 'ds-room-card--compact': compact }]} id={compact ? undefined : `sala-${room.id}`}>
+  <div class="ds-room-card__sign">
+    <CutShape shape={room.shape} ink={room.ink} class="ds-room-card__shape" />
+  </div>
+  <div class="ds-room-card__body">
+    <h3 class="ds-room-card__title">{room.name}</h3>
+    <p class="ds-room-card__size"><span>{room.capacity}</span><span aria-hidden="true"> · </span><span>{room.area}</span></p>
+    {!compact && (
+      <ul class="ds-room-card__features" role="list">
+        {room.features.map((feature) => <li>{feature}</li>)}
+      </ul>
+    )}
+    {!compact && <p class="ds-room-card__good"><strong>Dobra na:</strong> {room.good}</p>}
+    <div class="ds-room-card__foot">
+      <p class="ds-room-card__price">{room.price}</p>
+      {askHref && <a class="ds-room-card__ask" href={askHref} data-room={room.id}>Zapytaj o termin<span class="ds-visually-hidden">: {room.name}</span></a>}
+    </div>
+  </div>
+</article>

@@ -1,0 +1,77 @@
+---
+// Page frame for every page of the cultural centre: the sample layout, the shared CSS, the skip link, the access bar,
+// the header with the current page marked, the footer, the demo toast and the behaviour script (centre.js).
+import Sample from './Sample.astro';
+import sample from '../sample.json';
+import { centre } from '../data/content.js';
+
+import '../components/base/page/page.css';
+import '../components/base/forms/forms.css';
+import '../components/atoms/cut-shape/cut-shape.css';
+import '../components/atoms/brand-mark/brand-mark.css';
+import '../components/atoms/ink-button/ink-button.css';
+import '../components/atoms/eyebrow/eyebrow.css';
+import '../components/organisms/access-bar/access-bar.css';
+import '../components/organisms/site-header/site-header.css';
+import '../components/organisms/site-footer/site-footer.css';
+import '../components/organisms/demo-toast/demo-toast.css';
+
+import AccessBar from '../components/organisms/access-bar/AccessBar.astro';
+import SiteHeader from '../components/organisms/site-header/SiteHeader.astro';
+import SiteFooter from '../components/organisms/site-footer/SiteFooter.astro';
+import DemoToast from '../components/organisms/demo-toast/DemoToast.astro';
+
+interface Props { current: 'index' | 'wydarzenia' | 'zajecia' | 'wynajem' | 'dostepnosc'; title?: string; description: string }
+const { current, title, description } = Astro.props;
+const base = `${import.meta.env.BASE_URL}cultural-centre/`;
+const nav = [
+  { text: 'Program', href: `${base}wydarzenia/`, current: current === 'wydarzenia' },
+  { text: 'Zajęcia', href: `${base}zajecia/`, current: current === 'zajecia' },
+  { text: 'Wynajem sal', href: `${base}wynajem/`, current: current === 'wynajem' },
+  { text: 'Aktualności', href: `${base}#aktualnosci` },
+  { text: 'Kontakt', href: `${base}#kontakt` },
+];
+const fonts = 'https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&display=swap';
+---
+<Sample lang={sample.lang} title={title ? `${title} – ${sample.title}` : sample.title} description={description} fonts={fonts}>
+  <a class="ds-skip-link" href="#tresc">Przejdź do treści</a>
+  <AccessBar base={base} />
+  <SiteHeader name={centre.name} home={base} items={nav} cta={{ text: 'Zapisz się na zajęcia', href: `${base}zajecia/#zapisy` }} phone={centre.phone} />
+  <main id="tresc" tabindex="-1">
+    <slot />
+  </main>
+  <SiteFooter
+    name={centre.name}
+    home={base}
+    about="Miejski ośrodek kultury: koncerty, kino, wystawy i teatr, zajęcia dla każdego wieku i sale do wynajęcia. Instytucja kultury prowadzona przez miasto."
+    contact={[...centre.address, centre.phone, centre.email, 'Budynek otwarty: pon.–pt. 8:00–21:00, sob. 9:00–20:00, niedz. 15:00–20:00']}
+    columns={[
+      { title: 'Program', links: [
+        { text: 'Wszystkie wydarzenia', href: `${base}wydarzenia/` },
+        { text: 'Bilety i zniżki', href: `${base}wydarzenia/#bilety` },
+        { text: 'Zajęcia i zapisy', href: `${base}zajecia/` },
+        { text: 'Wynajem sal', href: `${base}wynajem/` },
+        { text: 'Aktualności', href: `${base}#aktualnosci` },
+      ] },
+      { title: 'Instytucja', links: [
+        { text: 'Biuletyn Informacji Publicznej', href: 'https://www.gov.pl/web/bip', external: true },
+        { text: 'Deklaracja dostępności', href: `${base}dostepnosc/` },
+        { text: 'Tekst łatwy do czytania', href: `${base}dostepnosc/#tekst-latwy` },
+        { text: 'Polski język migowy', href: `${base}dostepnosc/#jezyk-migowy` },
+        { text: 'Dostępność budynku', href: `${base}dostepnosc/#architektura` },
+      ] },
+      { title: 'Na co dzień', links: [
+        { text: 'Godziny otwarcia', href: `${base}#kontakt` },
+        { text: 'Dojazd', href: `${base}#kontakt` },
+        { text: 'Newsletter', href: `${base}#newsletter` },
+        { text: 'Jak dodajemy wydarzenia', href: `${base}#redakcja` },
+      ] },
+    ]}
+    notes={[
+      `© 2026 ${centre.name}. Przykładowa strona: nazwa, adres, program, ceny, liczby i osoby są przykładowe.`,
+      'Organizator: Gmina Miasto (przykład). Instytucja wpisana do rejestru instytucji kultury pod numerem [do uzupełnienia].',
+    ]}
+  />
+  <DemoToast />
+  <script src="../scripts/centre.js"></script>
+</Sample>

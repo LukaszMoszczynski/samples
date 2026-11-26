@@ -1,0 +1,189 @@
+/* Newsletter: a white poster on a printed board, the form on the right, two cut shapes peeking from the edges. */
+.ds-newsletter__band {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: var(--space-40);
+  padding: var(--space-48);
+  border: 2px solid var(--ds-ink);
+  border-radius: var(--radius-xl);
+  background: var(--ds-card);
+  box-shadow: var(--space-8) var(--space-8) 0 var(--ds-riso-green);
+  overflow: hidden;
+}
+
+.ds-newsletter__shape {
+  position: absolute;
+  width: var(--size-160);
+  height: var(--size-160);
+  pointer-events: none;
+}
+
+.ds-newsletter__shape--one {
+  left: calc(var(--space-48) * -1);
+  bottom: calc(var(--space-56) * -1);
+}
+
+.ds-newsletter__shape--two {
+  right: calc(var(--space-24) * -1);
+  top: calc(var(--space-56) * -1);
+  transform: rotate(12deg);
+}
+
+.ds-newsletter__copy {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: var(--space-16);
+}
+
+.ds-newsletter__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  line-height: 1.1;
+}
+
+.ds-newsletter__lead {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  line-height: 1.55;
+  color: var(--ds-ink-soft);
+}
+
+.ds-newsletter__form {
+  position: relative;
+  display: grid;
+  gap: var(--space-20);
+}
+
+.ds-newsletter__field {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.ds-newsletter__label {
+  padding: 0;
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-newsletter__input {
+  width: 100%;
+  min-height: calc(var(--size-44) + var(--space-4));
+  padding: var(--space-10) var(--space-14);
+  border: 2px solid var(--ds-line-strong);
+  border-radius: var(--radius-md);
+  background: var(--ds-card);
+  color: var(--ds-ink);
+}
+
+.ds-newsletter__input:hover {
+  border-color: var(--ds-ink);
+}
+
+.ds-newsletter__input:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--space-1);
+  border-color: var(--ds-ink);
+}
+
+.ds-newsletter__input::placeholder {
+  color: var(--ds-ink-soft);
+}
+
+.ds-newsletter__topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.ds-newsletter__topics legend {
+  margin-bottom: var(--space-8);
+}
+
+.ds-newsletter__topic {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: var(--size-44);
+  padding: var(--space-6) var(--space-14);
+  border: 2px solid var(--ds-line-strong);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.ds-newsletter__topic:hover {
+  border-color: var(--ds-ink);
+}
+
+.ds-newsletter__topic:has(input:checked) {
+  border-color: var(--ds-green);
+  background: var(--ds-green-tint);
+}
+
+.ds-newsletter__topic:has(input:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-newsletter__topic input,
+.ds-newsletter__consent input {
+  width: var(--size-20);
+  height: var(--size-20);
+  margin: 0;
+  accent-color: var(--ds-green);
+}
+
+.ds-newsletter__consent {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-10);
+  line-height: 1.45;
+  cursor: pointer;
+}
+
+.ds-newsletter__consent input {
+  flex-shrink: 0;
+  margin-top: var(--space-2);
+}
+
+.ds-newsletter__thanks {
+  padding: var(--space-16) var(--space-20);
+  border: 2px solid var(--ds-green);
+  border-radius: var(--radius-md);
+  background: var(--ds-green-tint);
+}
+
+.ds-newsletter__thanks p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+.ds-newsletter__thanks-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+@media (max-width: 899px) {
+  .ds-newsletter__band {
+    grid-template-columns: 1fr;
+    padding: var(--space-32) var(--space-24);
+  }
+
+  /* On one column the shapes would sit under the title and the button. */
+  .ds-newsletter__shape {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-newsletter__topic {
+    transition: none;
+  }
+}

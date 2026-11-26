@@ -1,0 +1,95 @@
+---
+// Enrolment form: choose a class (links on the class cards preselect it), who will attend, how to reach you, consent.
+// Beside it: how enrolment works, step by step, and the phone for those who prefer to call. The thank-you is local:
+// a demo, nothing is sent.
+import InkButton from '../../atoms/ink-button/InkButton.astro';
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+interface Props {
+  id: string;
+  title: string;
+  lead: string;
+  options: { value: string; label: string }[];
+  steps: { title: string; text: string }[];
+  phone: string;
+}
+const { id, title, lead, options, steps, phone } = Astro.props;
+---
+<section class="ds-section ds-section--tint ds-enrol" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow text="Zapisy" />
+      <h2 class="ds-section-head__title" id={`${id}-title`}>{title}</h2>
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <div class="ds-enrol__grid">
+      <form class="ds-enrol__form" data-enrol-form data-reveal>
+        <p class="ds-enrol__demo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 8v5M12 16v.5" /></svg>
+          Demo formularza: nic nie zostanie wysłane ani zapisane.
+        </p>
+        <div class="ds-enrol__field ds-enrol__field--wide">
+          <label class="ds-enrol__label" for="enrol-class">Zajęcia</label>
+          <select class="ds-enrol__input" id="enrol-class" name="class" required data-enrol-class>
+            <option value="">Wybierz zajęcia</option>
+            {options.map((option) => <option value={option.value}>{option.label}</option>)}
+          </select>
+        </div>
+        <div class="ds-enrol__field">
+          <label class="ds-enrol__label" for="enrol-name">Imię i nazwisko uczestnika</label>
+          <input class="ds-enrol__input" id="enrol-name" name="name" autocomplete="name" required />
+        </div>
+        <div class="ds-enrol__field">
+          <label class="ds-enrol__label" for="enrol-age">Wiek uczestnika (opcjonalnie)</label>
+          <input class="ds-enrol__input" id="enrol-age" name="age" inputmode="numeric" placeholder="np. 7" />
+        </div>
+        <div class="ds-enrol__field ds-enrol__field--wide">
+          <label class="ds-enrol__label" for="enrol-guardian">Rodzic lub opiekun (przy zapisie dziecka)</label>
+          <input class="ds-enrol__input" id="enrol-guardian" name="guardian" autocomplete="off" />
+        </div>
+        <div class="ds-enrol__field">
+          <label class="ds-enrol__label" for="enrol-phone">Telefon</label>
+          <input class="ds-enrol__input" id="enrol-phone" name="phone" type="tel" autocomplete="tel" placeholder="np. 600 000 000" required />
+        </div>
+        <div class="ds-enrol__field">
+          <label class="ds-enrol__label" for="enrol-email">E-mail (opcjonalnie)</label>
+          <input class="ds-enrol__input" id="enrol-email" name="email" type="email" autocomplete="email" placeholder="imie@example.com" />
+        </div>
+        <fieldset class="ds-enrol__field ds-enrol__field--wide ds-enrol__choice">
+          <legend class="ds-enrol__label">Jak mamy się skontaktować?</legend>
+          <label class="ds-enrol__radio"><input type="radio" name="contact" value="telefon" checked /><span>Telefonicznie</span></label>
+          <label class="ds-enrol__radio"><input type="radio" name="contact" value="e-mail" /><span>E-mailem</span></label>
+        </fieldset>
+        <div class="ds-enrol__field ds-enrol__field--wide">
+          <label class="ds-enrol__label" for="enrol-note">Coś, o czym powinniśmy wiedzieć? (opcjonalnie)</label>
+          <textarea class="ds-enrol__input ds-enrol__textarea" id="enrol-note" name="note" rows="3" placeholder="np. dziecko zaczyna od zera, albo potrzebna jest winda"></textarea>
+        </div>
+        <label class="ds-enrol__consent ds-enrol__field--wide">
+          <input type="checkbox" name="consent" required />
+          <span>Zgadzam się na kontakt w sprawie zapisu i znam zasady uczestnictwa w zajęciach.</span>
+        </label>
+        <div class="ds-enrol__submit ds-enrol__field--wide">
+          <InkButton text="Wyślij zgłoszenie" type="submit" arrow />
+        </div>
+        <div class="ds-enrol__thanks ds-enrol__field--wide" role="status" hidden data-enrol-thanks>
+          <p class="ds-enrol__thanks-title">Dziękujemy, zgłoszenie przyjęte.</p>
+          <p data-enrol-thanks-text>To przykładowa strona: nic nie zostało wysłane.</p>
+        </div>
+      </form>
+      <aside class="ds-enrol__steps" aria-labelledby={`${id}-steps-title`} data-reveal>
+        <h3 class="ds-enrol__steps-title" id={`${id}-steps-title`}>Jak wyglądają zapisy</h3>
+        <ol class="ds-enrol__list" role="list">
+          {steps.map((step, index) => (
+            <li class="ds-enrol__step">
+              <span class="ds-enrol__step-number" aria-hidden="true">{index + 1}</span>
+              <div>
+                <p class="ds-enrol__step-title">{step.title}</p>
+                <p class="ds-enrol__step-text">{step.text}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <p class="ds-enrol__call">Wolisz zapisać się przez telefon albo osobiście? Zadzwoń: <a href={`tel:${phone.replaceAll(' ', '')}`}>{phone}</a>, pon.–pt. 8:00–18:00.</p>
+      </aside>
+    </div>
+  </div>
+</section>

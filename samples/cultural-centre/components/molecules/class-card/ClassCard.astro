@@ -1,0 +1,27 @@
+---
+// Class card: one regular class with its age, day and time, room, teacher, monthly fee and free places, and a link
+// that jumps to the enrolment form with this class chosen.
+interface Props {
+  item: { id: string; name: string; age: string; when: string; room: string; lead: string; price: string; places: number };
+  enrolHref: string;
+}
+const { item, enrolHref } = Astro.props;
+const full = item.places === 0;
+const placesText = full ? 'Brak miejsc: lista rezerwowa' : item.places === 1 ? 'Zostało 1 miejsce' : item.places < 5 ? `Zostały ${item.places} miejsca` : `Wolne miejsca: ${item.places}`;
+---
+<article class="ds-class-card" id={`zajecia-${item.id}`}>
+  <div class="ds-class-card__head">
+    <h3 class="ds-class-card__title">{item.name}</h3>
+    <p class="ds-class-card__age">{item.age}</p>
+  </div>
+  <dl class="ds-class-card__facts">
+    <div><dt>Kiedy</dt><dd>{item.when}</dd></div>
+    <div><dt>Gdzie</dt><dd>{item.room}</dd></div>
+    <div><dt>Prowadzi</dt><dd>{item.lead}</dd></div>
+    <div><dt>Opłata</dt><dd>{item.price}</dd></div>
+  </dl>
+  <div class="ds-class-card__foot">
+    <p class:list={['ds-class-card__places', { 'is-full': full }]}><span class="ds-class-card__dot" aria-hidden="true"></span>{placesText}</p>
+    <a class="ds-class-card__enrol" href={enrolHref} data-enrol={item.id}>{full ? 'Zapisz na listę' : 'Zapisz się'}<span class="ds-visually-hidden">: {item.name}</span></a>
+  </div>
+</article>

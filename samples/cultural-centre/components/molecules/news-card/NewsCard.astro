@@ -1,0 +1,12 @@
+---
+// News card: date, topic tag, title and two lines of text, pinned to the board with a strip of tape.
+import { fullDate } from '../../../data/content.js';
+interface Props { item: { id: string; date: string; title: string; text: string; tag: string } }
+const { item } = Astro.props;
+---
+<article class="ds-news-card" id={`aktualnosc-${item.id}`}>
+  <span class="ds-news-card__tape" aria-hidden="true"></span>
+  <p class="ds-news-card__meta"><time datetime={item.date}>{fullDate(item.date)}</time><span class="ds-news-card__tag">{item.tag}</span></p>
+  <h3 class="ds-news-card__title">{item.title}</h3>
+  <p class="ds-news-card__text">{item.text}</p>
+</article>

@@ -1,0 +1,109 @@
+---
+// Editor demo: how the centre's team adds an event in the CMS (Payload in production). A small panel with the event
+// fields, a live poster preview that follows what you type, and "Opublikuj", which adds the event to the programme
+// list beside it. A demo: nothing is sent or saved, the change disappears on reload.
+import CutShape from '../../atoms/cut-shape/CutShape.astro';
+import InkButton from '../../atoms/ink-button/InkButton.astro';
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import { categories, weekdayShort, dayNumber, monthShort } from '../../../data/content.js';
+interface Props {
+  id: string;
+  title: string;
+  lead: string;
+  places: string[];
+  upcoming: { date: string; time: string; title: string; category: string }[];
+}
+const { id, title, lead, places, upcoming } = Astro.props;
+const times = ['10:00', '11:00', '12:00', '16:00', '17:00', '17:30', '18:00', '19:00', '20:00'];
+const first = categories[0];
+---
+<section class="ds-section ds-editor-demo" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow text="Dla zespołu domu kultury" />
+      <h2 class="ds-section-head__title" id={`${id}-title`}>{title}</h2>
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <div class="ds-editor-demo__grid">
+      <div class="ds-editor-demo__panel" data-reveal>
+        <div class="ds-editor-demo__bar">
+          <span class="ds-editor-demo__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          <p class="ds-editor-demo__bar-title">Panel redakcji <span class="ds-editor-demo__badge">demo</span></p>
+        </div>
+        <div class="ds-editor-demo__body">
+          <ul class="ds-editor-demo__side" role="list" aria-label="Sekcje panelu (podgląd)">
+            <li class="ds-editor-demo__side-current">Wydarzenia</li>
+            <li>Zajęcia</li>
+            <li>Aktualności</li>
+            <li>Sale</li>
+          </ul>
+          <form class="ds-editor-demo__form" data-editor-form>
+            <p class="ds-editor-demo__form-title">Nowe wydarzenie</p>
+            <div class="ds-editor-demo__field ds-editor-demo__field--wide">
+              <label class="ds-editor-demo__label" for="editor-title">Tytuł</label>
+              <input class="ds-editor-demo__input" id="editor-title" name="title" maxlength="70" placeholder="np. Koncert noworoczny" required data-editor-title />
+            </div>
+            <div class="ds-editor-demo__field">
+              <label class="ds-editor-demo__label" for="editor-category">Kategoria</label>
+              <select class="ds-editor-demo__input" id="editor-category" name="category" data-editor-category>
+                {categories.map((category) => <option value={category.id}>{category.single}</option>)}
+              </select>
+            </div>
+            <div class="ds-editor-demo__field">
+              <label class="ds-editor-demo__label" for="editor-place">Miejsce</label>
+              <select class="ds-editor-demo__input" id="editor-place" name="place" data-editor-place>
+                {places.map((place) => <option value={place}>{place}</option>)}
+              </select>
+            </div>
+            <div class="ds-editor-demo__field">
+              <label class="ds-editor-demo__label" for="editor-date">Dzień</label>
+              <input class="ds-editor-demo__input" id="editor-date" name="date" type="date" data-min="today" required data-editor-date />
+            </div>
+            <div class="ds-editor-demo__field">
+              <label class="ds-editor-demo__label" for="editor-time">Godzina</label>
+              <select class="ds-editor-demo__input" id="editor-time" name="time" data-editor-time>
+                {times.map((time) => <option value={time} selected={time === '18:00'}>{time}</option>)}
+              </select>
+            </div>
+            <div class="ds-editor-demo__field ds-editor-demo__field--wide">
+              <label class="ds-editor-demo__label" for="editor-price">Cena biletu</label>
+              <input class="ds-editor-demo__input" id="editor-price" name="price" placeholder="np. 20 zł albo Wstęp wolny" data-editor-price />
+            </div>
+            <div class="ds-editor-demo__submit ds-editor-demo__field--wide">
+              <InkButton text="Opublikuj" type="submit" />
+              <p class="ds-editor-demo__hint">Demo: nic nie jest wysyłane ani zapisywane.</p>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="ds-editor-demo__preview" data-reveal>
+        <p class="ds-editor-demo__preview-label">Podgląd plakatu na stronie</p>
+        <div class="ds-editor-demo__poster" data-editor-poster data-ink={first.ink}>
+          <div class="ds-editor-demo__poster-art">
+            {categories.map((category, index) => (
+              <div class="ds-editor-demo__poster-shape" data-editor-shape={category.id} hidden={index !== 0}>
+                <CutShape shape={category.shape} ink={category.ink} />
+              </div>
+            ))}
+            <p class="ds-editor-demo__poster-category" data-editor-out="category">{first.single}</p>
+          </div>
+          <div class="ds-editor-demo__poster-body">
+            <p class="ds-editor-demo__poster-title" data-editor-out="title">Tytuł wydarzenia</p>
+            <p class="ds-editor-demo__poster-meta"><span data-editor-out="when">dzień i godzina</span> · <span data-editor-out="place">{places[0]}</span></p>
+            <p class="ds-editor-demo__poster-price" data-editor-out="price">cena</p>
+          </div>
+        </div>
+        <p class="ds-editor-demo__preview-label">Program na stronie</p>
+        <ul class="ds-editor-demo__list" role="list" data-editor-list>
+          {upcoming.map((item) => (
+            <li class="ds-editor-demo__row">
+              <span class="ds-editor-demo__row-date">{weekdayShort(item.date)} {dayNumber(item.date)} {monthShort(item.date)}, {item.time}</span>
+              <span class="ds-editor-demo__row-title">{item.title}</span>
+            </li>
+          ))}
+        </ul>
+        <p class="ds-editor-demo__status" role="status" data-editor-status></p>
+      </div>
+    </div>
+  </div>
+</section>

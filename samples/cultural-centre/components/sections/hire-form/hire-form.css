@@ -1,0 +1,39 @@
+/* Hire form extras (the sheet itself comes from enrol-form.css): the list of what's included and the discount note. */
+.ds-hire-form__included {
+  display: grid;
+  gap: var(--space-10);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-hire-form__included li {
+  position: relative;
+  padding-left: var(--space-28);
+  line-height: 1.45;
+}
+
+.ds-hire-form__included li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: var(--space-4);
+  width: var(--size-16);
+  height: var(--size-16);
+  border-radius: var(--radius-full);
+  background: var(--ds-riso-green);
+  box-shadow: var(--space-3) var(--space-2) 0 color-mix(in srgb, var(--ds-riso-blue) 80%, transparent);
+}
+
+.ds-hire-form__note {
+  margin: 0;
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-md);
+  background: var(--ds-green-tint);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.45;
+}
+
+:root[data-contrast="high"] .ds-hire-form__note {
+  border: 2px solid var(--palette-neutral-0);
+}

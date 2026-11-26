@@ -1,0 +1,78 @@
+---
+// Visit info: address and contact, opening hours (today's row marked by the script), what makes the building
+// accessible, and a drawn map where the walk from the bus stop to the door draws itself.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+interface Props {
+  id: string;
+  title: string;
+  address: string[];
+  phone: string;
+  tickets: string;
+  email: string;
+  hours: { place: string; rows: { days: string; time: string; weekdays: number[] }[] }[];
+  access: string[];
+  accessHref: string;
+}
+const { id, title, address, phone, tickets, email, hours, access, accessHref } = Astro.props;
+---
+<section class="ds-section ds-section--tint ds-visit-info" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow text="Kontakt i dojazd" />
+      <h2 class="ds-section-head__title" id={`${id}-title`}>{title}</h2>
+    </div>
+    <div class="ds-visit-info__grid">
+      <div class="ds-visit-info__card" data-reveal>
+        <h3 class="ds-visit-info__heading">Adres i telefon</h3>
+        <address class="ds-visit-info__address">
+          {address.map((line) => <span>{line}</span>)}
+        </address>
+        <dl class="ds-visit-info__contact">
+          <div><dt>Sekretariat</dt><dd><a href={`tel:${phone.replaceAll(' ', '')}`}>{phone}</a></dd></div>
+          <div><dt>Kasa biletowa</dt><dd><a href={`tel:${tickets.replaceAll(' ', '')}`}>{tickets}</a></dd></div>
+          <div><dt>E-mail</dt><dd><a href={`mailto:${email}`}>{email}</a></dd></div>
+        </dl>
+        {hours.map((group) => (
+          <div class="ds-visit-info__hours">
+            <h3 class="ds-visit-info__heading">{group.place}</h3>
+            <dl>
+              {group.rows.map((row) => (
+                <div class="ds-visit-info__row" data-weekdays={row.weekdays.join(',')}>
+                  <dt>{row.days} <span class="ds-visit-info__today" hidden data-today-label>dziś</span></dt>
+                  <dd>{row.time}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        ))}
+      </div>
+      <div class="ds-visit-info__card" data-reveal>
+        <h3 class="ds-visit-info__heading">Budynek bez barier</h3>
+        <ul class="ds-visit-info__access" role="list">
+          {access.map((item) => (
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 4 4 10-10" /></svg>{item}</li>
+          ))}
+        </ul>
+        <a class="ds-visit-info__more" href={accessHref}>Więcej o dostępności budynku</a>
+      </div>
+      <figure class="ds-visit-info__map" data-reveal>
+        <svg viewBox="0 0 360 300" role="img" aria-labelledby="map-label" data-map>
+          <title id="map-label">Rysowana mapka: z przystanku autobusowego do wejścia głównego idzie się 3 minuty prosto chodnikiem, a potem w prawo przez plac.</title>
+          <rect class="ds-visit-info__map-paper" width="360" height="300" rx="10" />
+          <path class="ds-visit-info__map-park" d="M20 190h110v90H20Z" />
+          <path class="ds-visit-info__map-street" d="M0 150h360M170 0v300" />
+          <path class="ds-visit-info__map-building" d="M200 40h130v90H200Z" />
+          <path class="ds-visit-info__map-building-ink" d="M216 54h60v34h-60Z" />
+          <circle class="ds-visit-info__map-stop" cx="40" cy="136" r="12" />
+          <text class="ds-visit-info__map-text" x="40" y="141" text-anchor="middle">A</text>
+          <path class="ds-visit-info__map-route" d="M52 136H158V124q0-8 8-8h76V132" pathLength="1000" data-draw data-map-route />
+          <circle class="ds-visit-info__map-door" cx="242" cy="132" r="7" data-map-door />
+          <text class="ds-visit-info__map-label" x="265" y="30" text-anchor="middle">Dom Kultury</text>
+          <text class="ds-visit-info__map-label" x="75" y="240" text-anchor="middle">park</text>
+          <text class="ds-visit-info__map-small" x="40" y="112" text-anchor="middle">przystanek</text>
+        </svg>
+        <figcaption class="ds-visit-info__caption">Przystanek „Dom Kultury”: autobusy 4, 12 i 20. Parking przy budynku, dwa miejsca dla osób z niepełnosprawnościami tuż przy wejściu.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>

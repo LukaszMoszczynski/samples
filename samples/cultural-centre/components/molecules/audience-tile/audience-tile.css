@@ -1,0 +1,122 @@
+/* Audience tile: a tinted sheet with a large cut shape in the corner, examples and a full-width link at the bottom. */
+.ds-audience-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  height: 100%;
+  padding: var(--space-24);
+  border: 2px solid var(--ds-ink);
+  border-radius: var(--radius-lg);
+  background: var(--ds-green-tint);
+  overflow: hidden;
+}
+
+.ds-audience-tile--blue {
+  background: var(--ds-blue-tint);
+}
+
+.ds-audience-tile__shape {
+  position: absolute;
+  top: calc(var(--space-20) * -1);
+  right: calc(var(--space-20) * -1);
+  width: calc(var(--size-160) * 0.7);
+  height: calc(var(--size-160) * 0.7);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ds-audience-tile:hover .ds-audience-tile__shape {
+  transform: rotate(18deg) scale(1.06);
+}
+
+.ds-audience-tile__age {
+  position: relative;
+  justify-self: start;
+  align-self: flex-start;
+  margin: 0;
+  padding: var(--space-2) var(--space-10);
+  border-radius: var(--radius-full);
+  background: var(--ds-ink);
+  color: var(--ds-paper);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-audience-tile__title {
+  position: relative;
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  line-height: 1.1;
+}
+
+.ds-audience-tile__lead {
+  position: relative;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.ds-audience-tile__examples {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0 0 var(--space-8);
+  padding: 0;
+  list-style: none;
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-audience-tile__examples li::before {
+  content: "— ";
+  color: var(--ds-ink-soft);
+}
+
+.ds-audience-tile__link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  min-height: calc(var(--size-44) + var(--space-4));
+  margin-top: auto;
+  padding: var(--space-10) var(--space-16);
+  border: 2px solid var(--ds-ink);
+  border-radius: var(--radius-md);
+  background: var(--ds-card);
+  color: var(--ds-ink);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.3;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.ds-audience-tile__link svg {
+  flex-shrink: 0;
+  width: var(--size-20);
+  height: var(--size-20);
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ds-audience-tile__link:hover {
+  background: var(--ds-ink);
+  color: var(--ds-paper);
+}
+
+.ds-audience-tile__link:hover svg {
+  transform: translateX(var(--space-4));
+}
+
+.ds-audience-tile__link:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-audience-tile__count {
+  font-weight: var(--font-weight-regular);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-audience-tile__shape,
+  .ds-audience-tile__link,
+  .ds-audience-tile__link svg {
+    transition: none;
+  }
+}

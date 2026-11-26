@@ -1,0 +1,26 @@
+---
+// Audience tile: one group (children, teens, adults, seniors) with its age, a short line, three example classes and a
+// clear link to that group's classes. The cut-paper shape turns when the tile is hovered.
+import CutShape from '../../atoms/cut-shape/CutShape.astro';
+interface Props {
+  audience: { id: string; label: string; age: string; shape: 'circle' | 'half' | 'arch' | 'star' | 'zigzag' | 'frame'; ink: 'green' | 'blue'; lead: string };
+  examples: string[];
+  count: number;
+  href: string;
+}
+const { audience, examples, count, href } = Astro.props;
+const genitive = { dzieci: 'dla dzieci', mlodziez: 'dla młodzieży', dorosli: 'dla dorosłych', seniorzy: 'dla seniorów' }[audience.id] ?? '';
+---
+<article class:list={['ds-audience-tile', `ds-audience-tile--${audience.ink}`]}>
+  <CutShape shape={audience.shape} ink={audience.ink} class="ds-audience-tile__shape" />
+  <p class="ds-audience-tile__age">{audience.age}</p>
+  <h3 class="ds-audience-tile__title">{audience.label}</h3>
+  <p class="ds-audience-tile__lead">{audience.lead}</p>
+  <ul class="ds-audience-tile__examples" role="list">
+    {examples.map((example) => <li>{example}</li>)}
+  </ul>
+  <a class="ds-audience-tile__link" href={href}>
+    <span>Zajęcia {genitive} <span class="ds-audience-tile__count">({count})</span></span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+  </a>
+</article>

@@ -1,0 +1,60 @@
+---
+// Classes page: every regular class, in four sections by audience (jump links at the top, nothing hidden), each card
+// with day, time, room, teacher, fee and free places; then the enrolment form, preselected from the card's link.
+// Example content written for the brief.
+import CentrePage from '../layouts/CentrePage.astro';
+import '../components/molecules/class-card/class-card.css';
+import '../components/sections/page-hero/page-hero.css';
+import '../components/sections/enrol-form/enrol-form.css';
+
+import PageHero from '../components/sections/page-hero/PageHero.astro';
+import ClassCard from '../components/molecules/class-card/ClassCard.astro';
+import CutShape from '../components/atoms/cut-shape/CutShape.astro';
+import Eyebrow from '../components/atoms/eyebrow/Eyebrow.astro';
+import EnrolForm from '../components/sections/enrol-form/EnrolForm.astro';
+import { centre, audiences, classes } from '../data/content.js';
+
+const base = `${import.meta.env.BASE_URL}cultural-centre/`;
+const groups = audiences.map((audience) => ({ ...audience, items: classes.filter((item) => item.audience === audience.id) }));
+---
+<CentrePage current="zajecia" title="Zajęcia" description="Zajęcia stałe w domu kultury dla dzieci, młodzieży, dorosłych i seniorów: dni, godziny, opłaty, wolne miejsca i zapisy online.">
+  <PageHero
+    home={base}
+    current="Zajęcia"
+    label="Sezon 2026/2027"
+    title="Zajęcia dla dzieci, młodzieży, dorosłych i seniorów"
+    lead="Pierwsze zajęcia w każdej grupie są bezpłatne. Przy każdej grupie widać, ile zostało wolnych miejsc. Zapisz się przez formularz na dole strony, telefonicznie albo w sekretariacie."
+    links={[...groups.map((group) => ({ text: group.label, href: `#${group.id}` })), { text: 'Zapisy', href: '#zapisy' }]}
+    shapes={[{ shape: 'star', ink: 'blue' }, { shape: 'zigzag', ink: 'green' }, { shape: 'arch', ink: 'blue' }]}
+  />
+  {groups.map((group, index) => (
+    <section class:list={['ds-section', { 'ds-section--tint': index % 2 === 1 }]} id={group.id} aria-labelledby={`${group.id}-title`}>
+      <div class="ds-container">
+        <div class="ds-section-row" data-reveal>
+          <div class="ds-section-head">
+            <Eyebrow text={group.age} tone={group.ink} />
+            <h2 class="ds-section-head__title" id={`${group.id}-title`}>{group.label}</h2>
+            <p class="ds-section-head__lead">{group.lead}</p>
+          </div>
+          <CutShape shape={group.shape} ink={group.ink} class="ds-cut-shape--badge" />
+        </div>
+        <ul class="ds-card-grid" role="list">
+          {group.items.map((item) => <li data-reveal><ClassCard item={item} enrolHref="#zapisy" /></li>)}
+        </ul>
+      </div>
+    </section>
+  ))}
+  <EnrolForm
+    id="zapisy"
+    title="Zapisz się na zajęcia"
+    lead="Wybierz zajęcia i zostaw telefon. Oddzwonimy, potwierdzimy termin pierwszych, bezpłatnych zajęć i opowiemy o opłatach."
+    options={groups.flatMap((group) => group.items.map((item) => ({ value: item.id, label: `${group.label}: ${item.name} (${item.age})` })))}
+    steps={[
+      { title: 'Wysyłasz zgłoszenie', text: 'Przez formularz, telefonicznie albo w sekretariacie. Seniorzy mogą zapisać się osobiście bez kolejki.' },
+      { title: 'Oddzwaniamy w 2 dni robocze', text: 'Potwierdzamy grupę i termin. Gdy grupa jest pełna, wpisujemy na listę rezerwową.' },
+      { title: 'Pierwsze zajęcia za darmo', text: 'Przychodzisz i sprawdzasz, czy to dla Ciebie. Nic nie trzeba podpisywać przed zajęciami.' },
+      { title: 'Opłata raz w miesiącu', text: 'Przelewem albo w kasie, do 10. dnia miesiąca. Rodzeństwo i Karta Dużej Rodziny: 20% taniej.' },
+    ]}
+    phone={centre.phone}
+  />
+</CentrePage>

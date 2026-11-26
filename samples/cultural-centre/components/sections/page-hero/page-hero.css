@@ -1,0 +1,139 @@
+/* Page hero: copy left, a pile of three pinned paper sheets with cut shapes right (hidden on small phones). */
+.ds-page-hero {
+  padding-block: var(--space-40) var(--space-56);
+  border-bottom: 2px solid var(--ds-ink);
+  background: var(--ds-green-tint);
+  overflow-x: clip;
+}
+
+.ds-page-hero__grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  align-items: center;
+  gap: var(--space-40);
+}
+
+.ds-page-hero__copy {
+  display: grid;
+  gap: var(--space-20);
+}
+
+.ds-page-hero__crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--font-size-small);
+}
+
+.ds-page-hero__crumbs li + li::before {
+  content: "/";
+  margin-right: var(--space-8);
+  color: var(--ds-ink-soft);
+}
+
+.ds-page-hero__crumbs a {
+  color: var(--ds-ink);
+}
+
+.ds-page-hero__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: calc(var(--font-size-4xl) * 1.1);
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+.ds-page-hero__lead {
+  margin: 0;
+  max-width: calc(var(--size-160) * 4.2);
+  font-size: var(--font-size-lg);
+  line-height: 1.55;
+}
+
+.ds-page-hero__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-10);
+  margin: var(--space-8) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-page-hero__links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--size-44);
+  padding: var(--space-6) var(--space-16);
+  border: 2px solid var(--ds-ink);
+  border-radius: var(--radius-full);
+  background: var(--ds-card);
+  color: var(--ds-ink);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.ds-page-hero__links a:hover {
+  background: var(--ds-ink);
+  color: var(--ds-paper);
+}
+
+.ds-page-hero a:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-page-hero__pile {
+  position: relative;
+  justify-self: center;
+  width: calc(var(--size-160) * 1.9);
+  aspect-ratio: 1;
+}
+
+.ds-page-hero__sheet {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 62%;
+  aspect-ratio: 3 / 4;
+  border: 2px solid var(--palette-secondary-800);
+  border-radius: var(--radius-sm);
+  background: var(--palette-neutral-50);
+  box-shadow: var(--space-4) var(--space-4) 0 color-mix(in srgb, var(--palette-secondary-800) 25%, transparent);
+}
+
+.ds-page-hero__sheet--1 {
+  top: 4%;
+  left: 2%;
+  transform: rotate(-9deg);
+}
+
+.ds-page-hero__sheet--2 {
+  top: 0;
+  right: 0;
+  transform: rotate(7deg);
+}
+
+.ds-page-hero__sheet--3 {
+  bottom: 0;
+  left: 20%;
+  transform: rotate(-2deg);
+}
+
+.ds-page-hero__shape {
+  width: 70%;
+  height: auto;
+}
+
+@media (max-width: 859px) {
+  .ds-page-hero__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ds-page-hero__pile {
+    display: none;
+  }
+}

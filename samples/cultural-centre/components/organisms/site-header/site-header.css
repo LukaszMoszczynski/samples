@@ -1,0 +1,213 @@
+/* Site header: sticky over the paper, with a printed rule underneath; frosted once the page scrolls (is-scrolled).
+   Phones: a burger with a visible "Menu" word and a full-screen drawer. */
+.ds-site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 2px solid var(--ds-ink);
+  background: var(--ds-paper);
+  transition: background-color 0.3s ease;
+}
+
+.ds-site-header.is-scrolled {
+  background: color-mix(in srgb, var(--ds-paper) 90%, transparent);
+  backdrop-filter: blur(var(--space-12));
+}
+
+.ds-site-header__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-32);
+  min-height: var(--size-header-height);
+}
+
+.ds-site-header__nav {
+  margin-left: auto;
+}
+
+.ds-site-header__menu {
+  display: flex;
+  gap: var(--space-28);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-site-header__link {
+  position: relative;
+  padding-block: var(--space-8);
+  color: var(--ds-ink);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+}
+
+/* The underline is a strip of riso ink that rolls out from the left; the current page keeps it. */
+.ds-site-header__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: var(--space-2);
+  z-index: -1;
+  height: var(--space-10);
+  background: var(--ds-riso-green);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ds-site-header__link:hover::after,
+.ds-site-header__link:focus-visible::after,
+.ds-site-header__link[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+
+:root[data-contrast="high"] .ds-site-header__link::after {
+  height: var(--space-3);
+  bottom: 0;
+  background: var(--palette-neutral-0);
+}
+
+.ds-site-header__link:focus-visible,
+.ds-site-header__burger:focus-visible,
+.ds-site-header__drawer-link:focus-visible,
+.ds-site-header__phone:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius-xs);
+}
+
+.ds-site-header__menu li {
+  position: relative;
+  z-index: 0;
+}
+
+.ds-site-header__burger {
+  display: none;
+  align-items: center;
+  gap: var(--space-8);
+  margin-left: auto;
+  min-height: var(--size-44);
+  padding: var(--space-6) var(--space-14) var(--space-6) var(--space-10);
+  border: 2px solid var(--ds-ink);
+  border-radius: var(--radius-md);
+  background: var(--ds-card);
+  color: var(--ds-ink);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+}
+
+.ds-site-header__burger svg {
+  width: var(--size-24);
+  height: var(--size-24);
+}
+
+/* Drawer: a fixed overlay under the header bar, never in the page flow. */
+.ds-site-header__drawer {
+  position: fixed;
+  inset: var(--size-header-height) 0 0;
+  z-index: 19;
+  overflow-y: auto;
+  background: var(--ds-paper);
+  padding-block: var(--space-24) var(--space-48);
+}
+
+.ds-site-header__drawer-menu {
+  display: grid;
+  margin: 0 0 var(--space-32);
+  padding: 0;
+  list-style: none;
+}
+
+.ds-site-header__drawer-menu li {
+  border-bottom: 2px solid var(--ds-line);
+}
+
+.ds-site-header__drawer-link {
+  display: block;
+  padding-block: var(--space-16);
+  color: var(--ds-ink);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  text-decoration: none;
+}
+
+.ds-site-header__drawer-link[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-color: var(--ds-riso-green);
+  text-decoration-thickness: var(--space-6);
+  text-underline-offset: var(--space-6);
+}
+
+.ds-site-header__drawer-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-20);
+}
+
+.ds-site-header__phone {
+  color: var(--ds-ink);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+@media (max-width: 1023px) {
+  .ds-site-header__nav,
+  .ds-site-header__cta {
+    display: none;
+  }
+
+  .ds-site-header__burger {
+    display: inline-flex;
+  }
+}
+
+@media (min-width: 1024px) {
+  .ds-site-header__drawer {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .ds-site-header__menu {
+    gap: var(--space-18);
+  }
+
+  .ds-site-header__bar {
+    gap: var(--space-20);
+  }
+}
+
+/* Burger: the lines turn into a cross while the menu is open. */
+.ds-burger__line {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.2s ease;
+}
+
+[aria-expanded="true"] .ds-burger__line--top {
+  transform: translateY(calc(var(--space-4) + var(--space-1))) rotate(45deg);
+}
+
+[aria-expanded="true"] .ds-burger__line--bottom {
+  transform: translateY(calc((var(--space-4) + var(--space-1)) * -1)) rotate(-45deg);
+}
+
+[aria-expanded="true"] .ds-burger__line--middle {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-site-header,
+  .ds-site-header__link::after,
+  .ds-burger__line {
+    transition: none;
+  }
+}

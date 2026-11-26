@@ -1,0 +1,106 @@
+---
+// Hire inquiry: room (preselected from a room card), the date (required, future days only, the forms kit's calendar),
+// hours, kind of event, guests, contact and consent; beside it what is included and how a booking goes. Uses the
+// enrolment form's sheet (enrol-form.css) plus a few extras. A demo: the reply is local, nothing is sent.
+import InkButton from '../../atoms/ink-button/InkButton.astro';
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+interface Props {
+  id: string;
+  title: string;
+  lead: string;
+  rooms: { id: string; name: string }[];
+  included: string[];
+  email: string;
+}
+const { id, title, lead, rooms, included, email } = Astro.props;
+const hours = ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00'];
+---
+<section class="ds-section ds-section--tint ds-enrol ds-hire-form" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow text="Zapytanie o salę" />
+      <h2 class="ds-section-head__title" id={`${id}-title`}>{title}</h2>
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <div class="ds-enrol__grid">
+      <form class="ds-enrol__form" data-hire-form data-reveal>
+        <p class="ds-enrol__demo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 8v5M12 16v.5" /></svg>
+          Demo formularza: nic nie zostanie wysłane ani zarezerwowane.
+        </p>
+        <div class="ds-enrol__field ds-enrol__field--wide">
+          <label class="ds-enrol__label" for="hire-room">Sala</label>
+          <select class="ds-enrol__input" id="hire-room" name="room" data-hire-room>
+            {rooms.map((room) => <option value={room.id}>{room.name}</option>)}
+          </select>
+        </div>
+        <div class="ds-enrol__field ds-enrol__field--wide">
+          <label class="ds-enrol__label" for="hire-date">Dzień</label>
+          <input class="ds-enrol__input" id="hire-date" name="date" type="date" data-min="today" required data-hire-date />
+        </div>
+        <div class="ds-enrol__field">
+          <label class="ds-enrol__label" for="hire-from">Od godziny</label>
+          <select class="ds-enrol__input" id="hire-from" name="from" data-hire-from>
+            {hours.slice(0, -1).map((hour) => <option value={hour} selected={hour === '17:00'}>{hour}</option>)}
+          </select>
+        </div>
+        <div class="ds-enrol__field">
+          <label class="ds-enrol__label" for="hire-to">Do godziny</label>
+          <select class="ds-enrol__input" id="hire-to" name="to" data-hire-to>
+            {hours.slice(1).map((hour) => <option value={hour} selected={hour === '20:00'}>{hour}</option>)}
+          </select>
+        </div>
+        <div class="ds-enrol__field">
+          <label class="ds-enrol__label" for="hire-kind">Rodzaj wydarzenia</label>
+          <select class="ds-enrol__input" id="hire-kind" name="kind">
+            <option>Koncert lub spektakl</option>
+            <option>Szkolenie lub konferencja</option>
+            <option>Zajęcia lub próby</option>
+            <option>Spotkanie rodzinne</option>
+            <option>Wystawa lub jarmark</option>
+            <option>Inne</option>
+          </select>
+        </div>
+        <div class="ds-enrol__field">
+          <label class="ds-enrol__label" for="hire-guests">Liczba osób</label>
+          <input class="ds-enrol__input" id="hire-guests" name="guests" inputmode="numeric" placeholder="np. 40" required />
+        </div>
+        <div class="ds-enrol__field">
+          <label class="ds-enrol__label" for="hire-name">Imię i nazwisko lub firma</label>
+          <input class="ds-enrol__input" id="hire-name" name="name" autocomplete="name" required />
+        </div>
+        <div class="ds-enrol__field">
+          <label class="ds-enrol__label" for="hire-email">E-mail</label>
+          <input class="ds-enrol__input" id="hire-email" name="email" type="email" autocomplete="email" placeholder="imie@example.com" required />
+        </div>
+        <div class="ds-enrol__field ds-enrol__field--wide">
+          <label class="ds-enrol__label" for="hire-phone">Telefon (opcjonalnie)</label>
+          <input class="ds-enrol__input" id="hire-phone" name="phone" type="tel" autocomplete="tel" placeholder="np. 600 000 000" />
+        </div>
+        <div class="ds-enrol__field ds-enrol__field--wide">
+          <label class="ds-enrol__label" for="hire-note">Czego potrzebujesz? (opcjonalnie)</label>
+          <textarea class="ds-enrol__input ds-enrol__textarea" id="hire-note" name="note" rows="3" placeholder="np. rzutnik, 40 krzeseł w rzędach, kawa w przerwie"></textarea>
+        </div>
+        <label class="ds-enrol__consent ds-enrol__field--wide">
+          <input type="checkbox" name="consent" required />
+          <span>Zgadzam się na kontakt w sprawie tego zapytania.</span>
+        </label>
+        <div class="ds-enrol__submit ds-enrol__field--wide">
+          <InkButton text="Wyślij zapytanie" type="submit" arrow />
+        </div>
+        <div class="ds-enrol__thanks ds-enrol__field--wide" role="status" hidden data-hire-thanks>
+          <p class="ds-enrol__thanks-title">Dziękujemy, zapytanie przyjęte.</p>
+          <p data-hire-thanks-text>To przykładowa strona: nic nie zostało wysłane.</p>
+        </div>
+      </form>
+      <aside class="ds-enrol__steps" aria-labelledby={`${id}-included-title`} data-reveal>
+        <h3 class="ds-enrol__steps-title" id={`${id}-included-title`}>W cenie wynajmu</h3>
+        <ul class="ds-hire-form__included" role="list">
+          {included.map((item) => <li>{item}</li>)}
+        </ul>
+        <p class="ds-enrol__call">Odpowiadamy w ciągu dwóch dni roboczych z wolnymi terminami i wyceną. Pytania: <a href={`mailto:${email}`}>{email}</a>.</p>
+        <p class="ds-hire-form__note">Szkoły, organizacje pozarządowe i grupy seniorów z naszego miasta mają rabat 50%.</p>
+      </aside>
+    </div>
+  </div>
+</section>

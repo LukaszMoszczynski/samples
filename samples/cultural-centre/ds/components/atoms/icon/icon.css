@@ -1,0 +1,8 @@
+
+.ds-icon {
+  display: block;
+  flex: none;
+  width: var(--size-24);
+  height: var(--size-24);
+  max-width: none;
+}

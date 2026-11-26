@@ -1,0 +1,45 @@
+---
+// Access bar: the top strip every public institution needs. Links to the accessibility statement, easy-to-read text,
+// sign language and BIP; a text-size switch (A / A+ / A++) and a high-contrast switch. The switches need JS, so they
+// show only once the inline script below has run; the choice is kept for the next visit (localStorage, if allowed).
+interface Props { base: string }
+const { base } = Astro.props;
+---
+<div class="ds-access-bar">
+  <div class="ds-container ds-access-bar__inner">
+    <ul class="ds-access-bar__links" role="list">
+      <li><a href={`${base}dostepnosc/`}>Deklaracja dostępności</a></li>
+      <li><a href={`${base}dostepnosc/#tekst-latwy`}>Tekst łatwy do czytania</a></li>
+      <li><a href={`${base}dostepnosc/#jezyk-migowy`}>Język migowy</a></li>
+      <li><a href="https://www.gov.pl/web/bip" target="_blank" rel="noopener">BIP<span class="ds-visually-hidden"> (otwiera się w nowej karcie)</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" /></svg></a></li>
+    </ul>
+    <div class="ds-access-bar__controls" data-access-controls hidden>
+      <div class="ds-access-bar__group" role="group" aria-labelledby="text-size-label">
+        <span class="ds-access-bar__label" id="text-size-label">Rozmiar tekstu</span>
+        <button class="ds-access-bar__size" type="button" aria-pressed="true" data-text-size="0">A<span class="ds-visually-hidden"> (tekst zwykły)</span></button>
+        <button class="ds-access-bar__size ds-access-bar__size--1" type="button" aria-pressed="false" data-text-size="1">A+<span class="ds-visually-hidden"> (tekst większy)</span></button>
+        <button class="ds-access-bar__size ds-access-bar__size--2" type="button" aria-pressed="false" data-text-size="2">A++<span class="ds-visually-hidden"> (tekst największy)</span></button>
+      </div>
+      <button class="ds-access-bar__contrast" type="button" aria-pressed="false" data-contrast-toggle>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2" /><path d="M12 3a9 9 0 0 1 0 18Z" fill="currentColor" /></svg>
+        Wysoki kontrast
+      </button>
+    </div>
+  </div>
+</div>
+<script is:inline>
+  (function () {
+    var root = document.documentElement;
+    var size = null, contrast = null;
+    try { size = localStorage.getItem("tdk-text-size"); contrast = localStorage.getItem("tdk-contrast"); } catch (error) { /* storage blocked */ }
+    if (size === "1" || size === "2") root.setAttribute("data-text-size", size);
+    if (contrast === "high") root.setAttribute("data-contrast", "high");
+    var controls = document.querySelector("[data-access-controls]");
+    if (!controls) return;
+    controls.hidden = false;
+    controls.querySelectorAll("[data-text-size]").forEach(function (button) {
+      button.setAttribute("aria-pressed", String(button.getAttribute("data-text-size") === (root.getAttribute("data-text-size") || "0")));
+    });
+    controls.querySelector("[data-contrast-toggle]").setAttribute("aria-pressed", String(root.getAttribute("data-contrast") === "high"));
+  })();
+</script>

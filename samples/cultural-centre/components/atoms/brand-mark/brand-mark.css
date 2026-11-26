@@ -1,0 +1,70 @@
+/* Brand mark: icon + two-line name. The spotlight swings a little on hover. */
+.ds-brand-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-12);
+  color: var(--ds-ink);
+  text-decoration: none;
+}
+
+.ds-brand-mark--light {
+  color: var(--ds-on-night);
+}
+
+.ds-brand-mark__icon {
+  flex-shrink: 0;
+  width: var(--size-44);
+  height: var(--size-44);
+}
+
+.ds-brand-mark__tile {
+  fill: var(--palette-primary-600);
+}
+
+.ds-brand-mark__arch {
+  fill: var(--palette-neutral-50);
+}
+
+.ds-brand-mark__spot {
+  fill: var(--palette-accent-400);
+  mix-blend-mode: multiply;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ds-brand-mark:hover .ds-brand-mark__spot {
+  transform: translate(calc(var(--space-4) * -1), var(--space-2));
+}
+
+.ds-brand-mark__text {
+  display: grid;
+  line-height: 1.1;
+}
+
+.ds-brand-mark__name {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-brand-mark__line {
+  font-size: var(--font-size-small);
+  color: var(--ds-ink-soft);
+}
+
+.ds-brand-mark--light .ds-brand-mark__line {
+  color: var(--ds-on-night-soft);
+}
+
+.ds-brand-mark:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-brand-mark__spot {
+    transition: none;
+  }
+}

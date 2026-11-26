@@ -1,0 +1,141 @@
+/* Class card: a white sheet with a heavy top rule, the facts as a short list, free places and the enrol link. */
+.ds-class-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  height: 100%;
+  padding: var(--space-20) var(--space-20) var(--space-24);
+  border: 2px solid var(--ds-ink);
+  border-top-width: var(--space-8);
+  border-radius: var(--radius-lg);
+  background: var(--ds-card);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.ds-class-card:hover {
+  transform: translateY(calc(var(--space-4) * -1));
+  box-shadow: var(--space-6) var(--space-6) 0 var(--ds-riso-blue);
+}
+
+.ds-class-card__head {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.ds-class-card__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  line-height: 1.2;
+}
+
+.ds-class-card__age {
+  justify-self: start;
+  margin: 0;
+  padding: var(--space-2) var(--space-10);
+  border-radius: var(--radius-full);
+  background: var(--ds-green-tint);
+  color: var(--ds-green-deep);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+}
+
+:root[data-contrast="high"] .ds-class-card__age {
+  border: 1px solid var(--palette-neutral-0);
+}
+
+.ds-class-card__facts {
+  display: grid;
+  gap: var(--space-8);
+  margin: 0;
+}
+
+.ds-class-card__facts div {
+  display: grid;
+  grid-template-columns: calc(var(--size-160) * 0.55) 1fr;
+  gap: var(--space-8);
+  line-height: 1.4;
+}
+
+.ds-class-card__facts dt {
+  color: var(--ds-ink-soft);
+}
+
+.ds-class-card__facts dd {
+  margin: 0;
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-class-card__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  margin-top: auto;
+  padding-top: var(--space-12);
+  border-top: 2px dashed var(--ds-line);
+}
+
+.ds-class-card__places {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  margin: 0;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  color: var(--ds-green-deep);
+}
+
+.ds-class-card__places.is-full {
+  color: var(--ds-ink-soft);
+}
+
+.ds-class-card__dot {
+  width: var(--size-12);
+  height: var(--size-12);
+  border-radius: var(--radius-full);
+  background: var(--ds-riso-green);
+  box-shadow: 0 0 0 2px var(--ds-green-deep);
+}
+
+.ds-class-card__places.is-full .ds-class-card__dot {
+  background: transparent;
+  box-shadow: 0 0 0 2px var(--ds-ink-soft);
+}
+
+.ds-class-card__enrol {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--size-44);
+  padding: var(--space-8) var(--space-16);
+  border: 2px solid var(--ds-ink);
+  border-radius: var(--radius-md);
+  background: var(--ds-green);
+  color: var(--ds-on-fill);
+  font-weight: var(--font-weight-bold);
+  text-decoration: none;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: var(--space-3) var(--space-3) 0 var(--ds-riso-blue);
+}
+
+.ds-class-card__enrol:hover {
+  transform: translate(var(--space-2), var(--space-2));
+  box-shadow: var(--space-1) var(--space-1) 0 var(--ds-riso-blue);
+}
+
+.ds-class-card__enrol:focus-visible {
+  outline: var(--focus-ring-width) solid var(--color-focus-ring);
+  outline-offset: var(--focus-ring-offset);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-class-card,
+  .ds-class-card__enrol {
+    transition: none;
+  }
+
+  .ds-class-card:hover {
+    transform: none;
+  }
+}
