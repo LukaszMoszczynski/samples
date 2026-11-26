@@ -1,0 +1,24 @@
+---
+// Menu item: dish name, dotted leader and price on one line, then the description, diet marks and allergen numbers.
+import DietMark from '../../atoms/diet-mark/DietMark.astro';
+export interface Dish { course: string; name: string; text: string; price: number; marks?: ('v' | 'vg' | 'bg' | 'hot')[]; allergens?: number[]; tip?: string }
+interface Props { dish: Dish; courseName: string }
+const { dish, courseName } = Astro.props;
+const marks = dish.marks ?? [];
+const vege = marks.includes('v') || marks.includes('vg');
+---
+<article class="ds-menu-item" data-course={dish.course} data-vege={vege ? 'true' : 'false'}>
+  <p class="ds-menu-item__course">{courseName}{dish.tip && <span class="ds-menu-item__tip">{dish.tip}</span>}</p>
+  <h3 class="ds-menu-item__line">
+    <span class="ds-menu-item__name">{dish.name}</span>
+    <span class="ds-menu-item__leader" aria-hidden="true"></span>
+    <span class="ds-menu-item__price">{dish.price} zł</span>
+  </h3>
+  <p class="ds-menu-item__text">{dish.text}</p>
+  {(marks.length > 0 || (dish.allergens?.length ?? 0) > 0) && (
+    <p class="ds-menu-item__meta">
+      {marks.map((mark) => <DietMark kind={mark} />)}
+      {dish.allergens?.length ? <span class="ds-menu-item__allergens">Alergeny: {dish.allergens.join(', ')}</span> : null}
+    </p>
+  )}
+</article>

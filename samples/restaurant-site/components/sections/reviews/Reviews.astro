@@ -1,0 +1,37 @@
+---
+// Reviews: three example guest reviews, clearly marked as examples (the real site would show the restaurant's own).
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+interface Props {
+  id: string; eyebrow: string; title: string; note: string;
+  items: { quote: string; author: string; source: string; stars: number }[];
+}
+const { id, eyebrow, title, note, items } = Astro.props;
+const star = 'M12 3.2l2.6 5.5 6 .7-4.4 4.1 1.2 6-5.4-3-5.4 3 1.2-6-4.4-4.1 6-.7z';
+---
+<section class="ds-section ds-section--paper ds-reviews" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-reviews__head" data-reveal>
+      <div class="ds-section-head">
+        <Eyebrow text={eyebrow} />
+        <h2 class="ds-section-head__title" id={`${id}-title`} set:html={title} />
+      </div>
+      <p class="ds-reviews__note">{note}</p>
+    </div>
+    <ul class="ds-reviews__list" role="list">
+      {items.map((item, index) => (
+        <li class="ds-reviews__cell" data-reveal>
+          <figure class={`ds-review ds-review--${index % 3}`}>
+            <p class="ds-review__stars" role="img" aria-label={`Ocena ${item.stars} na 5`}>
+              {[1, 2, 3, 4, 5].map((position) => (
+                <svg viewBox="0 0 24 24" aria-hidden="true" class:list={['ds-review__star', { 'is-empty': position > item.stars }]}><path d={star} /></svg>
+              ))}
+            </p>
+            <blockquote class="ds-review__quote"><p>{item.quote}</p></blockquote>
+            <figcaption class="ds-review__author">{item.author}<span class="ds-review__source">{item.source}</span></figcaption>
+            <span class="ds-review__badge">Przykład</span>
+          </figure>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,18 @@
+---
+// Event card: a drawn dish on a tomato-tinted panel, the offer's title and text, short facts and a link to the form.
+// Hover: the card lifts and the drawing tilts a little (on the card's steady parent, see event-card.css).
+import DishDrawing from '../dish-drawing/DishDrawing.astro';
+interface Props { drawing: 'tart' | 'fish' | 'bread' | 'salad' | 'wine' | 'coffee'; title: string; text: string; facts: string[]; href: string }
+const { drawing, title, text, facts, href } = Astro.props;
+---
+<article class="ds-event-card">
+  <div class="ds-event-card__art"><DishDrawing name={drawing} draw={false} /></div>
+  <div class="ds-event-card__body">
+    <h3 class="ds-event-card__title">{title}</h3>
+    <p class="ds-event-card__text">{text}</p>
+    <ul class="ds-event-card__facts" role="list">
+      {facts.map((fact) => <li>{fact}</li>)}
+    </ul>
+    <a class="ds-event-card__link" href={href}>Zapytaj o termin<span class="ds-visually-hidden">: {title}</span> <span aria-hidden="true">→</span></a>
+  </div>
+</article>

@@ -1,0 +1,17 @@
+---
+// Facts band: four figures that count up when they come into view (restaurant.js). Without JS the final numbers show.
+interface Props { items: { value: number; prefix?: string; suffix?: string; label: string }[] }
+const { items } = Astro.props;
+---
+<section class="ds-facts" aria-label="Kilka liczb o nas">
+  <div class="ds-container">
+    <ul class="ds-facts__list" role="list">
+      {items.map((item) => (
+        <li class="ds-facts__item" data-reveal>
+          <span class="ds-facts__value">{item.prefix}<span data-count-to={item.value}>{item.value}</span>{item.suffix}</span>
+          <span class="ds-facts__label">{item.label}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

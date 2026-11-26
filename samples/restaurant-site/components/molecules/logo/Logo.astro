@@ -1,0 +1,16 @@
+---
+// Logo (placeholder): a tomato round mark with a drawn plate and steam, and the name set in the heading serif.
+// tone: ink (on cream) | light (on charcoal). The same mark is in assets/logo.svg, logo-light.svg and favicon.svg.
+interface Props { name: string; tone?: 'ink' | 'light'; href?: string }
+const { name, tone = 'ink', href = '#top' } = Astro.props;
+---
+<a class={`ds-logo ds-logo--${tone}`} href={href} aria-label={`${name}, na górę strony`}>
+  <svg class="ds-logo__mark" viewBox="0 0 40 40" aria-hidden="true">
+    <circle cx="20" cy="20" r="20" class="ds-logo__disc" />
+    <g fill="none" class="ds-logo__lines" stroke-width="2.2" stroke-linecap="round">
+      <ellipse cx="20" cy="26" rx="11" ry="4.2" />
+      <path d="M15.5 19c-1.6-2.2 1.6-3.2 0-5.6M20 18c-1.6-2.2 1.6-3.2 0-5.6M24.5 19c-1.6-2.2 1.6-3.2 0-5.6" />
+    </g>
+  </svg>
+  <span class="ds-logo__name">{name}</span>
+</a>

@@ -1,0 +1,9 @@
+---
+// Eyebrow: a small italic label above a heading, with a hand-drawn squiggle in tomato.
+interface Props { text: string }
+const { text } = Astro.props;
+---
+<p class="ds-eyebrow">
+  <svg class="ds-eyebrow__squiggle" viewBox="0 0 40 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M2 7c4-5 8 4 12 0s8-5 12 0 8 4 12-1" /></svg>
+  <span>{text}</span>
+</p>

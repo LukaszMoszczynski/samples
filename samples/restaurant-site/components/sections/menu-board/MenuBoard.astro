@@ -1,0 +1,53 @@
+---
+// Menu board: the season's menu with filters by course and a "vegetarian only" switch (restaurant.js). The filter bar
+// appears only with JS; without it the whole menu is listed. Matching dishes fade and rise in place.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import DietMark from '../../atoms/diet-mark/DietMark.astro';
+import MenuItem, { type Dish } from '../../molecules/menu-item/MenuItem.astro';
+interface Props {
+  id: string; eyebrow: string; title: string; lead: string;
+  courses: { id: string; name: string }[]; dishes: Dish[]; allergens: string; note: string;
+}
+const { id, eyebrow, title, lead, courses, dishes, allergens, note } = Astro.props;
+const courseName = Object.fromEntries(courses.map((course) => [course.id, course.name]));
+---
+<section class="ds-section ds-menu" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-section-head ds-section-head--center" data-reveal>
+      <Eyebrow text={eyebrow} />
+      <h2 class="ds-section-head__title" id={`${id}-title`} set:html={title} />
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <div class="ds-menu__filters" data-menu-filters hidden data-reveal>
+      <div class="ds-menu__tabs" role="group" aria-label="Pokaż dania">
+        <button class="ds-menu__tab" type="button" aria-pressed="true" data-course-filter="all">Wszystko</button>
+        {courses.map((course) => (
+          <button class="ds-menu__tab" type="button" aria-pressed="false" data-course-filter={course.id}>{course.name}</button>
+        ))}
+      </div>
+      <button class="ds-menu__vege" type="button" role="switch" aria-checked="false" data-vege-filter>
+        <span class="ds-menu__vege-track" aria-hidden="true"><span class="ds-menu__vege-knob"></span></span>
+        Tylko wege
+      </button>
+    </div>
+    <p class="ds-visually-hidden" aria-live="polite" data-menu-status></p>
+    <ul class="ds-menu__list" role="list" data-menu-list>
+      {dishes.map((dish) => (
+        <li class="ds-menu__cell" data-menu-cell data-course={dish.course} data-vege={String((dish.marks ?? []).some((mark) => mark === 'v' || mark === 'vg'))} data-reveal>
+          <MenuItem dish={dish} courseName={courseName[dish.course]} />
+        </li>
+      ))}
+    </ul>
+    <p class="ds-menu__empty" data-menu-empty hidden>W tej kategorii nie ma dziś dań wege. Zapytaj obsługę: często przygotujemy wersję bez mięsa.</p>
+    <div class="ds-menu__legend" data-reveal>
+      <p class="ds-menu__legend-marks">
+        <DietMark kind="v" long />
+        <DietMark kind="vg" long />
+        <DietMark kind="bg" long />
+        <DietMark kind="hot" long />
+      </p>
+      <p class="ds-menu__legend-text"><strong>Alergeny:</strong> {allergens}</p>
+      <p class="ds-menu__legend-text">{note}</p>
+    </div>
+  </div>
+</section>

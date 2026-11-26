@@ -1,0 +1,231 @@
+---
+// Restaurant and bistro home page: components made for this brief (components/), on the design system's tokens.
+// Copy, dishes, prices, hours and reviews are example content written for the brief.
+import Sample from '../layouts/Sample.astro';
+import sample from '../sample.json';
+
+import '../components/base/page/page.css';
+import '../components/base/forms/forms.css';
+import '../components/atoms/bistro-button/bistro-button.css';
+import '../components/atoms/eyebrow/eyebrow.css';
+import '../components/atoms/diet-mark/diet-mark.css';
+import '../components/molecules/dish-drawing/dish-drawing.css';
+import '../components/molecules/logo/logo.css';
+import '../components/molecules/menu-item/menu-item.css';
+import '../components/molecules/field/field.css';
+import '../components/molecules/event-card/event-card.css';
+import '../components/organisms/site-header/site-header.css';
+import '../components/organisms/site-footer/site-footer.css';
+import '../components/sections/hero/hero.css';
+import '../components/sections/facts-band/facts-band.css';
+import '../components/sections/menu-board/menu-board.css';
+import '../components/sections/lunch-board/lunch-board.css';
+import '../components/sections/kitchen-story/kitchen-story.css';
+import '../components/sections/reservation/reservation.css';
+import '../components/sections/events/events.css';
+import '../components/sections/gallery/gallery.css';
+import '../components/sections/reviews/reviews.css';
+import '../components/sections/visit/visit.css';
+
+import SiteHeader from '../components/organisms/site-header/SiteHeader.astro';
+import Hero from '../components/sections/hero/Hero.astro';
+import FactsBand from '../components/sections/facts-band/FactsBand.astro';
+import MenuBoard from '../components/sections/menu-board/MenuBoard.astro';
+import LunchBoard from '../components/sections/lunch-board/LunchBoard.astro';
+import KitchenStory from '../components/sections/kitchen-story/KitchenStory.astro';
+import Reservation from '../components/sections/reservation/Reservation.astro';
+import Events from '../components/sections/events/Events.astro';
+import Gallery from '../components/sections/gallery/Gallery.astro';
+import Reviews from '../components/sections/reviews/Reviews.astro';
+import Visit from '../components/sections/visit/Visit.astro';
+import SiteFooter from '../components/organisms/site-footer/SiteFooter.astro';
+import type { Dish } from '../components/molecules/menu-item/MenuItem.astro';
+
+const name = 'Twoja Restauracja';
+const phone = '+48 600 000 000';
+const email = 'stolik@example.com';
+const nav = [
+  { text: 'Menu', href: '#menu' },
+  { text: 'Lunch', href: '#lunch' },
+  { text: 'Kuchnia', href: '#kuchnia' },
+  { text: 'Wydarzenia', href: '#wydarzenia' },
+  { text: 'Galeria', href: '#galeria' },
+  { text: 'Kontakt', href: '#kontakt' },
+];
+const courses = [
+  { id: 'starters', name: 'Przystawki' },
+  { id: 'soups', name: 'Zupy' },
+  { id: 'mains', name: 'Dania główne' },
+  { id: 'desserts', name: 'Desery' },
+  { id: 'drinks', name: 'Napoje' },
+];
+const dishes: Dish[] = [
+  { course: 'starters', name: 'Tatar z buraka', text: 'Pieczony burak, kozi ser, orzechy włoskie, kapary.', price: 32, marks: ['v', 'bg'], allergens: [7, 8], tip: 'polecamy' },
+  { course: 'starters', name: 'Śledź w oleju lnianym', text: 'Jabłko, pieczona cebula, koperek, chleb żytni.', price: 29, allergens: [1, 4] },
+  { course: 'starters', name: 'Pieczywo na zakwasie', text: 'Z piekarni za rogiem, masło ziołowe, sól wędzona.', price: 14, marks: ['v'], allergens: [1, 7] },
+  { course: 'soups', name: 'Krem z dyni', text: 'Prażone pestki, olej z pestek dyni, imbir.', price: 24, marks: ['vg', 'bg'] },
+  { course: 'soups', name: 'Żurek na zakwasie', text: 'Biała kiełbasa od lokalnego masarza, jajko, chrzan.', price: 26, allergens: [1, 3, 9, 10] },
+  { course: 'mains', name: 'Pierś z kaczki', text: 'Modra kapusta, puree z selera, sos z czarnej porzeczki.', price: 68, marks: ['bg'], allergens: [7, 9], tip: 'szef poleca' },
+  { course: 'mains', name: 'Dorsz z masłem szałwiowym', text: 'Kasza pęczak, pieczony por, cytryna.', price: 62, allergens: [1, 4, 7] },
+  { course: 'mains', name: 'Pierogi z kaszanką', text: 'Prażone jabłko, cebula, majeranek. 8 sztuk.', price: 42, allergens: [1, 3] },
+  { course: 'mains', name: 'Risotto z grzybami leśnymi', text: 'Borowiki, tymianek, parmezan dojrzewający 24 miesiące.', price: 49, marks: ['v', 'bg'], allergens: [7, 9] },
+  { course: 'mains', name: 'Makaron z pomidorami', text: 'Własny makaron, pomidory pieczone, chili, bazylia.', price: 38, marks: ['vg', 'hot'], allergens: [1] },
+  { course: 'desserts', name: 'Szarlotka na ciepło', text: 'Jabłka z sadu pod miastem, lody waniliowe.', price: 24, marks: ['v'], allergens: [1, 3, 7] },
+  { course: 'desserts', name: 'Tarta czekoladowa', text: 'Gorzka czekolada, gruszka w winie, sól morska.', price: 26, marks: ['v'], allergens: [1, 3, 7, 8] },
+  { course: 'drinks', name: 'Kompot z owoców sezonu', text: 'Gotowany codziennie, 0,5 l.', price: 12, marks: ['vg', 'bg'] },
+  { course: 'drinks', name: 'Lemoniada rokitnikowa', text: 'Rokitnik, miód, mięta, woda gazowana.', price: 16, marks: ['v', 'bg'] },
+  { course: 'drinks', name: 'Kawa z palarni obok', text: 'Espresso, flat white lub przelew z ziaren sezonowych.', price: 12, marks: ['v', 'bg'], allergens: [7] },
+  { course: 'drinks', name: 'Wino domu', text: 'Białe lub czerwone, kieliszek 150 ml.', price: 22, marks: ['vg', 'bg'], allergens: [12] },
+];
+---
+<Sample lang={sample.lang} title={sample.title} description="Przykładowa strona restauracji i bistro: sezonowe menu z filtrami, lunch dnia, rezerwacja stolika i wydarzenia." fonts="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500;1,9..144,700&display=swap">
+  <SiteHeader name={name} items={nav} cta={{ text: 'Zarezerwuj stolik', href: '#rezerwacja' }} note={`Rezerwacje telefoniczne: ${phone}`} />
+  <main>
+    <Hero
+      eyebrow="Bistro w centrum miasta"
+      title="Sezonowa kuchnia prosto z targu na Twój talerz"
+      accent="prosto z targu"
+      lead="Gotujemy z tego, co akurat dojrzało: krótka karta zmieniana co sezon, lunch w dni robocze i stolik, który zarezerwujesz w minutę."
+      primary={{ text: 'Zarezerwuj stolik', href: '#rezerwacja' }}
+      secondary={{ text: 'Zobacz menu', href: '#menu' }}
+      status="Otwarte codziennie od 12:00"
+      stamp="Kuchnia sezonowa · Lunch · Kolacje · Wino · "
+      note={{ label: 'Lunch dnia', text: 'Krem z dyni + pierogi', price: '32 zł' }}
+    />
+    <FactsBand items={[
+      { value: 12, suffix: ' lat', label: 'przy tej samej ulicy' },
+      { value: 46, label: 'miejsc w sali i przy barze' },
+      { value: 9, label: 'rolników i dostawców z okolicy' },
+      { value: 4, label: 'nowe karty w roku, co sezon' },
+    ]} />
+    <MenuBoard
+      id="menu"
+      eyebrow="Karta · jesień"
+      title="Menu na <em>ten sezon</em>"
+      lead="Krótka karta, którą zmieniamy cztery razy w roku. Wybierz rodzaj dania albo pokaż tylko dania wege."
+      courses={courses}
+      dishes={dishes}
+      allergens="1 gluten, 2 skorupiaki, 3 jaja, 4 ryby, 5 orzeszki ziemne, 6 soja, 7 mleko, 8 orzechy, 9 seler, 10 gorczyca, 11 sezam, 12 siarczyny, 13 łubin, 14 mięczaki."
+      note="Ceny w złotych, zawierają VAT. Masz alergię? Powiedz obsłudze, przygotujemy danie bez wybranych składników."
+    />
+    <LunchBoard
+      id="lunch"
+      eyebrow="Od poniedziałku do piątku"
+      title="Lunch dnia: <em>zupa i drugie danie</em>"
+      lead="Codziennie inny zestaw z kompotem, podany w 15 minut. Dobry na przerwę w pracy albo spotkanie przy stole."
+      price={32}
+      priceNote="zestaw z kompotem"
+      hours="pon–pt, 12:00–16:00"
+      days={[
+        { day: 'Poniedziałek', weekday: 1, soup: 'Krem z dyni', main: 'Pierogi z kaszanką i jabłkiem' },
+        { day: 'Wtorek', weekday: 2, soup: 'Rosół z makaronem', main: 'Gulasz wołowy, kasza gryczana' },
+        { day: 'Środa', weekday: 3, soup: 'Barszcz czerwony', main: 'Placki z cukinii, sos jogurtowy', vege: true },
+        { day: 'Czwartek', weekday: 4, soup: 'Zupa grzybowa', main: 'Udko z kurczaka, ziemniaki, mizeria' },
+        { day: 'Piątek', weekday: 5, soup: 'Żurek na zakwasie', main: 'Dorsz w panierce, surówka z kapusty' },
+      ]}
+      cta={{ text: 'Zarezerwuj na lunch', href: '#rezerwacja' }}
+    />
+    <KitchenStory
+      id="kuchnia"
+      eyebrow="Kuchnia"
+      title="Gotujemy z tego, <em>co akurat rośnie</em>"
+      lead="Warzywa od rolników spod miasta, ryby z Bałtyku, pieczywo z piekarni za rogiem. Kiedy kończy się sezon na dynię, znika ona z karty."
+      points={[
+        'Warzywa i zioła z trzech gospodarstw, najdalej 40 km stąd',
+        'Ryby z bałtyckich łowisk, dostawa dwa razy w tygodniu',
+        'Pieczywo na zakwasie z piekarni za rogiem',
+        'Makaron, desery i lody robimy na miejscu',
+      ]}
+      seasons={[
+        { name: 'Wiosna', produce: 'szparagi, rabarbar, młode ziemniaki' },
+        { name: 'Lato', produce: 'pomidory, bób, truskawki' },
+        { name: 'Jesień', produce: 'dynia, grzyby, śliwki', current: true },
+        { name: 'Zima', produce: 'kapusta, buraki, kasze' },
+      ]}
+    />
+    <Reservation
+      id="rezerwacja"
+      eyebrow="Rezerwacja"
+      title="Zarezerwuj <em>stolik</em>"
+      lead="Wybierz dzień, godzinę i liczbę gości. Potwierdzenie przyjdzie SMS-em, a dzień wcześniej przypomnimy o wizycie."
+      rules={[
+        'Rezerwujemy stoliki do 8 osób; większe grupy zapraszamy do zakładki Wydarzenia.',
+        'Trzymamy stolik 15 minut po godzinie rezerwacji.',
+        'Rezerwacja jest bezpłatna, płacisz na miejscu.',
+      ]}
+      phone={phone}
+    />
+    <Events
+      id="wydarzenia"
+      eyebrow="Wydarzenia i catering"
+      title="Twoje przyjęcie, <em>nasza kuchnia</em>"
+      lead="Kolacja firmowa, urodziny czy rodzinny obiad: ułożymy menu pod okazję, nakryjemy stół i zajmiemy się resztą."
+      offers={[
+        { drawing: 'wine', title: 'Kolacje firmowe', text: 'Menu degustacyjne albo bufet, dobór win i rachunek na firmę.', facts: ['do 46 osób', 'sala na wyłączność', 'od 140 zł / os.'] },
+        { drawing: 'tart', title: 'Urodziny i rodzinne obiady', text: 'Stół w osobnej części sali, tort od naszej cukierni i menu dla dzieci.', facts: ['8–30 osób', 'tort na zamówienie', 'od 110 zł / os.'] },
+        { drawing: 'bread', title: 'Catering', text: 'Przekąski, ciepłe dania i desery dowiezione do biura lub domu.', facts: ['od 20 osób', 'dowóz w mieście', 'naczynia w cenie'] },
+      ]}
+      formTitle="Zapytaj o wydarzenie"
+      formLead="Napisz, co planujesz. W ciągu jednego dnia roboczego odpiszemy z propozycją menu i ceną."
+    />
+    <Gallery
+      id="galeria"
+      eyebrow="Galeria"
+      title="Zajrzyj <em>do środka</em>"
+      lead="Talerze, sala i wieczory przy winie. W gotowej stronie w tym miejscu będą zdjęcia restauracji."
+      tiles={[
+        { drawing: 'pasta', caption: 'Makaron z pomidorami', tone: 'tomato', size: 'wide' },
+        { drawing: 'wine', caption: 'Wieczór przy winie', tone: 'ink', size: 'tall' },
+        { drawing: 'salad', caption: 'Sałata z ogrodu', tone: 'basil' },
+        { drawing: 'fish', caption: 'Dorsz z Bałtyku', tone: 'cream' },
+        { drawing: 'tart', caption: 'Tarta z owocami', tone: 'blush' },
+        { drawing: 'coffee', caption: 'Kawa po obiedzie', tone: 'cream', size: 'wide' },
+        { drawing: 'soup', caption: 'Zupa dnia', tone: 'blush' },
+        { drawing: 'bread', caption: 'Chleb z piekarni za rogiem', tone: 'tomato', size: 'wide' },
+      ]}
+    />
+    <Reviews
+      id="opinie"
+      eyebrow="Opinie gości"
+      title="Wracają <em>na kolejny sezon</em>"
+      note="Przykładowe opinie napisane do tej strony. W gotowej stronie pokażemy prawdziwe opinie gości, np. z Google."
+      items={[
+        { quote: 'Lunch jak u mamy, tylko podany szybciej. Krem z dyni to obowiązkowy punkt jesieni.', author: 'Marta', source: 'przykładowa opinia', stars: 5 },
+        { quote: 'Zrobiliśmy tu kolację firmową na 30 osób. Menu ułożone pod nas, obsługa bez jednej wpadki.', author: 'Tomasz', source: 'przykładowa opinia', stars: 5 },
+        { quote: 'Krótka karta, ale każde danie dopracowane. Kaczka z modrą kapustą: wrócę po nią.', author: 'Ola', source: 'przykładowa opinia', stars: 4 },
+      ]}
+    />
+    <Visit
+      id="kontakt"
+      eyebrow="Odwiedź nas"
+      title="Przy rynku, <em>trzy minuty od tramwaju</em>"
+      hours={[
+        { days: 'Poniedziałek – czwartek', weekdays: [1, 2, 3, 4], time: '12:00–22:00' },
+        { days: 'Piątek – sobota', weekdays: [5, 6], time: '12:00–23:00' },
+        { days: 'Niedziela', weekdays: [0], time: '12:00–20:00' },
+      ]}
+      lunch="Lunch dnia: poniedziałek – piątek, 12:00–16:00. Kuchnia przyjmuje zamówienia do godziny przed zamknięciem."
+      address={[name, 'ul. Przykładowa 8', '00-001 Miasto']}
+      ways={[
+        { label: 'Tramwaj', text: 'Przystanek Rynek, 3 minuty pieszo.' },
+        { label: 'Samochód', text: 'Strefa płatna; dwa miejsca dla gości za budynkiem.' },
+        { label: 'Dostępność', text: 'Wejście bez progów, toaleta dla osób z niepełnosprawnością.' },
+      ]}
+      phone={phone}
+      email={email}
+    />
+  </main>
+  <SiteFooter
+    name={name}
+    about="Bistro z sezonową kartą, lunchem w dni robocze i salą na rodzinne oraz firmowe przyjęcia."
+    invite={{ title: 'Do zobaczenia <em>przy stole</em>', cta: { text: 'Zarezerwuj stolik', href: '#rezerwacja' } }}
+    columns={[
+      { title: 'Restauracja', links: [{ text: 'Menu', href: '#menu' }, { text: 'Lunch dnia', href: '#lunch' }, { text: 'Kuchnia', href: '#kuchnia' }, { text: 'Galeria', href: '#galeria' }] },
+      { title: 'Dla gości', links: [{ text: 'Rezerwacja', href: '#rezerwacja' }, { text: 'Wydarzenia', href: '#wydarzenia' }, { text: 'Catering', href: '#zapytanie' }, { text: 'Opinie', href: '#opinie' }] },
+    ]}
+    contact={{ title: 'Kontakt', lines: [phone, email, 'ul. Przykładowa 8, Miasto'], social: [{ network: 'instagram', href: '#' }, { network: 'facebook', href: '#' }] }}
+    copyright={`© 2026 ${name}. Przykładowa strona.`}
+    legal={[{ text: 'Polityka prywatności', href: '#' }, { text: 'Alergeny', href: '#menu' }]}
+  />
+  <script src="../scripts/restaurant.js"></script>
+</Sample>

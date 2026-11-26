@@ -1,0 +1,49 @@
+/* Logo: round tomato mark and the name in the heading serif. The steam lines wave a little on hover. */
+.ds-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-10);
+  flex-shrink: 0;
+  color: var(--palette-secondary-800);
+  text-decoration: none;
+}
+
+.ds-logo--light {
+  color: var(--palette-neutral-0);
+}
+
+.ds-logo__mark {
+  width: var(--size-40);
+  height: var(--size-40);
+}
+
+.ds-logo__disc {
+  fill: var(--palette-primary-600);
+}
+
+.ds-logo__lines {
+  stroke: var(--palette-neutral-0);
+}
+
+.ds-logo__lines path {
+  transform-origin: center bottom;
+  transform-box: fill-box;
+  transition: transform 0.4s ease;
+}
+
+.ds-logo:hover .ds-logo__lines path {
+  transform: translateY(calc(var(--space-2) * -1)) skewX(-8deg);
+}
+
+.ds-logo__name {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-tile-title);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-logo__lines path {
+    transition: none;
+  }
+}

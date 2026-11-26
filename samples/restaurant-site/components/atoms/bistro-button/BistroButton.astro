@@ -1,0 +1,10 @@
+---
+// Bistro button. href → <a>, otherwise <button>. variant: tomato (solid) | ink (outline) | cream (solid, for dark bands).
+interface Props { text: string; href?: string; variant?: 'tomato' | 'ink' | 'cream'; type?: 'button' | 'submit'; class?: string }
+const { text, href, variant = 'tomato', type = 'button', class: extraClass = '' } = Astro.props;
+const className = ['ds-bistro-button', `ds-bistro-button--${variant}`, extraClass].filter(Boolean).join(' ');
+const arrow = '<svg class="ds-bistro-button__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 12.5c5-.8 10-.6 15-.2m-5-5.3 5.2 5.2-5.4 5.1"/></svg>';
+---
+{href
+  ? <a class={className} href={href}><span class="ds-bistro-button__text">{text}</span><Fragment set:html={arrow} /></a>
+  : <button class={className} type={type}><span class="ds-bistro-button__text">{text}</span><Fragment set:html={arrow} /></button>}

@@ -1,0 +1,97 @@
+/* Bistro button: a pill with a hand-drawn arrow. Hover: the fill wipes in from the left and the arrow steps on. */
+.ds-bistro-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-10);
+  min-height: var(--size-52);
+  padding: 0 var(--space-24);
+  overflow: hidden;
+  isolation: isolate;
+  border: 2px solid transparent;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.ds-bistro-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.ds-bistro-button:hover::before,
+.ds-bistro-button:focus-visible::before {
+  transform: scaleX(1);
+}
+
+.ds-bistro-button:active {
+  transform: scale(0.97);
+}
+
+.ds-bistro-button--tomato {
+  background: var(--palette-primary-600);
+  color: var(--palette-neutral-0);
+}
+
+.ds-bistro-button--tomato::before {
+  background: var(--palette-primary-800);
+}
+
+.ds-bistro-button--ink {
+  border-color: var(--palette-secondary-800);
+  background: transparent;
+  color: var(--palette-secondary-800);
+}
+
+.ds-bistro-button--ink::before {
+  background: var(--palette-secondary-800);
+}
+
+.ds-bistro-button--ink:hover,
+.ds-bistro-button--ink:focus-visible {
+  color: var(--palette-neutral-0);
+}
+
+.ds-bistro-button--cream {
+  background: var(--palette-neutral-0);
+  color: var(--palette-secondary-800);
+}
+
+.ds-bistro-button--cream::before {
+  background: var(--palette-primary-400);
+}
+
+.ds-bistro-button__arrow {
+  flex-shrink: 0;
+  width: var(--size-20);
+  height: var(--size-20);
+  transition: transform 0.3s ease;
+}
+
+.ds-bistro-button:hover .ds-bistro-button__arrow {
+  transform: translateX(var(--space-4));
+}
+
+.ds-bistro-button[aria-busy="true"] {
+  cursor: progress;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-bistro-button,
+  .ds-bistro-button::before,
+  .ds-bistro-button__arrow {
+    transition: none;
+  }
+}

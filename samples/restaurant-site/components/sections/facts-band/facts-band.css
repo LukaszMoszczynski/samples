@@ -1,0 +1,52 @@
+/* Facts band: a charcoal strip with tomato serif figures, divided by thin hand-ruled lines. */
+.ds-facts {
+  padding-block: var(--space-48);
+  background: var(--palette-secondary-800);
+  color: var(--palette-neutral-0);
+}
+
+.ds-facts__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-facts__item {
+  display: grid;
+  gap: var(--space-6);
+  padding-inline: var(--space-24);
+  border-left: 1px solid color-mix(in srgb, var(--palette-neutral-0) 18%, transparent);
+}
+
+.ds-facts__item:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.ds-facts__value {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-4xl);
+  line-height: 1;
+  font-style: italic;
+  font-weight: var(--font-weight-medium);
+  font-variant-numeric: tabular-nums;
+  color: var(--palette-primary-400);
+}
+
+.ds-facts__label {
+  color: color-mix(in srgb, var(--palette-neutral-0) 82%, transparent);
+}
+
+@media (max-width: 781px) {
+  .ds-facts__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: var(--space-32);
+  }
+
+  .ds-facts__item:nth-child(odd) {
+    padding-left: 0;
+    border-left: 0;
+  }
+}

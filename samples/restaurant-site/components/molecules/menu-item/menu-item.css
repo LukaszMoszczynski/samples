@@ -1,0 +1,99 @@
+/* Menu item: a paper card with a dotted leader to the price. Hover: the card lifts and gets a tomato edge. */
+.ds-menu-item {
+  display: grid;
+  align-content: start;
+  gap: var(--space-8);
+  height: 100%;
+  box-sizing: border-box;
+  padding: var(--space-20) var(--space-24) var(--space-24);
+  border: 1px solid color-mix(in srgb, var(--palette-secondary-800) 12%, transparent);
+  border-radius: var(--radius-lg);
+  background: var(--palette-neutral-0);
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+li:hover > .ds-menu-item {
+  transform: translateY(calc(var(--space-6) * -1));
+  border-color: var(--palette-primary-600);
+  box-shadow: 0 var(--space-16) var(--space-32) color-mix(in srgb, var(--palette-secondary-800) 14%, transparent);
+}
+
+.ds-menu-item__course {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-8);
+  margin: 0;
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  color: var(--palette-neutral-600);
+}
+
+.ds-menu-item__tip {
+  padding: var(--space-2) var(--space-8);
+  border-radius: var(--radius-full);
+  background: var(--palette-primary-50);
+  color: var(--palette-primary-800);
+  text-transform: none;
+}
+
+.ds-menu-item__line {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-8);
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-tile-title);
+  line-height: var(--line-height-tile-title);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-menu-item__name {
+  min-width: 0;
+}
+
+.ds-menu-item__leader {
+  flex: 1 1 var(--space-24);
+  min-width: var(--space-16);
+  border-bottom: 2px dotted color-mix(in srgb, var(--palette-secondary-800) 35%, transparent);
+  transform: translateY(calc(var(--space-6) * -1));
+}
+
+.ds-menu-item__price {
+  flex-shrink: 0;
+  font-family: var(--font-body);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  font-variant-numeric: tabular-nums;
+  color: var(--palette-primary-600);
+}
+
+.ds-menu-item__text {
+  margin: 0;
+  color: var(--palette-neutral-600);
+}
+
+.ds-menu-item__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-8);
+  margin: var(--space-4) 0 0;
+}
+
+.ds-menu-item__allergens {
+  font-size: var(--font-size-small);
+  color: var(--palette-neutral-600);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-menu-item {
+    transition: none;
+  }
+
+  li:hover > .ds-menu-item {
+    transform: none;
+  }
+}

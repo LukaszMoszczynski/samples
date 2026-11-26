@@ -1,0 +1,120 @@
+/* Gallery: a four-column mosaic (wide and tall tiles), drawings centred, caption on a paper tag. Hover on the steady
+   cell: the tile lifts and the drawing grows a little. */
+.ds-gallery__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: calc(var(--size-160) * 1.4);
+  grid-auto-flow: dense;
+  gap: var(--space-16);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-gallery__cell--wide {
+  grid-column: span 2;
+}
+
+.ds-gallery__cell--tall {
+  grid-row: span 2;
+}
+
+.ds-gallery__tile {
+  position: relative;
+  display: grid;
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  place-items: center;
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: var(--space-32) var(--space-32) var(--space-56);
+  overflow: hidden;
+  border-radius: var(--radius-xl);
+  transition: transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.4s ease;
+}
+
+.ds-gallery__cell:hover > .ds-gallery__tile {
+  transform: translateY(calc(var(--space-6) * -1));
+  box-shadow: 0 var(--space-20) var(--space-40) color-mix(in srgb, var(--palette-secondary-800) 18%, transparent);
+}
+
+.ds-gallery__tile .ds-gallery__dish {
+  width: auto;
+  max-width: 100%;
+  height: 100%;
+  max-height: calc(var(--size-160) * 1.6);
+  transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.ds-gallery__cell:hover .ds-gallery__dish {
+  transform: scale(1.06);
+}
+
+.ds-gallery__tile--tomato {
+  background: var(--palette-primary-600);
+}
+
+.ds-gallery__tile--tomato .ds-gallery__dish {
+  color: var(--palette-neutral-0);
+}
+
+.ds-gallery__tile--tomato .ds-dish__fill--tomato {
+  fill: var(--palette-primary-800);
+}
+
+.ds-gallery__tile--ink {
+  background: var(--palette-secondary-800);
+}
+
+.ds-gallery__tile--ink .ds-gallery__dish {
+  color: var(--palette-neutral-0);
+}
+
+.ds-gallery__tile--cream {
+  background: var(--palette-neutral-100);
+}
+
+.ds-gallery__tile--basil {
+  background: var(--palette-accent-400);
+}
+
+.ds-gallery__tile--blush {
+  background: var(--palette-primary-50);
+}
+
+.ds-gallery__caption {
+  position: absolute;
+  left: var(--space-16);
+  bottom: var(--space-16);
+  max-width: calc(100% - var(--space-32));
+  padding: var(--space-6) var(--space-12);
+  border-radius: var(--radius-full);
+  background: var(--palette-neutral-0);
+  color: var(--palette-secondary-800);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+}
+
+@media (max-width: 899px) {
+  .ds-gallery__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: var(--size-160);
+    gap: var(--space-12);
+  }
+
+  .ds-gallery__tile {
+    padding: var(--space-16) var(--space-16) var(--space-48);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-gallery__tile,
+  .ds-gallery__tile .ds-gallery__dish {
+    transition: none;
+  }
+
+  .ds-gallery__cell:hover > .ds-gallery__tile,
+  .ds-gallery__cell:hover .ds-gallery__dish {
+    transform: none;
+  }
+}
