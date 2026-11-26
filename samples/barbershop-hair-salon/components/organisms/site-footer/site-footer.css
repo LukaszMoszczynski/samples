@@ -1,0 +1,83 @@
+/* Site footer: near-black, a pole stripe on top, three columns that stack on phones. */
+.ds-site-footer {
+  background: var(--palette-secondary-950);
+  color: var(--palette-neutral-50);
+}
+
+.ds-site-footer__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-40);
+  padding-block: var(--space-64) var(--space-40);
+}
+
+.ds-site-footer__name {
+  margin: 0 0 var(--space-12);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.ds-site-footer__about {
+  max-width: calc(var(--layout-container) * 0.32);
+  margin: 0;
+  color: color-mix(in srgb, var(--palette-neutral-50) 76%, transparent);
+}
+
+.ds-site-footer__title {
+  margin: 0 0 var(--space-16);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: calc(var(--font-size-small) * 0.16);
+  text-transform: uppercase;
+  color: var(--palette-accent-400);
+}
+
+.ds-site-footer ul {
+  display: grid;
+  gap: var(--space-8);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-site-footer a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--palette-accent-400) 60%, transparent);
+  text-underline-offset: var(--space-4);
+}
+
+.ds-site-footer a:hover {
+  text-decoration-color: var(--palette-accent-400);
+}
+
+.ds-site-footer a:focus-visible {
+  outline: var(--focus-ring-width) solid var(--palette-accent-400);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-site-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-12);
+  padding-block: var(--space-24) var(--space-40);
+  border-top: 1px solid color-mix(in srgb, var(--palette-neutral-50) 14%, transparent);
+  font-size: var(--font-size-small);
+  color: color-mix(in srgb, var(--palette-neutral-50) 72%, transparent);
+}
+
+.ds-site-footer__bottom p {
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .ds-site-footer__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-32);
+  }
+}

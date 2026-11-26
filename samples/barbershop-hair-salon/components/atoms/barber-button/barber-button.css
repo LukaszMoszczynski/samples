@@ -1,0 +1,86 @@
+/* Barber button: square-ish, uppercase, condensed. Solid copper or an outline in the surrounding text colour. */
+.ds-barber-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-12);
+  min-height: var(--size-52);
+  padding: var(--space-12) var(--space-24);
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: 800;
+  letter-spacing: calc(var(--font-size-small) * 0.1);
+  line-height: 1;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  isolation: isolate;
+  transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.ds-barber-button--solid {
+  background: var(--palette-primary-600);
+  color: var(--palette-neutral-0);
+}
+
+.ds-barber-button--solid:hover {
+  background: var(--palette-primary-800);
+}
+
+.ds-barber-button--outline {
+  border-color: currentColor;
+  background: transparent;
+  color: inherit;
+}
+
+.ds-barber-button--outline:hover {
+  border-color: var(--palette-accent-400);
+}
+
+/* The sweep: a soft light band crosses the button once on hover. */
+.ds-barber-button::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -60%;
+  z-index: -1;
+  width: 50%;
+  background: linear-gradient(100deg, transparent, color-mix(in srgb, var(--palette-neutral-0) 26%, transparent), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.6s ease;
+}
+
+.ds-barber-button:hover::before {
+  left: 120%;
+}
+
+.ds-barber-button__arrow {
+  flex-shrink: 0;
+  width: var(--size-20);
+  height: var(--size-20);
+  transition: transform 0.25s ease;
+}
+
+.ds-barber-button:hover .ds-barber-button__arrow {
+  transform: translateX(var(--space-4));
+}
+
+.ds-barber-button:focus-visible {
+  outline: var(--focus-ring-width) solid var(--palette-accent-400);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-barber-button[aria-busy="true"] {
+  opacity: 0.8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-barber-button,
+  .ds-barber-button::before,
+  .ds-barber-button__arrow {
+    transition: none;
+  }
+}

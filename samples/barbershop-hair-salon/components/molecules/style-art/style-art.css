@@ -1,0 +1,31 @@
+/* Style art: brass line drawing over a copper-tinted hair mass. */
+.ds-style-art {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ds-style-art__mass {
+  fill: color-mix(in srgb, var(--palette-primary-600) 70%, var(--palette-secondary-900));
+}
+
+.ds-style-art__line {
+  fill: none;
+  stroke: var(--palette-neutral-50);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ds-style-art__line--hair {
+  stroke: var(--palette-accent-400);
+}
+
+.ds-style-art__line--detail {
+  stroke: var(--palette-accent-400);
+  stroke-width: 2;
+}
+
+[data-motion] [data-art-mass] {
+  opacity: 0;
+}

@@ -1,0 +1,18 @@
+---
+// Review card: stars, the quote, who wrote it and for which service. Example content, marked as such on the card.
+interface Props { quote: string; author: string; service: string; stars?: number }
+const { quote, author, service, stars = 5 } = Astro.props;
+const star = 'M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z';
+---
+<figure class="ds-review-card" data-review>
+  <div class="ds-review-card__top">
+    <p class="ds-review-card__stars" role="img" aria-label={`Ocena: ${stars} na 5`}>
+      {Array.from({ length: 5 }, (_value, index) => (
+        <svg class={`ds-review-card__star${index < stars ? ' is-on' : ''}`} viewBox="0 0 24 24" aria-hidden="true"><path d={star} /></svg>
+      ))}
+    </p>
+    <span class="ds-review-card__badge">Przykład</span>
+  </div>
+  <blockquote class="ds-review-card__quote"><p>{quote}</p></blockquote>
+  <figcaption class="ds-review-card__author"><strong>{author}</strong><span>{service}</span></figcaption>
+</figure>

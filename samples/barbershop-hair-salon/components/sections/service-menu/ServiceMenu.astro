@@ -1,0 +1,49 @@
+---
+// Services and prices, grouped like a barber's price board. Each row: name, a short note, time and price. On enter the
+// rows rise, a copper rule draws under each one and the prices count up (barber.js).
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import BarberButton from '../../atoms/barber-button/BarberButton.astro';
+interface Item { name: string; text: string; minutes: number; price: number; from?: boolean }
+interface Props { id: string; label: string; title: string; lead: string; groups: { title: string; note: string; items: Item[] }[]; note: string; cta: { text: string; href: string } }
+const { id, label, title, lead, groups, note, cta } = Astro.props;
+const duration = (minutes: number) => (minutes >= 60 ? `${Math.floor(minutes / 60)} h${minutes % 60 ? ` ${minutes % 60} min` : ''}` : `${minutes} min`);
+---
+<section class="ds-section ds-service-menu" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-service-menu__head" data-reveal>
+      <div class="ds-section-head">
+        <Eyebrow text={label} />
+        <h2 class="ds-section-head__title" id={`${id}-title`}>{title}</h2>
+        <p class="ds-section-head__lead">{lead}</p>
+      </div>
+      <BarberButton text={cta.text} href={cta.href} />
+    </div>
+    <div class="ds-service-menu__groups">
+      {groups.map((group, groupIndex) => (
+        <section class="ds-service-menu__group" aria-labelledby={`${id}-group-${groupIndex}`}>
+          <header class="ds-service-menu__group-head" data-reveal>
+            <span class="ds-service-menu__group-index">{String(groupIndex + 1).padStart(2, '0')}</span>
+            <h3 class="ds-service-menu__group-title" id={`${id}-group-${groupIndex}`}>{group.title}</h3>
+            <p class="ds-service-menu__group-note">{group.note}</p>
+          </header>
+          <ul class="ds-service-menu__list" role="list">
+            {group.items.map((item) => (
+              <li class="ds-service-menu__row" data-service-row>
+                <div class="ds-service-menu__what">
+                  <h4 class="ds-service-menu__name">{item.name}</h4>
+                  <p class="ds-service-menu__text">{item.text}</p>
+                </div>
+                <div class="ds-service-menu__meta">
+                  <span class="ds-service-menu__time"><span class="ds-visually-hidden">Czas: </span>{duration(item.minutes)}</span>
+                  <span class="ds-service-menu__price">{item.from && <small>od </small>}<span data-count-to={item.price}>{item.price}</span> zł</span>
+                </div>
+                <span class="ds-service-menu__rule" aria-hidden="true" data-service-rule></span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </div>
+    <p class="ds-service-menu__note" data-reveal>{note}</p>
+  </div>
+</section>

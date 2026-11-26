@@ -1,0 +1,54 @@
+/* Reviews: heading with a big example score on the right, three cards below. */
+.ds-reviews__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-24);
+  margin-bottom: var(--space-48);
+}
+
+.ds-reviews__head .ds-section-head {
+  margin-bottom: 0;
+}
+
+.ds-reviews__score {
+  display: grid;
+  justify-items: end;
+  gap: var(--space-4);
+  margin: 0;
+  text-align: right;
+}
+
+.ds-reviews__score strong {
+  font-family: var(--font-heading);
+  font-size: calc(var(--font-size-4xl) * 1.4);
+  font-weight: 900;
+  line-height: 0.9;
+  color: var(--palette-primary-600);
+}
+
+.ds-reviews__score span {
+  font-size: var(--font-size-small);
+  color: var(--color-text-muted);
+}
+
+.ds-reviews__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-24);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (max-width: 899px) {
+  .ds-reviews__list {
+    grid-template-columns: 1fr;
+  }
+
+  .ds-reviews__score {
+    justify-items: start;
+    text-align: left;
+  }
+}

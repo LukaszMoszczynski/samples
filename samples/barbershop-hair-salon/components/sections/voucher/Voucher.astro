@@ -1,0 +1,30 @@
+---
+// Gift voucher teaser: copy and a call to action next to a drawn voucher card that swings in and catches a light sweep.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import BarberButton from '../../atoms/barber-button/BarberButton.astro';
+interface Props { id: string; label: string; title: string; lead: string; points: string[]; cta: { text: string; href: string }; brand: string; amount: string }
+const { id, label, title, lead, points, cta, brand, amount } = Astro.props;
+---
+<section class="ds-section ds-voucher" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container ds-voucher__grid">
+    <div class="ds-voucher__copy" data-reveal>
+      <Eyebrow text={label} />
+      <h2 class="ds-section-head__title" id={`${id}-title`}>{title}</h2>
+      <p class="ds-voucher__lead">{lead}</p>
+      <ul class="ds-voucher__points" role="list">
+        {points.map((point) => <li>{point}</li>)}
+      </ul>
+      <BarberButton text={cta.text} href={cta.href} />
+    </div>
+    <div class="ds-voucher__stage">
+      <div class="ds-voucher__card" data-voucher-card aria-hidden="true">
+        <span class="ds-voucher__edge"></span>
+        <span class="ds-voucher__kind">Karta podarunkowa</span>
+        <span class="ds-voucher__brand">{brand}</span>
+        <span class="ds-voucher__amount">{amount}</span>
+        <span class="ds-voucher__code">Nr TB-0000-0000 · ważna 6 miesięcy</span>
+        <span class="ds-voucher__shine"></span>
+      </div>
+    </div>
+  </div>
+</section>

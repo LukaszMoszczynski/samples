@@ -1,0 +1,17 @@
+{
+  "slug": "barbershop-hair-salon",
+  "stack": "astro",
+  "lang": "pl",
+  "title": "Twój Barber – barber i fryzjer (przykładowa strona)",
+  "pages": [
+    "index"
+  ],
+  "summary": "Barber i salon fryzjerski: cennik z czasem wizyt, zespół, rezerwacja online w krokach i karta podarunkowa. Kręcący się słupek barberski i rysowane nożyczki.",
+  "direction": "Barber pole",
+  "tags": [
+    "Astro",
+    "GSAP",
+    "Rezerwacja online (demo)"
+  ],
+  "date": "2026-11-26"
+}

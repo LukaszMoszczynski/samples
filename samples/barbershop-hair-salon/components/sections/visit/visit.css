@@ -1,0 +1,182 @@
+/* Visit: hours table with today marked, contact lines, a drawn map on a dark tile. */
+.ds-visit__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  align-items: center;
+  gap: var(--space-64);
+}
+
+.ds-visit__info {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-24);
+}
+
+.ds-visit__info .ds-section-head {
+  margin-bottom: 0;
+}
+
+.ds-visit__status {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-10);
+  margin: 0;
+  padding: var(--space-6) var(--space-14);
+  border: 1px solid color-mix(in srgb, var(--palette-neutral-50) 24%, transparent);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-visit__status-dot {
+  width: var(--space-10);
+  height: var(--space-10);
+  border-radius: var(--radius-full);
+  background: var(--palette-neutral-400);
+}
+
+.ds-visit__status.is-open .ds-visit__status-dot {
+  background: var(--palette-accent-400);
+  box-shadow: 0 0 0 var(--space-4) color-mix(in srgb, var(--palette-accent-400) 25%, transparent);
+}
+
+.ds-visit__hours {
+  width: 100%;
+  max-width: calc(var(--size-160) * 2.6);
+  border-collapse: collapse;
+}
+
+.ds-visit__hours th,
+.ds-visit__hours td {
+  padding: var(--space-10) var(--space-12);
+  border-bottom: 1px solid color-mix(in srgb, var(--palette-neutral-50) 14%, transparent);
+  text-align: left;
+  font-weight: var(--font-weight-regular);
+}
+
+.ds-visit__hours td {
+  font-family: var(--font-mono);
+  text-align: right;
+}
+
+.ds-visit__row.is-today th,
+.ds-visit__row.is-today td {
+  background: color-mix(in srgb, var(--palette-accent-400) 14%, transparent);
+  color: var(--palette-accent-400);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-visit__contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-24) var(--space-48);
+}
+
+.ds-visit__address {
+  display: grid;
+  gap: var(--space-2);
+  font-style: normal;
+}
+
+.ds-visit__lines {
+  display: grid;
+  gap: var(--space-6);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-visit__lines span {
+  display: inline-block;
+  min-width: var(--space-64);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  color: var(--palette-accent-400);
+}
+
+.ds-visit__lines a {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--palette-accent-400) 60%, transparent);
+  text-underline-offset: var(--space-4);
+}
+
+.ds-visit__lines a:focus-visible {
+  outline: var(--focus-ring-width) solid var(--palette-accent-400);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-visit__map {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--palette-accent-400) 34%, transparent);
+  border-radius: var(--radius-lg);
+  background: var(--palette-secondary-800);
+}
+
+.ds-visit__map svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ds-visit__streets path {
+  fill: none;
+  stroke: color-mix(in srgb, var(--palette-neutral-50) 34%, transparent);
+  stroke-width: 10;
+  stroke-linecap: round;
+}
+
+.ds-visit__main {
+  fill: none;
+  stroke: var(--palette-accent-400);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+
+.ds-visit__river {
+  fill: none;
+  stroke: color-mix(in srgb, var(--palette-primary-400) 50%, transparent);
+  stroke-width: 18;
+  stroke-linecap: round;
+}
+
+.ds-visit__block {
+  fill: color-mix(in srgb, var(--palette-neutral-50) 10%, transparent);
+}
+
+.ds-visit__park {
+  fill: color-mix(in srgb, var(--palette-accent-400) 16%, transparent);
+}
+
+.ds-visit__pin > path:first-child {
+  fill: var(--palette-primary-600);
+  stroke: var(--palette-neutral-50);
+  stroke-width: 3;
+}
+
+.ds-visit__pin-glass {
+  fill: var(--palette-neutral-50);
+}
+
+.ds-visit__pin-stripe {
+  fill: var(--palette-primary-600);
+}
+
+.ds-visit__map-caption {
+  padding: var(--space-16) var(--space-20);
+  border-top: 1px solid color-mix(in srgb, var(--palette-neutral-50) 14%, transparent);
+  font-size: var(--font-size-small);
+  color: color-mix(in srgb, var(--palette-neutral-50) 80%, transparent);
+}
+
+[data-motion] [data-visit-pin] {
+  opacity: 0;
+}
+
+@media (max-width: 899px) {
+  .ds-visit__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-48);
+  }
+}

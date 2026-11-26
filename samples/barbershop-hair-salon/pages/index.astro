@@ -1,0 +1,212 @@
+---
+// Barbershop and hair salon home page: components made for this brief (components/), on the design system's tokens.
+// Copy, prices, hours and reviews are example content written for the brief.
+import Sample from '../layouts/Sample.astro';
+import sample from '../sample.json';
+
+import '../components/base/page/page.css';
+import '../components/base/forms/forms.css';
+import '../components/atoms/barber-button/barber-button.css';
+import '../components/atoms/eyebrow/eyebrow.css';
+import '../components/atoms/pole-stripe/pole-stripe.css';
+import '../components/molecules/portrait/portrait.css';
+import '../components/molecules/style-art/style-art.css';
+import '../components/molecules/team-card/team-card.css';
+import '../components/molecules/review-card/review-card.css';
+import '../components/organisms/site-header/site-header.css';
+import '../components/organisms/site-footer/site-footer.css';
+import '../components/sections/barber-hero/barber-hero.css';
+import '../components/sections/service-menu/service-menu.css';
+import '../components/sections/team/team.css';
+import '../components/sections/booking-demo/booking-demo.css';
+import '../components/sections/style-gallery/style-gallery.css';
+import '../components/sections/reviews/reviews.css';
+import '../components/sections/voucher/voucher.css';
+import '../components/sections/visit/visit.css';
+
+import SiteHeader from '../components/organisms/site-header/SiteHeader.astro';
+import BarberHero from '../components/sections/barber-hero/BarberHero.astro';
+import PoleStripe from '../components/atoms/pole-stripe/PoleStripe.astro';
+import ServiceMenu from '../components/sections/service-menu/ServiceMenu.astro';
+import Team from '../components/sections/team/Team.astro';
+import BookingDemo from '../components/sections/booking-demo/BookingDemo.astro';
+import StyleGallery from '../components/sections/style-gallery/StyleGallery.astro';
+import Reviews from '../components/sections/reviews/Reviews.astro';
+import Voucher from '../components/sections/voucher/Voucher.astro';
+import Visit from '../components/sections/visit/Visit.astro';
+import SiteFooter from '../components/organisms/site-footer/SiteFooter.astro';
+
+const brand = 'Twój Barber';
+const nav = [
+  { text: 'Usługi i ceny', href: '#uslugi' },
+  { text: 'Zespół', href: '#zespol' },
+  { text: 'Rezerwacja', href: '#rezerwacja' },
+  { text: 'Fryzury', href: '#fryzury' },
+  { text: 'Opinie', href: '#opinie' },
+  { text: 'Kontakt', href: '#kontakt' },
+];
+const groups = [
+  {
+    title: 'Strzyżenie',
+    note: 'Każde cięcie z myciem, konsultacją i stylizacją.',
+    items: [
+      { name: 'Strzyżenie męskie', text: 'Maszynka i nożyczki, klasycznie albo nowocześnie.', minutes: 45, price: 90 },
+      { name: 'Skin fade', text: 'Przejście od zera, dopracowane brzytwą na karku i skroniach.', minutes: 60, price: 110 },
+      { name: 'Strzyżenie damskie', text: 'Cięcie dobrane do twarzy i włosów, z modelowaniem.', minutes: 60, price: 140 },
+      { name: 'Strzyżenie dziecięce', text: 'Dla dzieci do 12 lat, bez pośpiechu.', minutes: 30, price: 60 },
+    ],
+  },
+  {
+    title: 'Broda',
+    note: 'Gorący ręcznik, olejek i kontur brzytwą w cenie.',
+    items: [
+      { name: 'Trymowanie brody', text: 'Kształt, długość i ostry kontur.', minutes: 30, price: 60 },
+      { name: 'Golenie brzytwą', text: 'Klasyczne golenie na gorący ręcznik.', minutes: 40, price: 80 },
+      { name: 'Koloryzacja brody', text: 'Odsiwianie albo wyrównanie koloru, naturalny efekt.', minutes: 45, price: 90 },
+    ],
+  },
+  {
+    title: 'Koloryzacja',
+    note: 'Cena zależy od długości włosów, ustalamy ją przy konsultacji.',
+    items: [
+      { name: 'Koloryzacja jednolita', text: 'Jeden kolor od nasady po końce, z pielęgnacją.', minutes: 90, price: 220, from: true },
+      { name: 'Balayage', text: 'Ręcznie malowane rozjaśnienia, miękkie przejścia.', minutes: 180, price: 420, from: true },
+      { name: 'Odsiwianie męskie', text: 'Szybkie wtopienie siwizny, wygląda naturalnie.', minutes: 30, price: 90 },
+    ],
+  },
+  {
+    title: 'Pakiety',
+    note: 'Kilka usług na jednej wizycie, taniej niż osobno.',
+    items: [
+      { name: 'Włosy i broda', text: 'Strzyżenie męskie i trymowanie brody.', minutes: 75, price: 140 },
+      { name: 'Ojciec i syn', text: 'Dwa strzyżenia na jednej wizycie, obok siebie.', minutes: 75, price: 140 },
+      { name: 'Pan młody', text: 'Strzyżenie, golenie brzytwą, pielęgnacja i próba fryzury.', minutes: 120, price: 260 },
+    ],
+  },
+];
+const people = [
+  { name: 'Kuba', role: 'Barber', skills: ['Skin fade', 'Golenie brzytwą'], years: '12 lat przy fotelu', variant: 'fade', tone: 'copper' },
+  { name: 'Ola', role: 'Fryzjerka', skills: ['Cięcia damskie', 'Koloryzacja'], years: '9 lat przy fotelu', variant: 'bob', tone: 'brass' },
+  { name: 'Marek', role: 'Barber', skills: ['Broda', 'Klasyczne cięcia'], years: '15 lat przy fotelu', variant: 'beard', tone: 'smoke' },
+  { name: 'Natalia', role: 'Koloryzacja', skills: ['Balayage', 'Strzyżenie męskie'], years: '7 lat przy fotelu', variant: 'bun', tone: 'clay' },
+] as const;
+const bookingServices = [
+  { name: 'Strzyżenie męskie', minutes: 45, price: 90 },
+  { name: 'Skin fade', minutes: 60, price: 110 },
+  { name: 'Trymowanie brody', minutes: 30, price: 60 },
+  { name: 'Włosy i broda', minutes: 75, price: 140 },
+  { name: 'Strzyżenie damskie', minutes: 60, price: 140 },
+  { name: 'Koloryzacja jednolita', minutes: 90, price: 220, from: true },
+];
+const hours = ['9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00'];
+---
+<Sample lang={sample.lang} title={sample.title} description="Przykładowa strona barbera i salonu fryzjerskiego: cennik, zespół, rezerwacja online w krokach." fonts="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Figtree:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap">
+  <SiteHeader brand={brand} items={nav} cta={{ text: 'Umów wizytę', href: '#rezerwacja' }} />
+  <main>
+    <BarberHero
+      label="Barber · Fryzjer · Koloryzacja"
+      title={['Ostre cięcie.', 'Broda w punkt.', 'Bez pośpiechu.']}
+      lead="Barber i fryzjer w jednym miejscu: męskie cięcia i fade, golenie brzytwą na gorący ręcznik, damskie strzyżenie i koloryzacja. Termin wybierasz online, kawę dostajesz na miejscu."
+      primary={{ text: 'Umów wizytę', href: '#rezerwacja' }}
+      secondary={{ text: 'Cennik', href: '#uslugi' }}
+      facts={[
+        { label: 'Otwarte', value: 'Pn–Sob' },
+        { label: 'Zespół', value: '4 fryzjerów' },
+        { label: 'Strzyżenie', value: 'od 60 zł' },
+      ]}
+    />
+    <PoleStripe />
+    <ServiceMenu
+      id="uslugi"
+      label="Usługi i ceny"
+      title="Cennik bez gwiazdek"
+      lead="Ceny są końcowe: mycie, konsultacja i stylizacja są w każdej usłudze. Czas to orientacyjna długość wizyty."
+      groups={groups}
+      note="Ceny przykładowe. Płatność na miejscu, kartą lub gotówką."
+      cta={{ text: 'Zarezerwuj', href: '#rezerwacja' }}
+    />
+    <Team
+      id="zespol"
+      label="Zespół"
+      title="Czworo ludzi, jeden fotel na raz"
+      lead="Każdy ma swoją specjalność, ale wszyscy tną tak samo starannie. Wybierz osobę przy rezerwacji albo pierwszy wolny termin."
+      people={[...people]}
+      note="Portrety to ilustracje. W gotowej stronie: zdjęcia zespołu."
+    />
+    <BookingDemo
+      id="rezerwacja"
+      label="Rezerwacja online · demo"
+      title="Umów wizytę w minutę"
+      lead="Usługa, fryzjer, dzień, godzina i Twoje dane. Bez telefonu i bez zakładania konta."
+      services={bookingServices}
+      stylists={people.map((person) => ({ name: person.name, role: person.role, variant: person.variant, tone: person.tone }))}
+      hours={hours}
+    />
+    <StyleGallery
+      id="fryzury"
+      label="Fryzury"
+      title="Co najczęściej wychodzi spod nożyczek"
+      lead="Rysunki zamiast zdjęć: w gotowej stronie tu będą prawdziwe realizacje salonu, przed i po."
+      styles={[
+        { variant: 'skin-fade', name: 'Skin fade', text: 'Krótko po bokach, tekstura na górze.', who: 'Kuba' },
+        { variant: 'pompadour', name: 'Pompadour', text: 'Objętość nad czołem, gładko po bokach.', who: 'Marek' },
+        { variant: 'full-beard', name: 'Pełna broda', text: 'Wyrównana linia policzka i ostry kontur.', who: 'Marek' },
+        { variant: 'bob', name: 'Bob', text: 'Prosta linia do żuchwy, lekko cieniowany.', who: 'Ola' },
+        { variant: 'balayage', name: 'Balayage', text: 'Rozjaśnienia malowane ręcznie od połowy długości.', who: 'Natalia' },
+        { variant: 'crop', name: 'Crop', text: 'Krótka, poszarpana grzywka, łatwa na co dzień.', who: 'Kuba' },
+      ]}
+    />
+    <Reviews
+      id="opinie"
+      label="Opinie · przykładowe"
+      title="Co mówią klienci"
+      lead="Przykładowe opinie napisane do tej strony. W gotowej stronie: prawdziwe opinie, np. z Google albo z systemu rezerwacji."
+      score={{ value: '4,9', text: 'przykładowa średnia ocen' }}
+      reviews={[
+        { quote: 'Pierwszy raz ktoś zrobił mi fade, który dobrze wygląda też tydzień później. Rezerwacja zajęła minutę.', author: 'Tomasz', service: 'Skin fade u Kuby' },
+        { quote: 'Przyszłam z mężem, wyszliśmy oboje zadowoleni. Ola słucha, zanim zacznie ciąć.', author: 'Karolina', service: 'Strzyżenie damskie u Oli' },
+        { quote: 'Golenie na gorący ręcznik to teraz mój comiesięczny rytuał. Spokojnie, czysto, bez pośpiechu.', author: 'Paweł', service: 'Golenie brzytwą u Marka' },
+      ]}
+    />
+    <PoleStripe />
+    <Voucher
+      id="voucher"
+      label="Karta podarunkowa"
+      title="Podaruj wizytę"
+      lead="Na urodziny, na święta albo przed ślubem: karta na dowolną kwotę lub konkretną usługę."
+      points={['Kwota od 100 zł albo wybrana usługa', 'Ważna 6 miesięcy, u każdego z nas', 'Do odbioru w salonie lub e-mailem jako PDF']}
+      cta={{ text: 'Zapytaj o kartę', href: '#kontakt' }}
+      brand={brand}
+      amount="150 zł"
+    />
+    <Visit
+      id="kontakt"
+      label="Godziny i dojazd"
+      title="Wpadnij do nas"
+      hours={[
+        { day: 'Poniedziałek', weekday: 1, open: '9:00', close: '20:00' },
+        { day: 'Wtorek', weekday: 2, open: '9:00', close: '20:00' },
+        { day: 'Środa', weekday: 3, open: '9:00', close: '20:00' },
+        { day: 'Czwartek', weekday: 4, open: '9:00', close: '20:00' },
+        { day: 'Piątek', weekday: 5, open: '9:00', close: '20:00' },
+        { day: 'Sobota', weekday: 6, open: '9:00', close: '16:00' },
+        { day: 'Niedziela', weekday: 0 },
+      ]}
+      address={[brand, 'ul. Przykładowa 8', '00-001 Miasto']}
+      contact={[
+        { label: 'Telefon', value: '+48 600 000 000', href: 'tel:+48600000000' },
+        { label: 'E-mail', value: 'salon@example.com', href: 'mailto:salon@example.com' },
+      ]}
+      directions="Wejście od ulicy, obok parku. Parking w strefie płatnej, rowery pod oknem. Mapa poglądowa."
+      cta={{ text: 'Umów wizytę', href: '#rezerwacja' }}
+    />
+  </main>
+  <SiteFooter
+    brand={brand}
+    about="Barber i salon fryzjerski: męskie i damskie cięcia, broda, koloryzacja. Rezerwacja online przez całą dobę."
+    links={nav}
+    contact={['ul. Przykładowa 8, 00-001 Miasto', '+48 600 000 000', 'salon@example.com', 'Pn–pt 9–20, sob 9–16']}
+    note="Przykładowa strona: dane, ceny i opinie są przykładowe."
+  />
+  <script src="../scripts/barber.js"></script>
+</Sample>

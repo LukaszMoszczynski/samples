@@ -1,0 +1,30 @@
+---
+// Drawn portrait: an abstract, featureless bust with one of four hairstyles. No photos of real people.
+// The head outline and the details draw themselves on enter (pathLength 1000); `small` (booking cards) skips that.
+interface Props { variant: 'fade' | 'bob' | 'beard' | 'bun'; tone?: 'copper' | 'brass' | 'clay' | 'smoke'; small?: boolean }
+const { variant, tone = 'copper', small = false } = Astro.props;
+const shoulders = 'M24 220c4-28 26-42 56-46 10 8 30 8 40 0 30 4 52 18 56 46z';
+const hair = {
+  fade: 'M62 100C60 66 78 50 100 50s40 16 38 50c-8-12-22-20-38-20s-30 8-38 20z',
+  bob: 'M54 156C46 92 62 48 100 48s54 44 46 108h-14c4-40-4-72-32-76-28 4-36 36-32 76z',
+  beard: 'M62 96C60 64 78 50 100 50s40 14 38 46c-12-12-30-18-50-14-12 2-20 6-26 14zM62 114c2 36 18 54 38 54s36-18 38-54c-6 14-18 22-28 20-4-2-16-2-20 0-10 2-22-6-28-20z',
+  bun: 'M100 16a16 16 0 1 1 0 32 16 16 0 1 1 0-32zM62 100C60 64 78 50 100 50s40 14 38 50c-10-16-22-22-38-22s-28 6-38 22z',
+}[variant];
+const details = {
+  fade: 'M63 108h8M63 116h6M64 124h4M137 108h-8M137 116h-6M136 124h-4',
+  bob: 'M72 74c10 6 24 8 40 4M84 62c10 8 24 12 38 10',
+  beard: 'M90 150c6 3 14 3 20 0M78 86c12-6 26-8 40-4',
+  bun: 'M88 30c8-4 18-4 24 2M74 72c12 0 24-4 32-10',
+}[variant];
+---
+<svg class={`ds-portrait ds-portrait--${tone}${small ? ' ds-portrait--small' : ''}`} viewBox="0 0 200 220" aria-hidden="true" focusable="false">
+  <circle class="ds-portrait__disc" cx="100" cy="112" r="92" />
+  <path class="ds-portrait__shoulders" d={shoulders} />
+  <rect class="ds-portrait__neck" x="86" y="136" width="28" height="44" rx="8" />
+  <ellipse class="ds-portrait__head" cx="60" cy="110" rx="6" ry="10" />
+  <ellipse class="ds-portrait__head" cx="140" cy="110" rx="6" ry="10" />
+  <ellipse class="ds-portrait__head" cx="100" cy="104" rx="38" ry="48" />
+  <path class="ds-portrait__hair" d={hair} />
+  <ellipse class="ds-portrait__line" cx="100" cy="104" rx="38" ry="48" pathLength="1000" data-draw={!small} />
+  <path class="ds-portrait__line ds-portrait__line--thin" d={details} pathLength="1000" data-draw={!small} />
+</svg>
