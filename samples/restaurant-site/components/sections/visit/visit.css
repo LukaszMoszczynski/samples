@@ -1,0 +1,193 @@
+/* Visit: hours as a ruled table (today in tomato), address and directions, and the drawn map on a cream card. */
+.ds-visit__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: var(--space-64);
+  align-items: start;
+}
+
+.ds-visit__info .ds-section-head {
+  margin-bottom: var(--space-32);
+}
+
+.ds-visit__hours {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ds-visit__caption {
+  padding-bottom: var(--space-8);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  text-align: left;
+  text-transform: uppercase;
+  color: var(--palette-neutral-600);
+}
+
+.ds-visit__row th,
+.ds-visit__row td {
+  padding: var(--space-12) 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--palette-secondary-800) 16%, transparent);
+  font-weight: var(--font-weight-medium);
+  text-align: left;
+}
+
+.ds-visit__row td {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.ds-visit__row.is-today th,
+.ds-visit__row.is-today td {
+  color: var(--palette-primary-600);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-visit__lunch {
+  margin: var(--space-12) 0 var(--space-32);
+  color: var(--palette-neutral-600);
+}
+
+.ds-visit__columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-32);
+}
+
+.ds-visit__address {
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+  font-style: normal;
+}
+
+.ds-visit__address span:first-child {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-visit__address a {
+  justify-self: start;
+  color: var(--palette-primary-600);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-visit__ways {
+  display: grid;
+  gap: var(--space-12);
+  margin: 0;
+}
+
+.ds-visit__ways dt {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  color: var(--palette-neutral-600);
+}
+
+.ds-visit__ways dd {
+  margin: 0;
+}
+
+.ds-visit__map {
+  display: grid;
+  gap: var(--space-16);
+  justify-items: start;
+  margin: 0;
+  padding: var(--space-20);
+  border-radius: var(--radius-3xl);
+  background: var(--palette-neutral-0);
+  box-shadow: 0 var(--space-16) var(--space-40) color-mix(in srgb, var(--palette-secondary-800) 10%, transparent);
+}
+
+.ds-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-xl);
+  background: var(--palette-neutral-50);
+}
+
+.ds-map__street {
+  stroke: color-mix(in srgb, var(--palette-secondary-800) 40%, transparent);
+  stroke-width: 6;
+}
+
+.ds-map__street--main {
+  stroke: var(--palette-secondary-800);
+  stroke-width: 9;
+}
+
+.ds-map__river {
+  stroke: color-mix(in srgb, var(--palette-accent-500) 45%, var(--palette-neutral-0));
+  stroke-width: 26;
+}
+
+.ds-map__tram {
+  stroke: var(--palette-primary-400);
+  stroke-width: 4;
+}
+
+.ds-map__bridge {
+  stroke: var(--palette-secondary-800);
+  stroke-width: 3;
+}
+
+.ds-map__park {
+  fill: var(--palette-accent-400);
+}
+
+.ds-map__square {
+  fill: var(--palette-neutral-100);
+}
+
+.ds-map__label {
+  fill: var(--palette-secondary-800);
+  font-family: var(--font-heading);
+  font-size: calc(var(--font-size-body) * 1.4);
+  font-style: italic;
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-map__stop circle {
+  fill: var(--palette-neutral-0);
+  stroke: var(--palette-primary-600);
+  stroke-width: 4;
+}
+
+.ds-map__pin-body {
+  fill: var(--palette-primary-600);
+  stroke: var(--palette-neutral-0);
+  stroke-width: 3;
+}
+
+.ds-map__pin-dot {
+  fill: var(--palette-neutral-0);
+}
+
+.ds-map__pin-shadow {
+  fill: color-mix(in srgb, var(--palette-secondary-800) 25%, transparent);
+}
+
+.ds-visit__map-note {
+  font-size: var(--font-size-small);
+  color: var(--palette-neutral-600);
+}
+
+@media (max-width: 1023px) {
+  .ds-visit__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-40);
+  }
+}
+
+@media (max-width: 599px) {
+  .ds-visit__columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ds-visit__map {
+    padding: var(--space-12);
+  }
+}

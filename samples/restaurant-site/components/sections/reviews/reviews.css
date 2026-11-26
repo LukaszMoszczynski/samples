@@ -1,0 +1,132 @@
+/* Reviews: three slightly turned paper notes with tomato stars and an "example" badge. Hover straightens a note. */
+.ds-reviews__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  justify-content: space-between;
+  gap: var(--space-16) var(--space-40);
+  margin-bottom: var(--space-48);
+}
+
+.ds-reviews__head .ds-section-head {
+  margin-bottom: 0;
+}
+
+.ds-reviews__note {
+  max-width: calc(var(--size-160) * 2.4);
+  margin: 0;
+  padding: var(--space-10) var(--space-16);
+  border: 1px dashed var(--palette-neutral-400);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+  color: var(--palette-neutral-600);
+}
+
+.ds-reviews__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-28);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-review {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: var(--space-16);
+  height: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: var(--space-32) var(--space-28) var(--space-28);
+  border-radius: var(--radius-lg);
+  background: var(--palette-neutral-50);
+  box-shadow: 0 var(--space-12) var(--space-24) color-mix(in srgb, var(--palette-secondary-800) 8%, transparent);
+  transition: rotate 0.4s cubic-bezier(0.2, 0.7, 0.2, 1), transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.ds-review--0 {
+  rotate: -1.2deg;
+}
+
+.ds-review--1 {
+  rotate: 0.8deg;
+}
+
+.ds-review--2 {
+  rotate: -0.6deg;
+}
+
+.ds-reviews__cell:hover > .ds-review {
+  rotate: 0deg;
+  transform: translateY(calc(var(--space-6) * -1));
+}
+
+.ds-review__stars {
+  display: flex;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.ds-review__star {
+  width: var(--size-20);
+  height: var(--size-20);
+  fill: var(--palette-primary-600);
+}
+
+.ds-review__star.is-empty {
+  fill: var(--palette-neutral-100);
+}
+
+.ds-review__quote {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  line-height: 1.5;
+  font-style: italic;
+}
+
+.ds-review__quote p {
+  margin: 0;
+}
+
+.ds-review__author {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: auto;
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-review__source {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-regular);
+  color: var(--palette-neutral-600);
+}
+
+.ds-review__badge {
+  position: absolute;
+  top: calc(var(--space-12) * -1);
+  right: var(--space-20);
+  padding: var(--space-4) var(--space-12);
+  border-radius: var(--radius-full);
+  background: var(--palette-secondary-800);
+  color: var(--palette-neutral-0);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+}
+
+@media (max-width: 899px) {
+  .ds-reviews__list {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-32);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-review {
+    transition: none;
+  }
+}

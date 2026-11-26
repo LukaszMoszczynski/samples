@@ -1,0 +1,35 @@
+---
+// Site header: logo, menu, "book a table"; below 1024 px a burger opens a full-screen drawer (restaurant.js).
+// The drawer sits after the header, not inside it: a blurred header would trap a fixed child.
+import Logo from '../../molecules/logo/Logo.astro';
+import BistroButton from '../../atoms/bistro-button/BistroButton.astro';
+interface Props { name: string; items: { text: string; href: string }[]; cta: { text: string; href: string }; note: string }
+const { name, items, cta, note } = Astro.props;
+---
+<header class="ds-site-header" data-site-header>
+  <div class="ds-container ds-site-header__bar">
+    <Logo name={name} />
+    <nav class="ds-site-header__nav" aria-label="Menu główne">
+      <ul class="ds-site-header__menu" role="list">
+        {items.map((item) => <li><a class="ds-site-header__link" href={item.href}>{item.text}</a></li>)}
+      </ul>
+    </nav>
+    <BistroButton text={cta.text} href={cta.href} class="ds-site-header__cta" />
+    <button class="ds-site-header__burger" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="Menu" data-site-burger>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path class="ds-burger__line ds-burger__line--top" d="M4 8h16"/><path class="ds-burger__line ds-burger__line--middle" d="M4 12h12"/><path class="ds-burger__line ds-burger__line--bottom" d="M4 16h16"/></svg>
+    </button>
+  </div>
+</header>
+<div class="ds-site-header__drawer" id="site-drawer" hidden>
+  <div class="ds-container">
+    <ul class="ds-site-header__drawer-menu" role="list">
+      {items.map((item, index) => (
+        <li><a class="ds-site-header__drawer-link" href={item.href}><span class="ds-site-header__drawer-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>{item.text}</a></li>
+      ))}
+    </ul>
+    <div class="ds-site-header__drawer-foot">
+      <BistroButton text={cta.text} href={cta.href} />
+      <p class="ds-site-header__drawer-note">{note}</p>
+    </div>
+  </div>
+</div>

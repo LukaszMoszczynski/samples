@@ -1,0 +1,74 @@
+---
+// Visit: opening hours (today's row marked by restaurant.js), address and how to get here, and a drawn map
+// placeholder: streets draw in and the pin drops when the map comes into view. No map service is loaded.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import BistroButton from '../../atoms/bistro-button/BistroButton.astro';
+interface Props {
+  id: string; eyebrow: string; title: string;
+  hours: { days: string; weekdays: number[]; time: string }[]; lunch: string;
+  address: string[]; ways: { label: string; text: string }[]; phone: string; email: string;
+}
+const { id, eyebrow, title, hours, lunch, address, ways, phone, email } = Astro.props;
+const length = (markup: string) => markup.replace(/<(path|line|circle|rect)\s/g, '<$1 pathLength="1000" ');
+const streets = length(`
+  <path class="ds-map__river" d="M-10 300 C 80 270, 140 330, 230 300 S 380 250, 470 290 S 560 330, 610 300" />
+  <path class="ds-map__street ds-map__street--main" d="M40 -10 C 60 100, 70 200, 90 410" />
+  <path class="ds-map__street ds-map__street--main" d="M-10 150 C 150 140, 330 160, 610 130" />
+  <path class="ds-map__street" d="M260 -10 C 250 90, 270 200, 250 280" />
+  <path class="ds-map__street" d="M420 -10 C 430 60, 410 150, 440 270" />
+  <path class="ds-map__street" d="M90 60 C 200 70, 330 50, 610 60" />
+  <path class="ds-map__street" d="M78 238 C 140 232, 200 244, 252 236" />
+  <path class="ds-map__tram" d="M-10 190 C 160 186, 340 200, 610 176" />
+  <path class="ds-map__bridge" d="M250 280 L 262 330 M 236 284 L 248 334" />
+`);
+---
+<section class="ds-section ds-visit" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container ds-visit__grid">
+    <div class="ds-visit__info" data-reveal>
+      <div class="ds-section-head">
+        <Eyebrow text={eyebrow} />
+        <h2 class="ds-section-head__title" id={`${id}-title`} set:html={title} />
+      </div>
+      <table class="ds-visit__hours">
+        <caption class="ds-visit__caption">Godziny otwarcia</caption>
+        <tbody>
+          {hours.map((row) => (
+            <tr class="ds-visit__row" data-weekdays={row.weekdays.join(',')}>
+              <th scope="row">{row.days}<span class="ds-visit__today" data-today-label hidden> · dziś</span></th>
+              <td>{row.time}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p class="ds-visit__lunch">{lunch}</p>
+      <div class="ds-visit__columns">
+        <address class="ds-visit__address">
+          {address.map((line) => <span>{line}</span>)}
+          <a href={`tel:${phone.replace(/\s/g, '')}`}>{phone}</a>
+          <a href={`mailto:${email}`}>{email}</a>
+        </address>
+        <dl class="ds-visit__ways">
+          {ways.map((way) => (<div><dt>{way.label}</dt><dd>{way.text}</dd></div>))}
+        </dl>
+      </div>
+    </div>
+    <figure class="ds-visit__map" data-map>
+      <svg class="ds-map" viewBox="0 0 600 400" role="img" aria-label="Mapa poglądowa: restauracja przy rynku, przystanek tramwajowy obok, park i rzeka na południu">
+        <rect class="ds-map__park" x="456" y="194" width="116" height="62" rx="18" />
+        <rect class="ds-map__square" x="120" y="80" width="110" height="52" rx="6" />
+        <g fill="none" stroke-linecap="round" set:html={streets} data-map-lines />
+        <text class="ds-map__label" x="175" y="112" text-anchor="middle">Rynek</text>
+        <text class="ds-map__label" x="514" y="232" text-anchor="middle">Park</text>
+        <text class="ds-map__label" x="380" y="326" text-anchor="middle">rzeka</text>
+        <g class="ds-map__stop"><circle cx="340" cy="194" r="9" /><text class="ds-map__label" x="340" y="230" text-anchor="middle">przystanek</text></g>
+        <g class="ds-map__pin" data-map-pin>
+          <ellipse class="ds-map__pin-shadow" cx="262" cy="152" rx="14" ry="5" />
+          <path class="ds-map__pin-body" d="M262 150 C 248 128, 236 116, 236 100 a 26 26 0 1 1 52 0 C 288 116, 276 128, 262 150 Z" />
+          <circle class="ds-map__pin-dot" cx="262" cy="100" r="9" />
+        </g>
+      </svg>
+      <figcaption class="ds-visit__map-note">Mapa poglądowa. W gotowej stronie: mapa z dojazdem, ładowana dopiero po kliknięciu.</figcaption>
+      <BistroButton text="Wyznacz trasę" href="#kontakt" variant="ink" class="ds-visit__route" />
+    </figure>
+  </div>
+</section>

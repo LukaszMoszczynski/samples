@@ -1,0 +1,45 @@
+---
+// Events: three offers (private dinners, family parties, catering) as cards with a drawn icon, then an enquiry form.
+// Sample only: the form shows a thank-you and sends nothing (restaurant.js).
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import BistroButton from '../../atoms/bistro-button/BistroButton.astro';
+import Field from '../../molecules/field/Field.astro';
+import EventCard from '../../molecules/event-card/EventCard.astro';
+interface Props {
+  id: string; eyebrow: string; title: string; lead: string;
+  offers: { drawing: 'tart' | 'fish' | 'bread' | 'salad' | 'wine' | 'coffee'; title: string; text: string; facts: string[] }[];
+  formTitle: string; formLead: string;
+}
+const { id, eyebrow, title, lead, offers, formTitle, formLead } = Astro.props;
+---
+<section class="ds-section ds-section--paper ds-events" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow text={eyebrow} />
+      <h2 class="ds-section-head__title" id={`${id}-title`} set:html={title} />
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <ul class="ds-events__list" role="list">
+      {offers.map((offer) => <li class="ds-events__cell" data-reveal><EventCard {...offer} href="#zapytanie" /></li>)}
+    </ul>
+    <div class="ds-events__enquiry" id="zapytanie" data-reveal>
+      <div class="ds-events__enquiry-head">
+        <h3 class="ds-events__enquiry-title">{formTitle}</h3>
+        <p class="ds-events__enquiry-lead">{formLead}</p>
+      </div>
+      <form class="ds-form" data-event-form>
+        <Field id="event-kind" name="kind" label="Rodzaj wydarzenia" type="select" options={[{ text: 'Kolacja firmowa' }, { text: 'Urodziny lub rodzinne przyjęcie' }, { text: 'Catering' }, { text: 'Coś innego' }]} />
+        <Field id="event-date" name="date" label="Termin" type="date" minToday />
+        <Field id="event-size" name="size" label="Liczba osób" type="select" options={[{ text: '8–15 osób' }, { text: '16–30 osób' }, { text: '31–46 osób (cała sala)' }, { text: 'Powyżej 46 (catering)' }]} />
+        <Field id="event-email" name="email" label="E-mail" type="email" autocomplete="email" placeholder="anna@example.com" required />
+        <Field id="event-message" name="message" label="Kilka słów o wydarzeniu" type="textarea" placeholder="np. kolacja dla zespołu, menu wege dla 5 osób" required wide />
+        <label class="ds-form__consent"><input type="checkbox" name="consent" required /> Zgadzam się na kontakt w sprawie tego zapytania.</label>
+        <div class="ds-form__submit"><BistroButton text="Wyślij zapytanie" type="submit" /></div>
+        <p class="ds-form__thanks" role="status" hidden data-event-thanks>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 13c2 1.5 3.6 3.4 5 5.4C11.8 12.6 15.6 8 20.4 4.6" /></svg>
+          <span>Dziękujemy! Odezwiemy się z propozycją menu i ceną w ciągu jednego dnia roboczego. To przykładowa strona: zapytanie nie zostało wysłane.</span>
+        </p>
+      </form>
+    </div>
+  </div>
+</section>

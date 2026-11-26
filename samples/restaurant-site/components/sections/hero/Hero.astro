@@ -1,0 +1,41 @@
+---
+// Hero: the headline, two calls to action and today's opening status on the left; a big hand-drawn plate of pasta
+// with rising steam on the right, a slowly turning round stamp and a pinned "lunch of the day" note.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import BistroButton from '../../atoms/bistro-button/BistroButton.astro';
+import DishDrawing from '../../molecules/dish-drawing/DishDrawing.astro';
+interface Link { text: string; href: string }
+interface Props {
+  eyebrow: string; title: string; accent: string; lead: string; primary: Link; secondary: Link;
+  status: string; stamp: string; note: { label: string; text: string; price: string };
+}
+const { eyebrow, title, accent, lead, primary, secondary, status, stamp, note } = Astro.props;
+const [before, after] = title.split(accent);
+---
+<section class="ds-hero" id="top" aria-labelledby="hero-title">
+  <div class="ds-container ds-hero__grid">
+    <div class="ds-hero__copy">
+      <div data-hero-item><Eyebrow text={eyebrow} /></div>
+      <h1 class="ds-hero__title" id="hero-title" data-hero-item>{before}<em>{accent}</em>{after}</h1>
+      <p class="ds-hero__lead" data-hero-item>{lead}</p>
+      <div class="ds-hero__actions" data-hero-item>
+        <BistroButton text={primary.text} href={primary.href} />
+        <BistroButton text={secondary.text} href={secondary.href} variant="ink" />
+      </div>
+      <p class="ds-hero__status" data-hero-item><span class="ds-hero__dot" aria-hidden="true"></span><span data-open-status>{status}</span></p>
+    </div>
+    <div class="ds-hero__art">
+      <div class="ds-hero__plate" aria-hidden="true"></div>
+      <svg class="ds-hero__stamp" viewBox="0 0 200 200" aria-hidden="true" data-stamp>
+        <defs><path id="hero-stamp-circle" d="M100 100m-78 0a78 78 0 1 1 156 0a78 78 0 1 1-156 0" /></defs>
+        <text><textPath href="#hero-stamp-circle" textLength="486" lengthAdjust="spacing">{stamp}</textPath></text>
+      </svg>
+      <DishDrawing name="pasta" steam label="Rysunek: talerz makaronu z pomidorami i bazylią, nad nim unosi się para" class="ds-hero__dish" />
+      <p class="ds-hero__note" data-hero-item>
+        <span class="ds-hero__note-label">{note.label}</span>
+        <span class="ds-hero__note-text">{note.text}</span>
+        <span class="ds-hero__note-price">{note.price}</span>
+      </p>
+    </div>
+  </div>
+</section>

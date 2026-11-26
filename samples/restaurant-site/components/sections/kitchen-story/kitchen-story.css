@@ -1,0 +1,110 @@
+/* Kitchen story: the drawing on a cream panel, copy with drawn ticks, four season cards (current one in tomato). */
+.ds-kitchen__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: var(--space-64);
+  align-items: center;
+}
+
+.ds-kitchen__art {
+  display: grid;
+  gap: var(--space-16);
+  margin: 0;
+  padding: var(--space-40) var(--space-32) var(--space-24);
+  border-radius: var(--radius-3xl);
+  background: var(--palette-neutral-50);
+}
+
+.ds-kitchen__caption {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-style: italic;
+  text-align: center;
+  color: var(--palette-neutral-600);
+}
+
+.ds-kitchen__copy .ds-section-head {
+  margin-bottom: var(--space-32);
+}
+
+.ds-kitchen__points {
+  display: grid;
+  gap: var(--space-14);
+  margin: 0 0 var(--space-40);
+  padding: 0;
+  list-style: none;
+}
+
+.ds-kitchen__point {
+  display: flex;
+  gap: var(--space-12);
+  align-items: flex-start;
+}
+
+.ds-kitchen__tick {
+  flex-shrink: 0;
+  width: var(--size-24);
+  height: var(--size-24);
+  color: var(--palette-accent-500);
+}
+
+.ds-kitchen__seasons {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-10);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-kitchen__season {
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+  padding: var(--space-14);
+  border: 1px solid color-mix(in srgb, var(--palette-secondary-800) 14%, transparent);
+  border-radius: var(--radius-md);
+}
+
+.ds-kitchen__season.is-current {
+  border-color: var(--palette-primary-600);
+  background: var(--palette-primary-600);
+  color: var(--palette-neutral-0);
+}
+
+.ds-kitchen__season-name {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-kitchen__now {
+  font-family: var(--font-body);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-kitchen__season-produce {
+  font-size: var(--font-size-small);
+  line-height: var(--line-height-small);
+  color: var(--palette-neutral-600);
+}
+
+.ds-kitchen__season.is-current .ds-kitchen__season-produce {
+  color: var(--palette-neutral-0);
+}
+
+@media (max-width: 899px) {
+  .ds-kitchen__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-40);
+  }
+
+  .ds-kitchen__art {
+    order: 2;
+    padding: var(--space-24) var(--space-16) var(--space-16);
+  }
+
+  .ds-kitchen__seasons {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

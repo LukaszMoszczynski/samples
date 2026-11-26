@@ -1,0 +1,17 @@
+{
+  "slug": "restaurant-site",
+  "stack": "astro",
+  "lang": "pl",
+  "title": "Twoja Restauracja – restauracja i bistro (przykładowa strona)",
+  "pages": [
+    "index"
+  ],
+  "summary": "Restauracja i bistro: sezonowe menu z filtrami i alergenami, lunch dnia, rezerwacja stolika i przyjęcia. Rysowane dania, para nad talerzem.",
+  "direction": "Bistro paper",
+  "tags": [
+    "Astro",
+    "GSAP",
+    "Rezerwacja (demo)"
+  ],
+  "date": "2026-11-26"
+}

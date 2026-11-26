@@ -1,0 +1,48 @@
+/* Diet mark: a small round badge; basil for vegetarian and vegan, ink outline for gluten-free, tomato for hot. */
+.ds-diet-mark {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-6);
+  font-size: var(--font-size-small);
+  line-height: 1;
+  color: var(--palette-neutral-600);
+}
+
+.ds-diet-mark__short {
+  display: inline-grid;
+  place-items: center;
+  min-width: var(--size-24);
+  height: var(--size-24);
+  padding-inline: var(--space-4);
+  box-sizing: border-box;
+  border: 1px solid currentColor;
+  border-radius: var(--radius-full);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-small);
+}
+
+.ds-diet-mark__short svg {
+  width: var(--size-12);
+  height: var(--size-12);
+}
+
+.ds-diet-mark--v .ds-diet-mark__short,
+.ds-diet-mark--vg .ds-diet-mark__short {
+  border-color: var(--palette-accent-500);
+  background: var(--palette-accent-500);
+  color: var(--palette-neutral-0);
+}
+
+.ds-diet-mark--bg .ds-diet-mark__short {
+  color: var(--palette-secondary-800);
+}
+
+.ds-diet-mark--hot .ds-diet-mark__short {
+  border-color: var(--palette-primary-600);
+  color: var(--palette-primary-600);
+}
+
+.ds-diet-mark__name {
+  font-size: var(--font-size-body);
+  color: var(--palette-secondary-800);
+}

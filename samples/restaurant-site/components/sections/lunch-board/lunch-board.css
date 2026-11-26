@@ -1,0 +1,146 @@
+/* Lunch board: charcoal chalkboard, the set price large in tomato, the week as chalk-ruled rows; today is boxed. */
+.ds-lunch {
+  overflow-x: clip;
+}
+
+.ds-lunch__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: var(--space-64);
+  align-items: start;
+}
+
+.ds-lunch__intro {
+  position: relative;
+  display: grid;
+  justify-items: start;
+  gap: var(--space-24);
+}
+
+.ds-lunch__intro .ds-section-head {
+  margin-bottom: 0;
+}
+
+.ds-lunch__price {
+  display: flex;
+  align-items: center;
+  gap: var(--space-20);
+}
+
+.ds-lunch__amount {
+  font-family: var(--font-heading);
+  font-size: calc(var(--font-size-4xl) * 1.4);
+  line-height: 1;
+  font-style: italic;
+  font-weight: var(--font-weight-medium);
+  font-variant-numeric: tabular-nums;
+  color: var(--palette-primary-400);
+}
+
+.ds-lunch__price-note {
+  color: color-mix(in srgb, var(--palette-neutral-0) 82%, transparent);
+}
+
+.ds-lunch .ds-lunch__soup {
+  width: calc(var(--size-160) * 1.2);
+  color: var(--palette-neutral-0);
+}
+
+.ds-lunch__soup .ds-dish__steam {
+  stroke: color-mix(in srgb, var(--palette-neutral-0) 60%, transparent);
+}
+
+.ds-lunch__days {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-lunch__day {
+  display: grid;
+  gap: var(--space-6);
+  padding: var(--space-20) var(--space-24);
+  border: 1px dashed transparent;
+  border-bottom-color: color-mix(in srgb, var(--palette-neutral-0) 22%, transparent);
+  border-radius: var(--radius-md);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.ds-lunch__day.is-today {
+  border-color: var(--palette-primary-400);
+  background: color-mix(in srgb, var(--palette-neutral-0) 6%, transparent);
+}
+
+.ds-lunch__day-name {
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  line-height: var(--font-line-height-xl);
+  font-style: italic;
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-lunch__today {
+  padding: var(--space-2) var(--space-10);
+  border-radius: var(--radius-full);
+  background: var(--palette-primary-400);
+  color: var(--palette-secondary-800);
+  font-family: var(--font-body);
+  font-size: var(--font-size-small);
+  font-style: normal;
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+}
+
+.ds-lunch__dish {
+  display: grid;
+  grid-template-columns: calc(var(--space-56) + var(--space-4)) minmax(0, 1fr);
+  align-items: baseline;
+  margin: 0;
+  color: color-mix(in srgb, var(--palette-neutral-0) 88%, transparent);
+}
+
+.ds-lunch__kind {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  color: var(--palette-accent-400);
+}
+
+.ds-lunch__vege {
+  color: var(--palette-accent-400);
+}
+
+@media (max-width: 899px) {
+  .ds-lunch__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-40);
+  }
+
+  .ds-lunch .ds-lunch__soup {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: var(--size-160);
+  }
+
+  .ds-lunch__day {
+    padding-inline: var(--space-16);
+  }
+}
+
+@media (max-width: 479px) {
+  .ds-lunch .ds-lunch__soup {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-lunch__day {
+    transition: none;
+  }
+}

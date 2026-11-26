@@ -1,0 +1,38 @@
+---
+// Lunch board: the weekday lunch set on a charcoal "chalkboard". The script marks today's day (or Monday at the
+// weekend) and counts the set price up; without JS the full week is listed.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import BistroButton from '../../atoms/bistro-button/BistroButton.astro';
+import DishDrawing from '../../molecules/dish-drawing/DishDrawing.astro';
+interface Props {
+  id: string; eyebrow: string; title: string; lead: string; price: number; priceNote: string; hours: string;
+  days: { day: string; weekday: number; soup: string; main: string; vege?: boolean }[]; cta: { text: string; href: string };
+}
+const { id, eyebrow, title, lead, price, priceNote, hours, days, cta } = Astro.props;
+---
+<section class="ds-section ds-section--ink ds-lunch" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container ds-lunch__grid">
+    <div class="ds-lunch__intro" data-reveal>
+      <div class="ds-section-head">
+        <Eyebrow text={eyebrow} />
+        <h2 class="ds-section-head__title" id={`${id}-title`} set:html={title} />
+        <p class="ds-section-head__lead">{lead}</p>
+      </div>
+      <div class="ds-lunch__price">
+        <span class="ds-lunch__amount"><span data-count-to={price}>{price}</span> zł</span>
+        <span class="ds-lunch__price-note">{priceNote}<br />{hours}</span>
+      </div>
+      <BistroButton text={cta.text} href={cta.href} variant="cream" />
+      <DishDrawing name="soup" steam class="ds-lunch__soup" />
+    </div>
+    <ol class="ds-lunch__days" role="list">
+      {days.map((day) => (
+        <li class="ds-lunch__day" data-weekday={day.weekday} data-reveal>
+          <p class="ds-lunch__day-name">{day.day} <span class="ds-lunch__today" data-today-label hidden>dziś</span></p>
+          <p class="ds-lunch__dish"><span class="ds-lunch__kind">Zupa<span class="ds-visually-hidden">: </span></span><span>{day.soup}</span></p>
+          <p class="ds-lunch__dish"><span class="ds-lunch__kind">Danie<span class="ds-visually-hidden">: </span></span><span>{day.main}{day.vege && <span class="ds-lunch__vege"> · wege</span>}</span></p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

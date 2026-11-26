@@ -1,0 +1,29 @@
+/* Dish drawing: ink lines, flat fills in the brand's tomato, basil and cream. Steam lines are lighter and thinner. */
+.ds-dish {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  color: var(--palette-secondary-800);
+}
+
+.ds-dish__fill--tomato {
+  fill: var(--palette-primary-400);
+}
+
+.ds-dish__fill--basil {
+  fill: var(--palette-accent-400);
+}
+
+.ds-dish__fill--cream {
+  fill: var(--palette-neutral-100);
+}
+
+.ds-dish__fill--ink {
+  fill: currentColor;
+}
+
+.ds-dish__steam {
+  stroke: var(--palette-neutral-400);
+  stroke-width: 2;
+}

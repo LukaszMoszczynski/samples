@@ -1,0 +1,57 @@
+---
+// Site footer: a closing call to book, then logo and line, link columns, contact with social links, legal bar.
+import Logo from '../../molecules/logo/Logo.astro';
+import BistroButton from '../../atoms/bistro-button/BistroButton.astro';
+interface Link { text: string; href: string }
+interface Props {
+  name: string; about: string; invite: { title: string; cta: Link };
+  columns: { title: string; links: Link[] }[];
+  contact: { title: string; lines: string[]; social: { network: 'instagram' | 'facebook'; href: string }[] };
+  copyright: string; legal: Link[];
+}
+const { name, about, invite, columns, contact, copyright, legal } = Astro.props;
+const icons = {
+  instagram: '<rect x="4" y="4" width="16" height="16" rx="5" /><circle cx="12" cy="12" r="3.6" /><path d="M16.6 7.4h.01" />',
+  facebook: '<path d="M14 8h3V4h-3a4 4 0 0 0-4 4v3H7v4h3v6h4v-6h3l1-4h-4V8z" />',
+};
+const names = { instagram: 'Instagram', facebook: 'Facebook' };
+---
+<footer class="ds-site-footer">
+  <div class="ds-container">
+    <div class="ds-site-footer__invite" data-reveal>
+      <p class="ds-site-footer__invite-title" set:html={invite.title} />
+      <BistroButton text={invite.cta.text} href={invite.cta.href} variant="cream" />
+    </div>
+    <div class="ds-site-footer__grid">
+      <div class="ds-site-footer__brand">
+        <Logo name={name} tone="light" />
+        <p class="ds-site-footer__about">{about}</p>
+      </div>
+      {columns.map((column) => (
+        <nav aria-label={column.title}>
+          <h2 class="ds-site-footer__title">{column.title}</h2>
+          <ul class="ds-site-footer__links" role="list">
+            {column.links.map((link) => <li><a class="ds-site-footer__link" href={link.href}>{link.text}</a></li>)}
+          </ul>
+        </nav>
+      ))}
+      <div>
+        <h2 class="ds-site-footer__title">{contact.title}</h2>
+        <ul class="ds-site-footer__links" role="list">
+          {contact.lines.map((line) => <li>{line}</li>)}
+        </ul>
+        <ul class="ds-site-footer__social" role="list">
+          {contact.social.map((item) => (
+            <li><a class="ds-site-footer__social-link" href={item.href} aria-label={names[item.network]}>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><Fragment set:html={icons[item.network]} /></svg>
+            </a></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <div class="ds-site-footer__legal">
+      <span>{copyright}</span>
+      <span class="ds-site-footer__legal-links">{legal.map((link) => <a class="ds-site-footer__link" href={link.href}>{link.text}</a>)}</span>
+    </div>
+  </div>
+</footer>

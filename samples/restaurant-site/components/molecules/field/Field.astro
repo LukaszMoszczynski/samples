@@ -1,0 +1,22 @@
+---
+// Field: label + input, select or textarea. type="date" with minToday gets the forms kit calendar for future dates only.
+interface Props {
+  id: string; name: string; label: string;
+  type?: 'text' | 'email' | 'tel' | 'number' | 'date' | 'select' | 'textarea';
+  options?: { text: string; value?: string; selected?: boolean }[];
+  required?: boolean; placeholder?: string; autocomplete?: string; wide?: boolean; minToday?: boolean;
+}
+const { id, name, label, type = 'text', options = [], required = false, placeholder, autocomplete, wide = false, minToday = false } = Astro.props;
+---
+<div class:list={['ds-field', { 'ds-field--wide': wide }]}>
+  <label class="ds-field__label" for={id}>{label}</label>
+  {type === 'select'
+    ? (
+      <select class="ds-field__input" id={id} name={name} required={required}>
+        {options.map((option) => <option value={option.value ?? option.text} selected={option.selected}>{option.text}</option>)}
+      </select>
+    )
+    : type === 'textarea'
+      ? <textarea class="ds-field__input" id={id} name={name} rows="3" placeholder={placeholder} required={required}></textarea>
+      : <input class="ds-field__input" id={id} name={name} type={type} placeholder={placeholder} autocomplete={autocomplete} required={required} data-min={minToday ? 'today' : undefined} />}
+</div>
