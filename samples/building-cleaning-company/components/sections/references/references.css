@@ -1,0 +1,56 @@
+/* References: three cards a row, then a navy strip of four guarantees. */
+.ds-references__list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-20);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-references__guarantees {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-2);
+  margin: var(--space-32) 0 0;
+  padding: 0;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  list-style: none;
+}
+
+.ds-references__guarantee {
+  display: grid;
+  gap: var(--space-6);
+  padding: var(--space-20) var(--space-24);
+  background: var(--palette-secondary-800);
+  color: var(--palette-neutral-0);
+}
+
+.ds-references__guarantee-title {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  color: var(--palette-accent-400);
+}
+
+.ds-references__guarantee-text {
+  font-size: var(--font-size-small);
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--palette-neutral-0) 85%, transparent);
+}
+
+@media (max-width: 1023px) {
+  .ds-references__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ds-references__guarantees {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 599px) {
+  .ds-references__guarantees {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

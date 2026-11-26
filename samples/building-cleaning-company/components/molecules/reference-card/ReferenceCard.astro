@@ -1,0 +1,15 @@
+---
+// Reference card: a quote from a manager, who it is (role, not a name) and what we look after there.
+// Marked as an example on the page. Hover lifts the card and turns the quote mark lime.
+interface Props { quote: string; who: string; scope: string; since: string }
+const { quote, who, scope, since } = Astro.props;
+---
+<figure class="ds-reference-card">
+  <span class="ds-reference-card__tag">Przykładowa opinia</span>
+  <svg class="ds-reference-card__mark" viewBox="0 0 32 24" aria-hidden="true"><path d="M2 24V13C2 6 6 1.5 13 0l1 3.5C10 5 8.5 7.5 8.5 11H13v13zM19 24V13c0-7 4-11.5 11-13l1 3.5C27 5 25.5 7.5 25.5 11H30v13z" /></svg>
+  <blockquote class="ds-reference-card__quote"><p>{quote}</p></blockquote>
+  <figcaption class="ds-reference-card__who">
+    <span class="ds-reference-card__name">{who}</span>
+    <span class="ds-reference-card__scope">{scope} · {since}</span>
+  </figcaption>
+</figure>

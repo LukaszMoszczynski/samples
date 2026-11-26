@@ -1,0 +1,90 @@
+---
+// Estimator demo: sliders, service chips and frequency give an illustrative monthly range, updated as you change
+// them (osiedle.js). The starting result is rendered here, so the section reads without JS. Sends nothing.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import Button from '../../atoms/button/Button.astro';
+import { BUILDING_TYPES, FREQUENCIES, SERVICES, DEFAULTS, estimate, formatZl } from '../../../scripts/estimate.js';
+interface Props { id: string; label: string; title: string; lead: string }
+const { id, label, title, lead } = Astro.props;
+const ranges = [
+  { name: 'staircases', label: 'Klatki schodowe (łącznie)', min: 1, max: 60, step: 1, unit: '' },
+  { name: 'floors', label: 'Kondygnacje nad parterem', min: 1, max: 16, step: 1, unit: '' },
+  { name: 'green', label: 'Teren zielony i chodniki', min: 0, max: 20000, step: 500, unit: ' m²' },
+] as const;
+const result = estimate(DEFAULTS);
+const fill = (value: number, min: number, max: number) => `--fill: ${((value - min) / (max - min)) * 100}%`;
+---
+<section class="ds-section ds-estimator" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow text={label} />
+      <h2 class="ds-section-head__title" id={`${id}-title`}>{title}</h2>
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <div class="ds-estimator__grid">
+      <form class="ds-estimator__form" aria-label="Kalkulator kosztu (demo)" data-estimator data-reveal>
+        <fieldset class="ds-estimator__group">
+          <legend class="ds-estimator__legend">1. Budynki</legend>
+          <div class="ds-estimator__field">
+            <label class="ds-estimator__label" for="estimate-type">Rodzaj zabudowy</label>
+            <select class="ds-estimator__select" id="estimate-type" name="type">
+              {BUILDING_TYPES.map((item) => <option value={item.key} selected={item.key === DEFAULTS.type}>{item.label}</option>)}
+            </select>
+          </div>
+          {ranges.map((range) => (
+            <div class="ds-estimator__field">
+              <div class="ds-estimator__range-head">
+                <label class="ds-estimator__label" for={`estimate-${range.name}`}>{range.label}</label>
+                <output class="ds-estimator__output" for={`estimate-${range.name}`} data-output={range.name}>{DEFAULTS[range.name].toLocaleString('pl-PL')}{range.unit}</output>
+              </div>
+              <input class="ds-estimator__range" type="range" id={`estimate-${range.name}`} name={range.name} min={range.min} max={range.max} step={range.step} value={DEFAULTS[range.name]} data-unit={range.unit} style={fill(DEFAULTS[range.name], range.min, range.max)} />
+            </div>
+          ))}
+        </fieldset>
+        <fieldset class="ds-estimator__group">
+          <legend class="ds-estimator__legend">2. Zakres usług</legend>
+          <div class="ds-estimator__chips">
+            {SERVICES.map((service) => (
+              <label class="ds-estimator__chip">
+                <input type="checkbox" name="services" value={service.key} checked={DEFAULTS.services.includes(service.key)} disabled={service.locked} />
+                <span class="ds-estimator__chip-box" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" /></svg></span>
+                {service.label}{service.locked && <span class="ds-visually-hidden"> (zawsze w pakiecie)</span>}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+        <fieldset class="ds-estimator__group">
+          <legend class="ds-estimator__legend">3. Sprzątanie klatek</legend>
+          <div class="ds-estimator__segments">
+            {FREQUENCIES.map((frequency) => (
+              <label class="ds-estimator__segment">
+                <input type="radio" name="frequency" value={frequency.key} checked={frequency.key === DEFAULTS.frequency} />
+                <span>{frequency.label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      </form>
+      <aside class="ds-estimator__result" aria-labelledby="estimate-result-title" data-reveal>
+        <div class="ds-estimator__result-head">
+          <h3 class="ds-estimator__result-title" id="estimate-result-title">Orientacyjny koszt miesięczny</h3>
+          <span class="ds-estimator__badge">Demo</span>
+        </div>
+        <p class="ds-estimator__amount" aria-live="polite">
+          <span data-estimate-low>{formatZl(result.low)}</span>
+          <span class="ds-estimator__dash" aria-hidden="true">–</span>
+          <span class="ds-visually-hidden"> do </span>
+          <span data-estimate-high>{formatZl(result.high)}</span>
+        </p>
+        <p class="ds-estimator__unit">netto miesięcznie, w umowie ryczałtowej</p>
+        <ul class="ds-estimator__lines" role="list" data-estimate-lines>
+          {result.lines.map((line) => (
+            <li class="ds-estimator__line"><span>{line.label}</span><span class="ds-estimator__line-amount">{formatZl(line.amount)}</span></li>
+          ))}
+        </ul>
+        <p class="ds-estimator__note">To przykład: liczy w przeglądarce i niczego nie wysyła. Stawki są przykładowe, a wiążącą cenę podajemy po bezpłatnych oględzinach.</p>
+        <Button text="Przenieś dane do formularza" href="#kontakt" variant="lime" attrs={{ 'data-estimate-send': '' }} />
+      </aside>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,110 @@
+/* FAQ list: rows in white cards; the plus sits in a cobalt square and turns into a cross; open rows get a lime edge. */
+.ds-faq {
+  background: var(--palette-neutral-0);
+}
+
+.ds-faq__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: var(--space-64);
+  align-items: start;
+}
+
+.ds-faq__list {
+  display: grid;
+  gap: var(--space-10);
+  align-content: start;
+}
+
+.ds-faq__item {
+  border: 1px solid var(--palette-neutral-100);
+  border-left: var(--space-4) solid var(--palette-neutral-100);
+  border-radius: var(--radius-md);
+  background: var(--palette-neutral-0);
+  transition: border-color 0.25s ease;
+}
+
+.ds-faq__item:hover {
+  border-left-color: var(--palette-primary-600);
+}
+
+.ds-faq__item[open] {
+  border-left-color: var(--palette-accent-400);
+}
+
+.ds-faq__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-24);
+  padding: var(--space-18) var(--space-20);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  line-height: var(--font-line-height-lg);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  list-style: none;
+}
+
+.ds-faq__question::-webkit-details-marker {
+  display: none;
+}
+
+.ds-faq__question:focus-visible {
+  outline: var(--focus-ring-width) solid var(--palette-primary-600);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius-sm);
+}
+
+.ds-faq__plus {
+  position: relative;
+  flex-shrink: 0;
+  width: var(--space-32);
+  height: var(--space-32);
+  border-radius: var(--radius-sm);
+  background: var(--palette-primary-600);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.ds-faq__plus::before,
+.ds-faq__plus::after {
+  content: "";
+  position: absolute;
+  inset: calc(50% - 1px) var(--space-8) auto;
+  height: 2px;
+  background: var(--palette-neutral-0);
+}
+
+.ds-faq__plus::after {
+  transform: rotate(90deg);
+}
+
+.ds-faq__item[open] .ds-faq__plus {
+  transform: rotate(45deg);
+  background: var(--palette-secondary-800);
+}
+
+/* The answer wrapper is what GSAP animates (height and opacity); padding lives on the text inside. */
+.ds-faq__panel {
+  overflow: hidden;
+}
+
+.ds-faq__answer {
+  padding: 0 var(--space-20) var(--space-20);
+  line-height: 1.6;
+  color: var(--palette-neutral-600);
+}
+
+@media (max-width: 899px) {
+  .ds-faq__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-8);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-faq__item,
+  .ds-faq__plus {
+    transition: none;
+  }
+}

@@ -1,0 +1,210 @@
+/* Contact form: cobalt blueprint section; contact facts and "what next" on the left, a white form card on the right. */
+.ds-contact {
+  background:
+    linear-gradient(color-mix(in srgb, var(--palette-neutral-0) 7%, transparent) 1px, transparent 1px) 0 0 / var(--space-32) var(--space-32),
+    linear-gradient(90deg, color-mix(in srgb, var(--palette-neutral-0) 7%, transparent) 1px, transparent 1px) 0 0 / var(--space-32) var(--space-32),
+    var(--palette-primary-600);
+  color: var(--palette-neutral-0);
+}
+
+.ds-contact .ds-section-head__lead {
+  color: color-mix(in srgb, var(--palette-neutral-0) 88%, transparent);
+}
+
+.ds-contact__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: var(--space-64);
+  align-items: start;
+}
+
+.ds-contact__facts {
+  display: grid;
+  gap: var(--space-16);
+  margin: 0 0 var(--space-40);
+}
+
+.ds-contact__fact {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.ds-contact__fact dt {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  letter-spacing: var(--space-1);
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--palette-neutral-0) 85%, transparent);
+}
+
+.ds-contact__fact dd {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-contact__fact a {
+  color: inherit;
+  text-decoration-color: var(--palette-accent-400);
+  text-decoration-thickness: var(--space-2);
+  text-underline-offset: var(--space-4);
+}
+
+.ds-contact__fact a:focus-visible {
+  outline: var(--focus-ring-width) solid var(--palette-accent-400);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-contact__next-title {
+  margin-bottom: var(--space-12);
+  font-size: var(--font-size-lg);
+  line-height: var(--font-line-height-lg);
+}
+
+.ds-contact__next {
+  display: grid;
+  gap: var(--space-10);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-contact__next li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+}
+
+.ds-contact__next span {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: var(--size-24);
+  height: var(--size-24);
+  border-radius: var(--radius-full);
+  background: var(--palette-accent-400);
+  color: var(--palette-secondary-800);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+}
+
+.ds-contact__form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-20);
+  padding: var(--space-40);
+  border-radius: var(--radius-2xl);
+  background: var(--palette-neutral-0);
+  color: var(--palette-secondary-800);
+  box-shadow: 0 var(--space-32) var(--space-64) color-mix(in srgb, var(--palette-secondary-950) 30%, transparent);
+}
+
+.ds-contact__field {
+  display: grid;
+  gap: var(--space-8);
+  align-content: start;
+}
+
+.ds-contact__field--wide {
+  grid-column: 1 / -1;
+}
+
+.ds-contact__label {
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-contact__optional {
+  font-weight: var(--font-weight-regular);
+  color: var(--palette-neutral-600);
+}
+
+.ds-contact__input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--size-52);
+  padding: 0 var(--space-14);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--palette-secondary-50);
+  color: inherit;
+  font: inherit;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.ds-contact__input::placeholder {
+  color: var(--palette-neutral-600);
+}
+
+.ds-contact__input:hover {
+  border-color: var(--palette-primary-600);
+}
+
+.ds-contact__input:focus-visible {
+  outline: var(--focus-ring-width) solid var(--palette-primary-600);
+  outline-offset: 0;
+  border-color: var(--palette-primary-600);
+  background: var(--palette-neutral-0);
+}
+
+.ds-contact__input[aria-invalid="true"] {
+  border-color: var(--color-state-error);
+}
+
+.ds-contact__textarea {
+  min-height: calc(var(--size-52) * 2.4);
+  padding-block: var(--space-12);
+  resize: vertical;
+}
+
+.ds-contact__consent {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-12);
+  font-size: var(--font-size-small);
+  line-height: 1.5;
+  cursor: pointer;
+}
+
+.ds-contact__consent input {
+  flex-shrink: 0;
+  width: var(--size-20);
+  height: var(--size-20);
+  margin: 0;
+  accent-color: var(--palette-primary-600);
+}
+
+.ds-contact__submit {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
+.ds-contact__thanks {
+  grid-column: 1 / -1;
+  padding: var(--space-16);
+  border-left: var(--space-4) solid var(--palette-accent-400);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--palette-primary-50);
+  font-weight: var(--font-weight-medium);
+}
+
+@media (max-width: 1023px) {
+  .ds-contact__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-40);
+  }
+}
+
+@media (max-width: 599px) {
+  .ds-contact__form {
+    grid-template-columns: minmax(0, 1fr);
+    padding: var(--space-20);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-contact__input {
+    transition: none;
+  }
+}

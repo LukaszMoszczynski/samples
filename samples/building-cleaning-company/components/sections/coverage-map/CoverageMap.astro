@@ -1,0 +1,73 @@
+---
+// Coverage map: zones with reaction times beside a drawn map of an example city (river, roads, three rings around
+// the base, pins for buildings in care). On enter the lines draw and the pins pop (osiedle.js); hovering a zone
+// lights its ring. The map is decorative; the zone list carries the information.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+interface Props { id: string; label: string; title: string; lead: string; zones: { name: string; range: string; reaction: string; text: string }[]; note: string }
+const { id, label, title, lead, zones, note } = Astro.props;
+const rings = [70, 135, 195];
+const pins = [
+  [214, 176], [276, 196], [214, 266], [196, 232], [300, 150], [180, 120], [330, 260], [140, 280],
+  [404, 196], [250, 330], [90, 180], [360, 330], [420, 240], [130, 360],
+];
+const places = [
+  { name: 'Centrum', x: 262, y: 228 },
+  { name: 'Osiedle Północ', x: 205, y: 100 },
+  { name: 'Zielone Wzgórze', x: 330, y: 128 },
+  { name: 'Osiedle Zachód', x: 64, y: 214 },
+  { name: 'Osiedle Południe', x: 268, y: 352 },
+  { name: 'Gmina obok', x: 380, y: 372 },
+];
+---
+<section class="ds-section ds-coverage" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container ds-coverage__grid">
+    <div data-reveal>
+      <div class="ds-section-head">
+        <Eyebrow text={label} />
+        <h2 class="ds-section-head__title" id={`${id}-title`}>{title}</h2>
+        <p class="ds-section-head__lead">{lead}</p>
+      </div>
+      <ol class="ds-coverage__zones" role="list">
+        {zones.map((zone, index) => (
+          <li class={`ds-coverage__zone ds-coverage__zone--${index + 1}`}>
+            <span class="ds-coverage__zone-ring" aria-hidden="true">{index + 1}</span>
+            <span class="ds-coverage__zone-body">
+              <span class="ds-coverage__zone-name">{zone.name} <span class="ds-coverage__zone-range">{zone.range}</span></span>
+              <span class="ds-coverage__zone-text">{zone.text}</span>
+            </span>
+            <span class="ds-coverage__zone-reaction"><span class="ds-visually-hidden">Reakcja na zgłoszenie: </span>{zone.reaction}</span>
+          </li>
+        ))}
+      </ol>
+      <p class="ds-coverage__note">{note}</p>
+    </div>
+    <div class="ds-coverage__map" data-coverage-map data-reveal>
+      <svg viewBox="0 0 480 420" aria-hidden="true">
+        <path class="ds-coverage__river" d="M0 118C110 92 160 186 250 170S392 246 480 222" pathLength="1000" data-draw />
+        <g class="ds-coverage__roads">
+          <path d="M240 210 36 52" pathLength="1000" data-draw />
+          <path d="M240 210 470 84" pathLength="1000" data-draw />
+          <path d="M240 210 262 414" pathLength="1000" data-draw />
+          <path d="M240 210 10 318" pathLength="1000" data-draw />
+          <path d="M240 210 474 360" pathLength="1000" data-draw />
+          <path d="M60 30C150 60 330 50 440 30M30 400c120-40 300-30 430 0" pathLength="1000" data-draw />
+        </g>
+        {rings.map((radius, index) => (
+          <circle class={`ds-coverage__ring ds-coverage__ring--${index + 1}`} cx="240" cy="210" r={radius} pathLength="1000" data-draw />
+        ))}
+        {places.map((place) => <text class="ds-coverage__place" x={place.x} y={place.y}>{place.name}</text>)}
+        <g class="ds-coverage__pins">
+          {pins.map(([x, y]) => (
+            <g data-map-pin><rect x={x - 6} y={y - 8} width="12" height="14" rx="2" /><path d={`M${x - 2.5} ${y - 4}h5M${x - 2.5} ${y}h5`} /></g>
+          ))}
+        </g>
+        <g class="ds-coverage__base" data-map-pin>
+          <circle cx="240" cy="210" r="16" />
+          <path d="M232 214v-8l8-6 8 6v8z" />
+          <text x="240" y="244" text-anchor="middle">Baza</text>
+        </g>
+      </svg>
+      <p class="ds-coverage__legend"><span class="ds-coverage__legend-pin" aria-hidden="true"></span>Budynki pod opieką (przykład)</p>
+    </div>
+  </div>
+</section>

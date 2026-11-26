@@ -1,0 +1,11 @@
+---
+// Button: href → <a>, otherwise <button>. variant: lime (main action) | cobalt | ghost (on dark) | outline (on light).
+// A light band wipes across on hover, like a squeegee pass; the arrow nudges forward.
+interface Props { text: string; href?: string; variant?: 'lime' | 'cobalt' | 'ghost' | 'outline'; type?: 'button' | 'submit'; attrs?: Record<string, string> }
+const { text, href, variant = 'lime', type = 'button', attrs = {} } = Astro.props;
+const className = `ds-button ds-button--${variant}`;
+const arrow = '<svg class="ds-button__arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg>';
+---
+{href
+  ? <a class={className} href={href} {...attrs}><span class="ds-button__text">{text}</span><Fragment set:html={arrow} /></a>
+  : <button class={className} type={type} {...attrs}><span class="ds-button__text">{text}</span><Fragment set:html={arrow} /></button>}

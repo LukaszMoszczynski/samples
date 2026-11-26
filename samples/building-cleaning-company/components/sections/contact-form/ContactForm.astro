@@ -1,0 +1,76 @@
+---
+// Contact / quote form, on the forms kit (animated dropdown, date picker, validation demo). Sample only: after the
+// short "sending" moment it shows a thank-you note and sends nothing (osiedle.js).
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import Button from '../../atoms/button/Button.astro';
+interface Props { id: string; label: string; title: string; lead: string; facts: { label: string; value: string; href?: string }[]; next: string[] }
+const { id, label, title, lead, facts, next } = Astro.props;
+---
+<section class="ds-section ds-contact" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container ds-contact__grid">
+    <div data-reveal>
+      <div class="ds-section-head">
+        <Eyebrow text={label} tone="light" />
+        <h2 class="ds-section-head__title" id={`${id}-title`}>{title}</h2>
+        <p class="ds-section-head__lead">{lead}</p>
+      </div>
+      <dl class="ds-contact__facts">
+        {facts.map((fact) => (
+          <div class="ds-contact__fact">
+            <dt>{fact.label}</dt>
+            <dd>{fact.href ? <a href={fact.href}>{fact.value}</a> : fact.value}</dd>
+          </div>
+        ))}
+      </dl>
+      <h3 class="ds-contact__next-title">Co dalej</h3>
+      <ol class="ds-contact__next" role="list">
+        {next.map((step, index) => <li><span aria-hidden="true">{index + 1}</span>{step}</li>)}
+      </ol>
+    </div>
+    <form class="ds-contact__form" data-contact-form data-reveal>
+      <div class="ds-contact__field">
+        <label class="ds-contact__label" for="contact-name">Imię i nazwisko</label>
+        <input class="ds-contact__input" id="contact-name" name="name" autocomplete="name" required />
+      </div>
+      <div class="ds-contact__field">
+        <label class="ds-contact__label" for="contact-role">Kim Pan/Pani jest?</label>
+        <select class="ds-contact__input" id="contact-role" name="role">
+          <option>Zarządca nieruchomości</option>
+          <option>Członek zarządu wspólnoty</option>
+          <option>Spółdzielnia mieszkaniowa</option>
+          <option>Inna osoba</option>
+        </select>
+      </div>
+      <div class="ds-contact__field">
+        <label class="ds-contact__label" for="contact-email">E-mail</label>
+        <input class="ds-contact__input" id="contact-email" name="email" type="email" autocomplete="email" placeholder="zarzad@example.com" required />
+      </div>
+      <div class="ds-contact__field">
+        <label class="ds-contact__label" for="contact-phone">Telefon <span class="ds-contact__optional">(opcjonalnie)</span></label>
+        <input class="ds-contact__input" id="contact-phone" name="phone" type="tel" autocomplete="tel" placeholder="+48 600 000 000" />
+      </div>
+      <div class="ds-contact__field ds-contact__field--wide">
+        <label class="ds-contact__label" for="contact-address">Adres nieruchomości</label>
+        <input class="ds-contact__input" id="contact-address" name="address" placeholder="np. ul. Przykładowa 4–12" required />
+      </div>
+      <div class="ds-contact__field">
+        <label class="ds-contact__label" for="contact-staircases">Liczba klatek</label>
+        <input class="ds-contact__input" id="contact-staircases" name="staircases" type="number" min="1" inputmode="numeric" placeholder="np. 8" />
+      </div>
+      <div class="ds-contact__field">
+        <label class="ds-contact__label" for="contact-date">Termin oględzin</label>
+        <input class="ds-contact__input" id="contact-date" name="date" type="date" data-min="today" />
+      </div>
+      <div class="ds-contact__field ds-contact__field--wide">
+        <label class="ds-contact__label" for="contact-message">Czego potrzebujecie?</label>
+        <textarea class="ds-contact__input ds-contact__textarea" id="contact-message" name="message" rows="4" placeholder="Zakres prac, obecne problemy, od kiedy" data-contact-message></textarea>
+      </div>
+      <label class="ds-contact__consent ds-contact__field--wide">
+        <input type="checkbox" name="consent" required />
+        <span>Zgadzam się na kontakt w sprawie wyceny. Dane przetwarzamy tylko w tym celu (przykładowa klauzula).</span>
+      </label>
+      <div class="ds-contact__submit"><Button text="Umów bezpłatne oględziny" type="submit" variant="cobalt" /></div>
+      <p class="ds-contact__thanks" role="status" hidden data-contact-thanks>Dziękujemy! To przykładowy formularz i niczego nie wysyła. W gotowej stronie zgłoszenie trafi do biura, a my oddzwonimy w ciągu jednego dnia roboczego.</p>
+    </form>
+  </div>
+</section>

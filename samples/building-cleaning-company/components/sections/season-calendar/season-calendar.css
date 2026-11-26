@@ -1,0 +1,233 @@
+/* Season calendar: four season tabs (icon, name, months), then a white panel with the season's intro, a 12-month
+   strip with the season's months in lime, and the task list with "when" chips. */
+.ds-seasons__box {
+  display: grid;
+  gap: var(--space-20);
+}
+
+.ds-seasons__tabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-12);
+}
+
+.ds-seasons__tab {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas: "icon name" "icon months";
+  column-gap: var(--space-14);
+  align-items: center;
+  padding: var(--space-16) var(--space-20);
+  border: 1px solid var(--palette-neutral-100);
+  border-radius: var(--radius-lg);
+  background: var(--palette-neutral-0);
+  color: var(--palette-secondary-800);
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.ds-seasons__tab svg {
+  grid-area: icon;
+  width: var(--size-40);
+  height: var(--size-40);
+  padding: var(--space-8);
+  border-radius: var(--radius-md);
+  background: var(--palette-primary-50);
+  fill: none;
+  stroke: var(--palette-primary-600);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: background-color 0.25s ease, stroke 0.25s ease;
+}
+
+.ds-seasons__tab-name {
+  grid-area: name;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-seasons__tab-months {
+  grid-area: months;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  color: var(--palette-neutral-600);
+}
+
+.ds-seasons__tab:hover {
+  border-color: var(--palette-primary-600);
+  transform: translateY(calc(var(--space-3) * -1));
+}
+
+.ds-seasons__tab[aria-selected="true"] {
+  border-color: var(--palette-primary-600);
+  background: var(--palette-primary-600);
+  color: var(--palette-neutral-0);
+}
+
+.ds-seasons__tab[aria-selected="true"] svg {
+  background: var(--palette-accent-400);
+  stroke: var(--palette-secondary-800);
+}
+
+.ds-seasons__tab[aria-selected="true"] .ds-seasons__tab-months {
+  color: color-mix(in srgb, var(--palette-neutral-0) 85%, transparent);
+}
+
+.ds-seasons__tab:focus-visible {
+  outline: var(--focus-ring-width) solid var(--palette-primary-600);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-seasons__panel {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: var(--space-40);
+  padding: var(--space-32);
+  border: 1px solid var(--palette-neutral-100);
+  border-radius: var(--radius-2xl);
+  background: var(--palette-neutral-0);
+}
+
+.ds-seasons__intro {
+  display: grid;
+  align-content: start;
+  gap: var(--space-16);
+}
+
+.ds-seasons__icon {
+  width: var(--size-52);
+  height: var(--size-52);
+  fill: none;
+  stroke: var(--palette-primary-600);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ds-seasons__name {
+  font-size: var(--font-size-2xl);
+  line-height: var(--font-line-height-2xl);
+}
+
+.ds-seasons__months {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-regular);
+  color: var(--palette-neutral-600);
+}
+
+.ds-seasons__text {
+  line-height: 1.6;
+  color: var(--palette-neutral-600);
+}
+
+.ds-seasons__strip {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-2);
+  margin: var(--space-8) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-seasons__month {
+  padding-block: var(--space-6);
+  border-radius: var(--radius-xs);
+  background: var(--palette-secondary-50);
+  color: var(--palette-neutral-600);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  text-align: center;
+}
+
+.ds-seasons__month.is-active {
+  background: var(--palette-accent-400);
+  color: var(--palette-secondary-800);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-seasons__tasks {
+  display: grid;
+  align-content: start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-seasons__task {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-16);
+  padding-block: var(--space-14);
+  border-bottom: 1px solid var(--palette-neutral-100);
+}
+
+.ds-seasons__task:first-child {
+  padding-top: 0;
+}
+
+.ds-seasons__task-text {
+  font-weight: var(--font-weight-medium);
+  line-height: 1.45;
+}
+
+.ds-seasons__when {
+  flex-shrink: 0;
+  padding: var(--space-2) var(--space-10);
+  border-radius: var(--radius-full);
+  background: var(--palette-primary-50);
+  color: var(--palette-primary-800);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  white-space: nowrap;
+}
+
+@media (max-width: 1023px) {
+  .ds-seasons__tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .ds-seasons__panel {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-28);
+  }
+}
+
+@media (max-width: 599px) {
+  .ds-seasons__panel {
+    padding: var(--space-20);
+  }
+
+  .ds-seasons__tab {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "icon" "name" "months";
+    row-gap: var(--space-6);
+    padding: var(--space-14);
+  }
+
+  .ds-seasons__task {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-6);
+  }
+
+  .ds-seasons__strip {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-seasons__tab,
+  .ds-seasons__tab svg {
+    transition: none;
+  }
+
+  .ds-seasons__tab:hover {
+    transform: none;
+  }
+}

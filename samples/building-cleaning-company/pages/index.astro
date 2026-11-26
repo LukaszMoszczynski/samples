@@ -1,0 +1,269 @@
+---
+// Building cleaning and maintenance company, home page: components made for this brief (components/), on the design
+// system's tokens. Copy, figures, prices and references are example content written for the brief.
+import Sample from '../layouts/Sample.astro';
+import sample from '../sample.json';
+
+import '../components/base/page/page.css';
+import '../components/base/forms/forms.css';
+import '../components/atoms/button/button.css';
+import '../components/atoms/eyebrow/eyebrow.css';
+import '../components/molecules/logo/logo.css';
+import '../components/molecules/service-card/service-card.css';
+import '../components/molecules/reference-card/reference-card.css';
+import '../components/organisms/site-header/site-header.css';
+import '../components/organisms/site-footer/site-footer.css';
+import '../components/sections/blueprint-hero/blueprint-hero.css';
+import '../components/sections/stats-band/stats-band.css';
+import '../components/sections/services/services.css';
+import '../components/sections/process-ruler/process-ruler.css';
+import '../components/sections/estimator/estimator.css';
+import '../components/sections/report-demo/report-demo.css';
+import '../components/sections/season-calendar/season-calendar.css';
+import '../components/sections/coverage-map/coverage-map.css';
+import '../components/sections/references/references.css';
+import '../components/sections/faq-list/faq-list.css';
+import '../components/sections/contact-form/contact-form.css';
+
+import SiteHeader from '../components/organisms/site-header/SiteHeader.astro';
+import BlueprintHero from '../components/sections/blueprint-hero/BlueprintHero.astro';
+import StatsBand from '../components/sections/stats-band/StatsBand.astro';
+import Services from '../components/sections/services/Services.astro';
+import ProcessRuler from '../components/sections/process-ruler/ProcessRuler.astro';
+import Estimator from '../components/sections/estimator/Estimator.astro';
+import ReportDemo from '../components/sections/report-demo/ReportDemo.astro';
+import SeasonCalendar from '../components/sections/season-calendar/SeasonCalendar.astro';
+import CoverageMap from '../components/sections/coverage-map/CoverageMap.astro';
+import References from '../components/sections/references/References.astro';
+import FaqList from '../components/sections/faq-list/FaqList.astro';
+import ContactForm from '../components/sections/contact-form/ContactForm.astro';
+import SiteFooter from '../components/organisms/site-footer/SiteFooter.astro';
+
+const company = 'Twoje Osiedle';
+const phone = '+48 600 000 000';
+const nav = [
+  { text: 'Usługi', href: '#uslugi' },
+  { text: 'Współpraca', href: '#wspolpraca' },
+  { text: 'Wycena', href: '#wycena' },
+  { text: 'Raporty', href: '#raporty' },
+  { text: 'Kalendarz', href: '#kalendarz' },
+  { text: 'Zasięg', href: '#zasieg' },
+  { text: 'FAQ', href: '#faq' },
+];
+const services = [
+  { icon: 'stairs', title: 'Klatki i części wspólne', text: 'Stały harmonogram sprzątania klatek, wind, piwnic i korytarzy, z checklistą dla każdej wizyty.', points: ['Mycie schodów, poręczy, drzwi', 'Windy, skrzynki, kaloryfery', 'Piwnice i suszarnie'] },
+  { icon: 'windows', title: 'Okna i elewacje', text: 'Mycie okien na klatkach, przeszkleń wejść i elewacji, także z podnośnika i przez alpinistów.', points: ['Okna klatek 2–4× w roku', 'Elewacje i balustrady', 'Usuwanie graffiti'] },
+  { icon: 'green', title: 'Tereny zielone', text: 'Koszenie, przycinanie żywopłotów, grabienie liści i opieka nad nasadzeniami przez cały sezon.', points: ['Koszenie co 2 tygodnie', 'Żywopłoty i krzewy', 'Place zabaw i ławki'] },
+  { icon: 'snow', title: 'Odśnieżanie i zima', text: 'Dyżur zimowy 24/7: chodniki, wejścia i parkingi odśnieżone i posypane przed wyjściem mieszkańców do pracy.', points: ['Chodniki gotowe do 6:00', 'Piasek i sól wg warunków', 'Sople zgłaszane od ręki'] },
+  { icon: 'bins', title: 'Wiaty i śmietniki', text: 'Porządek w altanach śmietnikowych, mycie i dezynfekcja pojemników, kontrola segregacji.', points: ['Sprzątanie wiat co tydzień', 'Mycie pojemników', 'Gabaryty: zgłaszanie odbioru'] },
+  { icon: 'repair', title: 'Drobne naprawy', text: 'Konserwator na telefon: żarówki, zamki, samozamykacze, drobne usterki zgłoszone przez mieszkańców.', points: ['Reakcja do 4 godzin', 'Zgłoszenia z numerem', 'Zdjęcie po naprawie'] },
+  { icon: 'spray', title: 'Dezynfekcja', text: 'Dezynfekcja klatek, wind i klamek w sezonie infekcji lub po zdarzeniu, środkami z atestem.', points: ['Klamki, przyciski, poręcze', 'Środki z atestem', 'Protokół wykonania'] },
+] as const;
+---
+<Sample lang={sample.lang} title={sample.title} description="Przykładowa strona firmy sprzątającej i utrzymującej budynki dla wspólnot i spółdzielni mieszkaniowych." fonts="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Public+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap">
+  <SiteHeader name={company} items={nav} cta={{ text: 'Bezpłatne oględziny', href: '#kontakt' }} phone={phone} />
+  <main>
+    <BlueprintHero
+      label="Dla wspólnot i spółdzielni mieszkaniowych"
+      title="Zadbane osiedle i raport po każdej wizycie"
+      accent="raport po każdej wizycie"
+      lead="Sprzątamy klatki, myjemy okna, dbamy o zieleń i odśnieżamy. Stała ekipa, stały harmonogram i zdjęcia z każdego wykonania: zarządca widzi wszystko bez dzwonienia i sprawdzania."
+      primary={{ text: 'Umów bezpłatne oględziny', href: '#kontakt' }}
+      secondary={{ text: 'Oblicz orientacyjny koszt', href: '#wycena' }}
+      facts={['Ubezpieczenie OC do 2 mln zł', 'Reakcja na zgłoszenie do 4 h', 'Umowy ryczałtowe']}
+    />
+    <StatsBand items={[
+      { value: 140, label: 'budynków pod stałą opieką' },
+      { value: 620, label: 'klatek schodowych co tydzień' },
+      { value: 12, suffix: ' lat', label: 'doświadczenia na osiedlach' },
+      { value: 4, suffix: ' h', label: 'na reakcję na zgłoszenie' },
+    ]} />
+    <Services
+      id="uslugi"
+      label="Usługi"
+      title="Jedna firma do wszystkiego, co wokół budynku"
+      lead="Wybierzcie jedną usługę albo cały pakiet. Każda ma swój harmonogram, checklistę i miejsce w miesięcznym raporcie."
+      items={[...services]}
+      closing={{ title: 'Pakiet pod Wasz budynek', text: 'Połączymy usługi w jedną umowę ryczałtową: jedna faktura, jeden opiekun, jeden raport miesięczny.', cta: { text: 'Policz pakiet', href: '#wycena' } }}
+    />
+    <ProcessRuler
+      id="wspolpraca"
+      label="Jak wygląda współpraca"
+      title="Od oględzin do pierwszego raportu w dwa tygodnie"
+      lead="Bez niespodzianek: zanim podpiszecie umowę, wiecie, co, kiedy i za ile będzie robione."
+      steps={[
+        { title: 'Oględziny', text: 'Przyjeżdżamy, mierzymy klatki i teren, robimy zdjęcia stanu obecnego.', time: 'do 3 dni' },
+        { title: 'Wycena', text: 'Dostajecie wycenę z zakresem prac rozpisanym na usługi i częstotliwość.', time: 'do 2 dni' },
+        { title: 'Umowa', text: 'Umowa ryczałtowa ze stałą ceną, OC i okresem próbnym na pierwsze trzy miesiące.', time: 'na uchwałę' },
+        { title: 'Harmonogram', text: 'Rozpisujemy dni i godziny dla każdej klatki; mieszkańcy dostają ogłoszenie na tablicę.', time: '1 tydzień' },
+        { title: 'Raporty', text: 'Po każdej wizycie checklista ze zdjęciami, co miesiąc zestawienie PDF dla zarządu.', time: 'stale' },
+      ]}
+    />
+    <Estimator
+      id="wycena"
+      label="Kalkulator · demo"
+      title="Ile może kosztować opieka nad Waszymi budynkami?"
+      lead="Ustawcie kilka parametrów, a pokażemy orientacyjny przedział miesięczny. To ilustracja: dokładna cena zawsze po oględzinach."
+    />
+    <ReportDemo
+      id="raporty"
+      label="Raporty z wykonania"
+      title="Każda wizyta kończy się raportem, nie telefonem"
+      lead="Zarządca i zarząd wspólnoty widzą w panelu, kto, kiedy i co zrobił. Bez sprawdzania na miejscu."
+      points={[
+        'Checklista z godziną wykonania każdego zadania',
+        'Zdjęcia przed i po z każdej klatki',
+        'Usterki zgłaszane z numerem i terminem naprawy',
+        'Zestawienie miesięczne w PDF dla zarządu',
+      ]}
+      disclaimer="Poniżej podgląd panelu na przykładowych danych. W prawdziwym wdrożeniu panel z raportami to osobna aplikacja z logowaniem (własny backend), do której ekipa wysyła checklisty i zdjęcia z telefonu."
+      reports={[
+        {
+          tab: 'Klatka A', address: 'ul. Przykładowa 4', date: 'wt 18.11.2026', crew: 'Ekipa 3 (stała)', start: '06:10', end: '07:24', photos: 8,
+          tasks: [
+            { time: '06:14', text: 'Zamiatanie schodów i spoczników, parter–5. piętro' },
+            { time: '06:33', text: 'Mycie posadzek i schodów na mokro' },
+            { time: '06:49', text: 'Mycie poręczy, balustrad i parapetów' },
+            { time: '06:58', text: 'Mycie drzwi wejściowych i szyb w drzwiach' },
+            { time: '07:06', text: 'Czyszczenie wycieraczki i wejścia do budynku' },
+            { time: '07:12', text: 'Mycie kabiny windy i lustra' },
+            { time: '07:18', text: 'Opróżnienie koszy, wymiana worków' },
+            { time: '07:22', text: 'Zdjęcia po sprzątaniu i kontrola oświetlenia' },
+          ],
+          note: 'Przepalona żarówka na 3. piętrze: zgłoszenie nr 214 przekazane konserwatorowi, wymiana do 24 h.',
+        },
+        {
+          tab: 'Klatka B', address: 'ul. Przykładowa 4', date: 'wt 18.11.2026', crew: 'Ekipa 3 (stała)', start: '07:28', end: '08:31', photos: 7,
+          tasks: [
+            { time: '07:31', text: 'Zamiatanie schodów i spoczników, parter–5. piętro' },
+            { time: '07:48', text: 'Mycie posadzek i schodów na mokro' },
+            { time: '08:02', text: 'Mycie poręczy, balustrad i parapetów' },
+            { time: '08:10', text: 'Odkurzanie kaloryferów i skrzynek pocztowych' },
+            { time: '08:17', text: 'Mycie drzwi wejściowych i domofonu' },
+            { time: '08:23', text: 'Sprzątanie korytarza piwnicznego' },
+            { time: '08:27', text: 'Opróżnienie koszy, wymiana worków' },
+            { time: '08:30', text: 'Zdjęcia po sprzątaniu i kontrola oświetlenia' },
+          ],
+          note: 'Bez uwag. Mieszkańcy zostawili na klatce stare meble: zdjęcie w raporcie, prośba o zgłoszenie odbioru gabarytów.',
+        },
+        {
+          tab: 'Teren i wiata', address: 'ul. Przykładowa 4–12', date: 'wt 18.11.2026', crew: 'Ekipa 5 (stała)', start: '08:40', end: '10:05', photos: 10,
+          tasks: [
+            { time: '08:44', text: 'Grabienie liści z trawników przy budynkach' },
+            { time: '09:12', text: 'Zamiatanie chodników i dojść do klatek' },
+            { time: '09:30', text: 'Sprzątanie wiaty śmietnikowej' },
+            { time: '09:41', text: 'Mycie pojemników na odpady zmieszane' },
+            { time: '09:50', text: 'Kontrola segregacji, zdjęcia nieprawidłowości' },
+            { time: '09:56', text: 'Opróżnienie koszy przy ławkach i placu zabaw' },
+            { time: '10:01', text: 'Kontrola piasku w piaskownicy' },
+            { time: '10:04', text: 'Zdjęcia po wykonaniu' },
+          ],
+          note: 'W wiacie przy nr 8 źle posegregowane odpady: zdjęcia w raporcie do przekazania mieszkańcom.',
+        },
+      ]}
+    />
+    <SeasonCalendar
+      id="kalendarz"
+      label="Kalendarz sezonowy"
+      title="Cały rok rozpisany z góry"
+      lead="Wiecie, co i kiedy zrobimy w każdym sezonie. Prace sezonowe są w umowie, nie w dodatkowych zleceniach."
+      seasons={[
+        { key: 'spring', name: 'Wiosna', months: 'marzec–maj', active: [2, 3, 4], intro: 'Sprzątamy po zimie i przygotowujemy zieleń na sezon: zamiatanie piasku, pierwsze koszenie, mycie okien.', tasks: [
+          { text: 'Zamiatanie piasku i żwiru po zimie z chodników i parkingów', when: 'marzec' },
+          { text: 'Mycie okien na klatkach i przeszkleń wejść', when: 'raz w sezonie' },
+          { text: 'Grabienie trawników, wertykulacja, dosiewki', when: 'kwiecień' },
+          { text: 'Pierwsze koszenie i przycinanie żywopłotów', when: 'od maja' },
+          { text: 'Mycie i dezynfekcja pojemników na odpady', when: 'co miesiąc' },
+        ] },
+        { key: 'summer', name: 'Lato', months: 'czerwiec–sierpień', active: [5, 6, 7], intro: 'Zieleń w najlepszej formie i porządek przy upałach: koszenie, podlewanie, czyste place zabaw.', tasks: [
+          { text: 'Koszenie trawników i wywóz skoszonej trawy', when: 'co 2 tygodnie' },
+          { text: 'Podlewanie nasadzeń w czasie upałów', when: 'wg potrzeby' },
+          { text: 'Przegląd placów zabaw, wymiana piasku', when: 'co tydzień' },
+          { text: 'Mycie elewacji parteru i balustrad', when: 'raz w sezonie' },
+          { text: 'Mycie i dezynfekcja pojemników na odpady', when: 'co 2 tygodnie' },
+        ] },
+        { key: 'autumn', name: 'Jesień', months: 'wrzesień–listopad', active: [8, 9, 10], intro: 'Liście, rynny i przygotowanie do zimy, żeby pierwszy śnieg nikogo nie zaskoczył.', tasks: [
+          { text: 'Grabienie i wywóz liści', when: 'co tydzień' },
+          { text: 'Czyszczenie rynien, wpustów i kratek', when: 'raz w sezonie' },
+          { text: 'Mycie okien na klatkach przed zimą', when: 'październik' },
+          { text: 'Ostatnie koszenie i zabezpieczenie roślin', when: 'październik' },
+          { text: 'Skrzynie z piaskiem i sprzęt zimowy na miejscu', when: 'do 15 listopada' },
+        ] },
+        { key: 'winter', name: 'Zima', months: 'grudzień–luty', active: [11, 0, 1], intro: 'Dyżur zimowy przez całą dobę: chodniki i wejścia gotowe, zanim mieszkańcy wyjdą z domu.', tasks: [
+          { text: 'Dyżur zimowy i monitoring prognoz', when: '24/7' },
+          { text: 'Odśnieżanie chodników, wejść i parkingów', when: 'do 6:00 przy opadzie' },
+          { text: 'Posypywanie piaskiem i solą', when: 'wg warunków' },
+          { text: 'Sople i nawisy: zgłoszenie i zabezpieczenie terenu', when: 'od ręki' },
+          { text: 'Częstsze mycie posadzek przy wejściach', when: '2× w tygodniu' },
+        ] },
+      ]}
+    />
+    <CoverageMap
+      id="zasieg"
+      label="Zasięg"
+      title="Miasto i okoliczne gminy, bez dojazdów z drugiego końca Polski"
+      lead="Baza i magazyn sprzętu są w środku obszaru, więc ekipy zimowe i konserwator dojeżdżają szybko."
+      zones={[
+        { name: 'Strefa 1', range: 'do 10 km', reaction: 'do 2 h', text: 'Centrum i osiedla w granicach miasta' },
+        { name: 'Strefa 2', range: '10–20 km', reaction: 'do 4 h', text: 'Dzielnice zewnętrzne i nowe osiedla' },
+        { name: 'Strefa 3', range: '20–30 km', reaction: 'do 8 h', text: 'Gminy ościenne, po uzgodnieniu' },
+      ]}
+      note="Mapa i nazwy osiedli są przykładowe. Czas reakcji dotyczy zgłoszeń awaryjnych w umowie ryczałtowej."
+    />
+    <References
+      id="referencje"
+      label="Referencje"
+      title="Co mówią zarządcy"
+      lead="Opinie poniżej są przykładowe: w gotowej stronie znajdą się prawdziwe referencje, za zgodą klientów."
+      items={[
+        { quote: 'Raporty ze zdjęciami skończyły spory na zebraniach. Kiedy ktoś pyta, czy klatka była myta, pokazuję checklistę z godziną.', who: 'Zarządca nieruchomości', scope: '14 budynków, 52 klatki', since: 'od 2021' },
+        { quote: 'Zimą chodniki są odśnieżone, zanim wyjdę do pracy. Pierwszy rok bez skarg mieszkańców na ślisko.', who: 'Przewodnicząca zarządu wspólnoty', scope: '1 budynek, 4 klatki', since: 'od 2023' },
+        { quote: 'Jedna umowa na sprzątanie, zieleń i konserwację zamiast czterech firm. I stała ekipa, którą mieszkańcy znają z imienia.', who: 'Kierownik administracji spółdzielni', scope: '38 budynków', since: 'od 2019' },
+      ]}
+      guarantees={[
+        { title: 'OC do 2 mln zł', text: 'Polisa na prace porządkowe i konserwacyjne, kopia w umowie.' },
+        { title: 'Stała ekipa', text: 'Ci sami ludzie na Waszych klatkach, zastępstwa z tej samej brygady.' },
+        { title: 'Umowa ryczałtowa', text: 'Stała miesięczna cena, prace sezonowe w cenie, bez dopłat.' },
+        { title: '3 miesiące próby', text: 'Okres próbny z krótszym wypowiedzeniem na start.' },
+      ]}
+    />
+    <FaqList
+      id="faq"
+      label="FAQ"
+      title="Pytania zarządców"
+      lead="Nie ma tu Waszego pytania? Zadzwońcie albo napiszcie, odpowiadamy w dniu roboczym."
+      items={[
+        { question: 'Czy możemy zacząć od jednej usługi?', answer: 'Tak. Wiele wspólnot zaczyna od sprzątania klatek, a zieleń i zimę dokłada po okresie próbnym. Cena za pakiet jest wtedy przeliczana.' },
+        { question: 'Jak szybko reagujecie na zgłoszenia?', answer: 'W strefie 1 do 2 godzin, w strefie 2 do 4 godzin. Zgłoszenie dostaje numer, a w raporcie widać godzinę przyjęcia i wykonania.' },
+        { question: 'Kto sprawdza, czy praca jest wykonana?', answer: 'Brygadzista zatwierdza checklistę na miejscu, a zarządca widzi ją w panelu razem ze zdjęciami. Raz w miesiącu robimy kontrolę jakości z protokołem.' },
+        { question: 'Czy macie ubezpieczenie OC?', answer: 'Tak, polisa OC do 2 mln zł na prace porządkowe i konserwacyjne. Kopię polisy dołączamy do umowy.' },
+        { question: 'Jak wygląda rozliczenie?', answer: 'Umowa ryczałtowa: stała kwota co miesiąc, jedna faktura. Prace dodatkowe tylko po akceptacji zarządu, według cennika z umowy.' },
+        { question: 'Czy wycena i oględziny są płatne?', answer: 'Nie. Oględziny i wycena są bezpłatne i do niczego nie zobowiązują.' },
+      ]}
+    />
+    <ContactForm
+      id="kontakt"
+      label="Kontakt i wycena"
+      title="Umówmy bezpłatne oględziny"
+      lead="Napiszcie, gdzie są budynki i czego potrzebujecie. Oddzwonimy w ciągu jednego dnia roboczego i zaproponujemy termin."
+      facts={[
+        { label: 'Biuro i dyżur awaryjny', value: phone, href: `tel:${phone.replaceAll(' ', '')}` },
+        { label: 'E-mail', value: 'biuro@example.com', href: 'mailto:biuro@example.com' },
+        { label: 'Godziny biura', value: 'pn–pt 7:00–17:00' },
+      ]}
+      next={['Oddzwaniamy i ustalamy termin oględzin', 'Oglądamy budynki i teren (bezpłatnie)', 'W 2 dni dostajecie wycenę i projekt umowy']}
+    />
+  </main>
+  <SiteFooter
+    name={company}
+    about="Sprzątanie i utrzymanie budynków dla wspólnot i spółdzielni mieszkaniowych: klatki, okna, zieleń, zima i drobne naprawy."
+    columns={[
+      { title: 'Usługi', links: services.map((service) => ({ text: service.title, href: '#uslugi' })) },
+      { title: 'Firma', links: [{ text: 'Współpraca', href: '#wspolpraca' }, { text: 'Raporty', href: '#raporty' }, { text: 'Kalendarz', href: '#kalendarz' }, { text: 'Zasięg', href: '#zasieg' }, { text: 'FAQ', href: '#faq' }] },
+    ]}
+    contact={{ title: 'Kontakt', lines: [phone, 'biuro@example.com', 'ul. Przykładowa 1, 00-000 Miasto'] }}
+    copyright={`© 2026 ${company}. Przykładowa strona.`}
+    legal={[{ text: 'Polityka prywatności', href: '#' }, { text: 'RODO', href: '#' }]}
+  />
+  <script src="../scripts/osiedle.js"></script>
+</Sample>

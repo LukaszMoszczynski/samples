@@ -1,0 +1,18 @@
+---
+// Logo: the mark (a block of flats in a cobalt square, one window lit lime) and the wordmark. Placeholder brand.
+// tone: dark text for light backgrounds, light text for dark ones.
+interface Props { name: string; tone?: 'dark' | 'light'; href?: string }
+const { name, tone = 'dark', href = '#top' } = Astro.props;
+---
+<a class={`ds-logo ds-logo--${tone}`} href={href} aria-label={`${name}, na początek strony`}>
+  <svg class="ds-logo__mark" viewBox="0 0 40 40" aria-hidden="true">
+    <rect class="ds-logo__square" width="40" height="40" rx="10" />
+    <path class="ds-logo__block" d="M11 31V12.5L20 9l9 3.5V31" />
+    <rect class="ds-logo__window" x="14.5" y="15" width="4" height="4" rx="0.6" />
+    <rect class="ds-logo__window ds-logo__window--lit" x="21.5" y="15" width="4" height="4" rx="0.6" />
+    <rect class="ds-logo__window" x="14.5" y="21.5" width="4" height="4" rx="0.6" />
+    <rect class="ds-logo__window" x="21.5" y="21.5" width="4" height="4" rx="0.6" />
+    <path class="ds-logo__ground" d="M7 31h26" />
+  </svg>
+  <span class="ds-logo__name">{name}</span>
+</a>

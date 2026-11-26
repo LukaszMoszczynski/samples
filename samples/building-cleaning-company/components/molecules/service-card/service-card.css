@@ -1,0 +1,143 @@
+/* Service card: white, hairline border, icon in a pale square. Hover lifts it, a light band passes over it and the
+   icon redraws in lime on cobalt. */
+.ds-service-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  height: 100%;
+  padding: var(--space-28) var(--space-24);
+  border: 1px solid var(--palette-neutral-100);
+  border-radius: var(--radius-lg);
+  background: var(--palette-neutral-0);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.3s ease, box-shadow 0.35s ease;
+}
+
+.ds-service-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, color-mix(in srgb, var(--palette-primary-50) 90%, transparent) 50%, transparent 70%);
+  transform: translateX(-120%);
+  pointer-events: none;
+}
+
+.ds-service-card:hover {
+  transform: translateY(calc(var(--space-6) * -1));
+  border-color: var(--palette-primary-600);
+  box-shadow: 0 var(--space-20) var(--space-40) color-mix(in srgb, var(--palette-primary-600) 16%, transparent);
+}
+
+.ds-service-card:hover::after {
+  transform: translateX(120%);
+  transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.ds-service-card__top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-8);
+}
+
+.ds-service-card__icon {
+  display: grid;
+  place-items: center;
+  width: var(--size-52);
+  height: var(--size-52);
+  border-radius: var(--radius-md);
+  background: var(--palette-primary-50);
+  transition: background-color 0.3s ease;
+}
+
+.ds-service-card__icon svg {
+  width: var(--size-24);
+  height: var(--size-24);
+  fill: none;
+  stroke: var(--palette-primary-600);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 0;
+}
+
+.ds-service-card:hover .ds-service-card__icon {
+  background: var(--palette-primary-600);
+}
+
+.ds-service-card:hover .ds-service-card__icon svg {
+  stroke: var(--palette-accent-400);
+  animation: ds-service-draw 0.9s ease forwards;
+}
+
+@keyframes ds-service-draw {
+  from {
+    stroke-dashoffset: 1000;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.ds-service-card__index {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  color: var(--palette-neutral-600);
+}
+
+.ds-service-card__title {
+  font-size: var(--font-size-xl);
+  line-height: var(--font-line-height-xl);
+}
+
+.ds-service-card__text {
+  color: var(--palette-neutral-600);
+  line-height: 1.55;
+}
+
+.ds-service-card__points {
+  display: grid;
+  gap: var(--space-6);
+  margin: auto 0 0;
+  padding: var(--space-16) 0 0;
+  border-top: 1px dashed var(--palette-neutral-100);
+  list-style: none;
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.4;
+}
+
+.ds-service-card__points li {
+  display: flex;
+  gap: var(--space-8);
+}
+
+.ds-service-card__points li::before {
+  content: "";
+  flex-shrink: 0;
+  width: var(--space-8);
+  height: var(--space-8);
+  margin-top: var(--space-4);
+  border-radius: var(--radius-xs);
+  background: var(--palette-accent-400);
+  box-shadow: inset 0 0 0 1px var(--palette-accent-500);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-service-card,
+  .ds-service-card__icon,
+  .ds-service-card:hover::after {
+    transition: none;
+  }
+
+  .ds-service-card:hover {
+    transform: none;
+  }
+
+  .ds-service-card:hover .ds-service-card__icon svg {
+    animation: none;
+  }
+}

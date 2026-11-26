@@ -1,0 +1,43 @@
+/* Eyebrow: mono label with a ticked square, cobalt on light sections, lime on dark ones. */
+.ds-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-10);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--space-2);
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.ds-eyebrow--cobalt {
+  color: var(--palette-primary-600);
+}
+
+.ds-eyebrow--light {
+  color: var(--palette-accent-400);
+}
+
+.ds-eyebrow__tick {
+  flex-shrink: 0;
+  width: var(--size-16);
+  height: var(--size-16);
+}
+
+.ds-eyebrow__tick rect {
+  fill: currentColor;
+}
+
+.ds-eyebrow__tick path {
+  fill: none;
+  stroke: var(--palette-neutral-0);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ds-eyebrow--light .ds-eyebrow__tick path {
+  stroke: var(--palette-secondary-800);
+}

@@ -1,0 +1,76 @@
+/* Reference card: white card with an "example" tag, a cobalt quote mark that turns lime on hover, and who said it. */
+.ds-reference-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  height: 100%;
+  margin: 0;
+  padding: var(--space-28);
+  border: 1px solid var(--palette-neutral-100);
+  border-radius: var(--radius-lg);
+  background: var(--palette-neutral-0);
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.35s ease;
+}
+
+.ds-reference-card:hover {
+  transform: translateY(calc(var(--space-6) * -1));
+  box-shadow: 0 var(--space-20) var(--space-40) color-mix(in srgb, var(--palette-secondary-800) 12%, transparent);
+}
+
+.ds-reference-card__tag {
+  align-self: flex-start;
+  padding: var(--space-2) var(--space-10);
+  border: 1px dashed var(--palette-neutral-400);
+  border-radius: var(--radius-full);
+  color: var(--palette-neutral-600);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+}
+
+.ds-reference-card__mark {
+  width: var(--size-40);
+  height: auto;
+  fill: var(--palette-primary-600);
+  transition: fill 0.3s ease, transform 0.3s ease;
+}
+
+.ds-reference-card:hover .ds-reference-card__mark {
+  fill: var(--palette-accent-400);
+  transform: rotate(-6deg) scale(1.08);
+}
+
+.ds-reference-card__quote {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  line-height: 1.55;
+}
+
+.ds-reference-card__who {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: auto;
+  padding-top: var(--space-16);
+  border-top: 1px solid var(--palette-neutral-100);
+}
+
+.ds-reference-card__name {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-reference-card__scope {
+  font-size: var(--font-size-small);
+  color: var(--palette-neutral-600);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-reference-card,
+  .ds-reference-card__mark {
+    transition: none;
+  }
+
+  .ds-reference-card:hover,
+  .ds-reference-card:hover .ds-reference-card__mark {
+    transform: none;
+  }
+}

@@ -1,0 +1,59 @@
+---
+// Season calendar: what happens around the buildings in each season. Tabs switch the season in place, the panel
+// fades and rises (osiedle.js). Without JS the tabs stay hidden and all four seasons are listed.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+interface Season { key: 'spring' | 'summer' | 'autumn' | 'winter'; name: string; months: string; active: number[]; intro: string; tasks: { text: string; when: string }[] }
+interface Props { id: string; label: string; title: string; lead: string; seasons: Season[] }
+const { id, label, title, lead, seasons } = Astro.props;
+const monthNames = ['sty', 'lut', 'mar', 'kwi', 'maj', 'cze', 'lip', 'sie', 'wrz', 'paź', 'lis', 'gru'];
+const icons = {
+  spring: 'M12 21v-9M12 12c-4 0-6.5-2.6-6.5-7 4 0 6.5 2.6 6.5 7zM12 15c0-3.6 2.2-6 5.8-6 0 3.6-2.2 6-5.8 6M7 21h10',
+  summer: 'M12 7.5a4.5 4.5 0 1 0 0 9 4.5 4.5 0 0 0 0-9zM12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8',
+  autumn: 'M5 19C5 10 10 4 20 4c0 10-6 15-15 15zM5 19l9-9M9 15h4M11 13V9',
+  winter: 'M12 2v20M3.3 7l17.4 10M3.3 17 20.7 7M9.5 3.5 12 6l2.5-2.5M9.5 20.5 12 18l2.5 2.5M3.5 10.6l3.3-.9-.9-3.3M20.5 13.4l-3.3.9.9 3.3',
+} as const;
+---
+<section class="ds-section ds-section--grid ds-seasons" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-section-head" data-reveal>
+      <Eyebrow text={label} />
+      <h2 class="ds-section-head__title" id={`${id}-title`}>{title}</h2>
+      <p class="ds-section-head__lead">{lead}</p>
+    </div>
+    <div class="ds-seasons__box" data-seasons data-reveal>
+      <div class="ds-seasons__tabs" role="tablist" aria-label="Pora roku" hidden data-season-tabs>
+        {seasons.map((season, index) => (
+          <button class={`ds-seasons__tab ds-seasons__tab--${season.key}`} type="button" role="tab" id={`season-tab-${season.key}`} aria-controls={`season-panel-${season.key}`} aria-selected={index === 0 ? 'true' : 'false'} tabindex={index === 0 ? 0 : -1} data-season-tab={index}>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d={icons[season.key]} /></svg>
+            <span class="ds-seasons__tab-name">{season.name}</span>
+            <span class="ds-seasons__tab-months">{season.months}</span>
+          </button>
+        ))}
+      </div>
+      {seasons.map((season) => (
+        <div class="ds-seasons__panel" id={`season-panel-${season.key}`} role="tabpanel" aria-labelledby={`season-tab-${season.key}`} data-season-panel>
+          <div class="ds-seasons__intro" data-season-part>
+            <svg class="ds-seasons__icon" viewBox="0 0 24 24" aria-hidden="true"><path d={icons[season.key]} pathLength="1000" /></svg>
+            <h3 class="ds-seasons__name">{season.name} <span class="ds-seasons__months">{season.months}</span></h3>
+            <p class="ds-seasons__text">{season.intro}</p>
+            <ol class="ds-seasons__strip" role="list" aria-label="Miesiące sezonu">
+              {monthNames.map((month, index) => (
+                <li class={season.active.includes(index) ? 'ds-seasons__month is-active' : 'ds-seasons__month'}>
+                  {month}{season.active.includes(index) && <span class="ds-visually-hidden"> (w sezonie)</span>}
+                </li>
+              ))}
+            </ol>
+          </div>
+          <ul class="ds-seasons__tasks" role="list">
+            {season.tasks.map((task) => (
+              <li class="ds-seasons__task" data-season-part>
+                <span class="ds-seasons__task-text">{task.text}</span>
+                <span class="ds-seasons__when">{task.when}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

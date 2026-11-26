@@ -1,0 +1,18 @@
+{
+  "slug": "building-cleaning-company",
+  "stack": "astro",
+  "lang": "pl",
+  "title": "Twoje Osiedle – sprzątanie i utrzymanie budynków (przykładowa strona)",
+  "pages": [
+    "index"
+  ],
+  "summary": "Sprzątanie i utrzymanie budynków dla wspólnot i spółdzielni: kalkulator kosztu, podgląd raportu z checklistą, kalendarz sezonowy i mapa zasięgu.",
+  "direction": "Blueprint",
+  "tags": [
+    "Astro",
+    "GSAP",
+    "Kalkulator (demo)",
+    "Panel raportów (demo)"
+  ],
+  "date": "2026-11-26"
+}

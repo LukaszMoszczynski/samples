@@ -1,0 +1,117 @@
+/* Page base: smooth anchor scrolling (off for reduced motion), room for the sticky header, the content container,
+   the section rhythm, the section heading, the blueprint grid background and the first-paint state of everything
+   that animates in. */
+html {
+  scroll-padding-top: calc(var(--size-header-height) + var(--space-16));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background: var(--color-surface-card);
+  color: var(--color-text-default);
+  font-family: var(--font-body);
+}
+
+.ds-container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: calc(var(--layout-container) + var(--space-gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
+}
+
+.ds-section {
+  padding-block: var(--space-section-y);
+}
+
+/* A pale section with the thin blueprint grid. */
+.ds-section--grid {
+  background:
+    linear-gradient(color-mix(in srgb, var(--palette-primary-600) 7%, transparent) 1px, transparent 1px) 0 0 / var(--space-32) var(--space-32),
+    linear-gradient(90deg, color-mix(in srgb, var(--palette-primary-600) 7%, transparent) 1px, transparent 1px) 0 0 / var(--space-32) var(--space-32),
+    var(--palette-secondary-50);
+}
+
+/* A deep navy section with a faint light grid. */
+.ds-section--ink {
+  background:
+    linear-gradient(color-mix(in srgb, var(--palette-neutral-0) 5%, transparent) 1px, transparent 1px) 0 0 / var(--space-32) var(--space-32),
+    linear-gradient(90deg, color-mix(in srgb, var(--palette-neutral-0) 5%, transparent) 1px, transparent 1px) 0 0 / var(--space-32) var(--space-32),
+    var(--palette-secondary-800);
+  color: var(--palette-neutral-0);
+}
+
+.ds-section-head {
+  display: grid;
+  gap: var(--space-16);
+  max-width: calc(var(--layout-container) * 0.62);
+  margin-bottom: var(--space-48);
+}
+
+.ds-section-head__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  line-height: var(--font-line-height-3xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: calc(var(--space-1) * -0.5);
+  text-wrap: balance;
+}
+
+.ds-section-head__lead {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  line-height: 1.55;
+  color: var(--color-text-muted);
+}
+
+.ds-section--ink .ds-section-head__lead {
+  color: color-mix(in srgb, var(--palette-neutral-0) 80%, transparent);
+}
+
+.ds-visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Entrance targets start hidden from the first paint while the script is coming (html[data-motion], set in the head
+   only without a reduced-motion preference); the script animates them in to an explicit visible end. */
+[data-motion] [data-reveal],
+[data-motion] [data-hero-item],
+[data-motion] [data-hero-chip],
+[data-motion] [data-window-pane],
+[data-motion] [data-window-glint],
+[data-motion] [data-map-pin],
+[data-motion] [data-process-node],
+[data-motion] [data-process-step] {
+  opacity: 0;
+}
+
+/* Lines that draw themselves: pathLength="1000" on every one, dash 1000 → 0. */
+[data-motion] [data-draw] {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+}
+
+/* The squeegee overlay exists only while motion runs: without it the drawing is clean from the start. */
+.ds-wipe {
+  display: none;
+}
+
+[data-motion] .ds-wipe {
+  display: block;
+}
+
+/* Anything marked hidden stays hidden, whatever display a component sets. */
+[hidden] {
+  display: none !important;
+}

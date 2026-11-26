@@ -1,0 +1,28 @@
+---
+// Service card: a line icon, the service, a sentence and what is included. Hover: lift, a shine pass, the icon square
+// turns cobalt and its lines redraw in lime.
+interface Props { index: string; icon: keyof typeof icons; title: string; text: string; points: string[] }
+const icons = {
+  stairs: 'M3 20h4v-4h4v-4h4V8h4V4h2',
+  windows: 'M4 3h16v18H4zM12 3v18M4 12h16',
+  green: 'M12 21v-8M12 13c-4.5 0-7.5-3-7.5-8.5 4.5 0 7.5 3 7.5 8.5zM12 13c0-5.5 3-8.5 7.5-8.5 0 5.5-3 8.5-7.5 8.5',
+  snow: 'M12 2v20M3.3 7l17.4 10M3.3 17 20.7 7M9.5 3.5 12 6l2.5-2.5M9.5 20.5 12 18l2.5 2.5',
+  bins: 'M4 7h16M9 7V4h6v3M6 7l1 14h10l1-14M10 11v6M14 11v6',
+  repair: 'M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.4 2.4-2.6-.6-.6-2.6z',
+  spray: 'M8 3h5v3H8zM7 6h7l1.5 4v11h-10V10zM17 4h3M17 7.5l3 1.2M17 .5l3 1.2',
+} as const;
+const { index, icon, title, text, points } = Astro.props;
+---
+<article class="ds-service-card">
+  <div class="ds-service-card__top">
+    <span class="ds-service-card__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d={icons[icon]} pathLength="1000" /></svg>
+    </span>
+    <span class="ds-service-card__index">{index}</span>
+  </div>
+  <h3 class="ds-service-card__title">{title}</h3>
+  <p class="ds-service-card__text">{text}</p>
+  <ul class="ds-service-card__points" role="list">
+    {points.map((point) => <li>{point}</li>)}
+  </ul>
+</article>

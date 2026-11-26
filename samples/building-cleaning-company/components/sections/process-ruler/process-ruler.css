@@ -1,0 +1,158 @@
+/* Process ruler: a cobalt dimension line with end ticks; numbered nodes sit on it, each step's card hangs below.
+   Phones: the line runs down the left side. */
+.ds-process__track {
+  position: relative;
+}
+
+.ds-process__line {
+  position: absolute;
+  top: calc(var(--size-52) / 2);
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--palette-primary-600);
+  transform-origin: left center;
+}
+
+.ds-process__line::before,
+.ds-process__line::after {
+  content: "";
+  position: absolute;
+  top: calc(var(--space-10) * -1);
+  width: 2px;
+  height: calc(var(--space-20) + 2px);
+  background: var(--palette-primary-600);
+}
+
+.ds-process__line::before {
+  left: 0;
+}
+
+.ds-process__line::after {
+  right: 0;
+}
+
+.ds-process__list {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: var(--space-20);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-process__step {
+  display: grid;
+  gap: var(--space-20);
+  align-content: start;
+}
+
+.ds-process__node {
+  display: grid;
+  place-items: center;
+  justify-self: center;
+  width: var(--size-52);
+  height: var(--size-52);
+  border: 2px solid var(--palette-primary-600);
+  border-radius: var(--radius-full);
+  background: var(--palette-neutral-0);
+  color: var(--palette-primary-600);
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-medium);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.ds-process__step:hover .ds-process__node {
+  background: var(--palette-accent-400);
+  color: var(--palette-secondary-800);
+}
+
+.ds-process__body {
+  display: grid;
+  gap: var(--space-8);
+  height: 100%;
+  padding: var(--space-20);
+  border: 1px solid var(--palette-neutral-100);
+  border-radius: var(--radius-lg);
+  background: var(--palette-neutral-0);
+}
+
+.ds-process__time {
+  justify-self: start;
+  padding: var(--space-2) var(--space-8);
+  border-radius: var(--radius-xs);
+  background: var(--palette-primary-50);
+  color: var(--palette-primary-800);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+}
+
+.ds-process__title {
+  font-size: var(--font-size-lg);
+  line-height: var(--font-line-height-lg);
+}
+
+.ds-process__text {
+  color: var(--palette-neutral-600);
+  font-size: var(--font-size-body);
+  line-height: 1.55;
+}
+
+@media (max-width: 899px) {
+  .ds-process__line {
+    top: 0;
+    bottom: 0;
+    left: calc(var(--size-52) / 2 - 1px);
+    right: auto;
+    width: 2px;
+    height: auto;
+    transform-origin: center top;
+  }
+
+  .ds-process__line::before,
+  .ds-process__line::after {
+    top: auto;
+    left: calc(var(--space-10) * -1);
+    width: calc(var(--space-20) + 2px);
+    height: 2px;
+  }
+
+  .ds-process__line::before {
+    top: 0;
+  }
+
+  .ds-process__line::after {
+    bottom: 0;
+  }
+
+  .ds-process__list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ds-process__step {
+    grid-template-columns: var(--size-52) minmax(0, 1fr);
+    gap: var(--space-16);
+  }
+
+  .ds-process__node {
+    justify-self: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-process__node {
+    transition: none;
+  }
+}
+
+/* With motion the line starts undrawn (no flash); the script draws it once on enter. */
+[data-motion] .ds-process__line {
+  transform: scaleX(0);
+}
+
+@media (max-width: 899px) {
+  [data-motion] .ds-process__line {
+    transform: scaleY(0);
+  }
+}

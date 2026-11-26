@@ -1,0 +1,9 @@
+---
+// Eyebrow: a small label above a heading, with a ticked square in front (like a done item on a checklist).
+interface Props { text: string; tone?: 'cobalt' | 'light' }
+const { text, tone = 'cobalt' } = Astro.props;
+---
+<p class={`ds-eyebrow ds-eyebrow--${tone}`}>
+  <svg class="ds-eyebrow__tick" viewBox="0 0 16 16" aria-hidden="true"><rect x="1" y="1" width="14" height="14" rx="3" /><path d="m4.5 8.2 2.3 2.3 4.7-4.9" /></svg>
+  {text}
+</p>

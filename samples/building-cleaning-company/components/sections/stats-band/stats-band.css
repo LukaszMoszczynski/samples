@@ -1,0 +1,54 @@
+/* Stats band: a white strip of four figures between hairlines, numbers in cobalt with a lime underline. */
+.ds-stats {
+  padding-block: var(--space-48);
+  border-bottom: 1px solid var(--palette-neutral-100);
+  background: var(--palette-neutral-0);
+}
+
+.ds-stats__list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-stats__item {
+  display: grid;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--space-32);
+  border-left: 1px solid var(--palette-neutral-100);
+}
+
+.ds-stats__item:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.ds-stats__value {
+  justify-self: start;
+  padding-bottom: var(--space-4);
+  background: linear-gradient(var(--palette-accent-400), var(--palette-accent-400)) 0 100% / 100% var(--space-4) no-repeat;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  line-height: 1.1;
+  font-weight: var(--font-weight-bold);
+  font-variant-numeric: tabular-nums;
+  color: var(--palette-primary-600);
+}
+
+.ds-stats__label {
+  color: var(--palette-neutral-600);
+}
+
+@media (max-width: 899px) {
+  .ds-stats__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: var(--space-32);
+  }
+
+  .ds-stats__item:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+}

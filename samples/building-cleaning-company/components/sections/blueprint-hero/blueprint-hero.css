@@ -1,0 +1,270 @@
+/* Blueprint hero: cobalt with a blueprint grid, white copy with a lime accent, and a line drawing of blocks of flats in
+   a framed panel. Windows sit lit (clean) at rest; the squeegee overlay is shown only while motion runs. */
+.ds-blueprint-hero {
+  position: relative;
+  overflow: clip;
+  padding-block: var(--space-64) var(--space-section-y);
+  background:
+    linear-gradient(color-mix(in srgb, var(--palette-neutral-0) 7%, transparent) 1px, transparent 1px) 0 0 / var(--space-32) var(--space-32),
+    linear-gradient(90deg, color-mix(in srgb, var(--palette-neutral-0) 7%, transparent) 1px, transparent 1px) 0 0 / var(--space-32) var(--space-32),
+    linear-gradient(color-mix(in srgb, var(--palette-neutral-0) 12%, transparent) 1px, transparent 1px) 0 0 / calc(var(--space-32) * 5) calc(var(--space-32) * 5),
+    linear-gradient(90deg, color-mix(in srgb, var(--palette-neutral-0) 12%, transparent) 1px, transparent 1px) 0 0 / calc(var(--space-32) * 5) calc(var(--space-32) * 5),
+    var(--palette-primary-600);
+  color: var(--palette-neutral-0);
+}
+
+.ds-blueprint-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: var(--space-64);
+  align-items: center;
+}
+
+.ds-blueprint-hero__title {
+  margin: var(--space-20) 0 var(--space-24);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-4xl);
+  line-height: var(--font-line-height-4xl);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: calc(var(--space-1) * -1);
+  text-wrap: balance;
+}
+
+.ds-blueprint-hero__title em {
+  position: relative;
+  font-style: normal;
+  color: var(--palette-accent-400);
+}
+
+.ds-blueprint-hero__lead {
+  max-width: calc(var(--layout-container) * 0.44);
+  margin: 0 0 var(--space-32);
+  font-size: var(--font-size-lg);
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--palette-neutral-0) 88%, transparent);
+}
+
+.ds-blueprint-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-16);
+}
+
+.ds-blueprint-hero__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-12) var(--space-24);
+  margin: var(--space-40) 0 0;
+  padding: var(--space-20) 0 0;
+  border-top: 1px solid color-mix(in srgb, var(--palette-neutral-0) 25%, transparent);
+  list-style: none;
+}
+
+.ds-blueprint-hero__fact {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-blueprint-hero__fact svg,
+.ds-blueprint-hero__chip-tick svg {
+  width: var(--size-18);
+  height: var(--size-18);
+  fill: none;
+  stroke: var(--palette-accent-400);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* The drawing panel. */
+.ds-blueprint-hero__art {
+  position: relative;
+  border: 1px solid color-mix(in srgb, var(--palette-neutral-0) 28%, transparent);
+  border-radius: var(--radius-2xl);
+  background: color-mix(in srgb, var(--palette-secondary-800) 35%, var(--palette-primary-600));
+}
+
+.ds-blueprint-hero__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: var(--space-24) var(--space-16) var(--space-8);
+}
+
+.ds-blueprint__lines path,
+.ds-blueprint__dimension path,
+.ds-blueprint__frame {
+  fill: none;
+  stroke: var(--palette-neutral-0);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ds-blueprint__lines .ds-blueprint__soft {
+  stroke: var(--palette-accent-400);
+}
+
+.ds-blueprint__frame {
+  stroke-width: 1.4;
+  stroke: color-mix(in srgb, var(--palette-neutral-0) 85%, transparent);
+}
+
+.ds-blueprint__dimension path {
+  stroke-width: 1.2;
+  stroke: color-mix(in srgb, var(--palette-neutral-0) 70%, transparent);
+}
+
+.ds-blueprint__dimension text {
+  fill: color-mix(in srgb, var(--palette-neutral-0) 85%, transparent);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+}
+
+.ds-blueprint__pane {
+  fill: color-mix(in srgb, var(--palette-neutral-0) 82%, var(--palette-primary-400));
+}
+
+.ds-blueprint__glint {
+  fill: none;
+  stroke: var(--palette-accent-400);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+
+/* Squeegee: a haze over the drawing, wiped off from left to right by a lime blade. */
+.ds-wipe {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.ds-wipe__haze {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle, color-mix(in srgb, var(--palette-secondary-800) 40%, transparent) 1px, transparent 2px) 0 0 / var(--space-12) var(--space-12),
+    color-mix(in srgb, var(--palette-secondary-600) 55%, transparent);
+  backdrop-filter: blur(var(--space-3)) grayscale(0.6);
+}
+
+.ds-wipe__blade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--space-8);
+  border-radius: var(--radius-full);
+  background: var(--palette-accent-400);
+  box-shadow: 0 0 var(--space-24) color-mix(in srgb, var(--palette-accent-400) 70%, transparent);
+  transform: translateX(calc(var(--space-8) * -2));
+}
+
+.ds-wipe__handle {
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  width: var(--space-48);
+  height: var(--space-8);
+  border-radius: var(--radius-full);
+  background: var(--palette-neutral-0);
+}
+
+/* Chips over the drawing. */
+.ds-blueprint-hero__chip {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  border-radius: var(--radius-lg);
+  background: var(--palette-neutral-0);
+  color: var(--palette-secondary-800);
+  box-shadow: 0 var(--space-16) var(--space-40) color-mix(in srgb, var(--palette-secondary-950) 30%, transparent);
+}
+
+.ds-blueprint-hero__chip--report {
+  left: calc(var(--space-24) * -1);
+  bottom: var(--space-28);
+  padding: var(--space-14) var(--space-20) var(--space-14) var(--space-14);
+}
+
+.ds-blueprint-hero__chip--call {
+  right: var(--space-16);
+  top: calc(var(--space-20) * -1);
+  padding: var(--space-10) var(--space-16);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-blueprint-hero__chip-tick {
+  display: grid;
+  place-items: center;
+  width: var(--size-40);
+  height: var(--size-40);
+  border-radius: var(--radius-sm);
+  background: var(--palette-secondary-800);
+}
+
+.ds-blueprint-hero__chip-text {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.ds-blueprint-hero__chip-text strong {
+  font-family: var(--font-heading);
+}
+
+.ds-blueprint-hero__chip-meta {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  color: var(--palette-neutral-600);
+}
+
+.ds-blueprint-hero__chip-dot {
+  width: var(--space-10);
+  height: var(--space-10);
+  border-radius: var(--radius-full);
+  background: var(--palette-accent-500);
+  animation: ds-hero-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes ds-hero-pulse {
+  50% {
+    box-shadow: 0 0 0 var(--space-6) color-mix(in srgb, var(--palette-accent-500) 25%, transparent);
+  }
+}
+
+@media (max-width: 1023px) {
+  .ds-blueprint-hero__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-56);
+  }
+
+  .ds-blueprint-hero__chip--report {
+    left: var(--space-12);
+    bottom: var(--space-12);
+  }
+}
+
+@media (max-width: 599px) {
+  .ds-blueprint-hero__chip--report {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    margin: 0 var(--space-12) var(--space-12);
+  }
+
+  .ds-blueprint-hero__chip--call {
+    right: var(--space-12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-blueprint-hero__chip-dot {
+    animation: none;
+  }
+}

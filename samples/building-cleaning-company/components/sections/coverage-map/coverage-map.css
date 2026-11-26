@@ -1,0 +1,219 @@
+/* Coverage map: zone list (number ring, name and range, reaction time) beside a blueprint map card. Hover or focus a
+   zone and its ring on the map lights up in lime. */
+.ds-coverage {
+  background: var(--palette-neutral-0);
+}
+
+.ds-coverage__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: var(--space-64);
+  align-items: center;
+}
+
+.ds-coverage__zones {
+  display: grid;
+  gap: var(--space-10);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-coverage__zone {
+  display: grid;
+  grid-template-columns: var(--size-40) minmax(0, 1fr) auto;
+  gap: var(--space-16);
+  align-items: center;
+  padding: var(--space-14) var(--space-16);
+  border: 1px solid var(--palette-neutral-100);
+  border-radius: var(--radius-lg);
+  background: var(--palette-neutral-0);
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.ds-coverage__zone:hover,
+.ds-coverage__zone:focus-visible {
+  border-color: var(--palette-primary-600);
+  background: var(--palette-primary-50);
+}
+
+.ds-coverage__zone:focus-visible {
+  outline: var(--focus-ring-width) solid var(--palette-primary-600);
+  outline-offset: var(--focus-ring-offset);
+}
+
+.ds-coverage__zone-ring {
+  display: grid;
+  place-items: center;
+  width: var(--size-40);
+  height: var(--size-40);
+  border: 2px solid var(--palette-primary-600);
+  border-radius: var(--radius-full);
+  color: var(--palette-primary-600);
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-coverage__zone-body {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.ds-coverage__zone-name {
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-coverage__zone-range {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-regular);
+  color: var(--palette-neutral-600);
+}
+
+.ds-coverage__zone-text {
+  font-size: var(--font-size-small);
+  line-height: 1.45;
+  color: var(--palette-neutral-600);
+}
+
+.ds-coverage__zone-reaction {
+  padding: var(--space-4) var(--space-10);
+  border-radius: var(--radius-sm);
+  background: var(--palette-secondary-800);
+  color: var(--palette-accent-400);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  white-space: nowrap;
+}
+
+.ds-coverage__note {
+  margin-top: var(--space-20);
+  font-size: var(--font-size-small);
+  color: var(--palette-neutral-600);
+}
+
+/* The map card. */
+.ds-coverage__map {
+  position: relative;
+  padding: var(--space-16);
+  border-radius: var(--radius-2xl);
+  background:
+    linear-gradient(color-mix(in srgb, var(--palette-neutral-0) 6%, transparent) 1px, transparent 1px) 0 0 / var(--space-24) var(--space-24),
+    linear-gradient(90deg, color-mix(in srgb, var(--palette-neutral-0) 6%, transparent) 1px, transparent 1px) 0 0 / var(--space-24) var(--space-24),
+    var(--palette-primary-600);
+}
+
+.ds-coverage__map svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.ds-coverage__river {
+  fill: none;
+  stroke: var(--palette-primary-400);
+  stroke-width: 10;
+  stroke-linecap: round;
+}
+
+.ds-coverage__roads path {
+  fill: none;
+  stroke: color-mix(in srgb, var(--palette-neutral-0) 45%, transparent);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.ds-coverage__ring {
+  fill: none;
+  stroke: color-mix(in srgb, var(--palette-neutral-0) 70%, transparent);
+  stroke-width: 1.5;
+  transition: stroke 0.3s ease, stroke-width 0.3s ease;
+}
+
+.ds-coverage__place {
+  fill: color-mix(in srgb, var(--palette-neutral-0) 90%, transparent);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+}
+
+.ds-coverage__pins rect {
+  fill: var(--palette-neutral-0);
+}
+
+.ds-coverage__pins path {
+  stroke: var(--palette-primary-600);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.ds-coverage__base circle {
+  fill: var(--palette-accent-400);
+  stroke: var(--palette-secondary-800);
+  stroke-width: 2;
+}
+
+.ds-coverage__base path {
+  fill: var(--palette-secondary-800);
+}
+
+.ds-coverage__base text {
+  fill: var(--palette-accent-400);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-coverage__pins g,
+.ds-coverage__base {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.ds-coverage:has(.ds-coverage__zone--1:hover, .ds-coverage__zone--1:focus-visible) .ds-coverage__ring--1,
+.ds-coverage:has(.ds-coverage__zone--2:hover, .ds-coverage__zone--2:focus-visible) .ds-coverage__ring--2,
+.ds-coverage:has(.ds-coverage__zone--3:hover, .ds-coverage__zone--3:focus-visible) .ds-coverage__ring--3 {
+  stroke: var(--palette-accent-400);
+  stroke-width: 4;
+}
+
+.ds-coverage__legend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--space-8) 0;
+  color: var(--palette-neutral-0);
+  font-size: var(--font-size-small);
+}
+
+.ds-coverage__legend-pin {
+  width: var(--space-10);
+  height: var(--space-12);
+  border-radius: var(--radius-xs);
+  background: var(--palette-neutral-0);
+}
+
+@media (max-width: 1023px) {
+  .ds-coverage__grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-40);
+  }
+}
+
+@media (max-width: 599px) {
+  .ds-coverage__zone {
+    grid-template-columns: var(--size-40) minmax(0, 1fr);
+  }
+
+  .ds-coverage__zone-reaction {
+    grid-column: 2;
+    justify-self: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-coverage__zone,
+  .ds-coverage__ring {
+    transition: none;
+  }
+}

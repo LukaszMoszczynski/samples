@@ -1,0 +1,78 @@
+/* Logo: mark + wordmark. The lit window blinks once on hover. */
+.ds-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-10);
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.ds-logo--dark {
+  color: var(--palette-secondary-800);
+}
+
+.ds-logo--light {
+  color: var(--palette-neutral-0);
+}
+
+.ds-logo:focus-visible {
+  outline: var(--focus-ring-width) solid var(--palette-primary-600);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius-xs);
+}
+
+.ds-logo--light:focus-visible {
+  outline-color: var(--palette-accent-400);
+}
+
+.ds-logo__mark {
+  width: var(--size-40);
+  height: var(--size-40);
+}
+
+.ds-logo__square {
+  fill: var(--palette-primary-600);
+}
+
+.ds-logo__block,
+.ds-logo__ground {
+  fill: none;
+  stroke: var(--palette-neutral-0);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ds-logo__window {
+  fill: var(--palette-neutral-0);
+}
+
+.ds-logo__window--lit {
+  fill: var(--palette-accent-400);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.ds-logo:hover .ds-logo__window--lit {
+  animation: ds-logo-blink 0.7s ease;
+}
+
+@keyframes ds-logo-blink {
+  40% {
+    transform: scale(1.35);
+  }
+}
+
+.ds-logo__name {
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: calc(var(--space-1) * -0.5);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-logo:hover .ds-logo__window--lit {
+    animation: none;
+  }
+}

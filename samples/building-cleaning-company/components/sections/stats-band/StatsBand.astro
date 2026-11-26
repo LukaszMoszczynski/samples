@@ -1,0 +1,17 @@
+---
+// Stats band: figures that count up on enter (osiedle.js). The final number is in the HTML, so it reads without JS.
+interface Props { items: { value: number; suffix?: string; label: string }[] }
+const { items } = Astro.props;
+---
+<section class="ds-stats" aria-label="Firma w liczbach">
+  <div class="ds-container">
+    <ul class="ds-stats__list" role="list">
+      {items.map((item) => (
+        <li class="ds-stats__item" data-reveal>
+          <span class="ds-stats__value"><span data-count-to={item.value}>{item.value.toLocaleString('pl-PL')}</span>{item.suffix}</span>
+          <span class="ds-stats__label">{item.label}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

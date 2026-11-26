@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="40" viewBox="0 0 220 40" role="img" aria-label="Twoje Osiedle">
+  <rect width="40" height="40" rx="10" fill="#1d4ed8"/>
+  <path d="M11 31V12.5L20 9l9 3.5V31M7 31h26" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="14.5" y="15" width="4" height="4" rx="0.6" fill="#ffffff"/><rect x="21.5" y="15" width="4" height="4" rx="0.6" fill="#c5f04a"/>
+  <rect x="14.5" y="21.5" width="4" height="4" rx="0.6" fill="#ffffff"/><rect x="21.5" y="21.5" width="4" height="4" rx="0.6" fill="#ffffff"/>
+  <text x="50" y="26.5" font-family="Archivo, system-ui, sans-serif" font-size="18" font-weight="700" fill="#101d42">Twoje Osiedle</text>
+</svg>

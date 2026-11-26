@@ -1,0 +1,97 @@
+---
+// Blueprint hero: the promise for managers beside a line drawing of two blocks of flats. With motion the drawing is
+// drawn line by line, a squeegee wipes the haze off and the windows light up clean one by one (osiedle.js).
+// The drawing is decorative (aria-hidden); the chips repeat the point in text.
+import Eyebrow from '../../atoms/eyebrow/Eyebrow.astro';
+import Button from '../../atoms/button/Button.astro';
+interface Props {
+  label: string; title: string; accent: string; lead: string;
+  primary: { text: string; href: string }; secondary: { text: string; href: string };
+  facts: string[];
+}
+const { label, title, accent, lead, primary, secondary, facts } = Astro.props;
+const [before, after] = title.split(accent);
+
+// Windows of the tall block (4 × 9) and the low block (3 × 5), in the drawing's own units.
+const windows = [
+  ...Array.from({ length: 36 }, (_, index) => ({ x: 92 + (index % 4) * 56, y: 86 + Math.floor(index / 4) * 36, width: 34, height: 20 })),
+  ...Array.from({ length: 15 }, (_, index) => ({ x: 350 + (index % 3) * 52, y: 230 + Math.floor(index / 3) * 36, width: 30, height: 20 })),
+];
+const outlines = [
+  'M70 430V70h240v360',
+  'M62 70h256',
+  'M140 70V48h60v22',
+  'M330 430V214h170v216',
+  'M322 214h186',
+  'M170 430v-30h40v30M162 400h56',
+  'M400 430v-26h32v26M394 404h44',
+  'M20 430h520',
+  'M70 394h240M330 394h170',
+];
+const details = [
+  'M520 430v-26M520 404a16 16 0 1 1 0.1 0',
+  'M232 430c8-10 20-10 28 0M250 430c6-8 16-8 22 0',
+];
+---
+<section class="ds-blueprint-hero" id="top" aria-labelledby="hero-title">
+  <div class="ds-container ds-blueprint-hero__grid">
+    <div class="ds-blueprint-hero__copy">
+      <div data-hero-item><Eyebrow text={label} tone="light" /></div>
+      <h1 class="ds-blueprint-hero__title" id="hero-title" data-hero-item>{before}<em>{accent}</em>{after}</h1>
+      <p class="ds-blueprint-hero__lead" data-hero-item>{lead}</p>
+      <div class="ds-blueprint-hero__actions" data-hero-item>
+        <Button text={primary.text} href={primary.href} variant="lime" />
+        <Button text={secondary.text} href={secondary.href} variant="ghost" />
+      </div>
+      <ul class="ds-blueprint-hero__facts" role="list" data-hero-item>
+        {facts.map((fact) => (
+          <li class="ds-blueprint-hero__fact">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" /></svg>
+            {fact}
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="ds-blueprint-hero__art" data-hero-art>
+      <svg class="ds-blueprint-hero__svg" viewBox="0 0 560 470" aria-hidden="true">
+        <g class="ds-blueprint__dimension">
+          <path d="M70 30h240M70 22v16M310 22v16" pathLength="1000" data-draw />
+          <text x="190" y="20" text-anchor="middle">24,0 m</text>
+          <path d="M40 70v320M32 70h16M32 390h16" pathLength="1000" data-draw />
+          <text x="26" y="232" text-anchor="middle" transform="rotate(-90 26 232)">10 kondygnacji</text>
+        </g>
+        <g class="ds-blueprint__lines">
+          {outlines.map((path) => <path d={path} pathLength="1000" data-draw />)}
+          {details.map((path) => <path class="ds-blueprint__soft" d={path} pathLength="1000" data-draw />)}
+        </g>
+        <g class="ds-blueprint__windows">
+          {windows.map((windowBox) => (
+            <g>
+              <rect class="ds-blueprint__frame" x={windowBox.x} y={windowBox.y} width={windowBox.width} height={windowBox.height} rx="1.5" pathLength="1000" data-draw />
+              <rect class="ds-blueprint__pane" x={windowBox.x + 2.5} y={windowBox.y + 2.5} width={windowBox.width - 5} height={windowBox.height - 5} rx="1" data-window-pane />
+              <path class="ds-blueprint__glint" d={`M${windowBox.x + 6} ${windowBox.y + windowBox.height - 6}l8-9`} data-window-glint />
+            </g>
+          ))}
+        </g>
+      </svg>
+      <div class="ds-wipe" aria-hidden="true" data-wipe>
+        <div class="ds-wipe__haze" data-wipe-haze></div>
+        <div class="ds-wipe__blade" data-wipe-blade><span class="ds-wipe__handle"></span></div>
+      </div>
+      <div class="ds-blueprint-hero__chip ds-blueprint-hero__chip--report" data-hero-chip>
+        <span class="ds-blueprint-hero__chip-tick" aria-hidden="true">
+          <svg viewBox="0 0 16 16"><path d="m3.5 8.4 2.8 2.8 6.2-6.4" /></svg>
+        </span>
+        <span class="ds-blueprint-hero__chip-text">
+          <span class="ds-blueprint-hero__chip-meta">Klatka B · ul. Przykładowa 4</span>
+          <strong>Sprzątanie zakończone 07:42</strong>
+          <span class="ds-blueprint-hero__chip-meta">8/8 zadań · 7 zdjęć w raporcie</span>
+        </span>
+      </div>
+      <div class="ds-blueprint-hero__chip ds-blueprint-hero__chip--call" data-hero-chip>
+        <span class="ds-blueprint-hero__chip-dot" aria-hidden="true"></span>
+        Zgłoszenie przyjęte, ekipa za 2 h
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,377 @@
+/* Estimator demo: the form on a white card (sliders with a cobalt fill and lime thumb, tick chips, a segmented
+   frequency switch) beside a sticky navy result card. */
+.ds-estimator {
+  background: var(--palette-neutral-0);
+}
+
+.ds-estimator__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: var(--space-32);
+  align-items: start;
+}
+
+.ds-estimator__form {
+  display: grid;
+  gap: var(--space-32);
+  padding: var(--space-32);
+  border: 1px solid var(--palette-neutral-100);
+  border-radius: var(--radius-2xl);
+  background: var(--palette-secondary-50);
+}
+
+.ds-estimator__group {
+  display: grid;
+  gap: var(--space-20);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.ds-estimator__legend {
+  margin-bottom: var(--space-16);
+  padding: 0;
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.ds-estimator__field {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.ds-estimator__range-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-16);
+}
+
+.ds-estimator__label {
+  font-weight: var(--font-weight-medium);
+}
+
+.ds-estimator__output {
+  min-width: var(--size-52);
+  padding: var(--space-2) var(--space-8);
+  border-radius: var(--radius-xs);
+  background: var(--palette-primary-600);
+  color: var(--palette-neutral-0);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.ds-estimator__select {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--size-52);
+  padding: 0 var(--space-14);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--palette-neutral-0);
+  color: inherit;
+  font: inherit;
+}
+
+.ds-estimator__select:focus-visible {
+  outline: var(--focus-ring-width) solid var(--palette-primary-600);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Slider: a cobalt fill up to the value (--fill, set by the script) and a lime thumb with a cobalt ring. */
+.ds-estimator__range {
+  width: 100%;
+  height: var(--size-24);
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
+}
+
+.ds-estimator__range::-webkit-slider-runnable-track {
+  height: var(--space-6);
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--palette-primary-600) var(--fill, 50%), var(--palette-secondary-100) var(--fill, 50%));
+}
+
+.ds-estimator__range::-moz-range-track {
+  height: var(--space-6);
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, var(--palette-primary-600) var(--fill, 50%), var(--palette-secondary-100) var(--fill, 50%));
+}
+
+.ds-estimator__range::-webkit-slider-thumb {
+  width: var(--size-24);
+  height: var(--size-24);
+  margin-top: calc((var(--size-24) - var(--space-6)) / -2);
+  border: var(--space-3) solid var(--palette-primary-600);
+  border-radius: var(--radius-full);
+  background: var(--palette-accent-400);
+  appearance: none;
+  transition: transform 0.2s ease;
+}
+
+.ds-estimator__range::-moz-range-thumb {
+  width: var(--size-18);
+  height: var(--size-18);
+  border: var(--space-3) solid var(--palette-primary-600);
+  border-radius: var(--radius-full);
+  background: var(--palette-accent-400);
+}
+
+.ds-estimator__range:hover::-webkit-slider-thumb,
+.ds-estimator__range:active::-webkit-slider-thumb {
+  transform: scale(1.15);
+}
+
+.ds-estimator__range:focus-visible {
+  outline: var(--focus-ring-width) solid var(--palette-primary-600);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius-xs);
+}
+
+/* Service chips: the native checkbox stays (visually hidden), the chip shows the state. */
+.ds-estimator__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-10);
+}
+
+.ds-estimator__chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  min-height: var(--size-44);
+  padding: 0 var(--space-16) 0 var(--space-10);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  background: var(--palette-neutral-0);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.ds-estimator__chip input,
+.ds-estimator__segment input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.ds-estimator__chip-box {
+  display: grid;
+  place-items: center;
+  width: var(--size-24);
+  height: var(--size-24);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  background: var(--palette-neutral-0);
+}
+
+.ds-estimator__chip-box svg {
+  width: var(--size-16);
+  height: var(--size-16);
+  fill: none;
+  stroke: var(--palette-secondary-800);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: opacity 0.2s ease, transform 0.25s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.ds-estimator__chip:hover {
+  border-color: var(--palette-primary-600);
+}
+
+.ds-estimator__chip:has(input:checked) {
+  border-color: var(--palette-primary-600);
+  background: var(--palette-primary-600);
+  color: var(--palette-neutral-0);
+}
+
+.ds-estimator__chip:has(input:checked) .ds-estimator__chip-box {
+  border-color: var(--palette-accent-400);
+  background: var(--palette-accent-400);
+}
+
+.ds-estimator__chip:has(input:checked) svg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.ds-estimator__chip:has(input:disabled) {
+  cursor: default;
+}
+
+.ds-estimator__chip:has(input:focus-visible),
+.ds-estimator__segment:has(input:focus-visible) {
+  outline: var(--focus-ring-width) solid var(--palette-primary-600);
+  outline-offset: var(--focus-ring-offset);
+}
+
+/* Frequency: a segmented switch. */
+.ds-estimator__segments {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border: 1px solid var(--palette-neutral-100);
+  border-radius: var(--radius-md);
+  background: var(--palette-neutral-0);
+}
+
+.ds-estimator__segment {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: var(--size-44);
+  padding: var(--space-6) var(--space-8);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-small);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.25;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.ds-estimator__segment:hover {
+  background: var(--palette-primary-50);
+}
+
+.ds-estimator__segment:has(input:checked) {
+  background: var(--palette-primary-600);
+  color: var(--palette-neutral-0);
+}
+
+/* Result card. */
+.ds-estimator__result {
+  position: sticky;
+  top: calc(var(--size-header-height) + var(--space-24));
+  display: grid;
+  gap: var(--space-16);
+  padding: var(--space-32);
+  border-radius: var(--radius-2xl);
+  background:
+    linear-gradient(color-mix(in srgb, var(--palette-neutral-0) 5%, transparent) 1px, transparent 1px) 0 0 / var(--space-24) var(--space-24),
+    linear-gradient(90deg, color-mix(in srgb, var(--palette-neutral-0) 5%, transparent) 1px, transparent 1px) 0 0 / var(--space-24) var(--space-24),
+    var(--palette-secondary-800);
+  color: var(--palette-neutral-0);
+}
+
+.ds-estimator__result-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-16);
+}
+
+.ds-estimator__result-title {
+  font-size: var(--font-size-lg);
+  line-height: var(--font-line-height-lg);
+}
+
+.ds-estimator__badge {
+  padding: var(--space-2) var(--space-10);
+  border: 1px solid var(--palette-accent-400);
+  border-radius: var(--radius-full);
+  color: var(--palette-accent-400);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-small);
+  text-transform: uppercase;
+  letter-spacing: var(--space-1);
+}
+
+.ds-estimator__amount {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-4) var(--space-10);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-3xl);
+  line-height: 1.1;
+  font-weight: var(--font-weight-bold);
+  font-variant-numeric: tabular-nums;
+  color: var(--palette-accent-400);
+}
+
+.ds-estimator__dash {
+  color: var(--palette-neutral-0);
+}
+
+.ds-estimator__unit {
+  margin-top: calc(var(--space-8) * -1);
+  color: color-mix(in srgb, var(--palette-neutral-0) 78%, transparent);
+}
+
+.ds-estimator__lines {
+  display: grid;
+  margin: var(--space-8) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ds-estimator__line {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-16);
+  padding-block: var(--space-10);
+  border-bottom: 1px dashed color-mix(in srgb, var(--palette-neutral-0) 22%, transparent);
+}
+
+.ds-estimator__line-amount {
+  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+.ds-estimator__note {
+  padding: var(--space-12) var(--space-14);
+  border-left: var(--space-3) solid var(--palette-accent-400);
+  background: color-mix(in srgb, var(--palette-neutral-0) 7%, transparent);
+  font-size: var(--font-size-small);
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--palette-neutral-0) 88%, transparent);
+}
+
+.ds-estimator__result .ds-button {
+  justify-self: start;
+}
+
+@media (max-width: 1023px) {
+  .ds-estimator__grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ds-estimator__result {
+    position: static;
+  }
+}
+
+@media (max-width: 599px) {
+  .ds-estimator__form,
+  .ds-estimator__result {
+    padding: var(--space-20);
+  }
+
+  .ds-estimator__segments {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-estimator__chip,
+  .ds-estimator__chip-box svg,
+  .ds-estimator__segment,
+  .ds-estimator__range::-webkit-slider-thumb {
+    transition: none;
+  }
+}
