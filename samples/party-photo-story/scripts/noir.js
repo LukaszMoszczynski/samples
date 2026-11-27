@@ -102,13 +102,27 @@ document.querySelectorAll('img[data-noir]').forEach((image) => {
 
 // --- Lights switch ---------------------------------------------------------------------------------------------------
 
-const lights = document.querySelector('[data-lights]');
-lights?.addEventListener('click', () => {
+const switches = document.querySelectorAll('[data-lights]');
+switches.forEach((button) => button.addEventListener('click', () => {
   const lit = !root.hasAttribute('data-lit');
   root.toggleAttribute('data-lit', lit);
-  lights.setAttribute('aria-pressed', String(lit));
-  lights.textContent = lit ? 'Back to the dark' : 'Turn on the lights';
-});
+  switches.forEach((each) => {
+    each.setAttribute('aria-pressed', String(lit));
+    const label = each.querySelector('[data-lights-label]');
+    if (!label) return;
+    if (each.hasAttribute('data-lights-floating')) label.textContent = lit ? 'Lights off' : 'Lights on';
+    else label.textContent = lit ? 'Back to the dark' : 'Turn on the lights';
+  });
+}));
+
+// The floating switch shows once the hero's switch is off screen (above or below), so one is always in reach.
+const floating = document.querySelector('[data-lights-floating]');
+const heroSwitch = document.querySelector('[data-lights]:not([data-lights-floating])');
+if (floating && heroSwitch && 'IntersectionObserver' in window) {
+  new IntersectionObserver(([entry]) => floating.toggleAttribute('data-shown', !entry.isIntersecting)).observe(heroSwitch);
+} else if (floating) {
+  floating.setAttribute('data-shown', '');
+}
 
 // --- Counters in the evidence log ------------------------------------------------------------------------------------
 

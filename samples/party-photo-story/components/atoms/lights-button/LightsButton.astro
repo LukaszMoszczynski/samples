@@ -1,4 +1,14 @@
 ---
-// The lights switch: toggles every photo between the noir grade and full colour (noir.js).
+// The lights switch: toggles every photo between the noir grade and full colour (noir.js). The floating one sits in
+// the bottom-right corner for the whole story and shows once the hero's switch has scrolled away; both stay in sync.
+interface Props { floating?: boolean }
+const { floating = false } = Astro.props;
 ---
-<button class="ds-lights-button" type="button" aria-pressed="false" data-lights>Turn on the lights</button>
+{floating ? (
+  <button class="ds-lights-button ds-lights-button--floating" type="button" aria-pressed="false" data-lights data-lights-floating>
+    <svg class="ds-lights-button__bulb" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.4 1 1.1 1 1.8V16h5v-.3c0-.7.4-1.4 1-1.8A6 6 0 0 0 12 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span data-lights-label>Lights on</span>
+  </button>
+) : (
+  <button class="ds-lights-button" type="button" aria-pressed="false" data-lights><span data-lights-label>Turn on the lights</span></button>
+)}

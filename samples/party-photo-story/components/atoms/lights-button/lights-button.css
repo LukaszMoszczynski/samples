@@ -44,3 +44,43 @@
     transition: none;
   }
 }
+
+/* Floating switch: bottom-right for the whole page, out of the way of the samples menu (bottom-left). Hidden until
+   noir.js sees the hero switch leave the screen. */
+.ds-lights-button--floating {
+  position: fixed;
+  right: max(var(--space-20), env(safe-area-inset-right, 0px));
+  bottom: calc(var(--space-20) + env(safe-area-inset-bottom, 0px));
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-10) var(--space-16);
+  border: var(--space-2) solid var(--palette-neutral-1000);
+  box-shadow: 0 0 0 var(--space-2) var(--palette-neutral-0);
+  font-size: var(--font-size-body);
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(var(--space-16));
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s, background-color 0.25s ease, color 0.25s ease;
+}
+
+.ds-lights-button--floating[data-shown] {
+  visibility: visible;
+  opacity: 1;
+  transform: none;
+}
+
+.ds-lights-button--floating[data-shown]:hover {
+  transform: translateY(calc(var(--space-2) * -1));
+}
+
+.ds-lights-button__bulb {
+  width: var(--size-20);
+  height: var(--size-20);
+  flex: none;
+}
+
+.ds-lights-button--floating[aria-pressed="true"] .ds-lights-button__bulb {
+  fill: currentColor;
+}
