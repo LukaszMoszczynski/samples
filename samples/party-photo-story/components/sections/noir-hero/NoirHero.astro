@@ -1,0 +1,22 @@
+---
+// Noir hero: rain over a black page, the date and place in typewriter, the title in two slammed lines (red second),
+// a one-line lede and the switch that brings the colour back. Rain and the slam are in noir.js.
+import LightsButton from '../../atoms/lights-button/LightsButton.astro';
+interface Props { date: string; place: string; title: string; titleRed: string; lede: string }
+const { date, place, title, titleRed, lede } = Astro.props;
+---
+<header class="ds-noir-hero">
+  <div class="ds-noir-hero__rain" aria-hidden="true"></div>
+  <div class="ds-container ds-noir-hero__inner">
+    <p class="ds-noir-hero__kicker" data-hero-item><span>{date}</span><b>Night shift</b><span>{place}</span></p>
+    <h1 class="ds-noir-hero__title">
+      <span class="ds-noir-hero__line" data-hero-item>{title}</span>
+      <span class="ds-noir-hero__line ds-noir-hero__line--red" data-hero-item>{titleRed}</span>
+    </h1>
+    <p class="ds-noir-hero__lede" data-hero-item>{lede}</p>
+    <div class="ds-noir-hero__controls" data-hero-item>
+      <LightsButton />
+      <span class="ds-noir-hero__hint">The city only lets red and gold keep their colour. Press the switch to see it all.</span>
+    </div>
+  </div>
+</header>

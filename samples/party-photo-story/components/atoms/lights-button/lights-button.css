@@ -1,0 +1,46 @@
+/* Lights switch: a paper slab that goes yellow when the lights are on and red on hover, with a light sweep. */
+.ds-lights-button {
+  position: relative;
+  overflow: hidden;
+  padding: var(--space-12) var(--space-20);
+  border: 0;
+  background: var(--palette-neutral-0);
+  color: var(--palette-neutral-1000);
+  font-family: var(--font-heading);
+  font-size: var(--font-size-lg);
+  letter-spacing: var(--space-1);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.ds-lights-button::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, transparent 30%, color-mix(in srgb, var(--palette-neutral-0) 70%, transparent) 50%, transparent 70%);
+  transform: translateX(-120%);
+}
+
+.ds-lights-button[aria-pressed="true"] {
+  background: var(--palette-accent-400);
+}
+
+.ds-lights-button:hover {
+  background: var(--palette-primary-800);
+  color: var(--palette-neutral-0);
+  transform: translateY(calc(var(--space-2) * -1));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ds-lights-button:hover::after {
+    transform: translateX(120%);
+    transition: transform 0.7s ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-lights-button {
+    transition: none;
+  }
+}

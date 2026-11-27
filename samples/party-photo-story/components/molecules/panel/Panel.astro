@@ -1,0 +1,14 @@
+---
+// Panel: one photo in the spread, graded to noir by noir.js (only red and gold keep colour; CSS greyscale until then),
+// with typewriter captions pinned to its corners. Tone "yellow" or "red" fills a caption box.
+import type { ImageMetadata } from 'astro';
+interface Caption { text: string; at: 'tl' | 'tr' | 'bl' | 'br'; tone?: 'yellow' | 'red' }
+interface Props { image: ImageMetadata; alt: string; span: 4 | 5 | 6 | 7 | 8 | 12; shape: 'tall' | 'wide' | 'cine'; focus?: string; captions?: Caption[] }
+const { image, alt, span, shape, focus, captions = [] } = Astro.props;
+---
+<figure class={`ds-panel ds-panel--span-${span} ds-panel--${shape}`} data-reveal>
+  <img class="ds-panel__image" src={image.src} width={image.width} height={image.height} alt={alt} loading="lazy" decoding="async" data-noir style={focus ? `object-position: ${focus}` : undefined} />
+  {captions.map((caption) => (
+    <p class={`ds-panel__caption ds-panel__caption--${caption.at}${caption.tone ? ` ds-panel__caption--${caption.tone}` : ''}`} data-cap>{caption.text}</p>
+  ))}
+</figure>

@@ -1,0 +1,6 @@
+---
+// Pull quote: a line of narration set huge, the last words in blood red.
+interface Props { text: string; red: string }
+const { text, red } = Astro.props;
+---
+<p class="ds-pull-quote" data-reveal>{text} <span>{red}</span></p>

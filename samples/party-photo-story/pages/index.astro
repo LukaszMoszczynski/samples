@@ -1,0 +1,169 @@
+---
+// Hospůdka Noir: one Friday night out told as a Sin City style graphic novel. Photos and the receipt are the owner's
+// own (faces of friends: the sample is unlisted); the receipt is cropped below the seller's details.
+import Sample from '../layouts/Sample.astro';
+import sample from '../sample.json';
+
+import '../components/base/page/page.css';
+import '../components/atoms/lights-button/lights-button.css';
+import '../components/atoms/pull-quote/pull-quote.css';
+import '../components/molecules/panel/panel.css';
+import '../components/molecules/cast-list/cast-list.css';
+import '../components/molecules/evidence-log/evidence-log.css';
+import '../components/sections/noir-hero/noir-hero.css';
+import '../components/sections/chapter/chapter.css';
+import '../components/sections/case-closed/case-closed.css';
+
+import NoirHero from '../components/sections/noir-hero/NoirHero.astro';
+import Chapter from '../components/sections/chapter/Chapter.astro';
+import Panel from '../components/molecules/panel/Panel.astro';
+import CastList from '../components/molecules/cast-list/CastList.astro';
+import EvidenceLog from '../components/molecules/evidence-log/EvidenceLog.astro';
+import PullQuote from '../components/atoms/pull-quote/PullQuote.astro';
+import CaseClosed from '../components/sections/case-closed/CaseClosed.astro';
+
+import urinal from '../assets/photos/01.jpg';
+import tableWide from '../assets/photos/02.jpg';
+import plateClose from '../assets/photos/03.jpg';
+import gangSecond from '../assets/photos/04.jpg';
+import foodArrives from '../assets/photos/05.jpg';
+import accountant from '../assets/photos/06.jpg';
+import gangFirst from '../assets/photos/07.jpg';
+import devilsHand from '../assets/photos/08.jpg';
+import door from '../assets/photos/09.jpg';
+import snow from '../assets/photos/10.jpg';
+import sign from '../assets/photos/11.jpg';
+import receipt from '../assets/photos/12.jpg';
+
+const cast = [
+  { name: 'The Prophet', tell: 'Beard down to the third button. Speaks rarely. Drinks steadily.' },
+  { name: 'The Lumberjack', tell: 'Red flannel. The only man in town the city lets keep his colour.', red: true },
+  { name: 'The Accountant', tell: 'Glasses, navy polo. Counts the mugs so nobody else has to.' },
+  { name: 'The Bear', tell: 'Black hoodie, toothpick. Ordered the dark one like he’d done it before.' },
+  { name: 'The Silent One', tell: 'All in black. Smiles like he knows how it ends.' },
+  { name: 'The Smiler', tell: 'Blue shirt, black watch. Grinned through the whole case.' },
+];
+
+// Read off the receipt: Pilsner 1 l ×6, Pilsner 0.5 l ×1, Primátor Weizen 0.5 l ×4, Skalák černý 0.5 l ×3;
+// roast beef ×4, pork tenderloin ×1, duck leg ×1. Drinks 381 zł, food 448 zł, 829 zł in all.
+const evidence = [
+  { label: 'Suspects at the table', value: '6', count: 6 },
+  { label: 'Litre mugs of Pilsner', value: '6', count: 6 },
+  { label: 'Half-litres on the side', value: '8', count: 8 },
+  { label: 'Beer in total', value: '10.0 l', count: 10, decimals: 1 },
+  { label: 'Grilled roast beef', value: '4', count: 4 },
+  { label: 'Pork tenderloin, duck leg', value: '1 + 1' },
+  { label: 'Plates returned full', value: '0', count: 0 },
+  { label: 'Bones left behind', value: '1', count: 1 },
+  { label: 'Spent on drinks', value: '381.00 zł', count: 381, decimals: 2 },
+  { label: 'Spent on food', value: '448.00 zł', count: 448, decimals: 2 },
+  { label: 'The bill', value: '829.00 zł', count: 829, decimals: 2 },
+  { label: 'Per head', value: '138.17 zł', count: 138.17, decimals: 2 },
+];
+---
+<Sample lang={sample.lang} title={sample.title} description={sample.summary} fonts="https://fonts.googleapis.com/css2?family=Anton&family=Special+Elite&display=swap">
+  <canvas class="ds-grain" data-grain aria-hidden="true"></canvas>
+  <NoirHero
+    date="Friday · 27.XI.2026"
+    place="Hospůdka · Czech restaurant"
+    title="Hospůdka"
+    titleRed="Noir"
+    lede="The city was cold. The beer was colder. Six men walked in hungry and walked out with a story. This is that story."
+  />
+
+  <main>
+    <Chapter id="the-sign" time="Chapter I · Evening" before="The sign" mark="said" after="Hospůdka">
+      <div class="ds-spread">
+        <Panel image={sign} span={5} shape="tall" alt="Hospůdka restaurant sign on an old stone building at night, shopping centre lights in the distance" captions={[
+          { text: 'Across the square, the mall was wearing a million lights and pretending it was already Christmas.', at: 'tl' },
+          { text: 'We weren’t here for Christmas.', at: 'br', tone: 'yellow' },
+        ]} />
+        <Panel image={door} span={7} shape="tall" alt="Glass door of Hospůdka with stairs going down and a lit menu board" captions={[
+          { text: 'A glass door. A menu glowing like a confession. Stairs going down.', at: 'tr' },
+          { text: 'Down is where the good stories start.', at: 'bl', tone: 'red' },
+        ]} />
+      </div>
+      <div class="ds-narration" data-reveal>
+        <p>Every city has a place like this. Brick walls painted white. Five little wooden dolls on the sign, standing in a row like witnesses. Pilsner on the menu board. The sticker on the glass promised the place was air-conditioned. In late November, nobody was checking.</p>
+      </div>
+    </Chapter>
+
+    <Chapter id="the-table" time="Chapter II · The table" before="Six men." mark="One-litre" after="mugs.">
+      <div class="ds-spread">
+        <Panel image={gangFirst} span={12} shape="cine" focus="50% 45%" alt="Five men at a wooden table under birdhouses, raising litre mugs of beer" captions={[
+          { text: 'The table in the corner. Birdhouses on the wall, hearts cut in their doors. Even the birds in this town had a soft side.', at: 'tl' },
+          { text: 'The mugs came in one size: too big to be an accident.', at: 'br', tone: 'yellow' },
+        ]} />
+        <Panel image={gangSecond} span={6} shape="wide" alt="The same five men at the table, one raising a mug toward the camera" captions={[
+          { text: 'Second take. Same faces. Lower level in the glasses.', at: 'bl' },
+        ]} />
+        <Panel image={devilsHand} span={6} shape="wide" alt="Four men at the table, a bottle of Čertova Ruka dark beer in front" captions={[
+          { text: 'Čertova Ruka. The Devil’s Hand. Dark, strong, thirteen degrees.', at: 'tr', tone: 'red' },
+        ]} />
+      </div>
+      <CastList members={cast} />
+    </Chapter>
+
+    <Chapter id="the-order" time="Chapter III · The order" before="The food" mark="arrived" after="armed">
+      <div class="ds-spread">
+        <Panel image={foodArrives} span={8} shape="wide" alt="A bearded man holding up a knife and fork behind plates of steak with fries and duck with dumplings" captions={[
+          { text: 'The Bear held the knife and fork up like evidence. Nobody asked what for.', at: 'tl' },
+          { text: 'Duck leg, dumplings, red cabbage on one side. Grilled roast beef and fries on the other. A peace treaty on two plates.', at: 'br' },
+        ]} />
+        <Panel image={accountant} span={4} shape="tall" alt="A man in glasses gripping a fork, a plate of roast beef and fries and a wheat beer in front of him" captions={[
+          { text: 'The Accountant.', at: 'tl', tone: 'yellow' },
+          { text: 'Fork in his fist. Weizen at his elbow. He was making a point, and the point was the beef.', at: 'bl' },
+        ]} />
+      </div>
+      <PullQuote text="Nobody talked while they ate." red="The forks did the talking." />
+    </Chapter>
+
+    <Chapter id="the-scene" time="Chapter IV · Later" before="The scene" mark="of the" after="crime">
+      <div class="ds-spread">
+        <Panel image={plateClose} span={7} shape="wide" alt="An empty plate with crossed knife and fork, crumpled yellow napkin, half-empty litre mugs around it" captions={[
+          { text: 'Exhibit A.', at: 'tl', tone: 'red' },
+          { text: 'Knife and fork crossed like a signature. A pot of sauce nobody was brave enough to finish.', at: 'br' },
+        ]} />
+        <Panel image={tableWide} span={5} shape="wide" alt="The whole table from above: empty plates, a bone, yellow napkins, mugs at different levels" captions={[
+          { text: 'The whole table. One bone, picked clean. Yellow napkins thrown down like surrendered flags.', at: 'bl' },
+        ]} />
+        <Panel image={receipt} span={12} shape="cine" focus="30% 60%" alt="The fiscal receipt on the checked tablecloth: litre Pilsners, wheat beers, dark beers, roast beef, pork tenderloin, duck leg, 829 zł in all" captions={[
+          { text: 'Exhibit B. The paper trail.', at: 'tr', tone: 'yellow' },
+          { text: 'Long enough to be a confession. Every line a beer or a body of beef. At the bottom, the number nobody wanted to read out loud.', at: 'br' },
+        ]} />
+      </div>
+      <EvidenceLog title="Evidence log" rows={evidence} note="Figures from the receipt, before the tip. The Devil’s Hand bottle came with a Skalák černý on the bill." />
+    </Chapter>
+
+    <Chapter id="the-booth" time="Interlude · The back room" before="The" mark="confession" after="booth">
+      <div class="ds-spread">
+        <Panel image={urinal} span={5} shape="tall" alt="A urinal against a wall of peeling white tiles" captions={[
+          { text: 'Every man in this city ends up here sooner or later.', at: 'tl' },
+          { text: 'The tiles have seen things. They’re peeling to forget.', at: 'br', tone: 'yellow' },
+        ]} />
+        <div class="ds-panel ds-panel--span-7 ds-booth-note" data-reveal>
+          <PullQuote text="Ten litres in." red="You do the math." />
+        </div>
+      </div>
+    </Chapter>
+
+    <Chapter id="the-snow" time="Chapter V · Almost midnight" before="Outside," mark="snow">
+      <div class="ds-spread">
+        <Panel image={snow} span={12} shape="cine" focus="50% 55%" alt="Four men in winter hats taking a selfie at night under bare trees, snow falling, a bus passing behind" captions={[
+          { text: 'The snow started without asking. Streetlights. Bare trees. A bus going somewhere none of us needed to be.', at: 'tl' },
+          { text: 'Four of us made it to the last frame. The other two know what they did.', at: 'br', tone: 'red' },
+        ]} />
+      </div>
+      <div class="ds-narration" data-reveal>
+        <p>Hats on. Hoods up. Breath turning to smoke. We stood under the trees long enough for one photo, because a story without a last frame is just a rumour.</p>
+        <p class="ds-narration__hit">The city never sleeps. Tonight, neither did we. Not right away.</p>
+      </div>
+    </Chapter>
+
+    <CaseClosed
+      text="No arrests. No regrets. Some heartburn. 829 złoty later, the Devil’s Hand is still out there, thirteen degrees strong, waiting for the next Friday."
+      signOff="Hospůdka Noir · 27.XI.2026 · same table next time"
+    />
+  </main>
+  <script src="../scripts/noir.js"></script>
+</Sample>

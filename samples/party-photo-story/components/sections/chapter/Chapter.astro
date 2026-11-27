@@ -1,0 +1,15 @@
+---
+// Chapter: a paper rule, the time stamp in red typewriter, a condensed headline with one yellow word, then the
+// slot (panel spreads, narration, lists).
+interface Props { id: string; time: string; before: string; mark: string; after?: string }
+const { id, time, before, mark, after = '' } = Astro.props;
+---
+<section class="ds-chapter ds-section" id={id} aria-labelledby={`${id}-title`}>
+  <div class="ds-container">
+    <div class="ds-chapter__head" data-reveal>
+      <span class="ds-chapter__time">{time}</span>
+      <h2 class="ds-chapter__title" id={`${id}-title`}>{before} <em>{mark}</em> {after}</h2>
+    </div>
+    <div class="ds-chapter__body"><slot /></div>
+  </div>
+</section>

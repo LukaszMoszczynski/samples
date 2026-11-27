@@ -1,0 +1,14 @@
+/* Pull quote: condensed caps, red tail. */
+.ds-pull-quote {
+  max-width: calc(var(--space-64) * 9);
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: calc(var(--font-size-4xl) * 1.6);
+  line-height: 0.95;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.ds-pull-quote span {
+  color: var(--palette-primary-600);
+}

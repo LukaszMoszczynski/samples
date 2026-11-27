@@ -1,0 +1,28 @@
+/* Case closed: the biggest type on the page after the hero. */
+.ds-case-closed__title {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-regular);
+  font-size: calc(var(--font-size-4xl) * 2.8);
+  line-height: 0.85;
+  text-transform: uppercase;
+}
+
+.ds-case-closed__title span {
+  color: var(--palette-primary-600);
+}
+
+.ds-case-closed__text {
+  max-width: calc(var(--space-64) * 8);
+  margin: var(--space-24) 0 0;
+}
+
+.ds-case-closed__sign {
+  margin: var(--space-40) 0 0;
+  color: var(--palette-neutral-400);
+  font-size: var(--font-size-body);
+  letter-spacing: var(--space-3);
+  text-transform: uppercase;
+}

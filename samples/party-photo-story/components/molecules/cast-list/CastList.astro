@@ -1,0 +1,14 @@
+---
+// Cast list: the people at the table by nickname, one tell each. The one in red keeps his colour, as in the photos.
+interface Member { name: string; tell: string; red?: boolean }
+interface Props { members: Member[] }
+const { members } = Astro.props;
+---
+<ul class="ds-cast-list" aria-label="The cast">
+  {members.map((member) => (
+    <li class="ds-cast-list__item" data-reveal>
+      <span class={`ds-cast-list__name${member.red ? ' ds-cast-list__name--red' : ''}`}>{member.name}</span>
+      <span class="ds-cast-list__tell">{member.tell}</span>
+    </li>
+  ))}
+</ul>

@@ -1,0 +1,12 @@
+---
+// Case closed: the closing slam, a last paragraph and the sign-off line.
+interface Props { text: string; signOff: string }
+const { text, signOff } = Astro.props;
+---
+<section class="ds-case-closed ds-section" aria-labelledby="case-closed-title">
+  <div class="ds-container">
+    <h2 class="ds-case-closed__title" id="case-closed-title" data-reveal>Case <span>closed.</span></h2>
+    <p class="ds-case-closed__text" data-reveal>{text}</p>
+    <p class="ds-case-closed__sign" data-reveal>{signOff}</p>
+  </div>
+</section>

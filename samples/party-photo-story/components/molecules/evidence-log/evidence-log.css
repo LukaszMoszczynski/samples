@@ -1,0 +1,46 @@
+/* Evidence log: a paper-ruled box, dotted leaders between label and value, tabular figures. */
+.ds-evidence-log {
+  padding: var(--space-16) var(--space-20);
+  border: var(--space-2) solid var(--palette-neutral-0);
+}
+
+.ds-evidence-log__title {
+  margin: 0 0 var(--space-8);
+  color: var(--palette-accent-400);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-xl);
+  letter-spacing: var(--space-2);
+  text-transform: uppercase;
+}
+
+.ds-evidence-log__rows {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, calc(var(--space-64) * 4)), 1fr));
+  gap: 0 var(--space-32);
+  margin: 0;
+}
+
+.ds-evidence-log__row {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-16);
+  padding: var(--space-6) 0;
+  border-bottom: var(--space-1) dotted var(--palette-neutral-600);
+  font-variant-numeric: tabular-nums;
+}
+
+.ds-evidence-log__row dt {
+  color: var(--palette-neutral-400);
+}
+
+.ds-evidence-log__row dd {
+  margin: 0;
+  text-align: right;
+}
+
+.ds-evidence-log__note {
+  margin: var(--space-12) 0 0;
+  color: var(--palette-neutral-400);
+  font-size: var(--font-size-body);
+}

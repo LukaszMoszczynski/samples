@@ -1,0 +1,74 @@
+/* Chapter: headline row and the comic spread grid (white gutters between black panels). */
+.ds-chapter__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-8) var(--space-20);
+  margin-bottom: var(--space-28);
+  padding-top: var(--space-12);
+  border-top: var(--space-3) solid var(--palette-neutral-0);
+}
+
+.ds-chapter__time {
+  color: var(--palette-primary-400);
+  font-size: var(--font-size-body);
+  letter-spacing: var(--space-2);
+}
+
+.ds-chapter__title {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-regular);
+  font-size: calc(var(--font-size-4xl) * 1.35);
+  line-height: 0.95;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.ds-chapter__title em {
+  color: var(--palette-accent-400);
+  font-style: normal;
+}
+
+.ds-chapter__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-32);
+}
+
+.ds-spread {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--space-10);
+  padding: var(--space-10);
+  background: var(--palette-neutral-0);
+}
+
+.ds-narration {
+  max-width: calc(var(--space-64) * 10);
+  margin: 0;
+  font-size: var(--font-size-lg);
+}
+
+.ds-narration p {
+  margin: 0 0 var(--space-16);
+}
+
+.ds-narration .ds-narration__hit {
+  color: var(--palette-primary-400);
+}
+
+@media (max-width: 720px) {
+  .ds-spread {
+    gap: var(--space-6);
+    padding: var(--space-6);
+  }
+}
+
+/* A text panel in the spread (the interlude pull quote). */
+.ds-booth-note {
+  display: flex;
+  align-items: flex-end;
+  min-height: calc(var(--space-64) * 3.5);
+  padding: var(--space-24);
+}

@@ -1,0 +1,63 @@
+/* Page base: smooth anchor scrolling (off for reduced motion), the content container, the section rhythm, the noir
+   ground (ink page, paper type, film grain) and the motion start states. */
+html {
+  scroll-padding-top: var(--space-16);
+  background: var(--palette-neutral-1000);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  background: var(--palette-neutral-1000);
+  color: var(--palette-neutral-0);
+  font-family: var(--font-body);
+  font-size: var(--font-size-lg);
+  line-height: 1.55;
+}
+
+.ds-container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: calc(var(--layout-container) + var(--space-gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--space-gutter);
+}
+
+.ds-section {
+  padding-block: var(--space-section-y);
+}
+
+/* Film grain over the whole page, redrawn by noir.js (a still frame without motion). */
+.ds-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.08;
+  mix-blend-mode: screen;
+  image-rendering: pixelated;
+}
+
+:focus-visible {
+  outline: var(--space-3) solid var(--palette-accent-400);
+  outline-offset: var(--space-3);
+}
+
+/* Entrance targets start hidden from the first paint while the script is coming (html[data-motion], set in the head
+   only without reduced motion; removed after 4 s if the script never says ready). */
+[data-motion] [data-hero-item],
+[data-motion] [data-reveal],
+[data-motion] [data-cap] {
+  opacity: 0;
+}
+
+/* Anything marked hidden stays hidden, whatever display a component sets. */
+[hidden] {
+  display: none !important;
+}

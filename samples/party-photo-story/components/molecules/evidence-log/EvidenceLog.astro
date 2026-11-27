@@ -1,0 +1,18 @@
+---
+// Evidence log: label and value rows read off the night's receipt; values count up in noir.js.
+interface Row { label: string; value: string; count?: number; decimals?: number }
+interface Props { title: string; rows: Row[]; note?: string }
+const { title, rows, note } = Astro.props;
+---
+<section class="ds-evidence-log" aria-label={title} data-reveal>
+  <h3 class="ds-evidence-log__title">{title}</h3>
+  <dl class="ds-evidence-log__rows">
+    {rows.map((row) => (
+      <div class="ds-evidence-log__row">
+        <dt>{row.label}</dt>
+        <dd data-count={row.count} data-decimals={row.decimals}>{row.value}</dd>
+      </div>
+    ))}
+  </dl>
+  {note && <p class="ds-evidence-log__note">{note}</p>}
+</section>

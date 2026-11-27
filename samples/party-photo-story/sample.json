@@ -1,0 +1,19 @@
+{
+  "slug": "party-photo-story",
+  "stack": "astro",
+  "lang": "en",
+  "title": "Hospůdka Noir – a party photo story (sample page)",
+  "pages": [
+    "index"
+  ],
+  "summary": "A night out told as a graphic novel: black and white photos where only red and gold survive, typewriter captions, an evidence log from the receipt and a switch that turns the lights back on.",
+  "direction": "Sin City noir",
+  "tags": [
+    "Astro",
+    "GSAP",
+    "Canvas photo grading",
+    "Photo story"
+  ],
+  "date": "2026-11-27",
+  "unlisted": true
+}
