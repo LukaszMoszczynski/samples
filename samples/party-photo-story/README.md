@@ -1,6 +1,6 @@
 # Sample: Hospůdka Noir – a party photo story
 
-**Brief, in general terms:** a one-page photo story of a night out with friends, told as a graphic novel. Unlisted:
+**Brief, in general terms:** a one-page photo story of a night out with friends (meeting in the snow, a Czech restaurant, an Irish pub), told as a graphic novel. Unlisted:
 online for whoever has the link, left out of the samples index and menu (the photos show real people).
 
 **Stack:** Astro (no CMS needed). The design system copy (`ds/VERSION`) gives the tokens only; every component is new.

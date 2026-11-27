@@ -34,6 +34,8 @@ import door from '../assets/photos/09.jpg';
 import snow from '../assets/photos/10.jpg';
 import sign from '../assets/photos/11.jpg';
 import receipt from '../assets/photos/12.jpg';
+import beerTower from '../assets/photos/13.jpg';
+import dublinBooth from '../assets/photos/14.jpg';
 
 const cast = [
   { name: 'The Prophet', tell: 'Beard down to the third button. Speaks rarely. Drinks steadily.' },
@@ -65,13 +67,25 @@ const evidence = [
   <canvas class="ds-grain" data-grain aria-hidden="true"></canvas>
   <NoirHero
     date="Friday · 27.XI.2026"
-    place="Hospůdka · Czech restaurant"
+    place="Hospůdka · Pub Dublin"
     title="Hospůdka"
     titleRed="Noir"
     lede="The city was cold. The beer was colder. Six men walked in hungry and walked out with a story. This is that story."
   />
 
   <main>
+    <Chapter id="the-meet" time="Prologue · Nightfall" before="It started" mark="in the" after="snow">
+      <div class="ds-spread">
+        <Panel image={snow} span={12} shape="cine" focus="50% 55%" alt="Four men in winter hats taking a selfie at night under bare trees, snow falling, a bus passing behind" captions={[
+          { text: 'The snow started without asking. Streetlights. Bare trees. A bus going somewhere none of us needed to be.', at: 'tl' },
+          { text: 'Four of us at the meeting point. Two more would turn up at the table. They always do.', at: 'br', tone: 'red' },
+        ]} />
+      </div>
+      <div class="ds-narration" data-reveal>
+        <p>Hats on. Hoods up. Breath turning to smoke. We stood under the trees long enough for one photo, because every case needs a first frame. Then we walked toward the lights.</p>
+      </div>
+    </Chapter>
+
     <Chapter id="the-sign" time="Chapter I · Evening" before="The sign" mark="said" after="Hospůdka">
       <div class="ds-spread">
         <Panel image={sign} span={5} shape="tall" alt="Hospůdka restaurant sign on an old stone building at night, shopping centre lights in the distance" captions={[
@@ -147,21 +161,28 @@ const evidence = [
       </div>
     </Chapter>
 
-    <Chapter id="the-snow" time="Chapter V · Almost midnight" before="Outside," mark="snow">
+    <Chapter id="last-call" time="Chapter V · Last call" before="One more" mark="pub." after="Pub Dublin.">
       <div class="ds-spread">
-        <Panel image={snow} span={12} shape="cine" focus="50% 55%" alt="Four men in winter hats taking a selfie at night under bare trees, snow falling, a bus passing behind" captions={[
-          { text: 'The snow started without asking. Streetlights. Bare trees. A bus going somewhere none of us needed to be.', at: 'tl' },
-          { text: 'Four of us made it to the last frame. The other two know what they did.', at: 'br', tone: 'red' },
+        <Panel image={dublinBooth} span={12} shape="cine" focus="50% 60%" alt="Five men in a wooden booth at Pub Dublin under a stained-glass lamp and Guinness posters, one making a rock sign" captions={[
+          { text: 'Hospůdka let us go. The night didn’t. Next stop: an Irish pub, dark wood, green walls, Guinness posters promising strength.', at: 'tl' },
+          { text: 'The Silent One threw the horns. He’d stopped being silent.', at: 'br', tone: 'yellow' },
         ]} />
+        <Panel image={beerTower} span={5} shape="tall" focus="50% 40%" alt="A tall beer tower full of lager on the table, three men behind it, one pointing at it with both hands" captions={[
+          { text: 'Then the tower arrived.', at: 'tl', tone: 'red' },
+          { text: 'A glass pillar of beer with its own tap. The Bear pointed at it like a witness picking out the suspect.', at: 'bl' },
+        ]} />
+        <div class="ds-panel ds-panel--span-7 ds-booth-note" data-reveal>
+          <PullQuote text="Ten litres was the warm-up." red="The tower was the verdict." />
+        </div>
       </div>
       <div class="ds-narration" data-reveal>
-        <p>Hats on. Hoods up. Breath turning to smoke. We stood under the trees long enough for one photo, because a story without a last frame is just a rumour.</p>
+        <p>Toucans flying across a poster. A shire horse pulling a cart for Guinness. Christmas baubles hanging off the ceiling on red string like evidence tags. Somebody had a pepper grinder and was holding it like a microphone.</p>
         <p class="ds-narration__hit">The city never sleeps. Tonight, neither did we. Not right away.</p>
       </div>
     </Chapter>
 
     <CaseClosed
-      text="No arrests. No regrets. Some heartburn. 829 złoty later, the Devil’s Hand is still out there, thirteen degrees strong, waiting for the next Friday."
+      text="No arrests. No regrets. Some heartburn. Two pubs, 829 złoty at the first one and nobody counting at the second. The Devil’s Hand is still out there, thirteen degrees strong, waiting for the next Friday."
       signOff="Hospůdka Noir · 27.XI.2026 · same table next time"
     />
   </main>
